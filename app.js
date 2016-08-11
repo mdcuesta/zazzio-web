@@ -61,6 +61,14 @@ pathConfig.configure(app);
 routeConfig.configure(app);
 dataConfig.configure();
 
+// catch robots.txt
+if(environment !== 'production') {
+  app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send("User-agent: *\nDisallow: /");
+  });
+}
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   var err = new Error('Not Found');
