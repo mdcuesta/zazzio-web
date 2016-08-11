@@ -9,7 +9,7 @@ export default class AwesomePanel extends Component {
 
   render() {
     return (
-      <h1>zazz.io is awesome and it runs on docker.</h1>
+      <h1>zazz.io is awesome.</h1>
     );
   }
 };

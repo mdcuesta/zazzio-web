@@ -30,7 +30,7 @@ const dataConfig = DataConfig;
 const environment = app.get('env');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', 'views');
 app.set('view engine', 'jsx');
 const engineOptions = { 
   beautify: false,
@@ -49,8 +49,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(sassMiddleWare({
-  src: path.join(__dirname, 'styles'),
-  dest: path.join(__dirname, 'assets/stylesheets'),
+  src: 'styles',
+  dest: 'assets/stylesheets',
   debug: environment === 'development',
   outputStyle: 'compressed',
   prefix: '/stylesheets' 
