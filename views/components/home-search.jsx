@@ -16,7 +16,7 @@ export default class HomeSearch extends Component {
 
     const tabPanelsTitles =
       (
-        <div className='small-12 small-centered medium-12 medium-centered large-8 large-centered columns'>
+        <div className='small-12 small-centered medium-12 medium-centered large-10 large-centered columns'>
           <ul className='tabs search-tabs-titles' data-tabs id='search-tabs'>
             <li className='tabs-title is-active'>
               <a href='#panelBuy' className='button' aria-selected='true'>Buy</a>
@@ -36,27 +36,26 @@ export default class HomeSearch extends Component {
         <div className='small-12 small-centered medium-12 medium-centered large-12 large-centered columns search-tabs-panel-container'>
           <div className='tabs-content' data-tabs-content='search-tabs'>
             <div className="tabs-panel is-active" id="panelBuy">
-              <div className='large-8 large-centered'>
-                <h1>Find your way home</h1>
+              <div className='large-10 large-centered'>
+                <h1>Your dream home awaits.</h1>
               </div>
-              <div className='large-8 large-centered search-form-container'>
+              <div className='large-10 large-centered search-form-container'>
                 <HomeSearchForm searchType='Buy' />
               </div>
             </div>
             <div className="tabs-panel" id="panelRent">
-              <div className='large-8 large-centered'>
-                <h1>Find your next rental</h1>
+              <div className='large-10 large-centered'>
+                <h1>Get to your next rental.</h1>
               </div>
-              <div className='large-8 large-centered search-form-container'>
+              <div className='large-10 large-centered search-form-container'>
                 <HomeSearchForm searchType='Rent' />
               </div>
             </div>
             <div className="tabs-panel" id="panelSell">   
-              <div className='large-8 large-centered'>
-                <h1>Find your way home</h1>
+              <div className='large-10 large-centered'>
+                <h1>&nbsp;</h1>
               </div> 
-              <div className='large-8 large-centered search-form-container'>  
-                
+              <div className='large-10 large-centered search-form-container'>                  
               </div>
             </div>
           </div>
