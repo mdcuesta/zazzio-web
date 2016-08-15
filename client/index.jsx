@@ -1,9 +1,9 @@
 'use strict';
 
 import './layout';
-import 'foundation-sites/js/foundation.util.keyboard';
-import 'foundation-sites/js/foundation.util.timerAndImageLoader';
-import 'foundation-sites/js/foundation.tabs';
+import '../node_modules/foundation-sites/dist/plugins/foundation.util.keyboard';
+import '../node_modules/foundation-sites/dist/plugins/foundation.util.timerAndImageLoader';
+import '../node_modules/foundation-sites/dist/plugins/foundation.tabs';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

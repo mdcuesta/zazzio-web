@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-
 var jsxPath = path.join(__dirname, 'client');
 var jsPath = path.join(__dirname, 'assets/javascripts');
 
@@ -16,11 +15,13 @@ module.exports = [{
     module: {
       loaders: [{
         test: /\.jsx$/,
-        loaders: ['babel']
-      }],
-      query: {
-        presets: ['es2015', 'react']
-      }
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+          compact: true,
+          plugins: ['transform-runtime']
+        }        
+      }]     
     },
     resolve: {
         extensions: ['', '.js', '.jsx']

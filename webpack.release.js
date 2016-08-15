@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
 var copy = require('copy-webpack-plugin');
+var glob = require("glob");
 
 const appName = 'zazzio';
 
@@ -22,11 +23,13 @@ module.exports = [{
     module: {
       loaders: [{
         test: /\.jsx$/,
-        loader: 'babel'
-      }],
-      query: {
-        presets: ['es2015', 'react', 'stage-0']
-      }
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+          compact: true,
+          plugins: ['transform-runtime']
+        }
+      }]
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
@@ -36,6 +39,12 @@ module.exports = [{
         $: 'jquery',
         jQuery: 'jquery',
         'window.jQuery': 'jquery'
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+        comments: false
       })
     ]
   }, {
@@ -53,16 +62,18 @@ module.exports = [{
         exclude: path.resolve(__dirname, 'node_modules/'),
         query: {
           presets: ['es2015', 'stage-0'],
-          compact: false
+          compact: true
         }
-      }],
-      query: {
-        presets: ['es2015', 'stage-0']
-      }
+      }]
     },
     output: {
       filename: appName + '.compiled.js',
       path: dist
-    }
+    },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false }
+      })
+    ]
   }
 ]

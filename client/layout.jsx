@@ -1,6 +1,6 @@
 'use strict';
 
-import './foundation.core';
-import 'foundation-sites/js/foundation.util.triggers';
-import 'foundation-sites/js/foundation.sticky';
+import './core';
+import '../node_modules/foundation-sites/dist/plugins/foundation.util.triggers';
+import '../node_modules/foundation-sites/dist/plugins/foundation.sticky';
 
