@@ -7,7 +7,7 @@ var jsPath = path.join(__dirname, 'assets/javascripts');
 module.exports = [{
     description: 'Transpile jsx/react to native javascript that runs on browsers.',
     entry: {
-      main: jsxPath + '/main.jsx'
+      index: jsxPath + '/index.jsx'
     },
     output: {
       path: jsPath,
@@ -24,6 +24,13 @@ module.exports = [{
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
-    }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+      })
+    ]
   }
 ]

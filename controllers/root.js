@@ -15,7 +15,18 @@ export class RootController extends Controller {
    */
   index(req, res) {
     res.render('index', {
-      title: 'Zazzio is Awesome'
+      title: 'Zazzio - Property Finder'
+    });
+  }
+
+  /**
+   * Renders Signup View
+   * Route: '/signup'
+   * @param  {Request} 
+   * @param  {Response}
+   */
+  signup(req, res) {
+    res.render('register', {
     });
   }
 }

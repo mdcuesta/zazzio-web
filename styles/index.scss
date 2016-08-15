@@ -1,0 +1,76 @@
+@charset 'utf-8';
+
+@import 'common/layout.scss';
+
+@include foundation-tabs;
+
+.home-search {
+  width: 100%;
+  background: url('../images/banner.jpg') no-repeat;
+  padding: 30px 0 0 0;
+}
+
+.home-search .home-search-form {
+}
+.home-search .search-tabs-panel-container {
+  margin-top: 40px;
+  padding: 0; 
+}
+.home-search .search-tabs-panel-container .tabs-content {
+  padding: 0;  
+  border: none;
+  background: none;
+}
+.home-search .search-tabs-panel-container .tabs-content h1 {
+  color: #fff;
+}
+.home-search .search-tabs-panel-container .tabs-content .search-form-container {
+  background: rgba(38, 66, 92, 0.5);
+  padding: 20px 0 20px 0;
+  margin: 60px auto 100px auto;
+}
+.home-search .search-tabs-panel-container .tabs-content label {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+
+.search-tabs-titles {
+  background: none;
+  border: none;
+}
+.search-tabs-titles .tabs-title {
+  width: 150px;
+  border: 1px solid #fff;
+}
+.search-tabs-titles .tabs-title a {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  background: rgba(38, 66, 92, 0.5);
+  opacity: 1;
+  padding: 15px;
+}
+.search-tabs-titles .tabs-title:hover a,
+.search-tabs-titles .is-active a {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  background: rgba(142, 183, 207, 0.5);
+  opacity: 1;
+  padding: 15px;
+}
+
+.search-text, {
+  font-size: map-get($button-sizes, large);
+  height: 56px;
+}
+.search-type,
+.search-type:hover
+.search-type:active {
+  
+}
+.search-form-sub-label {
+  background: rgba(38, 66, 92, 0.5);
+  height: 60px;
+}

@@ -7,7 +7,7 @@
     "react-compile": "webpack --watch --config webpack.development.js",
     "start": "npm run react-compile | nodemon --exec babel-node ./bin/www --presets es2015",
     "test": "jest --verbose",
-    "build-release": "webpack --progress --colors --config webpack.release.js",
+    "build-release": "webpack -p --progress --colors --config webpack.release.js",
     "release": "node zazzio.compiled.js"
   },
   "dependencies": {
@@ -17,9 +17,12 @@
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "express-react-views": "^0.10.2",
+    "foundation-sites": "^6.2.3",
+    "jquery.2": "^1.0.0",
     "mongodb": "^2.2.5",
     "mongodb-migrate": "^2.0.1",
     "morgan": "^1.7.0",
+    "motion-ui": "^1.2.2",
     "node-sass-middleware": "^0.9.8",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

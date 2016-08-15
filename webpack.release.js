@@ -11,9 +11,9 @@ var jsxPath = path.join(__dirname, 'client');
 var jsAssetsPath = path.join(distAssets, 'javascripts');
 
 module.exports = [{
-    description: 'Transpile jsx/react to native javascript that runs on browsers.',
+    description: 'Transpile jsx to native javascript that runs on browsers.',
     entry: {
-      main: jsxPath + '/main.jsx'
+      index: jsxPath + '/index.jsx'
     },
     output: {
       path: jsAssetsPath,
@@ -32,14 +32,19 @@ module.exports = [{
         extensions: ['', '.js', '.jsx']
     },
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false }
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
       })
-    ] 
+    ]
   }, {
     description: 'Transpile server scripts to native javascript and copy required files.',
     entry: [path.join(__dirname, '/bin/www')],
     target: 'node',
+    node: {
+      __dirname: true
+    },
     externals: [nodeExternals()],
     module: {
       loaders: [{
