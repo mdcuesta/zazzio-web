@@ -18,7 +18,7 @@ export default class HomeSearchForm extends Component {
           <div className='row'>
             <div className='small-12 medium-4 large-3 columns'>
               <label>I'm looking to {this.props.searchType} a
-                <button type='button' className='z-musturd expanded large dropdown button search-type'>House and Lot</button>
+                <button type='button' className='z-musturd expanded medium dropdown button search-type'>House and Lot</button>
                 {/*<select className='search-type'>
                   <option value='House and Lot'>House and Lot</option>
                   <option value='Condominium'>Condominium</option>
@@ -33,7 +33,7 @@ export default class HomeSearchForm extends Component {
             </div>
             <div className='medium-2 large-2 columns'>
               <label>&nbsp;
-                <input type='submit' className='large success expanded button search-button' value='Search' />
+                <input type='submit' className='medium success expanded button search-button' value='Search' />
               </label>
             </div>
           </div>

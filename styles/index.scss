@@ -13,7 +13,7 @@
 .home-search .home-search-form {
 }
 .home-search .search-tabs-panel-container {
-  margin-top: 40px;
+  margin-top: 20px;
   padding: 0; 
 }
 .home-search .search-tabs-panel-container .tabs-content {
@@ -27,7 +27,7 @@
 .home-search .search-tabs-panel-container .tabs-content .search-form-container {
   background: rgba(38, 66, 92, 0.5);
   padding: 20px 0 20px 0;
-  margin: 60px auto 100px auto;
+  margin: 40px auto 100px auto;
 }
 .home-search .search-tabs-panel-container .tabs-content label {
   color: #fff;
@@ -63,7 +63,6 @@
 
 .search-text, {
   font-size: map-get($button-sizes, large);
-  height: 56px;
 }
 .search-type,
 .search-type:hover
