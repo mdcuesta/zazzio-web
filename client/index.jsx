@@ -7,17 +7,12 @@ import '../node_modules/foundation-sites/dist/plugins/foundation.tabs';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Container from './components/container';
-import AwesomePanel from './components/awesome-panel';
+import HomeSearch from './components/home-search';
+
+var homeSearch = document.createElement('div');
+ReactDOM.render(<HomeSearch />, homeSearch);
+
+document.body.replaceChild(homeSearch.querySelector("#home-search"), document.getElementById("home-search"));
 
 $(document).foundation();
-/**
- * Render to page
- */
-/*ReactDOM.render(
-  <Container>
-    <AwesomePanel />
-  </Container>,
-  document.getElementById('content')
-);*/
 

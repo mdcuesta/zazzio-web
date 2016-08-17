@@ -13,7 +13,6 @@ export default class HomeSearch extends Component {
   }
 
   render() {
-
     const tabPanelsTitles =
       (
         <div className='small-12 small-centered medium-12 medium-centered large-8 large-centered columns'>
@@ -53,7 +52,7 @@ export default class HomeSearch extends Component {
             </div>
             <div className="tabs-panel" id="panelSell">   
               <div className='small-12 small-centered medium-12 medium centered large-8 large-centered'>
-                <h1>&nbsp;</h1>
+                <h1>Your next profit is a step away.</h1>
               </div> 
               <div className='small-12 small-centered medium-12 medium centered large-8 large-centered search-form-container'>                  
               </div>

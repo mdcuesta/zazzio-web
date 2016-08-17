@@ -19,6 +19,11 @@ export default class NavBar extends Component {
           <div className='small-12 medium-12 large-11 large-centered columns'>
             <div className='title-bar-left middle'>
               <ul className='menu'>
+                <li>
+                  <a className='zazzio-logo-link' href="/">
+                    <img className='zazzio-logo' src='images/zazzio-logo-small-white.png' alt='zazzio' />
+                  </a>
+                </li>
                 <li><a href="#">Buy</a></li>
                 <li><a href="#">Rent</a></li>
                 <li><a href="#">Sell</a></li>

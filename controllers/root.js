@@ -3,10 +3,16 @@
 import Controller from './controller';
 import {Router} from 'express';
 
+const TITLE = 'Zazzio - Property Finder';
 /**
  * RootController
  */
-export class RootController extends Controller {
+export class RootController extends Controller  {
+
+  constructor() {
+    super();
+  }
+
   /**
    * Renders Index View
    * Route: '/'
@@ -15,7 +21,7 @@ export class RootController extends Controller {
    */
   index(req, res) {
     res.render('index', {
-      title: 'Zazzio - Property Finder'
+      title: TITLE
     });
   }
 
@@ -37,7 +43,7 @@ export class RootController extends Controller {
 const router = Router();
 const controller = new RootController();
 
-router.get('/', controller.index);
+router.get('/', controller.index.bind(controller));
 
 /**
  * Exports router as default
