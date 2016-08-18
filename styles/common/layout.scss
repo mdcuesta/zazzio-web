@@ -2,7 +2,6 @@
 
 @import 'core';
 
-@include foundation-sticky;
 @include foundation-title-bar;
 @include foundation-menu;
 @include foundation-menu-icon;
@@ -26,7 +25,7 @@
   padding: 0;
 }
 .nav-bar-main .zazzio-logo {
-  height: 30px;
+  height: 40px;
   margin-right: 0;
   margin: 0;
   padding: 0;

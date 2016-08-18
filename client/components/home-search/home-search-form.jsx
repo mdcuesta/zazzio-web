@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import SearchTypeDropdown from './search-type-dropdown';
+import PropertyTypeDropdown from './property-type-dropdown';
 /**
  * HomeSearchForm
  */
@@ -17,11 +17,11 @@ export default class HomeSearchForm extends Component {
         <form>
           <div className='row'>
             <div className='small-12 medium-4 large-3 columns'>
-              <SearchTypeDropdown searchType={this.props.searchType} />
+              <PropertyTypeDropdown searchType={this.props.searchType} />
             </div>
-            <div className='small-12 medium-6 large-7 columns'>
+            <div className='small-12 medium-6 large-7 large-collapse columns'>
               <label>in
-                  <input className='search-text' type='search' placeholder='Enter an address or city.' />
+                <input className='search-text' type='search' placeholder='Enter an address or city.' />
               </label>
             </div>
             <div className='medium-2 large-2 columns'>

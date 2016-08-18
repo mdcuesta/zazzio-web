@@ -16,7 +16,7 @@ export default class NavBar extends Component {
       <div data-sticky-container>
         <div className='z-dark-blue title-bar nav-bar nav-bar-main' 
              data-options='marginTop:0;'>
-          <div className='small-12 medium-12 large-11 large-centered columns'>
+          <div className='small-12 medium-12 large-12 large-centered columns'>
             <div className='title-bar-left middle'>
               <ul className='menu'>
                 <li>

@@ -3,6 +3,7 @@
 @import 'common/layout.scss';
 
 @include foundation-tabs;
+@include foundation-dropdown;
 
 .home-search {
   width: 100%;
@@ -10,28 +11,49 @@
   padding: 30px 0 0 0;
 }
 
-.home-search .home-search-form {
+.home-search .home-search-form .button,
+.home-search .home-search-form .search-text {
+  height: 50px;
+}
+.home-search .home-search-form .property-type-label {
+  position: relative;
+}
+.home-search .home-search-form .property-type-label .dropdown-pane {
+  width: 100%;
+  padding: 0;
+  background: none;
+}
+.home-search .home-search-form .property-type-label .dropdown-pane ul {
+  margin: 0;
+  list-style: none;
+  background: none;
+}
+.home-search .home-search-form .property-type-label .dropdown-pane ul li label {
+  margin: 0;
+  border-bottom: 1px solid #fff;
+  text-align: left;
+  background: rgba(225, 122, 55, 0.9);
+  font-size: 1rem;
+}
+.home-search .home-search-form .property-type-label .dropdown-pane ul li label:hover {
+  background: #c35e1d;
 }
 .home-search .search-tabs-panel-container {
-  margin-top: 20px;
-  padding: 0; 
-}
-.home-search .search-tabs-panel-container .tabs-content {
-  padding: 0;  
+  margin-top: 60px;
   border: none;
   background: none;
 }
-.home-search .search-tabs-panel-container .tabs-content h1 {
+.home-search .search-tabs-panel-container h1 {
   color: #fff;
 }
-.home-search .search-tabs-panel-container .tabs-content .search-form-container {
+.home-search .search-tabs-panel-container .search-form-container {
   background: rgba(38, 66, 92, 0.5);
-  padding: 20px 0 20px 0;
-  margin: 40px auto 100px auto;
+  padding: 30px 0 30px 0;
+  margin: 60px auto 100px auto;
 }
-.home-search .search-tabs-panel-container .tabs-content label {
+.home-search .search-tabs-panel-container label {
   color: #fff;
-  font-size: 1.2rem;
+  font-size: .8rem;
 }
 
 
@@ -64,12 +86,11 @@
 .search-text, {
   font-size: map-get($button-sizes, large);
 }
-.search-type,
-.search-type:hover
-.search-type:active {
-  
+.search-type{
+  font-size: 1rem;
 }
 .search-form-sub-label {
   background: rgba(38, 66, 92, 0.5);
   height: 60px;
 }
+
