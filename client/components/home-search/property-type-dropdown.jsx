@@ -37,10 +37,10 @@ export default class PropertyTypeDropdown extends Component {
         <div className='dropdown-pane' id='property-type-dropdown-pane' data-dropdown data-close-on-click='true'>
           <ul>
             {propertyTypes.map((name, index) => (
-              <li>
+              <li key={name}>
                 <label className='expanded z-musturd button' 
                        onClick={() => this.radioSearchTypeClick(name)}>
-                         <input name='radio-property-type' type='radio' />{name}
+                         <input name='p' type='radio' value={name.toLowerCase()} />{name}
                 </label>
               </li>
             ))}

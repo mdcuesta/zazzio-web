@@ -36,7 +36,10 @@
   font-size: 1rem;
 }
 .home-search .home-search-form .property-type-label .dropdown-pane ul li label:hover {
-  background: #c35e1d;
+  background: rgba(195, 94, 29, 0.9);
+}
+.home-search .home-search-form .property-type-label .dropdown-pane ul li label input {
+  display: none;
 }
 .home-search .search-tabs-panel-container {
   margin-top: 60px;
