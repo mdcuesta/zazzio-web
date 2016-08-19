@@ -13,7 +13,7 @@ export default class HomeSearchForm extends Component {
 
   render() {
     return(
-      <div className='home-search-form'>
+      <div className='home-search-form fade-in'>
         <form method='get' action='/search'>
           <input type='hidden' name='t' value={this.props.searchType.toLowerCase()} />
           <div className='row'>

@@ -29,9 +29,7 @@ export default class NavBar extends Component {
                 <li><a href="#">Sell</a></li>
               </ul>
             </div>
-            <div className='title-bar-right'>
-              <button type='button' className='button'>Login</button>
-              <button type='button' className='z-musturd button hollow'>Register</button>
+            <div className='title-bar-right' id='title-bar-right'>
             </div>
           </div>
         </div>

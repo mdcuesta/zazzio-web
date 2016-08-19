@@ -34,13 +34,18 @@ export default class PropertyTypeDropdown extends Component {
                 onClick={this.dropdownClick}>
           {this.state.propertySearchType}
         </button>
-        <div className='dropdown-pane' id='property-type-dropdown-pane' data-dropdown data-close-on-click='true'>
+        <div className='dropdown-pane'
+             id='property-type-dropdown-pane' 
+             data-dropdown data-close-on-click='true'>
           <ul>
             {propertyTypes.map((name, index) => (
               <li key={name}>
-                <label className='expanded z-musturd button' 
+                <label className={'expanded z-musturd button' + (this.state.propertySearchType === name ? ' is-selected' : '')}
                        onClick={() => this.radioSearchTypeClick(name)}>
-                         <input name='p' type='radio' value={name.toLowerCase()} />{name}
+                         <input name='p' 
+                                type='radio' 
+                                value={name.toLowerCase()} 
+                                defaultChecked={this.state.propertySearchType === name} />{name}
                 </label>
               </li>
             ))}

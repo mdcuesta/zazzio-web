@@ -4,6 +4,10 @@
 
 @include foundation-tabs;
 @include foundation-dropdown;
+@include motion-ui-transitions;
+@include motion-ui-animations;
+@include foundation-close-button;
+@include foundation-reveal;
 
 .home-search {
   width: 100%;
@@ -22,6 +26,7 @@
   width: 100%;
   padding: 0;
   background: none;
+  border-bottom: none;
 }
 .home-search .home-search-form .property-type-label .dropdown-pane ul {
   margin: 0;
@@ -35,7 +40,8 @@
   background: rgba(225, 122, 55, 0.9);
   font-size: 1rem;
 }
-.home-search .home-search-form .property-type-label .dropdown-pane ul li label:hover {
+.home-search .home-search-form .property-type-label .dropdown-pane ul li label:hover,
+.home-search .home-search-form .property-type-label .dropdown-pane ul li .is-selected {
   background: rgba(195, 94, 29, 0.9);
 }
 .home-search .home-search-form .property-type-label .dropdown-pane ul li label input {

@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 
+
 export default class HomeSearchPanelTab extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,9 @@ export default class HomeSearchPanelTab extends Component {
   render() {
     return (
       <li className={'tabs-title' + (this.props.searchType === this.props.selectedSearchType ? ' is-active' : '')}>
-        <a onClick={this.setSelectedSearchType} className='button' id={'tab-' + this.props.searchType}>
+        <a onClick={this.setSelectedSearchType} 
+           className='button' 
+           id={'tab-' + this.props.searchType}>
           {this.props.label}
         </a>
       </li>
