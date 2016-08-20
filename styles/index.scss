@@ -1,105 +1,18 @@
 @charset 'utf-8';
 
-@import 'common/layout.scss';
+@import 'common/core';
 
+
+@include foundation-title-bar;
+@include foundation-menu;
+@include foundation-menu-icon;
 @include foundation-tabs;
 @include foundation-dropdown;
-@include motion-ui-transitions;
-@include motion-ui-animations;
 @include foundation-close-button;
 @include foundation-reveal;
+@include motion-ui-transitions;
+@include motion-ui-animations;
 
-.home-search {
-  width: 100%;
-  background: url('../images/banner.jpg') no-repeat;
-  padding: 30px 0 0 0;
-}
-
-.home-search .home-search-form .button,
-.home-search .home-search-form .search-text {
-  height: 50px;
-}
-.home-search .home-search-form .property-type-label {
-  position: relative;
-}
-.home-search .home-search-form .property-type-label .dropdown-pane {
-  width: 100%;
-  padding: 0;
-  background: none;
-  border-bottom: none;
-}
-.home-search .home-search-form .property-type-label .dropdown-pane ul {
-  margin: 0;
-  list-style: none;
-  background: none;
-}
-.home-search .home-search-form .property-type-label .dropdown-pane ul li label {
-  margin: 0;
-  border-bottom: 1px solid #fff;
-  text-align: left;
-  background: rgba(225, 122, 55, 0.9);
-  font-size: 1rem;
-}
-.home-search .home-search-form .property-type-label .dropdown-pane ul li label:hover,
-.home-search .home-search-form .property-type-label .dropdown-pane ul li .is-selected {
-  background: rgba(195, 94, 29, 0.9);
-}
-.home-search .home-search-form .property-type-label .dropdown-pane ul li label input {
-  display: none;
-}
-.home-search .search-tabs-panel-container {
-  margin-top: 60px;
-  border: none;
-  background: none;
-}
-.home-search .search-tabs-panel-container h1 {
-  color: #fff;
-}
-.home-search .search-tabs-panel-container .search-form-container {
-  background: rgba(38, 66, 92, 0.5);
-  padding: 30px 0 30px 0;
-  margin: 60px auto 100px auto;
-}
-.home-search .search-tabs-panel-container label {
-  color: #fff;
-  font-size: .8rem;
-}
-
-
-.search-tabs-titles {
-  background: none;
-  border: none;
-}
-.search-tabs-titles .tabs-title {
-  width: 150px;
-  border: 1px solid #fff;
-}
-.search-tabs-titles .tabs-title a {
-  color: #fff;
-  font-size: 1.2rem;
-  margin-bottom: 0;
-  background: rgba(38, 66, 92, 0.5);
-  opacity: 1;
-  padding: 15px;
-}
-.search-tabs-titles .tabs-title:hover a,
-.search-tabs-titles .is-active a {
-  color: #fff;
-  font-size: 1.2rem;
-  margin-bottom: 0;
-  background: rgba(142, 183, 207, 0.5);
-  opacity: 1;
-  padding: 15px;
-}
-
-.search-text, {
-  font-size: map-get($button-sizes, large);
-}
-.search-type{
-  font-size: 1rem;
-}
-.search-form-sub-label {
-  background: rgba(38, 66, 92, 0.5);
-  height: 60px;
-}
-
+@import 'common/layout';
+@import 'common/home-search';
+@import 'common/login-modal';

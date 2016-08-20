@@ -10,3 +10,14 @@
 @include foundation-typography;
 @include foundation-forms;
 @include foundation-button;
+@include foundation-visibility-classes;
+
+.text-align-left {
+  text-align: left;
+}
+.text-align-right {
+  text-align: right;
+}
+.text-align-center {
+  text-align: center;
+}

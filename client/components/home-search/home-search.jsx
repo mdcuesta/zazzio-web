@@ -5,9 +5,9 @@ import HomeSearchForm from './home-search-form';
 import HomeSearchPanelTabs from './home-search-panel-tabs';
 import HomeSearchPanel from './home-search-panel';
 
-const BUY_HEADING = 'Your dream home awaits.';
+const BUY_HEADING = 'Your dream home awaits';
 const RENT_HEADING = 'Get to your next rental';
-const SELL_HEADING = 'Your next profit is a step away.';
+const SELL_HEADING = 'Your next profit is a step away';
 /**
  * HomeSearch
  */
@@ -53,7 +53,8 @@ export default class HomeSearch extends Component {
       );
 
     return(
-      <div className='home-search' id='home-search'>
+      <div className={'home-search' + ' home-search-banner-' + this.state.selectedSearchType.toLowerCase()} 
+           id='home-search'>
         <div className='expanded row'>
           <HomeSearchPanelTabs selectedSearchType={this.state.selectedSearchType} 
                                setSelectedSearchType={this.setSelectedSearchType} />

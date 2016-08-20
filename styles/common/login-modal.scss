@@ -1,0 +1,46 @@
+@charset 'utf-8';
+
+.login-modal-tabs {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.login-modal-tabs-content{
+  border: none;
+  padding: 20px 0 10px 0;
+}
+.login-modal-tabs-content .tabs-panel {
+  padding: 0;
+}
+.modal-login-button {
+  margin-top: 5px;
+}
+.section-register {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+.divider {
+  width: 100%;
+  margin: .7em auto;
+  overflow: hidden;
+  text-align: center;
+  font-weight:300;
+  color: #ddd;
+}
+.divider:before, 
+.divider:after {
+  content: "";
+  display: inline-block;
+  width: 50%;
+  margin: 0 .5em 0 -55%;
+  vertical-align: middle;
+  border-bottom: 1px solid;
+}
+.divider:after {
+  margin: 0 -55% 0 .5em;
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  color: #aaa;
+}

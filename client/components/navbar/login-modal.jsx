@@ -18,6 +18,7 @@ export default class LoginModal extends Component {
   closeModal() {
     $('#login-modal').foundation('close');
   }
+  
   render() {
     return(
       <div className='tiny reveal' 
@@ -26,7 +27,7 @@ export default class LoginModal extends Component {
            data-animation-out='fade-out' 
            data-close-on-click='false'
            data-reveal>
-        <LoginModalTabs />
+        <LoginModalTabs modalType={this.props.modalType} />
         <button className='close-button' 
                 aria-label='Close Login Modal' 
                 type='button'

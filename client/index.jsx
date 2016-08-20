@@ -17,5 +17,4 @@ let navBarRightContainer = document.getElementById('title-bar-right')
 $(navBarRightContainer).replaceWith(navBarRight.querySelector('.title-bar-right'));
 
 // initialize foundation
-$('#home-search').foundation();
-$('#title-bar-right').foundation();
+$(document).foundation();

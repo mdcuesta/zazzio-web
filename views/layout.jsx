@@ -12,9 +12,14 @@ export default class Layout extends Component {
   }
 
   render() {
-    const jsbundleScript = this.props.jsbundle != null ? <script type="text/javascript" src={this.props.jsbundle}></script> : null;
-    const cssbundleScript = this.props.cssbundle != null ? <link rel="stylesheet" href={this.props.cssbundle} /> : null;
-    const title = this.props.title != null ? this.props.title : 'Zazzio';
+    const jsbundleScript = this.props.jsbundle != null 
+          ? (<script type='text/javascript' src={this.props.jsbundle}></script>) 
+          : null;
+    const cssbundleScript = this.props.cssbundle != null 
+          ? (<link rel='stylesheet' href={this.props.cssbundle} />) 
+          : null;
+    const title = this.props.title != null 
+          ? this.props.title : 'Zazzio';
 
     return(
       <html>

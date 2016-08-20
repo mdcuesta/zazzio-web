@@ -1,5 +1,7 @@
 'use strict';
 
+import '../../core';
+import '../../../node_modules/foundation-sites/dist/plugins/foundation.toggler';
 import React, {Component} from 'react';
 
 
@@ -10,16 +12,19 @@ export default class HomeSearchPanelTab extends Component {
   }
 
   setSelectedSearchType() {
+    if(this.props.selectedSearchType !== this.props.searchType) {
+      Foundation.Motion.animateIn($('#home-search-heading'), 'fade-in');
+    }
     this.props.setSelectedSearchType(this.props.searchType);
   }
 
   render() {
     return (
-      <li className={'tabs-title' + (this.props.searchType === this.props.selectedSearchType ? ' is-active' : '')}>
+      <li className={(this.props.searchType === this.props.selectedSearchType ? ' is-active' : '')}>
         <a onClick={this.setSelectedSearchType} 
            className='button' 
            id={'tab-' + this.props.searchType}>
-          {this.props.label}
+            {this.props.label}
         </a>
       </li>
     );

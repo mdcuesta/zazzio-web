@@ -54,7 +54,7 @@ $foundation-palette: (
   success: #3adb76,
   warning: #ffae00,
   alert: #ec5840,
-  z-dark-blue: #26425C,
+  z-dark-blue: #26425c,
   z-musturd: #e17a37,
 );
 $light-gray: #e6e6e6;
@@ -459,7 +459,7 @@ $reveal-padding: $global-padding;
 $reveal-border: 1px solid $medium-gray;
 $reveal-radius: $global-radius;
 $reveal-zindex: 1005;
-$reveal-overlay-background: rgba($black, 0.45);
+$reveal-overlay-background: rgba($white, 0.5);
 
 // 29. Slider
 // ----------

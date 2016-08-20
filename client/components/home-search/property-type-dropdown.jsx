@@ -45,7 +45,8 @@ export default class PropertyTypeDropdown extends Component {
                          <input name='p' 
                                 type='radio' 
                                 value={name.toLowerCase()} 
-                                defaultChecked={this.state.propertySearchType === name} />{name}
+                                defaultChecked={this.state.propertySearchType === name} />
+                                  {name}
                 </label>
               </li>
             ))}

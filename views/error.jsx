@@ -14,10 +14,10 @@ export default class Error extends Component {
 
   render() {
     return(
-      <DefaultLayout title="Error">
-        <h1 className="error-message">{this.props.message}</h1>
-        <h2 className="error-status">{this.props.error.status}</h2>
-        <pre className="error-stack">
+      <DefaultLayout title='Error'>
+        <h1 className='error-message'>{this.props.message}</h1>
+        <h2 className='error-status'>{this.props.error.status}</h2>
+        <pre className='error-stack'>
           {this.props.error.stack}
         </pre>
       </DefaultLayout>

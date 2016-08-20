@@ -20,16 +20,30 @@ export default class NavBar extends Component {
             <div className='title-bar-left middle'>
               <ul className='menu'>
                 <li>
-                  <a className='zazzio-logo-link' href="/">
-                    <img className='zazzio-logo' src='images/zazzio-logo-small-white.png' alt='zazzio' />
+                  <a className='zazzio-logo-link' 
+                     href="/">
+                    <img className='zazzio-logo' 
+                         src='images/zazzio-logo-small-white.png' 
+                         alt='zazzio' />
                   </a>
                 </li>
-                <li><a href="#">Buy</a></li>
-                <li><a href="#">Rent</a></li>
-                <li><a href="#">Sell</a></li>
+                <li><a href='#'>Buy</a></li>
+                <li><a href='#'>Rent</a></li>
+                <li><a href='#'>Sell</a></li>
               </ul>
             </div>
-            <div className='title-bar-right' id='title-bar-right'>
+            <div className='title-bar-right' 
+                 id='title-bar-right'>
+              <a href='/login'
+                 type='button' 
+                 className='button'>
+                Login
+              </a>
+              <a href='/register' 
+                 type='button' 
+                 className='z-musturd button hollow'>
+                Sign Up
+              </a>
             </div>
           </div>
         </div>

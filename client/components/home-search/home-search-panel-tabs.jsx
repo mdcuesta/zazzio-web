@@ -11,7 +11,8 @@ export default class HomeSearchPanelTabs extends Component {
   render() {
     return (
       <div className='small-12 small-centered medium-12 medium-centered large-8 large-centered columns'>
-        <ul className='tabs search-tabs-titles' data-tabs id='search-tabs'>
+        <ul className='tabs search-tabs-titles' 
+            data-tabs id='search-tabs'>
           <HomeSearchPanelTab searchType='Buy' 
                               label='Buy' 
                               selectedSearchType={this.props.selectedSearchType} 
