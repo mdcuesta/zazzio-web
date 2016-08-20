@@ -5,6 +5,22 @@
   border-left: none;
   border-right: none;
 }
+.login-modal-tabs li {
+  width: 100px;
+  border-right: 1px solid $white;
+}
+.login-modal-tabs li a {
+  background: $z-light-blue;
+  color: $white;
+  font-size: .8rem;
+  padding: 15px;
+  display: block;
+  text-align: center;
+}
+.login-modal-tabs li:hover a,
+.login-modal-tabs .is-active a {
+  background: $z-blue;
+}
 .login-modal-tabs-content{
   border: none;
   padding: 20px 0 10px 0;
@@ -18,6 +34,11 @@
 .section-register {
   border-top: 1px solid #ddd;
   padding-top: 20px;
+}
+.login-facebook-icon {
+  font-size: 20px;
+  margin: 0 10px 0 0;
+
 }
 .divider {
   width: 100%;

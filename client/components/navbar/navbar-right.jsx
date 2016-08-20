@@ -30,7 +30,7 @@ export default class NavBarRight extends Component {
         <button type='button' 
                 className='button' 
                 data-open='login-modal'
-                onClick={() => this.setModalType(LOGIN)}>Login</button>
+                onClick={() => this.setModalType(LOGIN)}>Log In</button>
         <button type='button' 
                 className='z-musturd button hollow' 
                 data-open='login-modal'

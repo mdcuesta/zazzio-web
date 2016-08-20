@@ -37,7 +37,7 @@ export default class NavBar extends Component {
               <a href='/login'
                  type='button' 
                  className='button'>
-                Login
+                Log In
               </a>
               <a href='/register' 
                  type='button' 

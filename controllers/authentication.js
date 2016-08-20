@@ -19,46 +19,25 @@ export class AuthenticationController extends Controller {
   index(req, res) {
     res.redirect('/login/facebook');
   }
-
-  /**
-   * Redirects to '/'
-   * Route: '/login/facebook/return'
-   * @param  {Request}
-   * @param  {Response}
-   * @return {Redirect}
-   */
-  redirectToIndex(req, res) {
-    res.redirect('/');
-  }
-
 }
+
 
 const passport = Passport;
 
 /**
- * Redirects to Facebook Login
- * Route: '/login/facebook'
- */
-AuthenticationController.prototype.facebook = passport.authenticate('facebook');
-
-/**
- * Redirects to Facebook Login if not authorized
- * Route: '/login/facebook/return'
- */
-AuthenticationController.prototype.facebookReturn = passport.authenticate('facebook', {
-  failureRedirect: '/login'
-})
-
-/**
  * Routes Configuration
  */
+
 const router = Router();
 const controller = new AuthenticationController();
 
-router.get('/', controller.index);
-router.get('/facebook', controller.facebook);
-router.get('/facebook/return', controller.facebookReturn, 
-  controller.redirectToIndex);
+router.get('/', controller.index.bind(controller));
+
+router.get('/facebook', (req, res, next) => {
+  passport.authenticate('facebook', {
+    callbackURL: req.query.return
+  })(req,res,next);
+});
 
 /**
  * Exports router as default

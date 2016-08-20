@@ -17,6 +17,9 @@ export default class LoginPanel extends Component {
       <div>
         <section className='section-regular-login'>
           <div className='small-12 medium-12 large-12'>
+            <h5>Log in to experience awesome</h5>
+          </div>
+          <div className='small-12 medium-12 large-12'>
             <input type='text' 
                    placeholder='Email Address' />
           </div>      
@@ -37,9 +40,10 @@ export default class LoginPanel extends Component {
         <section className='section-facebook-login'>
           <div className='divider'><span>or</span></div>
           <div className='small-12 medium-12 large-12'>
-            <a href='/login/facebook' className='expanded button modal-login-button' 
-                    type='submit'>
-                    Login with Facebook
+            <a href={'/login/facebook?return=' + encodeURI(window.location.href)} 
+               className='expanded facebook-blue button modal-login-button'>
+              <i className='fi-social-facebook login-facebook-icon'></i>
+                    Log in with Facebook
             </a>
           </div> 
         </section>
