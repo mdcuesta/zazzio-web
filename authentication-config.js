@@ -12,7 +12,7 @@ export function configure(app) {
   passport.use(new Strategy({
       clientID: process.env.FB_CLIENT_ID || '606312066216240',
       clientSecret: process.env.FB_CLIENT_SECRET || '0835a4afb7f3dd3a0211e98b8072fdcb',
-      callbackURL: process.env.FB_CALLBACK_URL || 'http://zazzio.something.awesome.com:3000/'
+      callbackURL: process.env.FB_CALLBACK_URL || 'http://zazzio.something.awesome.com:3000/login/facebook/return'
     }, (accessToken, refreshToken, profile, cb) => {
       // In this example, the user's Facebook profile is supplied as the user
       // record.  In a production-quality application, the Facebook profile should

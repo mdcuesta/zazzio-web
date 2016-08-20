@@ -19,6 +19,10 @@ export class AuthenticationController extends Controller {
   index(req, res) {
     res.redirect('/login/facebook');
   }
+
+  facebookReturn(req, res) {
+    res.redirect(req.query.returnUrl);
+  }
 }
 
 
@@ -34,10 +38,13 @@ const controller = new AuthenticationController();
 router.get('/', controller.index.bind(controller));
 
 router.get('/facebook', (req, res, next) => {
+  let callbackUrl = process.env.FB_CALLBACK_URL || 'http://zazzio.something.awesome.com:3000/login/facebook/return'
   passport.authenticate('facebook', {
-    callbackURL: req.query.return
+    callbackURL: callbackUrl + '?returnUrl=' + req.query.return
   })(req,res,next);
 });
+
+router.get('/facebook/return', controller.facebookReturn.bind(controller));
 
 /**
  * Exports router as default
