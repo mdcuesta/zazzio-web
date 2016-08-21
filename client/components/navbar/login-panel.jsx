@@ -16,26 +16,28 @@ export default class LoginPanel extends Component {
     return (
       <div>
         <section className='section-regular-login'>
-          <div className='small-12 medium-12 large-12'>
-            <h5>Log in to experience awesome</h5>
-          </div>
-          <div className='small-12 medium-12 large-12'>
-            <input type='text' 
-                   placeholder='Email Address' />
-          </div>      
-          <div className='small-12 medium-12 large-12'>
-            <input type='password' 
-                   placeholder='Password' />
-          </div>   
-          <div className='small-12 medium-12 large-12 text-align-right'>
-            <a href='javascript:void(0);'>Forgot Password</a>
-          </div> 
-          <div className='small-12 medium-12 large-12'>
-            <button className='expanded z-musturd button modal-login-button' 
-                    type='submit'>
-                    Login
-            </button>
-          </div>   
+          <form method='post' action='/login'>
+            <div className='small-12 medium-12 large-12'>
+              <h5>Log in to experience awesome</h5>
+            </div>
+            <div className='small-12 medium-12 large-12'>
+              <input type='text' 
+                     placeholder='Email Address' />
+            </div>      
+            <div className='small-12 medium-12 large-12'>
+              <input type='password' 
+                     placeholder='Password' />
+            </div>   
+            <div className='small-12 medium-12 large-12 text-align-right'>
+              <a href='javascript:void(0);'>Forgot Password</a>
+            </div> 
+            <div className='small-12 medium-12 large-12'>
+              <button className='expanded z-musturd button modal-login-button' 
+                      type='submit'>
+                      Login
+              </button>
+            </div>   
+          </form>
         </section>  
         <section className='section-facebook-login'>
           <div className='divider'><span>or</span></div>

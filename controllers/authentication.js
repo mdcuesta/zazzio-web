@@ -20,8 +20,18 @@ export class AuthenticationController extends Controller {
     res.redirect('/login/facebook');
   }
 
+  /**
+   * Facebook Login Return URL
+   * @param  {Request} 
+   * @param  {Response} 
+   * @return {Redirect}
+   */
   facebookReturn(req, res) {
-    res.redirect(req.query.returnUrl);
+    if(req.query.returnUrl) {
+      res.redirect(req.query.returnUrl);
+    } else {
+      res.redirect('/');
+    }
   }
 }
 
