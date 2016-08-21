@@ -1,6 +1,6 @@
 'use strict';
 
-import * as DB from './data-provider';
+import * as DB from './utilities/data-provider';
 
 const db = DB;
 

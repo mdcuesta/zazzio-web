@@ -32,3 +32,7 @@ export function close(callback) {
     });
   }
 };
+
+export function collection(name) {
+  return connection.collection(name);
+}
