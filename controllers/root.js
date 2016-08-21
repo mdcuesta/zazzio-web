@@ -4,6 +4,7 @@ import Controller from './controller';
 import {Router} from 'express';
 
 const TITLE = 'Zazzio - Property Finder';
+
 /**
  * RootController
  */
