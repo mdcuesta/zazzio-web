@@ -4,10 +4,8 @@ import React, {Component} from 'react';
 import HomeSearchForm from './home-search-form';
 import HomeSearchPanelTabs from './home-search-panel-tabs';
 import HomeSearchPanel from './home-search-panel';
+import HomeSearchStore from '../../stores/home-search-store';
 
-const BUY_HEADING = 'Your dream home awaits';
-const RENT_HEADING = 'Get to your next rental';
-const SELL_HEADING = 'Your next profit is a step away';
 /**
  * HomeSearch
  */
@@ -15,30 +13,26 @@ export default class HomeSearch extends Component {
 
   constructor(props) {
     super(props);
+    let selectedSearchType = HomeSearchStore.getSelectedSearchType();
+
     this.state = {
-      selectedSearchType: 'Buy',
-      selectedPropertyType: 'House and Lot',
-      heading: BUY_HEADING
+      selectedSearchType: selectedSearchType,
+      searchTypes: HomeSearchStore.getSearchTypes()
     };
-    this.setSelectedSearchType = this.setSelectedSearchType.bind(this);
+    
+    this.onChange = this.onChange.bind(this);
+    HomeSearchStore.addChangeListener(this.onChange);
   }
 
-  setSelectedSearchType(searchType) {
-    let heading = BUY_HEADING;
-    switch(searchType) {
-      case 'Rent':
-        heading = RENT_HEADING;
-        break;
-      case 'Sell':
-        heading = SELL_HEADING;
-        break;
-      case 'Buy':
-      default:
-        heading = BUY_HEADING;
-    }
+  componentWillUnmount() {
+    HomeSearchStore.removeChangeListener(this.onChange);
+  }
+
+  onChange() {
+    let selectedSearchType = HomeSearchStore.getSelectedSearchType();
     this.setState({
-      selectedSearchType: searchType,
-      heading: heading  
+      selectedSearchType: selectedSearchType,
+      searchTypes: HomeSearchStore.getSearchTypes()
     });
   }
 
@@ -53,13 +47,14 @@ export default class HomeSearch extends Component {
       );
 
     return(
-      <div className={'home-search' + ' home-search-banner-' + this.state.selectedSearchType.toLowerCase()} 
+      <div className={'home-search' + ' home-search-banner-' + this.state.selectedSearchType.searchType.toLowerCase()} 
            id='home-search'>
         <div className='expanded row'>
-          <HomeSearchPanelTabs selectedSearchType={this.state.selectedSearchType} 
-                               setSelectedSearchType={this.setSelectedSearchType} />
-          <HomeSearchPanel heading={this.state.heading}
-                           selectedSearchType={this.state.selectedSearchType} />
+          <HomeSearchPanelTabs selectedSearchType={this.state.selectedSearchType.searchType}
+                               searchTypes={this.state.searchTypes} />
+          <HomeSearchPanel heading={this.state.selectedSearchType.heading}
+                           selectedSearchType={this.state.selectedSearchType.searchType}
+                           propertyTypes={this.state.selectedSearchType.propertyTypes} />
         </div>
         {subLabel}
       </div>

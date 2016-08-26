@@ -20,7 +20,7 @@ module.exports = [{
           presets: ['es2015', 'react'],
           compact: true,
           plugins: ['transform-runtime']
-        }        
+        }      
       }]     
     },
     resolve: {

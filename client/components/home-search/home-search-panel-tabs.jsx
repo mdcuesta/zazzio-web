@@ -13,18 +13,13 @@ export default class HomeSearchPanelTabs extends Component {
       <div className='small-12 small-centered medium-12 medium-centered large-8 large-centered columns'>
         <ul className='tabs search-tabs-titles' 
             data-tabs id='search-tabs'>
-          <HomeSearchPanelTab searchType='Buy' 
-                              label='Buy' 
-                              selectedSearchType={this.props.selectedSearchType} 
-                              setSelectedSearchType={this.props.setSelectedSearchType} />
-          <HomeSearchPanelTab searchType='Rent' 
-                              label='Rent' 
-                              selectedSearchType={this.props.selectedSearchType} 
-                              setSelectedSearchType={this.props.setSelectedSearchType} />
-          <HomeSearchPanelTab searchType='Sell' 
-                              label='Sell' 
-                              selectedSearchType={this.props.selectedSearchType}
-                              setSelectedSearchType={this.props.setSelectedSearchType} />
+          {this.props.searchTypes.map((searchType, index) => (
+            <HomeSearchPanelTab searchType= {searchType.searchType} 
+                                label= {searchType.label} 
+                                selectedSearchType={this.props.selectedSearchType} 
+                                key={'search-panel-' + searchType.searchType.toLowerCase()} />
+
+          ))}
         </ul>
       </div>
     );

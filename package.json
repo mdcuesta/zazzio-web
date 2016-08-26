@@ -19,6 +19,7 @@
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "express-react-views": "^0.10.2",
+    "flux": "^2.1.1",
     "foundation-sites": "^6.2.3",
     "jquery.2": "^1.0.0",
     "mongodb": "^2.2.5",
