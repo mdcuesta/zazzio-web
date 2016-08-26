@@ -21,7 +21,8 @@ export default class HomeSearchForm extends Component {
                 value={this.props.searchType.toLowerCase()} />
           <div className='row'>
             <div className='small-12 medium-4 large-3 columns'>
-              <PropertyTypeDropdown searchType={this.props.searchType} />
+              <PropertyTypeDropdown searchType={this.props.searchType}
+                                    propertyTypes={this.props.propertyTypes} />
             </div>
             <div className='small-12 medium-6 large-7 large-collapse columns'>
               <label>in

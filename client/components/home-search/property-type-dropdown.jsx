@@ -24,8 +24,6 @@ export default class PropertyTypeDropdown extends Component {
   }
 
   render() {
-    const propertyTypes = ['House and Lot', 'Condominium', 'Townhouse'];
-
     return(      
       <label className='property-type-label'>I'm looking to {this.props.searchType} a
         <button type='button' 
@@ -38,7 +36,7 @@ export default class PropertyTypeDropdown extends Component {
              id='property-type-dropdown-pane' 
              data-dropdown data-close-on-click='true'>
           <ul>
-            {propertyTypes.map((name, index) => (
+            {this.props.propertyTypes.map((name, index) => (
               <li key={name}>
                 <label className={'expanded z-musturd button' + (this.state.propertySearchType === name ? ' is-selected' : '')}
                        onClick={() => this.radioSearchTypeClick(name)}>

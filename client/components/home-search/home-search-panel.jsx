@@ -19,7 +19,8 @@ export default class HomeSearchPanel extends Component {
                 id='home-search-heading'>{this.props.heading}</h1>
           </div>
           <div className='small-12 small-centered medium-12 medium centered large-8 large-centered search-form-container'>
-            <HomeSearchForm searchType={this.props.selectedSearchType} />
+            <HomeSearchForm searchType={this.props.selectedSearchType}
+                            propertyTypes={this.props.propertyTypes} />
           </div>
         </div>
       </div>

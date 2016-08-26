@@ -2,6 +2,7 @@
 
 import '../../core';
 import '../../../node_modules/foundation-sites/dist/plugins/foundation.toggler';
+import HomeSearchActions from '../../actions/home-search-actions';
 import React, {Component} from 'react';
 
 
@@ -15,7 +16,7 @@ export default class HomeSearchPanelTab extends Component {
     if(this.props.selectedSearchType !== this.props.searchType) {
       Foundation.Motion.animateIn($('#home-search-heading'), 'fade-in');
     }
-    this.props.setSelectedSearchType(this.props.searchType);
+    HomeSearchActions.setSelectedSearchType(this.props.searchType);
   }
 
   render() {
