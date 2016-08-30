@@ -1,9 +1,7 @@
-'use strict';
-
+import React, { Component } from 'react';
 import '../../core';
 import '../../../node_modules/foundation-sites/dist/plugins/foundation.toggler';
 import HomeSearchActions from '../../actions/home-search-actions';
-import React, {Component} from 'react';
 
 
 export default class HomeSearchPanelTab extends Component {
@@ -12,8 +10,9 @@ export default class HomeSearchPanelTab extends Component {
     this.setSelectedSearchType = this.setSelectedSearchType.bind(this);
   }
 
+  /* global Foundation:false */
   setSelectedSearchType() {
-    if(this.props.selectedSearchType !== this.props.searchType) {
+    if (this.props.selectedSearchType !== this.props.searchType) {
       Foundation.Motion.animateIn($('#home-search-heading'), 'fade-in');
     }
     HomeSearchActions.setSelectedSearchType(this.props.searchType);
@@ -22,12 +21,20 @@ export default class HomeSearchPanelTab extends Component {
   render() {
     return (
       <li className={(this.props.searchType === this.props.selectedSearchType ? ' is-active' : '')}>
-        <a onClick={this.setSelectedSearchType} 
-           className='button' 
-           id={'tab-' + this.props.searchType}>
+        <a
+          onClick={this.setSelectedSearchType}
+          className="button"
+          id={`tab-${this.props.searchType}`}
+        >
             {this.props.label}
         </a>
       </li>
     );
   }
 }
+
+HomeSearchPanelTab.propTypes = {
+  selectedSearchType: React.PropTypes.string.isRequired,
+  searchType: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired,
+};

@@ -1,37 +1,36 @@
-'use strict';
-
-import React,{Component} from 'react';
+import React from 'react';
 
 /**
  * Layout View
  */
-export default class Layout extends Component {
+export default function Layout(props) {
+  const jsbundleScript = props.jsbundle != null
+        ? (<script type="text/javascript" src={props.jsbundle} />)
+        : null;
+  const cssbundleScript = props.cssbundle != null
+        ? (<link rel="stylesheet" href={props.cssbundle} />)
+        : null;
+  const title = props.title != null
+        ? props.title : 'Zazzio';
 
-  constructor(props) {
-    super(props);
-  }
+  return (
+    <html lang="en">
+      <head>
+        <title>{title}</title>
+        {cssbundleScript}
+      </head>
+      <body>
+        {props.children}
+        {jsbundleScript}
+      </body>
+    </html>
+  );
+}
 
-  render() {
-    const jsbundleScript = this.props.jsbundle != null 
-          ? (<script type='text/javascript' src={this.props.jsbundle}></script>) 
-          : null;
-    const cssbundleScript = this.props.cssbundle != null 
-          ? (<link rel='stylesheet' href={this.props.cssbundle} />) 
-          : null;
-    const title = this.props.title != null 
-          ? this.props.title : 'Zazzio';
-
-    return(
-      <html>
-        <head>
-          <title>{title}</title>
-          {cssbundleScript}
-        </head>
-        <body>
-          {this.props.children}
-          {jsbundleScript}
-        </body>
-      </html>
-    );
-  }
+Layout.propTypes = {
+  jsbundle: React.PropTypes.string,
+  cssbundle: React.PropTypes.string,
+  title: React.PropTypes.string,
+  children: React.PropTypes.object,
 };
+

@@ -1,18 +1,12 @@
-'use strict';
-
+import { Router } from 'express';
 import Controller from './controller';
-import {Router} from 'express';
 
-const TITLE = 'Zazzio - Property Finder';
+export const TITLE = 'Zazzio - Property Finder';
 
 /**
  * RootController
  */
-export class RootController extends Controller  {
-
-  constructor() {
-    super();
-  }
+export class RootController extends Controller {
 
   /**
    * Renders Index View
@@ -22,14 +16,14 @@ export class RootController extends Controller  {
    */
   index(req, res) {
     res.render('index', {
-      title: TITLE
+      title: TITLE,
     });
   }
 
   /**
    * Renders Signup View
    * Route: '/signup'
-   * @param  {Request} 
+   * @param  {Request}
    * @param  {Response}
    */
   signup(req, res) {
@@ -41,7 +35,8 @@ export class RootController extends Controller  {
 /**
  * Routes Configuration
  */
-const router = Router();
+const expressRouter = Router;
+const router = expressRouter();
 const controller = new RootController();
 
 router.get('/', controller.index.bind(controller));

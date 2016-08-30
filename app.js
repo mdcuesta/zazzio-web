@@ -1,5 +1,3 @@
-'use strict';
-
 import Express from 'express';
 import Path from 'path';
 import FavIcon from 'serve-favicon';
@@ -9,12 +7,14 @@ import BodyParser from 'body-parser';
 import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
 
-import * as RouteConfig from './route-config';
-import * as PathConfig from './path-config';
-import * as AuthenticationConfig from './authentication-config';
-import * as DataConfig from './data-config';
+import RouteConfig from './route-config';
+import PathConfig from './path-config';
+import AuthenticationConfig from './authentication-config';
+import DataConfig from './data-config';
 
-const app = Express();
+
+const express = Express;
+const app = express();
 const path = Path;
 const favicon = FavIcon;
 const logger = Logger;
@@ -32,13 +32,13 @@ const environment = app.get('env');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jsx');
-const engineOptions = { 
+const engineOptions = {
   beautify: false,
   babel: {
-    presets: ['react', 'es2015']
+    presets: ['react', 'es2015'],
   },
-  transformViews: 'babel'
- };
+  transformViews: 'babel',
+};
 app.engine('jsx', expressReactViews.createEngine(engineOptions));
 
 // uncomment after placing your favicon in /public
@@ -53,25 +53,25 @@ app.use(sassMiddleWare({
   dest: path.join(__dirname, 'assets/stylesheets'),
   debug: environment === 'development',
   outputStyle: environment === 'development' ? 'extended' : 'compressed',
-  prefix: '/stylesheets' 
+  prefix: '/stylesheets',
 }));
 
-authConfig.configure(app);
-pathConfig.configure(app);
-routeConfig.configure(app);
-dataConfig.configure();
+authConfig(app);
+pathConfig(app);
+routeConfig(app);
+dataConfig();
 
 // catch robots.txt
-if(environment !== 'production') {
+if (environment !== 'production') {
   app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
-    res.send("User-agent: *\nDisallow: /");
+    res.send('User-agent: *\nDisallow: /');
   });
 }
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -81,22 +81,22 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (environment === 'development') {
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err
+      error: err,
     });
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: {},
   });
 });
 

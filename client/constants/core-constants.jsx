@@ -1,5 +1,3 @@
-'use strict';
-
 export default {
-  CHANGE_EVENT: 'change'
-}
+  CHANGE_EVENT: 'change',
+};

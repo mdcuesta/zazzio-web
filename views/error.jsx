@@ -1,26 +1,22 @@
-'use strict';
-
-import React, {Component} from 'react';
+import React from 'react';
 import DefaultLayout from './layout';
 
 /**
  * Error View
  */
-export default class Error extends Component {
+export default function Error(props) {
+  return (
+    <DefaultLayout title="Error">
+      <h1 className="error-message">{props.message}</h1>
+      <h2 className="error-status">{props.error.status}</h2>
+      <pre className="error-stack">
+        {props.error.stack}
+      </pre>
+    </DefaultLayout>
+  );
+}
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return(
-      <DefaultLayout title='Error'>
-        <h1 className='error-message'>{this.props.message}</h1>
-        <h2 className='error-status'>{this.props.error.status}</h2>
-        <pre className='error-stack'>
-          {this.props.error.stack}
-        </pre>
-      </DefaultLayout>
-    );
-  }
+Error.propTypes = {
+  message: React.PropTypes.string,
+  error: React.PropTypes.object,
 };

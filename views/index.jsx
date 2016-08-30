@@ -1,27 +1,24 @@
-'use strict';
-
-import React, {Component} from 'react';
+import React from 'react';
 import DefaultLayout from './layout';
 import NavBar from './components/navbar';
 
 /**
  * Index View
  */
-export default class Index extends Component {
+export default function Index(props) {
+  return (
+    <DefaultLayout
+      title={props.title}
+      jsbundle="/javascripts/index.js"
+      cssbundle="/stylesheets/index.css"
+    >
+      <NavBar />
+      <div id="home-search" />
+      <div id="content" />
+    </DefaultLayout>
+  );
+}
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return(
-      <DefaultLayout title={this.props.title} 
-                     jsbundle = '/javascripts/index.js'
-                     cssbundle = '/stylesheets/index.css'>
-        <NavBar />
-        <div id='home-search'></div>
-        <div id='content'></div>
-      </DefaultLayout>
-    );
-  }
+Index.propTypes = {
+  title: React.PropTypes.string.isRequired,
 };
