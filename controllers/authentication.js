@@ -1,11 +1,10 @@
 import Passport from 'passport';
 import { Router } from 'express';
-import Controller from './controller';
 
 /**
  * AuthenticationController
  */
-export class AuthenticationController extends Controller {
+export class AuthenticationController {
   /**
    * Redirects to '/login/facebook'
    * Route: '/login'

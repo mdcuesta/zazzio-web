@@ -1,3 +1,4 @@
+/* eslint-disable */
 var webpack = require('webpack');
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
@@ -22,8 +23,9 @@ module.exports = [{
     },
     module: {
       loaders: [{
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         loader: 'babel',
+        exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react'],
           compact: true,
@@ -32,7 +34,7 @@ module.exports = [{
       }]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx']
     },
     plugins: [
       new webpack.ProvidePlugin({

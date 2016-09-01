@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import * as DataProvider from '../utilities/data-provider';
-import Controller from './controller';
 
 const db = DataProvider;
 
 /**
  * UserController
  */
-export class AccountController extends Controller {
+export class AccountController {
   signUp(req, res) {
     // users collection
     const users = db.collection('users');

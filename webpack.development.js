@@ -1,3 +1,4 @@
+/* eslint-disable */
 var webpack = require('webpack');
 var path = require('path');
 var jsxPath = path.join(__dirname, 'client');
@@ -14,17 +15,18 @@ module.exports = [{
     },
     module: {
       loaders: [{
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         loader: 'babel',
+        exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react'],
-          compact: true,
+          compact: false,
           plugins: ['transform-runtime']
-        }      
+        },    
       }]     
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx']
     },
     plugins: [
       new webpack.ProvidePlugin({

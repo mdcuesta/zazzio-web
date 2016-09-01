@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-disable */
 /**
  * MockRequest
  * Used for Mocking Express Request

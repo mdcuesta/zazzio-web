@@ -1,27 +1,25 @@
-'use strict';
+import * as RootController from '../root';
+import { MockRequest, MockResponse } from '../../__test-utils__/mocks';
 
 jest.unmock('../root');
-
-import * as Root from '../root';
-esimport {MockRequest, MockResponse} from '../../__test-utils__/mocks';
+jest.unmock('../../__test-utils__/mocks');
 
 /**
  * RootController Tests
  */
 describe('RootController', () => {
-
-  let target = null;  
+  let target = null;
 
   beforeEach(() => {
-    target = new Root.RootController();
+    target = RootController;
   });
 
   /**
    * Method: index Tests
    */
   describe('Method: index', () => {
-    let req, res;
-    
+    let req;
+    let res;
     beforeEach(() => {
       req = new MockRequest();
       res = new MockResponse();
@@ -39,7 +37,7 @@ describe('RootController', () => {
     });
 
     it('should set title', () => {
-      const title = Root.TITLE;
+      const title = target.TITLE;
       expect(res.render.mock.calls[0][1].title).toEqual(title);
     });
   });
