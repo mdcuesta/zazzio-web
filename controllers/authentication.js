@@ -1,48 +1,27 @@
 import Passport from 'passport';
 import { Router } from 'express';
 
-/**
- * AuthenticationController
- */
-export class AuthenticationController {
-  /**
-   * Redirects to '/login/facebook'
-   * Route: '/login'
-   * @param  {Request}
-   * @param  {Response}
-   * @return {Redirect}
-   */
-  index(req, res) {
-    res.redirect('/login/facebook');
-  }
-
-  /**
-   * Facebook Login Return URL
-   * @param  {Request}
-   * @param  {Response}
-   * @return {Redirect}
-   */
-  facebookReturn(req, res) {
-    if (req.query.returnUrl) {
-      res.redirect(req.query.returnUrl);
-    } else {
-      res.redirect('/');
-    }
-  }
+export function index(req, res) {
+  res.redirect('/login/facebook');
 }
 
+export function facebookReturn(req, res) {
+  if (req.query.returnUrl) {
+    res.redirect(req.query.returnUrl);
+  } else {
+    res.redirect('/');
+  }
+}
 
 const passport = Passport;
 
 /**
  * Routes Configuration
  */
-
 const expressRoute = Router;
 const router = expressRoute();
-const controller = new AuthenticationController();
 
-router.get('/', controller.index.bind(controller));
+router.get('/', index);
 
 /**
  * Facebook Login
@@ -54,11 +33,7 @@ router.get('/facebook', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/facebook/return', controller.facebookReturn.bind(controller));
-
-/**
- * Local Account Login
- */
+router.get('/facebook/return', facebookReturn);
 
 /**
  * Exports router as default
