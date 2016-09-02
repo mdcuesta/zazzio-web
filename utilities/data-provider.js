@@ -1,5 +1,3 @@
-'use strict';
-
 import MongoClient from 'mongodb';
 
 let connection;
@@ -9,29 +7,29 @@ export function connect(url, callback) {
     return callback();
   }
 
-  MongoClient.connect(url, function(err, db) {
+  return MongoClient.connect(url, (err, db) => {
     if (err) {
-      return callback(err)
+      return callback(err);
     }
 
     connection = db;
 
-    callback();
+    return callback();
   });
-};
+}
 
 export function get() {
   return connection;
-};
+}
 
 export function close(callback) {
   if (connection) {
-    connection.close(function(err, result) {
-      connection = null
+    connection.close((err) => {
+      connection = null;
       callback(err);
     });
   }
-};
+}
 
 export function collection(name) {
   return connection.collection(name);

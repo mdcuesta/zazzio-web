@@ -7,6 +7,8 @@
     "react-compile": "webpack --watch --config webpack.development.js",
     "start": "npm run react-compile | nodemon --exec babel-node ./bin/www --presets es2015",
     "test": "jest --verbose",
+    "es-lint": "eslint --fix --config .eslintrc.json --output-file eslint-output.html --ext .js --ext .jsx *.js **/**",
+    "sass-lint": "sass-lint --verbose",
     "build-release": "webpack -p -progress --colors --config webpack.release.js",
     "release": "node zazzio.compiled.js"
   },

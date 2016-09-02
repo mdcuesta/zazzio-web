@@ -1,67 +1,87 @@
 @charset 'utf-8';
 
 .login-modal-tabs {
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+
+  li {
+    border-right: 1px solid $white;
+    width: 100px;
+
+    a {
+      background: $z-light-blue;
+      color: $white;
+      display: block;
+      font-size: .8rem;
+      padding: 15px;
+      text-align: center;
+    }
+
+    &:hover {
+      a {
+        background: $z-blue;
+      }
+    }
+  }
+
+  .is-active {
+    a {
+      background: $z-blue;
+    }
+  }
 }
-.login-modal-tabs li {
-  width: 100px;
-  border-right: 1px solid $white;
+
+.login-modal-tabs-content {
+  border: 0;
+  padding: 20px 0 10px;
+
+  .tabs-panel {
+    padding: 0;
+  }
 }
-.login-modal-tabs li a {
-  background: $z-light-blue;
-  color: $white;
-  font-size: .8rem;
-  padding: 15px;
-  display: block;
-  text-align: center;
-}
-.login-modal-tabs li:hover a,
-.login-modal-tabs .is-active a {
-  background: $z-blue;
-}
-.login-modal-tabs-content{
-  border: none;
-  padding: 20px 0 10px 0;
-}
-.login-modal-tabs-content .tabs-panel {
-  padding: 0;
-}
+
 .modal-login-button {
   margin-top: 5px;
 }
+
 .section-register {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid $ddd;
   padding-top: 20px;
 }
+
 .login-facebook-icon {
   font-size: 20px;
   margin: 0 10px 0 0;
-
 }
+
 .divider {
-  width: 100%;
+  color: $ddd;
+  font-weight: 300;
   margin: .7em auto;
   overflow: hidden;
   text-align: center;
-  font-weight:300;
-  color: #ddd;
+  width: 100%;
+
+  &::before,
+  &::after {
+    border-bottom: 1px solid;
+    content: '';
+    display: inline-block;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    width: 50%;
+  }
+
+  &::after {
+    margin: 0 -55% 0 .5em;
+  }
 }
-.divider:before, 
-.divider:after {
-  content: "";
-  display: inline-block;
-  width: 50%;
-  margin: 0 .5em 0 -55%;
-  vertical-align: middle;
-  border-bottom: 1px solid;
-}
-.divider:after {
-  margin: 0 -55% 0 .5em;
-}
-span {
-  display: inline-block;
-  vertical-align: middle;
-  color: #aaa;
+
+.tabs-content {
+  span {
+    color: $aaa;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }

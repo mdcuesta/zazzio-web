@@ -36,3 +36,5 @@ assets/javascripts/*.js.map
 
 # Ignore zazzio.compiled.js
 zazzio.compiled.js
+
+eslint-output.html

@@ -12,6 +12,7 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
+@import 'common/colors';
 @import 'common/layout';
 @import 'common/home-search';
 @import 'common/login-modal';
