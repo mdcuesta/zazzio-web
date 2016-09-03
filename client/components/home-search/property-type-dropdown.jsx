@@ -45,16 +45,18 @@ export default class PropertyTypeDropdown extends Component {
             {this.props.propertyTypes.map((name) => (
               <li key={name}>
                 <label
-                  htmlFor="radio-property-type"
+                  htmlFor={`radio-property-type${name}`}
                   className={`expanded option button${this.state.propertySearchType === name
                     ? ' is-selected' : ''}`}
                   onClick={() => this.radioSearchTypeClick(name)}
+                  tabIndex="0"
                 >
                   <input
                     name="p"
                     type="radio"
                     value={name.toLowerCase()}
                     defaultChecked={this.state.propertySearchType === name}
+                    id={`radio-property-type${name}`}
                   />
                     {name}
                 </label>
