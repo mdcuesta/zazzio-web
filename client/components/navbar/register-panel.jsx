@@ -172,7 +172,7 @@ export default class RegisterPanel extends Component {
               >
                 {(this.state.email === ''
                   ? 'Email address is required'
-                  : 'Invalid Email Address')}
+                  : 'Invalid email address')}
               </span>
               <span
                 className={`form-error${(
@@ -180,8 +180,16 @@ export default class RegisterPanel extends Component {
                   ? ' is-visible'
                   : '')}`}
               >
-                 An account is already associated with this email.&nbsp;
-                <a href="/forgot-password">Forgot your password?</a>
+                {this.state.error === 'Invalid email address'
+                  ? this.state.error
+                  : 'An account is already associated with this email. '}
+                <a
+                  href="/forgot-password"
+                  className={(this.state.error === 'Invalid email address'
+                    ? 'hide' : '')}
+                >
+                  Forgot your password?
+                </a>
               </span>
             </div>
             <div className="small-12 medium-12 large-12">

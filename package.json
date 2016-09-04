@@ -28,6 +28,7 @@
     "foundation-sites": "^6.2.3",
     "joi": "^9.0.4",
     "jquery.2": "^1.0.0",
+    "kickbox": "^2.0.1",
     "mongodb": "^2.2.5",
     "mongodb-migrate": "^2.0.1",
     "mongoose": "^4.6.0",

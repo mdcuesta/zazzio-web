@@ -11,7 +11,8 @@ export function quickRegisterBuyer(data) {
     url: '/account/sign-up',
     type: 'post',
     dataType: 'json',
-    data,
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
     RegisterActions.quickRegisterBuyerComplete({
       data: responseData,
@@ -33,7 +34,8 @@ export function registerBuyer(data) {
     url: '/account/sign-up',
     type: 'post',
     dataType: 'json',
-    data,
+    data: JSON.stringify(data),
+    contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
     RegisterActions.quickRegisterBuyerComplete({
       data: responseData,
@@ -50,9 +52,10 @@ export function accountExists(email) {
     url: '/account/exists',
     type: 'post',
     dataType: 'json',
-    data: {
+    data: JSON.stringify({
       email,
-    },
+    }),
+    contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
     RegisterActions.checkAccountExistenceComplete({
       data: responseData,
