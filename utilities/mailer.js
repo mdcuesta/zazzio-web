@@ -1,14 +1,11 @@
 import SendGrid from 'sendgrid';
 
 export default class Mailer {
-
   send(sendTo, sender, subject, body, callback) {
     const helper = SendGrid.mail;
-    const api = SendGrid.API;
     const sendGrid = SendGrid;
-
     const toEmail = new helper.Email(sendTo);
-    const fromEmail = new helper.Email('noreply@zazz.io');
+    const fromEmail = new helper.Email(sender || 'noreply@zazz.io');
     const content = new helper.Content('text/plain', body);
     const mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
@@ -20,9 +17,9 @@ export default class Mailer {
       path: '/v3/mail/send',
       body: mail.toJSON(),
     });
-
-    api(request, (error, response) => {
-      callback(error, response);
+    const api = sendgrid.API;
+    return api(request, (err, response) => {
+      callback(err, response);
     });
   }
 }

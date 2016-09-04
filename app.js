@@ -10,7 +10,6 @@ import SassMiddleWare from 'node-sass-middleware';
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
-import DataConfig from './data-config';
 
 
 const express = Express;
@@ -25,7 +24,6 @@ const sassMiddleWare = SassMiddleWare;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
-const dataConfig = DataConfig;
 
 const environment = app.get('env');
 
@@ -59,7 +57,6 @@ app.use(sassMiddleWare({
 authConfig(app);
 pathConfig(app);
 routeConfig(app);
-dataConfig();
 
 // catch robots.txt
 if (environment !== 'production') {

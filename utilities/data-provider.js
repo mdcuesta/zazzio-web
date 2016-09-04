@@ -1,24 +1,16 @@
-import MongoClient from 'mongodb';
+import Mongoose from 'mongoose';
+import Bluebird from 'bluebird';
 
-let connection;
+const mongoose = Mongoose;
+const bluebird = Bluebird;
+let connection = null;
 
-export function connect(url, callback) {
-  if (connection) {
-    return callback();
+export function getConnection() {
+  if (connection === null) {
+    const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/zazzio';
+    const options = { promiseLibrary: bluebird };
+    connection = mongoose.createConnection(uri, options);
   }
-
-  return MongoClient.connect(url, (err, db) => {
-    if (err) {
-      return callback(err);
-    }
-
-    connection = db;
-
-    return callback();
-  });
-}
-
-export function get() {
   return connection;
 }
 
