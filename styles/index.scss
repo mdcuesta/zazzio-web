@@ -1,17 +1,6 @@
 @charset 'utf-8';
 
 @import 'common/core';
-
-@include foundation-title-bar;
-@include foundation-menu;
-@include foundation-menu-icon;
-@include foundation-tabs;
-@include foundation-dropdown;
-@include foundation-close-button;
-@include foundation-reveal;
-@include motion-ui-transitions;
-@include motion-ui-animations;
-
 @import 'common/colors';
 @import 'common/layout';
 @import 'common/home-search';

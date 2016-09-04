@@ -29,7 +29,7 @@ export default class LoginModal extends Component {
   }
 
   closeModal() {
-    $('#login-modal').foundation('close');
+    $(`#${this.props.id}`).foundation('close');
   }
 
   /* global Foundation:false */
@@ -37,7 +37,7 @@ export default class LoginModal extends Component {
     return (
       <div
         className={`${this.state.modalSize} reveal`}
-        id="login-modal"
+        id={this.props.id}
         data-animation-in="fade-in"
         data-animation-out="fade-out"
         data-close-on-click="false"
@@ -58,5 +58,6 @@ export default class LoginModal extends Component {
 }
 
 LoginModal.propTypes = {
+  id: React.PropTypes.string.isRequired,
   modalType: React.PropTypes.string.isRequired,
 };

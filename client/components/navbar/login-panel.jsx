@@ -60,7 +60,7 @@ export default class LoginPanel extends Component {
         </section>
         <section className="section-register">
           <div className="small-12 medium-12 large-12">
-            <span>Don"t have an account?&nbsp;</span>
+            <span className="content-span">Don"t have an account?&nbsp;</span>
             <a href="/sign-up" onClick={this.register}>Sign Up</a>
           </div>
         </section>

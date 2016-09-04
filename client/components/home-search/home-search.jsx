@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeSearchPanelTabs from './home-search-panel-tabs';
 import HomeSearchPanel from './home-search-panel';
-import HomeSearchStore from '../../stores/home-search-store';
+import Store from '../../stores/home-search-store';
 
 /**
  * HomeSearch
@@ -10,26 +10,26 @@ export default class HomeSearch extends Component {
 
   constructor(props) {
     super(props);
-    const selectedSearchType = HomeSearchStore.getSelectedSearchType();
+    const selectedSearchType = Store.getSelectedSearchType();
 
     this.state = {
       selectedSearchType,
-      searchTypes: HomeSearchStore.getSearchTypes(),
+      searchTypes: Store.getSearchTypes(),
     };
 
     this.onChange = this.onChange.bind(this);
-    HomeSearchStore.addChangeListener(this.onChange);
+    Store.addChangeListener(this.onChange);
   }
 
   componentWillUnmount() {
-    HomeSearchStore.removeChangeListener(this.onChange);
+    Store.removeChangeListener(this.onChange);
   }
 
   onChange() {
-    const selectedSearchType = HomeSearchStore.getSelectedSearchType();
+    const selectedSearchType = Store.getSelectedSearchType();
     this.setState({
       selectedSearchType,
-      searchTypes: HomeSearchStore.getSearchTypes(),
+      searchTypes: Store.getSearchTypes(),
     });
   }
 
