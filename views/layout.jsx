@@ -21,6 +21,7 @@ export default function Layout(props) {
       </head>
       <body>
         {props.children}
+        <input id="authenticated" type="hidden" value={props.authenticated} />
         {jsbundleScript}
       </body>
     </html>
@@ -32,5 +33,9 @@ Layout.propTypes = {
   cssbundle: React.PropTypes.string,
   title: React.PropTypes.string,
   children: React.PropTypes.array,
+  authenticated: React.PropTypes.bool,
 };
 
+Layout.defaultProps = {
+  authenticated: false,
+};

@@ -2,6 +2,15 @@ import Validator from 'validator';
 import React, { Component } from 'react';
 import RegisterActions from '../../actions/register-actions';
 import Store from '../../stores/quick-register-store';
+import FormErrorLabel from '../common/form-error-label';
+
+const EMAIL_ADDRESS_REQUIRED = 'Email Address required';
+const EMAIL_ADDRESS_INVALID = 'Invalid Email Address';
+const PASSWORD_REQUIRED = 'Password required';
+const PASSWORD_LENGTH_ERROR = 'Password must be at least 6 characters';
+const FIRST_NAME_REQUIRED = 'First name required';
+const LAST_NAME_REQUIRED = 'Last name required';
+const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for this email address';
 
 const validator = Validator;
 
@@ -10,21 +19,35 @@ export default class RegisterPanel extends Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      emailValid: true,
+      email: {
+        value: '',
+        error: '',
+        hasError: false,
+      },
+      password: {
+        value: '',
+        error: '',
+        hasError: false,
+      },
+      firstName: {
+        value: '',
+        error: '',
+        hasError: false,
+      },
+      lastName: {
+        value: '',
+        error: '',
+        hasError: false,
+      },
       signUpText: 'Sign Up',
     };
 
     this.register = this.register.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleEmailBlur = this.handleEmailBlur.bind(this);
-    this.getInputClass = this.getInputClass.bind(this);
+    this.getTextInputClass = this.getTextInputClass.bind(this);
     this.validateState = this.validateState.bind(this);
+    this.validateInput = this.validateInput.bind(this);
 
     this.onChange = this.onChange.bind(this);
     Store.addChangeListener(this.onChange);
@@ -37,57 +60,97 @@ export default class RegisterPanel extends Component {
   onChange() {
     const error = Store.getError();
     const submitHasError = Store.hasError();
+    if (error === `${EMAIL_ALREADY_ASSOCIATED} ${this.state.email.value}`) {
+      $('#txt-email').focus();
+    }
     this.setState({
-      error,
-      submitHasError,
+      email: {
+        error,
+        value: this.state.email.value,
+        hasError: error !== '',
+      },
       signingUp: false,
       signUpText: 'Sign Up',
+      submitHasError,
     });
   }
 
-  getInputClass(e) {
-    return (this.state[e.target.name] === '' && this.state[`${e.target.name}Focused`])
+  getTextInputClass(key) {
+    return (this.state[key].hasError)
       ? 'is-invalid-input'
       : '';
   }
 
+  handleBlur(e) {
+    this.validateInput(e.target.name, e.target.value);
+  }
+
   handleChange(e) {
     const state = {};
-    state[e.target.name] = e.target.value.trim();
+    state[e.target.name] = {
+      value: e.target.value.trim(),
+    };
     this.setState(state);
   }
 
-  handleEmailChange(e) {
-    const isEmail = validator.isEmail(e.target.value.trim());
-
-    this.setState({
-      email: e.target.value.trim(),
-      submitHasError: false,
-      emailValid: isEmail,
-    });
-  }
-
-  handleBlur(e) {
-    const state = {};
-    if (this.state[e.target.name] === '') {
-      state[`${e.target.name}Class`] = 'is-invalid-input';
-    } else {
-      state[`${e.target.name}Class`] = '';
+  validateInput(key, value) {
+    let state = null;
+    let error = '';
+    if (key === 'email') {
+      if (value === '') {
+        error = EMAIL_ADDRESS_REQUIRED;
+      } else if (!validator.isEmail(value)) {
+        error = EMAIL_ADDRESS_INVALID;
+      } else {
+        RegisterActions.checkAccountExistence(this.state.email.value);
+      }
+      state = {
+        email: {
+          hasError: error !== '',
+          error,
+          value,
+        },
+      };
+    } else if (key === 'password') {
+      if (value === '') {
+        error = PASSWORD_REQUIRED;
+      } else if (value.length < 6) {
+        error = PASSWORD_LENGTH_ERROR;
+      }
+      state = {
+        password: {
+          hasError: error !== '',
+          error,
+          value,
+        },
+      };
+    } else if (key === 'firstName') {
+      if (value === '') {
+        error = FIRST_NAME_REQUIRED;
+      }
+      state = {
+        firstName: {
+          hasError: error !== '',
+          error,
+          value,
+        },
+      };
+    } else if (key === 'lastName') {
+      if (value === '') {
+        error = LAST_NAME_REQUIRED;
+      }
+      state = {
+        lastName: {
+          hasError: error !== '',
+          error,
+          value,
+        },
+      };
     }
-    this.setState(state);
-  }
-
-  handleEmailBlur() {
-    let emailClass = '';
-    if (this.state.email !== '' && this.state.emailValid) {
-      RegisterActions.checkAccountExistence(this.state.email);
-    } else {
-      emailClass = 'is-invalid-input';
+    if (state !== null) {
+      this.setState(state);
     }
-
-    this.setState({
-      emailClass,
-    });
+    return error !== '';
   }
 
   register() {
@@ -95,26 +158,18 @@ export default class RegisterPanel extends Component {
       return;
     }
 
-    this.validateState('email');
-    this.validateState('password');
-    this.validateState('firstName');
-    this.validateState('lastName');
+    const emailHasError = this.validateInput('email', this.state.email.value);
+    const passwordHasError = this.validateInput('password', this.state.password.value);
+    const firstNameHasError = this.validateInput('firstName', this.state.firstName.value);
+    const lastNameHasError = this.validateInput('lastName', this.state.lastName.value);
 
-    if (!validator.isEmail(this.state.email)) {
-      this.setState({
-        emailClass: 'is-invalid-input',
-      });
-    }
-
-    if (this.state.email === '' ||
-      this.state.submitHasError ||
-      !validator.isEmail(this.state.email)) {
+    if (emailHasError) {
       $('#txt-email').focus();
-    } else if (this.state.password === '') {
+    } else if (passwordHasError) {
       $('#txt-password').focus();
-    } else if (this.state.firstName === '') {
+    } else if (firstNameHasError) {
       $('#txt-first-name').focus();
-    } else if (this.state.lastName === '') {
+    } else if (lastNameHasError) {
       $('#txt-last-name').focus();
     } else {
       this.setState({
@@ -122,10 +177,10 @@ export default class RegisterPanel extends Component {
         signingUp: true,
       });
       RegisterActions.quickRegisterBuyer({
-        email: this.state.email,
-        password: this.state.password,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
+        email: this.state.email.value,
+        password: this.state.password.value,
+        firstName: this.state.firstName.value,
+        lastName: this.state.lastName.value,
       });
     }
   }
@@ -141,6 +196,11 @@ export default class RegisterPanel extends Component {
   }
 
   render() {
+    const emailClass = this.getTextInputClass('email');
+    const passwordClass = this.getTextInputClass('password');
+    const firstNameClass = this.getTextInputClass('firstName');
+    const lastNameClass = this.getTextInputClass('lastName');
+
     return (
       <div>
         <section className="section-regular-sign-up">
@@ -159,38 +219,12 @@ export default class RegisterPanel extends Component {
                 placeholder="Email Address"
                 id="txt-email"
                 name="email"
-                value={this.state.email}
-                onChange={this.handleEmailChange}
-                onBlur={this.handleEmailBlur}
-                className={this.state.emailClass}
+                value={this.state.email.value}
+                onChange={this.handleChange}
+                onBlur={this.handleBlur}
+                className={emailClass}
               />
-              <span
-                className={`form-error${(
-                  (this.state.emailClass && this.state.emailClass !== '')
-                  ? ' is-visible'
-                  : '')}`}
-              >
-                {(this.state.email === ''
-                  ? 'Email address is required'
-                  : 'Invalid email address')}
-              </span>
-              <span
-                className={`form-error${(
-                  (this.state.submitHasError)
-                  ? ' is-visible'
-                  : '')}`}
-              >
-                {this.state.error === 'Invalid email address'
-                  ? this.state.error
-                  : 'An account is already associated with this email. '}
-                <a
-                  href="/forgot-password"
-                  className={(this.state.error === 'Invalid email address'
-                    ? 'hide' : '')}
-                >
-                  Forgot your password?
-                </a>
-              </span>
+              <EmailErrorLabel error={this.state.email.error} />
             </div>
             <div className="small-12 medium-12 large-12">
               <input
@@ -198,19 +232,12 @@ export default class RegisterPanel extends Component {
                 placeholder="Password"
                 name="password"
                 id="txt-password"
-                value={this.state.password}
+                value={this.state.password.value}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
-                className={this.state.passwordClass}
+                className={passwordClass}
               />
-              <span
-                className={`form-error${(
-                  (this.state.passwordClass && this.state.passwordClass !== '')
-                  ? ' is-visible'
-                  : '')}`}
-              >
-                Password is required
-              </span>
+              <FormErrorLabel error={this.state.password.error} />
             </div>
             <div className="small-12 medium-12 large-12">
               <input
@@ -218,19 +245,12 @@ export default class RegisterPanel extends Component {
                 placeholder="Firstname"
                 name="firstName"
                 id="txt-first-name"
-                value={this.state.firstName}
+                value={this.state.firstName.value}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
-                className={this.state.firstNameClass}
+                className={firstNameClass}
               />
-              <span
-                className={`form-error${(
-                  (this.state.firstNameClass && this.state.firstNameClass !== '')
-                  ? ' is-visible'
-                  : '')}`}
-              >
-                First name is required
-              </span>
+              <FormErrorLabel error={this.state.firstName.error} />
             </div>
             <div className="small-12 medium-12 large-12">
               <input
@@ -238,19 +258,12 @@ export default class RegisterPanel extends Component {
                 placeholder="Lastname"
                 name="lastName"
                 id="txt-last-name"
-                value={this.state.lastName}
+                value={this.state.lastName.value}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
-                className={this.state.lastNameClass}
+                className={lastNameClass}
               />
-              <span
-                className={`form-error${(
-                  (this.state.lastNameClass && this.state.lastNameClass !== '')
-                  ? ' is-visible'
-                  : '')}`}
-              >
-                Last name is required
-              </span>
+              <FormErrorLabel error={this.state.lastName.error} />
             </div>
             <div className="small-12 medium-12 large-12">
               <span className="content-span">By clicking Sign Up you agree to our&nbsp;
@@ -284,3 +297,26 @@ export default class RegisterPanel extends Component {
     );
   }
 }
+
+function EmailErrorLabel(props) {
+  if (props.error !== EMAIL_ADDRESS_REQUIRED
+    && props.error !== EMAIL_ADDRESS_INVALID
+    && typeof props.error !== 'undefined') {
+    return (
+      <span
+        className={`form-error${(props.error !== '' ? ' is-visible' : '')}`}
+      >
+        An account is already associated with this email.&nbsp;
+        <a href="/forgot-password">Forgot your password?</a>
+      </span>
+    );
+  }
+
+  return (
+    <FormErrorLabel error={props.error} />
+  );
+}
+
+EmailErrorLabel.propTypes = {
+  error: React.PropTypes.string,
+};

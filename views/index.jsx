@@ -12,7 +12,7 @@ export default function Index(props) {
       jsbundle="/javascripts/index.js"
       cssbundle="/stylesheets/index.css"
     >
-      <NavBar />
+      <NavBar isUserAuthenticated={props.isUserAuthenticated} />
       <div id="home-search" />
       <div id="content" />
     </DefaultLayout>
@@ -21,4 +21,5 @@ export default function Index(props) {
 
 Index.propTypes = {
   title: React.PropTypes.string.isRequired,
+  isUserAuthenticated: React.PropTypes.bool,
 };

@@ -6,6 +6,7 @@ import CookieParser from 'cookie-parser';
 import BodyParser from 'body-parser';
 import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
+import Session from 'express-session';
 
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
@@ -21,6 +22,7 @@ const cookieParser = CookieParser;
 const bodyParser = BodyParser;
 const expressReactViews = ExpressReactViews;
 const sassMiddleWare = SassMiddleWare;
+const session = Session;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
@@ -52,6 +54,16 @@ app.use(sassMiddleWare({
   debug: environment === 'development',
   outputStyle: environment === 'development' ? 'extended' : 'compressed',
   prefix: '/stylesheets',
+}));
+
+app.set('trust proxy', 1); // trust only first proxy
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'anonymous penguin',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: environment === 'production',
+  },
 }));
 
 authConfig(app);
