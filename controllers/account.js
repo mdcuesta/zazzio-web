@@ -14,14 +14,16 @@ const mailService = MailService;
 
 export function signUp(req, res, next) {
   const emailExists = Promise.promisify(mailService.emailExists);
-  emailExists(req.body.email).then((response) => {
+  emailExists(req.body.email)
+  .then((response) => {
     if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
       return res.status(200).json({
         error: EMAIL_ADDRESS_INVALID,
       });
     }
 
-    return User.count({ 'local.email': req.body.email }).then((count) => {
+    return User.count({ 'local.email': req.body.email })
+    .then((count) => {
       if (count > 0) {
         return res.status(200).json({
           error: `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`,
@@ -29,7 +31,8 @@ export function signUp(req, res, next) {
       }
       // check first if there is already a facebook integration present
       // if there is we only need to set the local account
-      return User.findOne({ email: req.body.email }).then((account) => {
+      return User.findOne({ email: req.body.email })
+      .then((account) => {
         if (account === null) {
           // save user if it doesn't exist
           const user = new User({
@@ -41,7 +44,8 @@ export function signUp(req, res, next) {
           user.setUserName(req.body.email);
           user.setPassword(req.body.password);
 
-          return user.save().then((doc) => {
+          return user.save()
+          .then((doc) => {
             // send account created response
             // regardless if an email confirmation is sent
             req.login(doc, (err) => {
@@ -60,10 +64,13 @@ export function signUp(req, res, next) {
                 sender(doc, 'buyer')
                 .catch(() => {
                   // todo log email error
+                  // if confirmation failed
+                  // do we need to log the error?
                 });
               }
             });
-          }).catch(() => {
+          })
+          .catch(() => {
             res.status(400).json({
               error: ACCOUNT_CREATION_FAILED,
             });
@@ -72,7 +79,8 @@ export function signUp(req, res, next) {
         // just update the existing account
         account.setUserName(req.body.email);
         account.setPassword(req.body.password);
-        return account.save().then((doc) => {
+        return account.save()
+        .then((doc) => {
           req.login(doc, (err) => {
             if (err) {
               next(err);
@@ -84,7 +92,8 @@ export function signUp(req, res, next) {
               });
             }
           });
-        }).catch(() => {
+        })
+        .catch(() => {
           res.status(400).json({
             error: ACCOUNT_CREATION_FAILED,
           });

@@ -9,6 +9,7 @@ export function index(req, res) {
   res.render('index', {
     title: TITLE,
     isUserAuthenticated: authenticated(req),
+    userId: req.user,
   });
 }
 

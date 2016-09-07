@@ -7,6 +7,7 @@ import BodyParser from 'body-parser';
 import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
 import Session from 'express-session';
+import Raygun from 'raygun';
 
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
@@ -26,7 +27,9 @@ const session = Session;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
-
+const raygun = new Raygun.Client().init({
+  apiKey: process.env.RAYGUN_APIKEY || 'ZN1WEhQMOEsRFzA99mLPLg==',
+});
 const environment = app.get('env');
 
 // view engine setup
@@ -71,7 +74,7 @@ pathConfig(app);
 routeConfig(app);
 
 // catch robots.txt
-if (environment !== 'production') {
+if ((process.env.STAGING || 'true') === 'true') {
   app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.send('User-agent: *\nDisallow: /');
@@ -99,6 +102,9 @@ if (environment === 'development') {
   });
 }
 
+// production raygun logger
+app.use(raygun.expressHandler);
+
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res) => {
@@ -108,6 +114,5 @@ app.use((err, req, res) => {
     error: {},
   });
 });
-
 
 module.exports = app;

@@ -11,6 +11,7 @@ export default function Index(props) {
       title={props.title}
       jsbundle="/javascripts/index.js"
       cssbundle="/stylesheets/index.css"
+      authenticated={props.isUserAuthenticated}
     >
       <NavBar isUserAuthenticated={props.isUserAuthenticated} />
       <div id="home-search" />

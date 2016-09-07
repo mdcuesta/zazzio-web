@@ -54,7 +54,7 @@ export default class NavBarRight extends Component {
       >
         <button
           type="button"
-          className="button"
+          className="button link-button"
           data-open="login-modal"
           onClick={() => this.setModalType(LOGIN)}
         >
@@ -62,7 +62,7 @@ export default class NavBarRight extends Component {
         </button>
         <button
           type="button"
-          className="z-musturd button hollow"
+          className="z-musturd button link-button hollow"
           data-open="login-modal"
           onClick={() => this.setModalType(REGISTER)}
         >

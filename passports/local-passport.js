@@ -13,10 +13,8 @@ export default function configure() {
   (email, password, done) => {
     User.findOne({
       'local.email': email,
-    }, (error, user) => {
-      if (error) {
-        return done(error);
-      }
+    })
+    .then((user) => {
       if (user === null) {
         return done(null, false);
       }
@@ -24,7 +22,8 @@ export default function configure() {
         return done(null, false);
       }
       return done(null, user);
-    });
+    })
+    .catch((err) => done(err));
   }
 ));
 }

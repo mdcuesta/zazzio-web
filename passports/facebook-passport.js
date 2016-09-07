@@ -25,12 +25,9 @@ export default function configure() {
     const email = profile.emails[0].value;
     User.findOne({
       'facebook.email': email,
-    }, (error, user) => { // eslint-disable-line
-      if (error) {
-        return done(error);
-      } else if (user === null) {
-        // check first if there is already
-        // a local account using the email
+    })
+    .then((user) => {
+      if (user === null) {
         User.findOne({ email }).then((account) => {
           if (account == null) {
             // create new user since there is
@@ -46,13 +43,8 @@ export default function configure() {
             });
             /* eslint-disable */
             newUser.save()
-            .then((doc) => {
-              return done(null, doc);
-            })
-            .catch((err) => {
-              return done(err);
-            });
-            /* eslint-enable */
+            .then((doc) => done(null, doc))
+            .catch((err) => done(err));
           } else {
             // need to update facebook credentials only
             account.setFacebookCredentials({
@@ -62,14 +54,8 @@ export default function configure() {
               refreshToken,
               email,
             });
-            /* eslint-disable */
-            account.save().then((doc) => {
-              return done(null, doc);
-            })
-            .catch((err) => {
-              return done(err);
-            });
-            /* eslint-enable */
+            account.save().then((doc) => done(null, doc))
+            .catch((err) => done(err));
           }
         });
       } else {
@@ -81,12 +67,9 @@ export default function configure() {
           refreshToken,
           email,
         });
-        /* eslint-disable */
-        user.save().then((doc) => {
-          return done(null, doc);
-        });
-        /* eslint-enable */
+        user.save().then((doc) => done(null, doc));
       }
-    });
+    })
+    .catch((err) => done(err));
   }));
 }
