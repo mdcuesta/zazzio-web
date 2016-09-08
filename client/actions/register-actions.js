@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher';
 import * as AccountApi from '../apis/account-api';
 import RegisterConstants from '../constants/register-constants';
 
-class RegisterActions {
+export class RegisterActions {
   quickRegisterBuyer(account) {
     AccountApi.quickRegisterBuyer(account);
   }

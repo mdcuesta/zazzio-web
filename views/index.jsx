@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultLayout from './layout';
-import NavBar from './components/navbar';
+import NavBar from './components/navbar/navbar';
 
 /**
  * Index View
@@ -11,9 +11,10 @@ export default function Index(props) {
       title={props.title}
       jsbundle="/javascripts/index.js"
       cssbundle="/stylesheets/index.css"
-      authenticated={props.isUserAuthenticated}
+      authenticated={props.authenticated}
+      csrfToken={props.csrfToken}
     >
-      <NavBar isUserAuthenticated={props.isUserAuthenticated} />
+      <NavBar authenticated={props.authenticated} />
       <div id="home-search" />
       <div id="content" />
     </DefaultLayout>
@@ -21,6 +22,13 @@ export default function Index(props) {
 }
 
 Index.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  isUserAuthenticated: React.PropTypes.bool,
+  title: React.PropTypes.string,
+  authenticated: React.PropTypes.bool,
+  csrfToken: React.PropTypes.string,
+};
+
+Index.defaultProps = {
+  title: '',
+  authenticated: false,
+  csrfToken: null,
 };

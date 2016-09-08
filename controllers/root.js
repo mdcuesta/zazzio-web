@@ -1,15 +1,15 @@
 import { Router } from 'express';
 import { Authenticated } from '../utilities/security';
 
-const authenticated = Authenticated;
-
 export const TITLE = 'Zazzio - Property Finder';
+
+const authenticated = Authenticated;
 
 export function index(req, res) {
   res.render('index', {
     title: TITLE,
-    isUserAuthenticated: authenticated(req),
-    userId: req.user,
+    authenticated: authenticated(req),
+    csrfToken: req.csrfToken(),
   });
 }
 

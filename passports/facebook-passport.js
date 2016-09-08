@@ -41,6 +41,9 @@ export default function configure() {
               refreshToken,
               email,
             });
+            // TODO
+            // Do we need to set confirm true for facebook users?
+            newUser.confirm();
             /* eslint-disable */
             newUser.save()
             .then((doc) => done(null, doc))

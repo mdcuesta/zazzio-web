@@ -1,6 +1,6 @@
 import Validator from 'validator';
 import React, { Component } from 'react';
-import RegisterActions from '../../actions/register-actions';
+import SignUpActions from '../../actions/register-actions';
 import Store from '../../stores/quick-register-store';
 import FormErrorLabel from '../common/form-error-label';
 
@@ -102,7 +102,7 @@ export default class RegisterPanel extends Component {
       } else if (!validator.isEmail(value)) {
         error = EMAIL_ADDRESS_INVALID;
       } else {
-        RegisterActions.checkAccountExistence(this.state.email.value);
+        SignUpActions.checkAccountExistence(this.state.email.value);
       }
       state = {
         email: {
@@ -176,7 +176,7 @@ export default class RegisterPanel extends Component {
         signUpText: 'Signing up....',
         signingUp: true,
       });
-      RegisterActions.quickRegisterBuyer({
+      SignUpActions.quickRegisterBuyer({
         email: this.state.email.value,
         password: this.state.password.value,
         firstName: this.state.firstName.value,

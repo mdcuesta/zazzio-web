@@ -1,5 +1,5 @@
 import ErrorActions from '../actions/error-actions';
-import RegisterActions from '../actions/register-actions';
+import SignUpActions from '../actions/register-actions';
 
 /**
  * Buyer quick register
@@ -14,7 +14,7 @@ export function quickRegisterBuyer(data) {
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
-    RegisterActions.quickRegisterBuyerComplete({
+    SignUpActions.quickRegisterBuyerComplete({
       data: responseData,
       statusText,
       status: xhr.status,
@@ -37,7 +37,7 @@ export function registerBuyer(data) {
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
-    RegisterActions.quickRegisterBuyerComplete({
+    SignUpActions.quickRegisterBuyerComplete({
       data: responseData,
       statusText,
       status: xhr.status,
@@ -57,7 +57,7 @@ export function accountExists(email) {
     }),
     contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
-    RegisterActions.checkAccountExistenceComplete({
+    SignUpActions.checkAccountExistenceComplete({
       data: responseData,
       statusText,
       status: xhr.status,

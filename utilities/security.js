@@ -1,5 +1,7 @@
+import csrf from 'csurf';
 import { ensureLoggedIn } from 'connect-ensure-login';
 
+const csrfProtection = csrf({ cookie: true });
 
 export function Secure(options) {
   let url = '/login';
@@ -26,6 +28,9 @@ export function BuyerSecure(options) {
   };
 }
 
+export function CsrfProtected() {
+  return csrfProtection;
+}
 /**
  * Checks if the current request is authenticated
  * @param {request} request

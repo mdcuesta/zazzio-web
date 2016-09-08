@@ -1,9 +1,14 @@
 import React from 'react';
+import AuthenticatedButtons from './right-authenticated-buttons';
+import UnAuthenticatedButtons from './right-unauthenticated-buttons';
 
 /**
  * NavBar
  */
 export default function NavBar(props) {
+  const navBarRightContent = props.authenticated
+    ? (<AuthenticatedButtons />)
+    : (<UnAuthenticatedButtons />);
   return (
     <div data-sticky-container>
       <div
@@ -30,7 +35,7 @@ export default function NavBar(props) {
               <li><a href="/sell">Sell</a></li>
             </ul>
           </div>
-          <NavBarRight isUserAuthenticated={props.isUserAuthenticated} />
+          {navBarRightContent}
         </div>
       </div>
     </div>
@@ -38,45 +43,10 @@ export default function NavBar(props) {
 }
 
 NavBar.propTypes = {
-  isUserAuthenticated: React.PropTypes.bool,
+  authenticated: React.PropTypes.bool,
 };
 
-function NavBarRight(props) {
-  const content = props.isUserAuthenticated
-    ? (
-    <div
-      className="title-bar-right"
-      id="title-bar-right"
-    />
-    )
-    : (
-    <div
-      className="title-bar-right"
-      id="title-bar-right"
-    >
-      <a
-        href="/login"
-        type="button"
-        className="button link-button"
-      >
-        Log In
-      </a>
-      <a
-        href="/sign-up"
-        type="button"
-        className="z-musturd button link-button hollow"
-      >
-        Sign Up
-      </a>
-    </div>
-    );
-  return content;
-}
-
-NavBarRight.propTypes = {
-  isUserAuthenticated: React.PropTypes.bool,
+NavBar.defaultProps = {
+  authenticated: false,
 };
 
-NavBarRight.defaultProps = {
-  isUserAuthenticated: false,
-};

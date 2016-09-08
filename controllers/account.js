@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Validation from 'express-validation';
 import Promise from 'bluebird';
+import { CsrfProtected } from '../utilities/security';
 import User from '../models/user';
 import * as MailService from '../services/mail-service';
 import { BuyerQuickSignUpValidation } from './validations/sign-up-validations';
@@ -11,6 +12,7 @@ const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for thi
 
 const validate = Validation;
 const mailService = MailService;
+const csrfProtected = CsrfProtected;
 
 export function signUp(req, res, next) {
   const emailExists = Promise.promisify(mailService.emailExists);
@@ -119,10 +121,13 @@ const expressRouter = Router;
 const router = expressRouter();
 
 router.post('/sign-up',
+  csrfProtected(),
   validate(BuyerQuickSignUpValidation),
   signUp);
 
-router.post('/exists', accountExists);
+router.post('/exists',
+  csrfProtected(),
+  accountExists);
 
 /**
  * Exports router as default

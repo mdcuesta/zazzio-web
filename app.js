@@ -7,8 +7,10 @@ import BodyParser from 'body-parser';
 import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
 import Session from 'express-session';
+import Compression from 'compression';
 import Raygun from 'raygun';
-
+import CSurf from 'csurf';
+import Helmet from 'helmet';
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
@@ -20,10 +22,13 @@ const path = Path;
 const favicon = FavIcon;
 const logger = Logger;
 const cookieParser = CookieParser;
+const csrf = CSurf;
 const bodyParser = BodyParser;
 const expressReactViews = ExpressReactViews;
 const sassMiddleWare = SassMiddleWare;
 const session = Session;
+const compression = Compression;
+const helmet = Helmet;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
@@ -50,6 +55,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(csrf({ cookie: true }));
 
 app.use(sassMiddleWare({
   src: path.join(__dirname, 'styles'),
@@ -59,11 +65,14 @@ app.use(sassMiddleWare({
   prefix: '/stylesheets',
 }));
 
+app.use(compression());
+app.use(helmet());
 app.set('trust proxy', 1); // trust only first proxy
 app.use(session({
   secret: process.env.SESSION_SECRET || 'anonymous penguin',
   resave: false,
   saveUninitialized: true,
+  name: 'zazz-io-id',
   cookie: {
     secure: environment === 'production',
   },
@@ -103,7 +112,16 @@ if (environment === 'development') {
 }
 
 // production raygun logger
-app.use(raygun.expressHandler);
+raygun.user = (req) => {
+  if (req.user) {
+    return req.user;
+  }
+  return -1;
+};
+
+if (environment === 'production') {
+  app.use(raygun.expressHandler);
+}
 
 // production error handler
 // no stacktraces leaked to user

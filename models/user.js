@@ -1,4 +1,6 @@
 import { Schema } from 'mongoose';
+import Promise from 'bluebird';
+import * as AutoIncrement from 'mongoose-auto-increment';
 import * as Crypto from '../utilities/crypto';
 import * as DataProvider from '../utilities/data-provider';
 
@@ -44,7 +46,7 @@ const userSchema = new Schema({
     default: true,
     required: true,
   },
-  confirmed: {
+  isConfirmed: {
     type: Boolean,
     required: true,
     default: false,
@@ -53,6 +55,7 @@ const userSchema = new Schema({
   dateModified: Date,
 });
 
+// hooks
 userSchema.pre('save', function preSave(next) {
   this.dateCreated = new Date();
   next();
@@ -63,12 +66,13 @@ userSchema.pre('update', function preUpdate(next) {
   next();
 });
 
+// methods
 /**
  * Confirm account
  */
 userSchema.methods.confirm = function confirm() {
-  this.confirmed = true;
-  return this.confirmed;
+  this.isConfirmed = true;
+  return this.isConfirmed;
 };
 
 /**
@@ -121,6 +125,31 @@ userSchema.methods.setFacebookCredentials = function setFacebookCredentials(cred
   this.facebook.name = `${credentials.name.givenName} ${credentials.name.familyName}`;
 };
 
+// statics
+userSchema.statics.getUserProfile = function getUserProfile(userId) {
+  return new Promise((resolve, reject) => {
+    this.findOne({ _id: userId }, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({
+          email: doc.email,
+          firstName: doc.firstName,
+          lastName: doc.lastName,
+          middleName: doc.middleName,
+          displayName: doc.displayName,
+          gender: doc.gender,
+          isBuyer: doc.isBuyer,
+          isConfirmed: doc.isConfirmed,
+        });
+      }
+    });
+  });
+};
+
+// export
 const db = DataProvider.getConnection();
+AutoIncrement.initialize(db);
+userSchema.plugin(AutoIncrement.plugin, 'User');
 const userModel = db.model('User', userSchema);
 export default userModel;
