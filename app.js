@@ -8,9 +8,9 @@ import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
 import Session from 'express-session';
 import Compression from 'compression';
-import Raygun from 'raygun';
 import CSurf from 'csurf';
 import Helmet from 'helmet';
+import Raven from 'raven';
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
@@ -29,12 +29,10 @@ const sassMiddleWare = SassMiddleWare;
 const session = Session;
 const compression = Compression;
 const helmet = Helmet;
+const raven = Raven;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
-const raygun = new Raygun.Client().init({
-  apiKey: process.env.RAYGUN_APIKEY || 'ZN1WEhQMOEsRFzA99mLPLg==',
-});
 const environment = app.get('env');
 
 // view engine setup
@@ -78,6 +76,12 @@ app.use(session({
   },
 }));
 
+
+if (environment === 'production') {
+  app.use(raven.middleware.express
+    .requestHandler(process.env.SENTRY_CLIENT_KEY ||
+      'https://b821575399244c389156af415401c5f5:0982d53a3a6949468a261fc8c2602f32@sentry.io/97962'));
+}
 authConfig(app);
 pathConfig(app);
 routeConfig(app);
@@ -112,15 +116,12 @@ if (environment === 'development') {
 }
 
 // production raygun logger
-raygun.user = (req) => {
-  if (req.user) {
-    return req.user;
-  }
-  return -1;
-};
+
 
 if (environment === 'production') {
-  app.use(raygun.expressHandler);
+  app.use(raven.middleware.express
+    .errorHandler(process.env.SENTRY_CLIENT_KEY ||
+      'https://b821575399244c389156af415401c5f5:0982d53a3a6949468a261fc8c2602f32@sentry.io/97962'));
 }
 
 // production error handler

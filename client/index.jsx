@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import requestFilter from './filters';
 import './facebook-sdk';
+import './raven';
 import HomeSearch from './components/home-search/home-search';
 import UITransformations from './user-ui-transformations';
 
