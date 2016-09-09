@@ -1,7 +1,7 @@
  /* eslint-disable */
  window.fbAsyncInit = function() {
   FB.init({
-    appId      : '606312066216240',
+    appId      : $('meta[name="fb-app-id"]').attr('content'),
     xfbml      : true,
     version    : 'v2.7'
   });
@@ -9,9 +9,6 @@
   /*FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
       console.log(response.authResponse.accessToken);
-    }
-    else {
-      FB.login();
     }
   });*/
 };

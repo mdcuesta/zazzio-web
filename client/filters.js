@@ -8,6 +8,4 @@ function setCSRFToken(securityToken) {
   });
 }
 
-export default () => {
-  setCSRFToken($('meta[name="csrf-token"]').attr('content'));
-};
+setCSRFToken($('meta[name="csrf-token"]').attr('content'));

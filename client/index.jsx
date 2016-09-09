@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import requestFilter from './filters';
+import './filters';
 import './facebook-sdk';
 import './raven';
 import HomeSearch from './components/home-search/home-search';
 import UITransformations from './user-ui-transformations';
-
-// execute request filter to add csrf in every request
-requestFilter();
 
 // home search banner
 const homeSearch = document.createElement('div');

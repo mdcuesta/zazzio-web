@@ -28,6 +28,7 @@ export default class LoginPanel extends Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.getTextInputClass = this.getTextInputClass.bind(this);
     this.login = this.login.bind(this);
+    this.popFBLogin = this.popFBLogin.bind(this);
     Store.addChangeListener(this.onChange);
   }
 
@@ -73,6 +74,15 @@ export default class LoginPanel extends Component {
 
   register() {
     $('#panel-register-link').click();
+  }
+
+  popFBLogin() {
+    const height = 255;
+    const width = 475;
+    const top = ($(window).height() / 2) - (height / 2);
+    const left = ($(window).width() / 2) - (width / 2);
+    window.open('/auth/popup/facebook', 'Facebook Login',
+      `height=${height},width=${width}, top=${top}, left=${left}`);
   }
 
   login() {
@@ -187,14 +197,14 @@ export default class LoginPanel extends Component {
         <section className="section-facebook-login">
           <div className="divider"><span>or</span></div>
           <div className="small-12 medium-12 large-12">
-            <a
+            <button
               id="btn-login-facebook"
-              href={`/auth/facebook?returnTo=${encodeURI(window.location.href)}`}
+              onClick={this.popFBLogin}
               className="expanded facebook-blue button modal-login-button"
             >
               <i className="fi-social-facebook login-facebook-icon" />
                     Log in with Facebook
-            </a>
+            </button>
           </div>
         </section>
         <section className="section-register">

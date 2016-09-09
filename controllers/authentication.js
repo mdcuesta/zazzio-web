@@ -11,6 +11,10 @@ export function authReturn(req, res) {
   }
 }
 
+export function facebookAuthReturn(req, res) {
+  res.render('fb-login-return-popup');
+}
+
 const passport = Passport;
 const secure = Secure;
 const csrfProtected = CsrfProtected;
@@ -77,12 +81,14 @@ router.get('/facebook/return', (req, res, next) => {
 }, authReturn); **/
 
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+router.get('/popup/facebook',
+  passport.authenticate('facebook', {
+    scope: ['email'],
+    display: 'popup',
+  }));
 router.get('/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/login' }),
-  authReturn);
-
-router.get('/popup/facebook',
-  passport.authenticate('facebook', { display: 'popup' }));
+  facebookAuthReturn);
 
 // User Authenticated Check for client side
 router.get('/authenticated', secure(), (req, res) => {
