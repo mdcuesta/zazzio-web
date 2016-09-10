@@ -52,7 +52,8 @@ module.exports = [{
         "process.env": { 
            NODE_ENV: JSON.stringify("production")
          }
-      })
+      }),
+      new webpack.optimize.DedupePlugin()
     ]
   }, {
     description: 'Transpile server scripts to native javascript and copy required files.',
