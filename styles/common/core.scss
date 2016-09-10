@@ -1,31 +1,25 @@
 @charset 'utf-8';
 
-@import '../foundation/settings';
-@import '../foundation/foundation';
-@import '../foundation/foundation-icons';
-@import '../motion-ui/motion-ui';
+// Core variables and mixins
+@import 'variables';
+@import '../bootstrap/mixins';
 
-@include foundation-global-styles;
-@include foundation-grid;
-@include foundation-flex-grid;
-@include foundation-typography;
-@include foundation-forms;
-@include foundation-button;
-@include foundation-callout;
-@include foundation-visibility-classes;
-@include foundation-title-bar;
-@include foundation-menu;
-@include foundation-menu-icon;
-@include foundation-tabs;
-@include foundation-dropdown;
-@include foundation-close-button;
-@include foundation-reveal;
-@include motion-ui-transitions;
-@include motion-ui-animations;
+// Reset and dependencies
+@import '../bootstrap/normalize';
+@import '../bootstrap/print';
 
-.text-align-left {
-  text-align: left;
-}
+// Core CSS
+@import '../bootstrap/reboot';
+@import '../bootstrap/type';
+@import '../bootstrap/images';
+@import '../bootstrap/code';
+@import '../bootstrap/grid';
+@import '../bootstrap/tables';
+@import '../bootstrap/forms';
+@import '../bootstrap/buttons';
+@import '../bootstrap/media';
+@import '../bootstrap/utilities';
+@import '../bootstrap/close';
 
 .text-align-right {
   text-align: right;
@@ -33,4 +27,30 @@
 
 .text-align-center {
   text-align: center;
+}
+
+$ddd: #ddd !default;
+$aaa: #aaa !default;
+
+.divider {
+  color: $ddd;
+  font-weight: 300;
+  margin: .7em auto;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+
+  &::before,
+  &::after {
+    border-bottom: 1px solid;
+    content: '';
+    display: inline-block;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    width: 50%;
+  }
+
+  &::after {
+    margin: 0 -55% 0 .5em;
+  }
 }

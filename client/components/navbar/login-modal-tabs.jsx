@@ -1,6 +1,4 @@
 import React from 'react';
-import '../../core';
-import '../../../node_modules/foundation-sites/dist/plugins/foundation.tabs';
 import LoginPanel from './login-panel';
 import RegisterPanel from './register-panel';
 
@@ -14,41 +12,45 @@ export default function LoginModalTabs(props) {
   return (
     <div>
       <ul
-        className="tabs login-modal-tabs"
-        data-tabs id="login-modal-tabs"
+        className="nav nav-tabs login-modal-tabs"
+        role="tablist"
       >
-        <li className={`tabs-title${(props.modalType === 'login' ? ' is-active' : '')}`}>
+        <li
+          className="nav-item"
+          role="tab"
+        >
           <a
-            href="#panel-signin"
-            aria-selected={props.modalType === 'login'}
-            role="option"
+            id="login-panel-tab"
+            className={`${props.modalType === 'login' ? 'active' : ''}`}
+            role="button"
+            onClick={() => props.setModalType('login')}
           >
             {LOGIN}
           </a>
         </li>
-        <li className={`tabs-title${(props.modalType === 'register' ? ' is-active' : '')}`}>
+        <li
+          className="nav-item"
+          role="tab"
+        >
           <a
-            href="#panel-signup"
-            aria-selected={props.modalType === 'register'}
-            id="panel-register-link"
-            role="option"
+            id="signup-panel-tab"
+            className={`${props.modalType === 'register' ? 'active' : ''}`}
+            role="button"
+            onClick={() => props.setModalType('register')}
           >
-              {REGISTER}
+            {REGISTER}
           </a>
         </li>
       </ul>
-      <div
-        className="tabs-content login-modal-tabs-content"
-        data-tabs-content="login-modal-tabs"
-      >
+      <div className="login-modal-tabs-content">
         <div
-          className={`tabs-panel${(props.modalType === 'login' ? ' is-active' : '')}`}
+          style={(props.modalType === 'register' ? { display: 'none' } : {})}
           id="panel-signin"
         >
-          <LoginPanel />
+          <LoginPanel setModalType={props.setModalType} />
         </div>
         <div
-          className={`tabs-panel${(props.modalType === 'register' ? ' is-active' : '')}`}
+          style={(props.modalType === 'login' ? { display: 'none' } : {})}
           id="panel-signup"
         >
           <RegisterPanel />
@@ -60,4 +62,5 @@ export default function LoginModalTabs(props) {
 
 LoginModalTabs.propTypes = {
   modalType: React.PropTypes.string.isRequired,
+  setModalType: React.PropTypes.func.isRequired,
 };

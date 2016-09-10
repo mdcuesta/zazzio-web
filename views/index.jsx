@@ -9,8 +9,8 @@ export default function Index(props) {
   return (
     <DefaultLayout
       title={props.title}
-      jsbundle="/javascripts/index.js"
-      cssbundle="/stylesheets/index.css"
+      jsbundle="/javascripts/home.js"
+      cssbundle="/stylesheets/home.css"
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
     >

@@ -3,13 +3,13 @@ import React from 'react';
 export default function RightAuthenticatedButtons() {
   return (
     <div
-      className="title-bar-right"
-      id="title-bar-right"
+      className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
+      id="navbar-right"
     >
       <a
         href="/logout"
         type="button"
-        className="alert button link-button hollow"
+        className="btn btn-warning"
       >
         Log out
       </a>

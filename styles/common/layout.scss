@@ -1,33 +1,24 @@
 @charset 'utf-8';
 
-.nav-bar {
-  width: 100%;
-}
+.navbar-main {
+  background: $brand-dark-blue;
 
-.nav-bar-main {
-  background: $z-dark-blue;
-
-  .link-button {
-    margin-bottom: 0;
-    margin-right: 5px;
-    width: 100px;
-  }
-
-  .menu {
-    a {
+  .nav-item {
+    .nav-link {
       color: $white;
-      font-size: 1.1rem;
     }
   }
 
-  .zazzio-logo-link {
-    padding: 0;
+  .navbar-brand {
+    img {
+      height: 30px;
+    }
   }
 
-  .zazzio-logo {
-    height: 40px;
-    margin: 0;
-    margin-right: 0;
-    padding: 0;
+  .navbar-right {
+    .btn {
+      margin-left: 5px;
+      width: 100px;
+    }
   }
 }

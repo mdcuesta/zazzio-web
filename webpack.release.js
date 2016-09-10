@@ -15,7 +15,7 @@ var jsAssetsPath = path.join(distAssets, 'javascripts');
 module.exports = [{
     description: 'Transpile jsx to native javascript that runs on browsers.',
     entry: {
-      index: jsxPath + '/index.jsx'
+      home: jsxPath + '/home.jsx'
     },
     output: {
       path: jsAssetsPath,
@@ -40,7 +40,8 @@ module.exports = [{
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
-        'window.jQuery': 'jquery'
+        'window.jQuery': 'jquery',
+        'window.Tether': 'tether'
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {

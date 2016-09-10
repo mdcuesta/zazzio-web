@@ -34,22 +34,15 @@ export default class HomeSearch extends Component {
   }
 
   render() {
-    const subLabel =
-    (
-      <div className="title-bar nav-bar search-form-sub-label">
-        <div className="title-bar-left">&nbsp;</div>
-        <div className="title-bar-right" />
-      </div>
-    );
-
     const searchBannerClass =
-      `home-search home-search-banner-${this.state.selectedSearchType.searchType.toLowerCase()}`;
+      'home-search animated fadeIn ' +
+      `home-search-banner-${this.state.selectedSearchType.searchType.toLowerCase()}`;
     return (
       <div
         className={searchBannerClass}
         id="home-search"
       >
-        <div className="expanded row">
+        <div className="container-fluid">
           <HomeSearchPanelTabs
             selectedSearchType={this.state.selectedSearchType.searchType}
             searchTypes={this.state.searchTypes}
@@ -60,7 +53,6 @@ export default class HomeSearch extends Component {
             propertyTypes={this.state.selectedSearchType.propertyTypes}
           />
         </div>
-        {subLabel}
       </div>
     );
   }

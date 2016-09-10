@@ -4,12 +4,12 @@ import HomeSearchPanelTab from './home-search-panel-tab';
 export default function HomeSearchPanelTabs(props) {
   return (
     <div
-      className={'small-12 small-centered medium-12 '
-      + 'medium-centered large-8 large-centered columns'}
+      className="col-xs-12 col-sm-12 col-md-12 col-lg-10 offset-lg-1"
     >
       <ul
-        className="tabs search-tabs-titles"
-        data-tabs id="search-tabs"
+        className="nav search-tabs"
+        id="search-tabs"
+        role="tablist"
       >
         {props.searchTypes.map((searchType) => (
           <HomeSearchPanelTab

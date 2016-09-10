@@ -76,9 +76,9 @@ export default class RegisterPanel extends Component {
   }
 
   getTextInputClass(key) {
-    return (this.state[key].hasError)
-      ? 'is-invalid-input'
-      : '';
+    return (this.state[key].hasError === true)
+      ? 'form-control form-control-danger'
+      : 'form-control';
   }
 
   handleBlur(e) {
@@ -210,10 +210,14 @@ export default class RegisterPanel extends Component {
             data-abide
             noValidate
           >
-            <div className="small-12 medium-12 large-12">
-              <h5>Sign up to experience awesome</h5>
+            <div className="col col-sm-12 col-md-12 col-lg-12">
+              <h5>Sign up for awesome</h5>
+              <hr />
             </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 type="text"
                 placeholder="Email Address"
@@ -226,7 +230,10 @@ export default class RegisterPanel extends Component {
               />
               <EmailErrorLabel error={this.state.email.error} />
             </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 type="password"
                 placeholder="Password"
@@ -239,7 +246,10 @@ export default class RegisterPanel extends Component {
               />
               <FormErrorLabel error={this.state.password.error} />
             </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.firstName.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 type="text"
                 placeholder="Firstname"
@@ -252,7 +262,10 @@ export default class RegisterPanel extends Component {
               />
               <FormErrorLabel error={this.state.firstName.error} />
             </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.lastName.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 type="text"
                 placeholder="Lastname"
@@ -265,30 +278,31 @@ export default class RegisterPanel extends Component {
               />
               <FormErrorLabel error={this.state.lastName.error} />
             </div>
-            <div className="small-12 medium-12 large-12">
-              <span className="content-span">By clicking Sign Up you agree to our&nbsp;
-                <a href="/terms">Terms</a> of use.
-              </span>
-            </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-btn-sign-up col-sm-12 ' +
+              'col-md-12 col-lg-12 form-group text-align-center'}
+            >
               <button
-                className="expanded success button modal-login-button"
+                className="btn btn-primary btn-sign-up"
                 type="button"
                 onClick={this.register}
               >
                 {this.state.signUpText}
               </button>
+              <span className="link-span">By Signing up you agree to our&nbsp;
+                <a href="/terms">Terms</a> of use.
+              </span>
             </div>
           </form>
         </section>
         <section className="section-facebook-sign-up">
           <div className="divider"><span>or</span></div>
-          <div className="small-12 medium-12 large-12">
+          <div>
             <a
               href="/sign-up/facebook"
-              className="expanded facebook-blue button modal-login-button"
+              className="btn btn-signup-facebook"
             >
-              <i className="fi-social-facebook login-facebook-icon" />
+              <i className="fa fa-thumbs-o-up" />&nbsp;
               Sign Up with Facebook
             </a>
           </div>
@@ -302,11 +316,14 @@ function EmailErrorLabel(props) {
   if (props.error !== EMAIL_ADDRESS_REQUIRED
     && props.error !== EMAIL_ADDRESS_INVALID
     && typeof props.error !== 'undefined') {
+    if (props.error === '') {
+      return (<FormErrorLabel error="" />);
+    }
     return (
       <span
-        className={`form-error${(props.error !== '' ? ' is-visible' : '')}`}
+        className="error-span form-control-feedback"
       >
-        An account is already associated with this email.&nbsp;
+        An account is already associated with this email address.&nbsp;
         <a href="/forgot-password">Forgot your password?</a>
       </span>
     );
