@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import '../../core';
-import '../../../node_modules/foundation-sites/dist/plugins/foundation.reveal';
 import LoginModal from './login-modal';
 import Store from '../../stores/quick-register-store';
 
@@ -49,21 +47,25 @@ export default class NavBarRight extends Component {
   render() {
     return (
       <div
-        className="title-bar-right"
-        id="title-bar-right"
+        className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
+        id="navbar-right"
       >
         <button
           type="button"
-          className="button link-button"
-          data-open="login-modal"
+          className="btn btn-primary"
+          data-toggle="modal"
+          data-target="#login-modal"
+          data-backdrop="static"
           onClick={() => this.setModalType(LOGIN)}
         >
           Log In
         </button>
         <button
           type="button"
-          className="z-musturd button link-button hollow"
-          data-open="login-modal"
+          className="btn btn-warning"
+          data-toggle="modal"
+          data-target="#login-modal"
+          data-backdrop="static"
           onClick={() => this.setModalType(REGISTER)}
         >
           Sign Up
@@ -71,6 +73,7 @@ export default class NavBarRight extends Component {
         <LoginModal
           id={LOGIN_MODAL_ID}
           modalType={this.state.modalType}
+          setModalType={this.setModalType}
         />
       </div>
     );

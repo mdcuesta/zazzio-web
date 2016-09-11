@@ -3,20 +3,18 @@ import React from 'react';
 export default function RightUnAuthenticatedButtons() {
   return (
     <div
-      className="title-bar-right"
-      id="title-bar-right"
+      className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
+      id="navbar-right"
     >
       <a
         href="/login"
-        type="button"
-        className="button link-button"
+        className="btn btn-primary"
       >
         Log In
       </a>
       <a
         href="/sign-up"
-        type="button"
-        className="z-musturd button link-button hollow"
+        className="btn btn-warning"
       >
         Sign Up
       </a>

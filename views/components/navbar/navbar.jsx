@@ -10,35 +10,30 @@ export default function NavBar(props) {
     ? (<AuthenticatedButtons />)
     : (<UnAuthenticatedButtons />);
   return (
-    <div data-sticky-container>
-      <div
-        className="z-dark-blue title-bar nav-bar nav-bar-main"
-        data-options="marginTop:0;"
-      >
-        <div className="small-12 medium-12 large-12 large-centered columns">
-          <div className="title-bar-left middle">
-            <ul className="menu">
-              <li>
-                <a
-                  className="zazzio-logo-link"
-                  href="/"
-                >
-                  <img
-                    className="zazzio-logo"
-                    src="images/zazzio-logo-small-white.png"
-                    alt="zazzio"
-                  />
-                </a>
-              </li>
-              <li><a href="/buy">Buy</a></li>
-              <li><a href="/rent">Rent</a></li>
-              <li><a href="/sell">Sell</a></li>
-            </ul>
-          </div>
-          {navBarRightContent}
-        </div>
-      </div>
-    </div>
+    <nav
+      className="navbar navbar-main"
+      data-options="marginTop:0;"
+    >
+      <a className="navbar-brand" href="/">
+        <img
+          className="zazzio-logo"
+          src="images/zazzio-logo-small-white.png"
+          alt="zazzio"
+        />
+      </a>
+      <ul className="nav navbar-nav">
+        <li className="nav-item">
+          <a className="nav-link" href="/buy">Buy</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/rent">Rent</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/sell">Sell</a>
+        </li>
+      </ul>
+      {navBarRightContent}
+    </nav>
   );
 }
 

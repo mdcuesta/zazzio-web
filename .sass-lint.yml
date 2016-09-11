@@ -2,8 +2,10 @@ files:
   include: 'styles/**/*.s+(a|c)ss'
   ignore: 
     - 'node_modules/**/*.s+(a|c)ss'
-    - 'styles/motion-ui/**/*.s+(a|c)ss'
-    - 'styles/foundation/**/*.s+(a|c)ss'
+    - 'styles/_backup/**/*.s+(a|c)ss'
+    - 'styles/bootstrap/**/*.s+(a|c)ss'
+    - 'stypes/common/variables.scss'
+    - 'stypes/common/_octicons.scss'
 severity: error
 
 linters:

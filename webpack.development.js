@@ -7,7 +7,7 @@ var jsPath = path.join(__dirname, 'assets/javascripts');
 module.exports = [{
     description: 'Transpile jsx/react to native javascript that runs on browsers.',
     entry: {
-      index: jsxPath + '/index.jsx'
+      home: jsxPath + '/home.jsx'
     },
     output: {
       path: jsPath,
@@ -32,7 +32,8 @@ module.exports = [{
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
-        'window.jQuery': 'jquery'
+        'window.jQuery': 'jquery',
+        'window.Tether': 'tether'
       }),
       new webpack.optimize.DedupePlugin()
     ]

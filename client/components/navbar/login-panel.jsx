@@ -10,7 +10,7 @@ export default class LoginPanel extends Component {
       hasError: false,
       message: '',
       loggingIn: false,
-      loginText: 'Login',
+      loginText: 'Log in',
       email: {
         value: '',
         error: '',
@@ -22,7 +22,6 @@ export default class LoginPanel extends Component {
         hasError: false,
       },
     };
-    this.register = this.register.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -48,13 +47,13 @@ export default class LoginPanel extends Component {
       message,
       email: {
         value: emailValue,
-        error: '',
-        hasError: false,
+        error: message === 'Invalid username' ? 'Invalid username' : '',
+        hasError: message === 'Invalid username',
       },
       password: {
         value: '',
-        error: '',
-        hasError: false,
+        error: message === 'Invalid password' ? 'Invalid password' : '',
+        hasError: message === 'Invalid password',
       },
       loggingIn: false,
       loginText: 'Login',
@@ -68,12 +67,8 @@ export default class LoginPanel extends Component {
 
   getTextInputClass(key) {
     return (this.state[key].hasError)
-      ? 'is-invalid-input'
-      : '';
-  }
-
-  register() {
-    $('#panel-register-link').click();
+      ? 'form-control form-control-danger'
+      : 'form-control';
   }
 
   popFBLogin() {
@@ -151,11 +146,14 @@ export default class LoginPanel extends Component {
             method="post"
             action={`/auth/local?returnTo=${encodeURI(window.location.href)}`}
           >
-            <div className="small-12 medium-12 large-12">
-              <h5>Log in to experience awesome</h5>
+            <div className="col col-sm-12 col-md-12 col-lg-12">
+              <h5>Experience awesome</h5>
+              <hr />
             </div>
-            <FormErrorLabel error={this.state.message} />
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 id="txt-login-email"
                 type="text"
@@ -166,8 +164,12 @@ export default class LoginPanel extends Component {
                 onBlur={this.handleBlur}
                 className={emailClass}
               />
+              <FormErrorLabel error={this.state.email.error} />
             </div>
-            <div className="small-12 medium-12 large-12">
+            <div
+              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+            >
               <input
                 id="txt-login-password"
                 type="password"
@@ -178,14 +180,24 @@ export default class LoginPanel extends Component {
                 onBlur={this.handleBlur}
                 className={passwordClass}
               />
+              <FormErrorLabel error={this.state.password.error} />
             </div>
-            <div className="small-12 medium-12 large-12 text-align-right">
-              <a href="/forgot-password">Forgot Password</a>
+            <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
+              <a
+                href="/forgot-password"
+                className="link-span"
+              >
+                Forgot Password?
+              </a>
             </div>
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            <div className="small-12 medium-12 large-12">
+            <input
+              type="hidden"
+              name="_csrf"
+              value={csrfToken}
+            />
+            <div className="form-group">
               <button
-                className="expanded z-musturd button modal-login-button"
+                className="btn btn-success btn-login"
                 type="button"
                 onClick={this.login}
               >
@@ -196,24 +208,34 @@ export default class LoginPanel extends Component {
         </section>
         <section className="section-facebook-login">
           <div className="divider"><span>or</span></div>
-          <div className="small-12 medium-12 large-12">
+          <div className="form-group">
             <button
               id="btn-login-facebook"
               onClick={this.popFBLogin}
-              className="expanded facebook-blue button modal-login-button"
+              className="btn btn-login-facebook"
             >
-              <i className="fi-social-facebook login-facebook-icon" />
-                    Log in with Facebook
+              <i className="fa fa-thumbs-o-up" />&nbsp;
+              Log in with Facebook
             </button>
           </div>
         </section>
         <section className="section-register">
-          <div className="small-12 medium-12 large-12">
-            <span className="content-span">Don"t have an account?&nbsp;</span>
-            <a href="/sign-up" onClick={this.register}>Sign Up</a>
+          <div>
+            <span className="link-span">Don"t have an account?&nbsp;</span>
+            <span
+              onClick={() => this.props.setModalType('register')}
+              className="link link-span"
+              role="button"
+            >
+              Sign Up
+            </span>
           </div>
         </section>
       </div>
     );
   }
 }
+
+LoginPanel.propTypes = {
+  setModalType: React.PropTypes.func.isRequired,
+};

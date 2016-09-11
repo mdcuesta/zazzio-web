@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import '../../core';
-import '../../../node_modules/foundation-sites/dist/plugins/foundation.toggler';
 import SearchActions from '../../actions/home-search-actions';
 
 
@@ -10,21 +8,26 @@ export default class HomeSearchPanelTab extends Component {
     this.setSelectedSearchType = this.setSelectedSearchType.bind(this);
   }
 
-  /* global Foundation:false */
   setSelectedSearchType() {
     if (this.props.selectedSearchType !== this.props.searchType) {
-      Foundation.Motion.animateIn($('#home-search-heading'), 'fade-in');
+      $('#home-search-heading').animateCss('fadeIn');
     }
     SearchActions.setSelectedSearchType(this.props.searchType);
   }
 
   render() {
+    const linkClass = 'search-tab ' +
+    `nav-item${(this.props.searchType === this.props.selectedSearchType ? ' active' : '')}`;
     return (
-      <li className={(this.props.searchType === this.props.selectedSearchType ? ' is-active' : '')}>
+      <li
+        className={linkClass}
+        role="tab"
+        aria-selected={this.props.searchType === this.props.selectedSearchType}
+      >
         <a
-          onClick={this.setSelectedSearchType}
-          className="button"
           id={`tab-${this.props.searchType}`}
+          onClick={this.setSelectedSearchType}
+          role="button"
         >
             {this.props.label}
         </a>
