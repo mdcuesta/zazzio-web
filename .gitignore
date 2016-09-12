@@ -29,10 +29,8 @@ build/Release
 # Debug log from npm
 npm-debug.log
 
-# Ignore all css/js files under assets/stylesheets
-assets/stylesheets/*.css
-assets/javascripts/*.js
-assets/javascripts/*.js.map
+# Ignore assets
+assets/
 
 # Ignore zazzio.compiled.js
 zazzio.compiled.js
