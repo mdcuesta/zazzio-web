@@ -28,6 +28,7 @@ export default class LoginPanel extends Component {
     this.getTextInputClass = this.getTextInputClass.bind(this);
     this.login = this.login.bind(this);
     this.popFBLogin = this.popFBLogin.bind(this);
+    this.submit = this.submit.bind(this);
     Store.addChangeListener(this.onChange);
   }
 
@@ -134,6 +135,12 @@ export default class LoginPanel extends Component {
     this.setState(state);
   }
 
+  submit(e) {
+    if (e.keyCode === 13) {
+      this.login();
+    }
+  }
+
   render() {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const emailClass = this.getTextInputClass('email');
@@ -142,69 +149,65 @@ export default class LoginPanel extends Component {
     return (
       <div>
         <section className="section-regular-login">
-          <form
-            method="post"
-            action={`/auth/local?returnTo=${encodeURI(window.location.href)}`}
+          <div className="col col-sm-12 col-md-12 col-lg-12">
+            <h5>Experience awesome</h5>
+            <hr />
+          </div>
+          <div
+            className={'col col-sm-12 col-md-12 col-lg-12 ' +
+            `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
           >
-            <div className="col col-sm-12 col-md-12 col-lg-12">
-              <h5>Experience awesome</h5>
-              <hr />
-            </div>
-            <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
-              `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                id="txt-login-email"
-                type="text"
-                placeholder="Email Address"
-                name="email"
-                value={this.state.email.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={emailClass}
-              />
-              <FormErrorLabel error={this.state.email.error} />
-            </div>
-            <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
-              `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                id="txt-login-password"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={this.state.password.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={passwordClass}
-              />
-              <FormErrorLabel error={this.state.password.error} />
-            </div>
-            <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
-              <a
-                href="/forgot-password"
-                className="link-span"
-              >
-                Forgot Password?
-              </a>
-            </div>
             <input
-              type="hidden"
-              name="_csrf"
-              value={csrfToken}
+              id="txt-login-email"
+              type="text"
+              placeholder="Email Address"
+              name="email"
+              value={this.state.email.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              className={emailClass}
             />
-            <div className="form-group">
-              <button
-                className="btn btn-success btn-login"
-                type="button"
-                onClick={this.login}
-              >
-                {this.state.loginText}
-              </button>
-            </div>
-          </form>
+            <FormErrorLabel error={this.state.email.error} />
+          </div>
+          <div
+            className={'col col-sm-12 col-md-12 col-lg-12 ' +
+            `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+          >
+            <input
+              id="txt-login-password"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={this.state.password.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              onKeyDown={this.submit}
+              className={passwordClass}
+            />
+            <FormErrorLabel error={this.state.password.error} />
+          </div>
+          <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
+            <a
+              href="/forgot-password"
+              className="link-span"
+            >
+              Forgot Password?
+            </a>
+          </div>
+          <input
+            type="hidden"
+            name="_csrf"
+            value={csrfToken}
+          />
+          <div className="form-group">
+            <button
+              className="btn btn-success btn-login"
+              type="button"
+              onClick={this.login}
+            >
+              {this.state.loginText}
+            </button>
+          </div>
         </section>
         <section className="section-facebook-login">
           <div className="divider"><span>or</span></div>

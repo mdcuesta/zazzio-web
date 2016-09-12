@@ -51,7 +51,11 @@ const engineOptions = {
 };
 app.engine('jsx', expressReactViews.createEngine(engineOptions));
 
-// uncomment after placing your favicon in /public
+app.use(cors({
+  origin: [process.env.CDN_DISTRIBUTION_URL || '/', process.env.APP_DOMAIN || '/'],
+  optionsSuccessStatus: 200,
+}));
+
 app.use(favicon(path.join(__dirname, `assets/${version}/images`, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -67,10 +71,6 @@ app.use(sassMiddleWare({
   prefix: `/${version}/stylesheets`,
 }));
 
-app.use(cors({
-  origin: process.env.CDN_DISTRIBUTION_URL || '/',
-  optionsSuccessStatus: 200,
-}));
 app.use(compression());
 app.use(helmet());
 app.set('trust proxy', 1); // trust only first proxy

@@ -12,7 +12,7 @@ var appName = 'zazzio';
 var dist = __dirname;
 var distAssets = path.join(dist, 'assets');
 var jsxPath = path.join(__dirname, 'client');
-var jsAssetsPath = path.join(distAssets, 'javascripts');
+var jsAssetsPath = path.join(distAssets, version, 'javascripts');
 
 module.exports = [{
     description: 'Transpile jsx to native javascript that runs on browsers.',
@@ -21,7 +21,7 @@ module.exports = [{
     },
     output: {
       path: jsAssetsPath,
-      filename: '[name]-' + version + '.js'
+      filename: '[name].js'
     },
     module: {
       loaders: [{
@@ -75,6 +75,10 @@ module.exports = [{
           presets: ['es2015', 'stage-0'],
           compact: true
         }
+      }, {
+        test: /\.json$/,
+        loader: 'json',
+        exclude: path.resolve(__dirname, 'node_modules/'),
       }]
     },
     output: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultLayout from './layout';
 import NavBar from './components/navbar/navbar';
-import CDN from '../utilities/cdn';
+import Url from './helpers/url-helper';
 
 /**
  * Index View
@@ -10,8 +10,8 @@ export default function Index(props) {
   return (
     <DefaultLayout
       title={props.title}
-      jsbundle={CDN.url('javascripts/home.js')}
-      cssbundle={CDN.url('stylesheets/home.css')}
+      jsbundle={Url.cdn('javascripts/home.js')}
+      cssbundle={Url.cdn('stylesheets/home.css')}
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
     >
