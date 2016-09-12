@@ -1,8 +1,11 @@
 /* eslint-disable */
 var webpack = require('webpack');
 var path = require('path');
+var pjson = require('./package.json');
+var version = pjson.version;
 var jsxPath = path.join(__dirname, 'client');
-var jsPath = path.join(__dirname, 'assets/javascripts');
+var jsPath = path.join(__dirname, 'assets', version, 'javascripts');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = [{
     description: 'Transpile jsx/react to native javascript that runs on browsers.',
@@ -37,5 +40,17 @@ module.exports = [{
       }),
       new webpack.optimize.DedupePlugin()
     ]
+  }, {
+    description: 'Copy static files to assets folder',
+    context: path.join(__dirname),
+    plugins: [
+      new CopyWebpackPlugin([
+         { from: 'styles/fonts', to: `assets/${version}/fonts` },
+         { from: 'styles/images', to: `assets/${version}/images` },
+      ], { copyUnmodified: false })
+    ],
+    output: {
+      filename: 'test.js'
+    }
   }
 ]

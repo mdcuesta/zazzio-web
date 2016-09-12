@@ -2,10 +2,12 @@
 var webpack = require('webpack');
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
-var copy = require('copy-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var glob = require("glob");
+var pjson = require('./package.json');
 
-const appName = 'zazzio';
+var version = pjson.version;
+var appName = 'zazzio';
 
 var dist = __dirname;
 var distAssets = path.join(dist, 'assets');
@@ -19,7 +21,7 @@ module.exports = [{
     },
     output: {
       path: jsAssetsPath,
-      filename: '[name].js'
+      filename: '[name]-' + version + '.js'
     },
     module: {
       loaders: [{
@@ -84,5 +86,17 @@ module.exports = [{
         compress: { warnings: false }
       })
     ]
+  }, {
+    description: 'Copy static files to assets folder',
+    context: path.join(__dirname),
+    plugins: [
+      new CopyWebpackPlugin([
+         { from: 'styles/fonts', to: `assets/${version}/fonts` },
+         { from: 'styles/images', to: `assets/${version}/images` },
+      ], { copyUnmodified: false })
+    ],
+    output: {
+      filename: 'test.js'
+    }
   }
 ]

@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthenticatedButtons from './right-authenticated-buttons';
 import UnAuthenticatedButtons from './right-unauthenticated-buttons';
+import CDN from '../../../utilities/cdn';
 
 /**
  * NavBar
@@ -17,7 +18,7 @@ export default function NavBar(props) {
       <a className="navbar-brand" href="/">
         <img
           className="zazzio-logo"
-          src="images/zazzio-logo-small-white.png"
+          src={CDN.url('images/zazzio-logo-small-white.png')}
           alt="zazzio"
         />
       </a>
