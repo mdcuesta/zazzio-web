@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Store from '../../stores/authentication-store';
 import AuthActions from '../../actions/authentication-actions';
 import FormErrorLabel from '../common/form-error-label';
+import ModalActions from '../../actions/login-modal-actions';
 
 export default class LoginPanel extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class LoginPanel extends Component {
     this.login = this.login.bind(this);
     this.popFBLogin = this.popFBLogin.bind(this);
     this.submit = this.submit.bind(this);
+    this.setModalType = this.setModalType.bind(this);
     Store.addChangeListener(this.onChange);
   }
 
@@ -64,6 +66,10 @@ export default class LoginPanel extends Component {
       return $('#txt-login-password').focus();
     }
     return $('#txt-login-email').focus();
+  }
+
+  setModalType(modalType) {
+    ModalActions.setModalType(modalType);
   }
 
   getTextInputClass(key) {
@@ -226,7 +232,7 @@ export default class LoginPanel extends Component {
           <div>
             <span className="link-span">Don"t have an account?&nbsp;</span>
             <span
-              onClick={() => this.props.setModalType('register')}
+              onClick={() => this.setModalType('register')}
               className="link link-span"
               role="button"
             >
@@ -238,7 +244,3 @@ export default class LoginPanel extends Component {
     );
   }
 }
-
-LoginPanel.propTypes = {
-  setModalType: React.PropTypes.func.isRequired,
-};

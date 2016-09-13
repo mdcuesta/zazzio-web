@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import LoginPanel from './login-panel';
 import RegisterPanel from './register-panel';
+import ModalStore from '../../stores/login-modal-store';
+import ModalActions from '../../actions/login-modal-actions';
 
 const LOGIN = 'Log In';
 const REGISTER = 'Sign Up';
@@ -8,59 +10,77 @@ const REGISTER = 'Sign Up';
 /**
  * LoginModalTabs
  */
-export default function LoginModalTabs(props) {
-  return (
-    <div>
-      <ul
-        className="nav nav-tabs login-modal-tabs"
-        role="tablist"
-      >
-        <li
-          className="nav-item"
-          role="tab"
+export default class LoginModalTabs extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalType: 'login',
+    };
+    this.onChange = this.onChange.bind(this);
+    this.setModalType = this.setModalType.bind(this);
+    ModalStore.addChangeListener(this.onChange);
+  }
+
+  onChange() {
+    const modalType = ModalStore.getModalType();
+    this.setState({
+      modalType,
+    });
+  }
+
+  setModalType(modalType) {
+    ModalActions.setModalType(modalType);
+  }
+
+  render() {
+    return (
+      <div>
+        <ul
+          className="nav nav-tabs login-modal-tabs"
+          role="tablist"
         >
-          <a
-            id="login-panel-tab"
-            className={`${props.modalType === 'login' ? 'active' : ''}`}
-            role="button"
-            onClick={() => props.setModalType('login')}
+          <li
+            className="nav-item"
+            role="tab"
           >
-            {LOGIN}
-          </a>
-        </li>
-        <li
-          className="nav-item"
-          role="tab"
-        >
-          <a
-            id="signup-panel-tab"
-            className={`${props.modalType === 'register' ? 'active' : ''}`}
-            role="button"
-            onClick={() => props.setModalType('register')}
+            <a
+              id="login-panel-tab"
+              className={`${this.state.modalType === 'login' ? 'active' : ''}`}
+              role="button"
+              onClick={() => this.setModalType('login')}
+            >
+              {LOGIN}
+            </a>
+          </li>
+          <li
+            className="nav-item"
+            role="tab"
           >
-            {REGISTER}
-          </a>
-        </li>
-      </ul>
-      <div className="login-modal-tabs-content">
-        <div
-          style={(props.modalType === 'register' ? { display: 'none' } : {})}
-          id="panel-signin"
-        >
-          <LoginPanel setModalType={props.setModalType} />
-        </div>
-        <div
-          style={(props.modalType === 'login' ? { display: 'none' } : {})}
-          id="panel-signup"
-        >
-          <RegisterPanel />
+            <a
+              id="signup-panel-tab"
+              className={`${this.state.modalType === 'register' ? 'active' : ''}`}
+              role="button"
+              onClick={() => this.setModalType('register')}
+            >
+              {REGISTER}
+            </a>
+          </li>
+        </ul>
+        <div className="login-modal-tabs-content">
+          <div
+            style={(this.state.modalType === 'register' ? { display: 'none' } : {})}
+            id="panel-signin"
+          >
+            <LoginPanel />
+          </div>
+          <div
+            style={(this.state.modalType === 'login' ? { display: 'none' } : {})}
+            id="panel-signup"
+          >
+            <RegisterPanel />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-LoginModalTabs.propTypes = {
-  modalType: React.PropTypes.string.isRequired,
-  setModalType: React.PropTypes.func.isRequired,
-};

@@ -28,10 +28,7 @@ export default function LoginModal(props) {
             >
               <span aria-hidden="true">&times;</span>
             </button>
-            <LoginModalTabs
-              modalType={props.modalType}
-              setModalType={props.setModalType}
-            />
+            <LoginModalTabs />
           </div>
         </div>
       </div>
@@ -41,6 +38,4 @@ export default function LoginModal(props) {
 
 LoginModal.propTypes = {
   id: React.PropTypes.string.isRequired,
-  modalType: React.PropTypes.string.isRequired,
-  setModalType: React.PropTypes.func.isRequired,
 };

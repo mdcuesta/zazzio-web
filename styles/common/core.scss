@@ -31,6 +31,9 @@
 
 $ddd: #ddd !default;
 $aaa: #aaa !default;
+$body-background: #fbfbfb !default;
+$opac-dark-blue-5: rgba($brand-dark-blue, .5);
+$opac-dark-blue-7: rgba($brand-dark-blue, .7);
 
 .divider {
   color: $ddd;

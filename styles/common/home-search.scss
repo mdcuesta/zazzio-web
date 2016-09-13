@@ -11,6 +11,11 @@ $opac-musturd-shade: rgba($brand-musturd-shade, .9);
   width: 100%;
 }
 
+.home-search-banner {
+  background: url('../images/banner-rent.jpg') no-repeat;
+  background-position: center center;
+}
+
 .home-search-banner-buy {
   background: url('../images/banner-buy.jpg') no-repeat;
   background-position: center center;

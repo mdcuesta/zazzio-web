@@ -16,7 +16,10 @@ export default function Index(props) {
       csrfToken={props.csrfToken}
     >
       <NavBar authenticated={props.authenticated} />
-      <div id="home-search" />
+      <div
+        id="home-search"
+        className="home-search home-search-banner"
+      />
       <div id="content" />
     </DefaultLayout>
   );

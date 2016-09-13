@@ -41,6 +41,7 @@ export default function Layout(props) {
           type="hidden"
           value={(props.authenticated ? 'true' : 'false')}
         />
+        <div id="modals-container" />
         {jsbundleScript}
       </body>
     </html>

@@ -73,6 +73,11 @@ export default class RegisterPanel extends Component {
       signUpText: 'Sign Up',
       submitHasError,
     });
+
+    const account = Store.getCreatedAccount();
+    if (account !== null) {
+      location.reload(true);
+    }
   }
 
   getTextInputClass(key) {
