@@ -5,29 +5,23 @@ $opac-light-blue: rgba($brand-light-blue, .5);
 $opac-musturd: rgba($brand-musturd, .9);
 $opac-musturd-shade: rgba($brand-musturd-shade, .9);
 
-.home-search {
+.home-hero {
+  background: url('../images/banner-rent.jpg') no-repeat;
+  background-position: center center;
   height: 500px;
   padding: 30px 0 0;
-  width: 100%;
-}
+  width: auto;
 
-.home-search-banner {
-  background: url('../images/banner-rent.jpg') no-repeat;
-  background-position: center center;
-}
+  h1 {
+    color: $white;
+    font-size: 3.5em;
+    text-shadow: 0 0 1px #484848;
+  }
 
-.home-search-banner-buy {
-  background: url('../images/banner-buy.jpg') no-repeat;
-  background-position: center center;
-}
-
-.home-search-banner-rent {
-  background: url('../images/banner-rent.jpg') no-repeat;
-  background-position: center center;
-}
-
-.home-search-banner-sell {
-  background: url('../images/banner-sell.jpg') no-repeat;
+  .hero-content {
+    margin-top: 100px;
+    text-align: center;
+  }
 }
 
 .search-tabs {

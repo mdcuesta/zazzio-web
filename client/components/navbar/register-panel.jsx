@@ -87,13 +87,14 @@ export default class RegisterPanel extends Component {
   }
 
   handleBlur(e) {
-    this.validateInput(e.target.name, e.target.value);
+    const value = e.target.value.trim();
+    this.validateInput(e.target.name, value);
   }
 
   handleChange(e) {
     const state = {};
     state[e.target.name] = {
-      value: e.target.value.trim(),
+      value: e.target.value,
     };
     this.setState(state);
   }
@@ -215,10 +216,6 @@ export default class RegisterPanel extends Component {
             data-abide
             noValidate
           >
-            <div className="col col-sm-12 col-md-12 col-lg-12">
-              <h5>Sign up for awesome</h5>
-              <hr />
-            </div>
             <div
               className={'col col-sm-12 col-md-12 col-lg-12 ' +
               `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
@@ -252,7 +249,7 @@ export default class RegisterPanel extends Component {
               <FormErrorLabel error={this.state.password.error} />
             </div>
             <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              className={'col-2 col-sm-6 col-md-6 col-lg-6 ' +
               `form-group ${(this.state.firstName.hasError ? 'has-danger' : '')}`}
             >
               <input
@@ -268,7 +265,7 @@ export default class RegisterPanel extends Component {
               <FormErrorLabel error={this.state.firstName.error} />
             </div>
             <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
+              className={'col-3 col-sm-6 col-md-6 col-lg-6 ' +
               `form-group ${(this.state.lastName.hasError ? 'has-danger' : '')}`}
             >
               <input
@@ -302,14 +299,11 @@ export default class RegisterPanel extends Component {
         </section>
         <section className="section-facebook-sign-up">
           <div className="divider"><span>or</span></div>
-          <div>
-            <a
-              href="/sign-up/facebook"
-              className="btn btn-signup-facebook"
-            >
+          <div className="form-group">
+            <button className="btn btn-signup-facebook">
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Sign Up with Facebook
-            </a>
+            </button>
           </div>
         </section>
       </div>

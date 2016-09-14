@@ -17,9 +17,13 @@ export default function Index(props) {
     >
       <NavBar authenticated={props.authenticated} />
       <div
-        id="home-search"
-        className="home-search home-search-banner"
-      />
+        id="home-hero-container"
+        className="home-hero"
+      >
+        <div className="hero-content col-sm-12 col-md-12 col-lg-12">
+          <h1 className="m-x-auto">Your dream home awaits</h1>
+        </div>
+      </div>
       <div id="content" />
     </DefaultLayout>
   );

@@ -101,7 +101,7 @@ export default class LoginPanel extends Component {
 
   handleBlur(e) {
     const key = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value.trim();
 
     let state = null;
     let error = '';
@@ -136,7 +136,7 @@ export default class LoginPanel extends Component {
   handleChange(e) {
     const state = {};
     state[e.target.name] = {
-      value: e.target.value.trim(),
+      value: e.target.value,
     };
     this.setState(state);
   }
@@ -155,10 +155,6 @@ export default class LoginPanel extends Component {
     return (
       <div>
         <section className="section-regular-login">
-          <div className="col col-sm-12 col-md-12 col-lg-12">
-            <h5>Experience awesome</h5>
-            <hr />
-          </div>
           <div
             className={'col col-sm-12 col-md-12 col-lg-12 ' +
             `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
@@ -205,7 +201,7 @@ export default class LoginPanel extends Component {
             name="_csrf"
             value={csrfToken}
           />
-          <div className="form-group">
+          <div className="col-sm-12 col-md-12 col-lg-12 form-group">
             <button
               className="btn btn-success btn-login"
               type="button"

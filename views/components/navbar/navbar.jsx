@@ -16,10 +16,10 @@ export default function NavBar(props) {
       data-options="marginTop:0;"
     >
       <ul className="nav navbar-nav">
-        <li className="nav-item nav-item-separator">
+        <li className="nav-item nav-item-separator nav-item-margin-1">
           <a
             className="navbar-brand"
-            href={Url.action('/')}
+            href={Url.action('')}
           >
             <img
               className="zazzio-logo"
@@ -44,7 +44,10 @@ export default function NavBar(props) {
             Rent
           </a>
         </li>
-        <li className="nav-item nav-item-separator nav-item-margin hidden-sm-down">
+        <li
+          className={'nav-item nav-item-separator ' +
+          'nav-item-margin-1 nav-item-padding-2 hidden-sm-down'}
+        >
           <a
             className="nav-link"
             href="/sell"
@@ -91,8 +94,9 @@ export default function NavBar(props) {
           />
         </div>
       </div>
+      {navBarRightContent}
       <button
-        className="navbar-toggler pull-right hidden-md-up"
+        className="navbar-toggler menu-toggler pull-right hidden-md-up"
         type="button"
         data-toggle="collapse"
         data-target="#navbar-menu-collapse"
@@ -102,6 +106,23 @@ export default function NavBar(props) {
       >
         &#9776;
       </button>
+      <button
+        className="navbar-toggler menu-toggler pull-right hidden-md-up"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar-menu-collapse"
+        aria-controls="navbar-menu-collapse"
+        aria-expanded="false"
+        aria-label="menu"
+      >
+        <i className="fa fa-large fa-cog" />
+      </button>
+      <div className="btn-search-xs-container">
+        <button className="btn btn-search-xs hidden-sm-up">
+          <i className="fa fa-large fa-search" />&nbsp;
+          Search
+        </button>
+      </div>
       <div
         className="collapse navbar-menu-collapse"
         id="navbar-menu-collapse"
@@ -133,7 +154,6 @@ export default function NavBar(props) {
           </li>
         </ul>
       </div>
-      {navBarRightContent}
     </nav>
   );
 }

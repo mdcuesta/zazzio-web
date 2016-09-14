@@ -6,7 +6,7 @@ export default function RightUnAuthenticatedButtons() {
       className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
       id="navbar-right"
     >
-      <ul className="nav navbar-nav hidden-sm-down">
+      <ul className="nav navbar-nav hidden-md-down">
         <li className="nav-item">
           <a
             className="nav-link"

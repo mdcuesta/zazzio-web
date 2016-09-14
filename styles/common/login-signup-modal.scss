@@ -40,15 +40,16 @@
 
 .login-modal-tabs-content {
   .section-regular-login {
-    padding-top: 1rem;
+    padding: 3rem 0 0;
 
-    .col {
-      padding-left: 0;
-      padding-right: 0;
+    input {
+      font-size: 1.2rem;
+      height: 60px;
     }
 
     .btn {
       &.btn-login {
+        height: 60px;
         margin: 0;
         width: 100%;
       }
@@ -60,10 +61,14 @@
   }
 
   .section-facebook-login {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
     .btn {
       &.btn-login-facebook {
         background: $facebook-blue;
         color: $white;
+        height: 60px;
         margin: 0;
         width: 100%;
       }
@@ -71,6 +76,8 @@
   }
 
   .section-register {
+    padding: 0 1rem;
+
     .link {
       color: $link-color;
 
@@ -81,19 +88,20 @@
   }
 
   .section-regular-sign-up {
-    padding-top: 1rem;
-
-    .col {
-      padding-left: 0;
-      padding-right: 0;
-    }
+    padding: 3rem 0 0;
 
     .col-btn-sign-up {
       margin-top: .7rem;
     }
 
+    input {
+      font-size: 1.2rem;
+      height: 60px;
+    }
+
     .btn {
       &.btn-sign-up {
+        height: 60px;
         margin: 0;
         width: 100%;
       }
@@ -105,10 +113,14 @@
   }
 
   .section-facebook-sign-up {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
     .btn {
       &.btn-signup-facebook {
         background: $facebook-blue;
         color: $white;
+        height: 60px;
         margin: 0;
         width: 100%;
       }
@@ -120,6 +132,6 @@
   }
 
   .link-span {
-    font-size: .7em;
+    font-size: 1em;
   }
 }
