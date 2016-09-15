@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import SignUpActions from '../../actions/register-actions';
 import Store from '../../stores/quick-register-store';
 import FormErrorLabel from '../common/form-error-label';
+import ModalActions from '../../actions/login-modal-actions';
 
+const LOGIN = 'login';
 const EMAIL_ADDRESS_REQUIRED = 'Email Address required';
 const EMAIL_ADDRESS_INVALID = 'Invalid Email Address';
 const PASSWORD_REQUIRED = 'Password required';
@@ -40,6 +42,7 @@ export default class RegisterPanel extends Component {
         hasError: false,
       },
       signUpText: 'Sign Up',
+      reloadPage: false,
     };
 
     this.register = this.register.bind(this);
@@ -76,7 +79,9 @@ export default class RegisterPanel extends Component {
 
     const account = Store.getCreatedAccount();
     if (account !== null) {
-      location.reload(true);
+      this.setState({
+        reloadPage: true,
+      });
     }
   }
 
@@ -84,6 +89,130 @@ export default class RegisterPanel extends Component {
     return (this.state[key].hasError === true)
       ? 'form-control form-control-danger'
       : 'form-control';
+  }
+
+  getSignUpCompletePanel() {
+    return (
+      <div>
+        <section className="section-regular-sign-up">
+          <h5 className="text-align-center">Your account has been successfully created.</h5>
+          <p className="text-align-center">
+            Please confirm your account by clicking the confirmation link
+            that we sent to your email.  Thank you.
+          </p>
+          <div className="form-group">
+            <button
+              className="btn btn-success btn-sign-up"
+              onClick={() => location.reload(true)}
+            >
+              Got it!
+            </button>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  getSignUpForm() {
+    const emailClass = this.getTextInputClass('email');
+    const passwordClass = this.getTextInputClass('password');
+    const firstNameClass = this.getTextInputClass('firstName');
+    const lastNameClass = this.getTextInputClass('lastName');
+
+    return (
+      <div>
+        <section className="section-regular-sign-up">
+          <div
+            className={'col-sm-12 col-md-12 col-lg-12 ' +
+            `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
+          >
+            <input
+              type="text"
+              placeholder="Email Address"
+              id="txt-email"
+              name="email"
+              value={this.state.email.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              className={emailClass}
+            />
+            <EmailErrorLabel error={this.state.email.error} />
+          </div>
+          <div
+            className={'col-sm-12 col-md-12 col-lg-12 ' +
+            `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+          >
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="txt-password"
+              value={this.state.password.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              className={passwordClass}
+            />
+            <FormErrorLabel error={this.state.password.error} />
+          </div>
+          <div
+            className={'col-2 col-sm-6 col-md-6 col-lg-6 ' +
+            `form-group ${(this.state.firstName.hasError ? 'has-danger' : '')}`}
+          >
+            <input
+              type="text"
+              placeholder="Firstname"
+              name="firstName"
+              id="txt-first-name"
+              value={this.state.firstName.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              className={firstNameClass}
+            />
+            <FormErrorLabel error={this.state.firstName.error} />
+          </div>
+          <div
+            className={'col-3 col-sm-6 col-md-6 col-lg-6 ' +
+            `form-group ${(this.state.lastName.hasError ? 'has-danger' : '')}`}
+          >
+            <input
+              type="text"
+              placeholder="Lastname"
+              name="lastName"
+              id="txt-last-name"
+              value={this.state.lastName.value}
+              onChange={this.handleChange}
+              onBlur={this.handleBlur}
+              className={lastNameClass}
+            />
+            <FormErrorLabel error={this.state.lastName.error} />
+          </div>
+          <div
+            className={'col-btn-sign-up col-sm-12 ' +
+            'col-md-12 col-lg-12 form-group text-align-center'}
+          >
+            <button
+              className="btn btn-primary btn-sign-up"
+              type="button"
+              onClick={this.register}
+            >
+              {this.state.signUpText}
+            </button>
+            <span className="link-span">By Signing up you agree to our&nbsp;
+              <a href="/terms">Terms</a> of use.
+            </span>
+          </div>
+        </section>
+        <section className="section-facebook-sign-up">
+          <div className="divider"><span>or</span></div>
+          <div className="form-group">
+            <button className="btn btn-signup-facebook">
+              <i className="fa fa-thumbs-o-up" />&nbsp;
+              Sign Up with Facebook
+            </button>
+          </div>
+        </section>
+      </div>
+    );
   }
 
   handleBlur(e) {
@@ -202,112 +331,10 @@ export default class RegisterPanel extends Component {
   }
 
   render() {
-    const emailClass = this.getTextInputClass('email');
-    const passwordClass = this.getTextInputClass('password');
-    const firstNameClass = this.getTextInputClass('firstName');
-    const lastNameClass = this.getTextInputClass('lastName');
-
-    return (
-      <div>
-        <section className="section-regular-sign-up">
-          <form
-            method="post"
-            action="/account/sign-up"
-            data-abide
-            noValidate
-          >
-            <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
-              `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                type="text"
-                placeholder="Email Address"
-                id="txt-email"
-                name="email"
-                value={this.state.email.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={emailClass}
-              />
-              <EmailErrorLabel error={this.state.email.error} />
-            </div>
-            <div
-              className={'col col-sm-12 col-md-12 col-lg-12 ' +
-              `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                type="password"
-                placeholder="Password"
-                name="password"
-                id="txt-password"
-                value={this.state.password.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={passwordClass}
-              />
-              <FormErrorLabel error={this.state.password.error} />
-            </div>
-            <div
-              className={'col-2 col-sm-6 col-md-6 col-lg-6 ' +
-              `form-group ${(this.state.firstName.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                type="text"
-                placeholder="Firstname"
-                name="firstName"
-                id="txt-first-name"
-                value={this.state.firstName.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={firstNameClass}
-              />
-              <FormErrorLabel error={this.state.firstName.error} />
-            </div>
-            <div
-              className={'col-3 col-sm-6 col-md-6 col-lg-6 ' +
-              `form-group ${(this.state.lastName.hasError ? 'has-danger' : '')}`}
-            >
-              <input
-                type="text"
-                placeholder="Lastname"
-                name="lastName"
-                id="txt-last-name"
-                value={this.state.lastName.value}
-                onChange={this.handleChange}
-                onBlur={this.handleBlur}
-                className={lastNameClass}
-              />
-              <FormErrorLabel error={this.state.lastName.error} />
-            </div>
-            <div
-              className={'col col-btn-sign-up col-sm-12 ' +
-              'col-md-12 col-lg-12 form-group text-align-center'}
-            >
-              <button
-                className="btn btn-primary btn-sign-up"
-                type="button"
-                onClick={this.register}
-              >
-                {this.state.signUpText}
-              </button>
-              <span className="link-span">By Signing up you agree to our&nbsp;
-                <a href="/terms">Terms</a> of use.
-              </span>
-            </div>
-          </form>
-        </section>
-        <section className="section-facebook-sign-up">
-          <div className="divider"><span>or</span></div>
-          <div className="form-group">
-            <button className="btn btn-signup-facebook">
-              <i className="fa fa-thumbs-o-up" />&nbsp;
-              Sign Up with Facebook
-            </button>
-          </div>
-        </section>
-      </div>
-    );
+    if (this.state.reloadPage) {
+      return this.getSignUpCompletePanel();
+    }
+    return this.getSignUpForm();
   }
 }
 
@@ -319,12 +346,32 @@ function EmailErrorLabel(props) {
       return (<FormErrorLabel error="" />);
     }
     return (
-      <span
-        className="error-span form-control-feedback"
-      >
-        An account is already associated with this email address.&nbsp;
-        <a href="/forgot-password">Forgot your password?</a>
-      </span>
+      <div className="error-span-container">
+        <span
+          className="error-span form-control-feedback hidden-xs-down"
+        >
+          An account is already associated with this email address.&nbsp;
+          <span
+            onClick={() => ModalActions.setModalType(LOGIN)}
+            className="link link-span"
+            role="button"
+          >
+            Login?
+          </span>
+        </span>
+        <span
+          className="error-span form-control-feedback hidden-sm-up"
+        >
+          Email address in use.&nbsp;
+          <span
+            onClick={() => ModalActions.setModalType(LOGIN)}
+            className="link link-span"
+            role="button"
+          >
+            Login?
+          </span>
+        </span>
+      </div>
     );
   }
 

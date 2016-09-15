@@ -4,6 +4,8 @@ import AuthActions from '../../actions/authentication-actions';
 import FormErrorLabel from '../common/form-error-label';
 import ModalActions from '../../actions/login-modal-actions';
 
+const REGISTER = 'register';
+
 export default class LoginPanel extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,7 @@ export default class LoginPanel extends Component {
     this.login = this.login.bind(this);
     this.popFBLogin = this.popFBLogin.bind(this);
     this.submit = this.submit.bind(this);
-    this.setModalType = this.setModalType.bind(this);
+    this.validate = this.validate.bind(this);
     Store.addChangeListener(this.onChange);
   }
 
@@ -68,10 +70,6 @@ export default class LoginPanel extends Component {
     return $('#txt-login-email').focus();
   }
 
-  setModalType(modalType) {
-    ModalActions.setModalType(modalType);
-  }
-
   getTextInputClass(key) {
     return (this.state[key].hasError)
       ? 'form-control form-control-danger'
@@ -88,21 +86,29 @@ export default class LoginPanel extends Component {
   }
 
   login() {
-    if (this.state.loggingIn) {
-      return;
+    const emailValid = this.validate('email', this.state.email.value);
+    const passwordValid = this.validate('password', this.state.password.value);
+
+    if (emailValid && passwordValid) {
+      if (this.state.loggingIn) {
+        return;
+      }
+      this.setState({
+        loggingIn: true,
+        loginText: 'Logging you in...',
+      });
+      AuthActions.login(this.state.email.value,
+        this.state.password.value);
     }
-    this.setState({
-      loggingIn: true,
-      loginText: 'Logging you in...',
-    });
-    AuthActions.login(this.state.email.value,
-      this.state.password.value);
   }
 
   handleBlur(e) {
     const key = e.target.name;
     const value = e.target.value.trim();
+    this.validate(key, value);
+  }
 
+  validate(key, value) {
     let state = null;
     let error = '';
     if (key === 'email') {
@@ -131,6 +137,7 @@ export default class LoginPanel extends Component {
     if (state !== null) {
       this.setState(state);
     }
+    return error === '';
   }
 
   handleChange(e) {
@@ -225,10 +232,10 @@ export default class LoginPanel extends Component {
           </div>
         </section>
         <section className="section-register">
-          <div>
+          <div className="text-align-center">
             <span className="link-span">Don"t have an account?&nbsp;</span>
             <span
-              onClick={() => this.setModalType('register')}
+              onClick={() => ModalActions.setModalType(REGISTER)}
               className="link link-span"
               role="button"
             >

@@ -1,0 +1,30 @@
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.divider {
+  color: $aaa;
+  font-weight: 300;
+  margin: .7em auto;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+
+  &::before,
+  &::after {
+    border-bottom: 1px solid;
+    content: '';
+    display: inline-block;
+    margin: 0 .5em 0 -55%;
+    vertical-align: middle;
+    width: 50%;
+  }
+
+  &::after {
+    margin: 0 -55% 0 .5em;
+  }
+}
