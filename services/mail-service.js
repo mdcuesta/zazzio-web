@@ -1,4 +1,5 @@
 import * as Kickbox from 'kickbox';
+import Promise from 'bluebird';
 import Mailer from '../utilities/mailer';
 
 const BUYER_ACCOUNT_CONFIRMATION_SUBJECT = 'Complete your Zazz.io Account Registration';
@@ -20,20 +21,44 @@ function getBuyerAccountConfirmationEmailBody(account) {
   `;
 }
 
-export function emailExists(email, callback) {
+export function emailExists(email) {
   const kickbox = Kickbox.client(process.env.KICKBOX_API_KEY
     || 'bb3ff5618fe84bef9da39c9d7092f7588330d80e327c1626c404e43c7941d58e').kickbox();
-  return kickbox.verify(email, (error, response) => {
-    callback(error, response);
+
+  return new Promise((resolve, reject) => {
+    kickbox.verify(email, (error, response) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(response);
+      }
+    });
   });
 }
 
-export function sendAccountConfirmationMail(account, type, callback) {
+export function sendAccountConfirmationMail(account, type) {
   const mailer = new Mailer();
   if (type === 'buyer') {
-    return mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
-      getBuyerAccountConfirmationEmailBody(account), callback);
+    return new Promise((resolve, reject) => {
+      mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
+        getBuyerAccountConfirmationEmailBody(account), (error, response) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(response);
+          }
+        });
+    });
   }
-  return mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
-    getBuyerAccountConfirmationEmailBody(account), callback);
+
+  return new Promise((resolve, reject) => {
+    mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
+      getBuyerAccountConfirmationEmailBody(account), (error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+  });
 }

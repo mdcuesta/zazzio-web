@@ -1,48 +1,10 @@
 @charset 'utf-8';
 
-.login-modal-tabs {
-  li {
-    border-right: 1px solid $white;
-    margin-left: 0;
-    width: 100px;
-  }
-
-  a {
-    &:not([href]) {
-      background: $brand-light-blue;
-      color: $white;
-      display: block;
-      font-size: .8rem;
-      padding: 15px;
-      text-align: center;
-    }
-
-    &:hover {
-      background: $brand-blue;
-      color: $white;
-
-      &:not([href]) {
-        color: $white;
-      }
-    }
-
-    &.active {
-      background: $brand-blue;
-    }
-  }
-
-  &.nav-tabs {
-    .nav-item {
-      margin-left: 0;
-    }
-  }
-}
-
 .login-modal-tabs-content {
   .section-regular-login {
     padding: 3rem 0 0;
 
-    input {
+    .form-control {
       font-size: 1rem;
       height: 50px;
     }
@@ -86,7 +48,7 @@
       margin-top: .7rem;
     }
 
-    input {
+    .form-control {
       font-size: 1rem;
       height: 50px;
     }

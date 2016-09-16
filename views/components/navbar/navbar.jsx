@@ -23,7 +23,7 @@ export default function NavBar(props) {
           >
             <img
               className="zazzio-logo"
-              src={Url.cdn('images/zazzio-logo-small-blue.png')}
+              src={Url.cdn('images/zazzio-logo-small.png')}
               alt="zazzio"
             />
           </a>
@@ -128,7 +128,7 @@ export default function NavBar(props) {
         id="navbar-menu-collapse"
       >
         <ul className="nav hidden-md-up">
-          <li className="nav-item active">
+          <li className="nav-item">
             <a
               className="nav-link"
               href="/buy"

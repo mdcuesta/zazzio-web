@@ -16,6 +16,10 @@ export default class LoginModal extends Component {
     Store.addChangeListener(this.onChange);
   }
 
+  componentWillUnmount() {
+    Store.removeChangeListener(this.onChange);
+  }
+
   onChange() {
     const account = Store.getCreatedAccount();
     if (account !== null) {
@@ -33,37 +37,51 @@ export default class LoginModal extends Component {
   }
 
   render() {
-    const tabIndex = this.state.accountCreated ? {
-      tabIndex: -1,
-    } : {};
+    const modalContent = (
+      <div
+        className="modal-dialog modal-sm"
+        role="document"
+      >
+        <div className="modal-content">
+          <div className="modal-body">
+            <button
+              type="button"
+              className="close"
+              aria-label="Close"
+              onClick={this.close}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <LoginModalTabs />
+          </div>
+        </div>
+      </div>
+    );
+
+    if (this.state.accountCreated) {
+      return (
+        <div
+          className="modal fade"
+          id={this.props.id}
+          role="dialog"
+          aria-labelledby="login-signup-modal-label"
+          aria-hidden="true"
+        >
+          {modalContent}
+        </div>
+      );
+    }
 
     return (
       <div
         className="modal fade"
         id={this.props.id}
-        {...tabIndex}
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="login-signup-modal-label"
         aria-hidden="true"
       >
-        <div
-          className="modal-dialog modal-sm"
-          role="document"
-        >
-          <div className="modal-content">
-            <div className="modal-body">
-              <button
-                type="button"
-                className="close"
-                aria-label="Close"
-                onClick={this.close}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <LoginModalTabs />
-            </div>
-          </div>
-        </div>
+        {modalContent}
       </div>
     );
   }

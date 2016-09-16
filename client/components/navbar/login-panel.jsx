@@ -36,6 +36,10 @@ export default class LoginPanel extends Component {
     Store.addChangeListener(this.onChange);
   }
 
+  componentWillUnmount() {
+    Store.removeChangeListener(this.onChange);
+  }
+
   onChange() {
     const hasError = Store.hasError();
     const message = Store.getMessage();

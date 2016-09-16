@@ -18,6 +18,10 @@ export default class LoginModalTabs extends Component {
     ModalStore.addChangeListener(this.onChange);
   }
 
+  componentWillUnmount() {
+    ModalStore.removeChangeListener(this.onChange);
+  }
+
   onChange() {
     const modalType = ModalStore.getModalType();
     this.setState({

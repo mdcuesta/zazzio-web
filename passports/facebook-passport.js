@@ -23,12 +23,10 @@ export default function configure() {
     profileFields,
   }, (accessToken, refreshToken, profile, done) => {
     const email = profile.emails[0].value;
-    User.findOne({
-      'facebook.email': email,
-    })
+    User.getByFacebookEmail(email)
     .then((user) => {
       if (user === null) {
-        User.findOne({ email }).then((account) => {
+        User.getByEmail(email).then((account) => {
           if (account == null) {
             // create new user since there is
             // no account associated with the email

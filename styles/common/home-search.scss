@@ -1,9 +1,6 @@
 @charset 'utf-8';
 
-$opac-dark-blue: rgba($brand-dark-blue, .5);
-$opac-light-blue: rgba($brand-light-blue, .5);
-$opac-musturd: rgba($brand-musturd, .9);
-$opac-musturd-shade: rgba($brand-musturd-shade, .9);
+$shadow: #484848;
 
 .home-hero {
   background: url('../images/banner-rent.jpg') no-repeat;
@@ -14,81 +11,52 @@ $opac-musturd-shade: rgba($brand-musturd-shade, .9);
 
   h1 {
     color: $white;
-    font-size: 3.5em;
-    text-shadow: 0 0 1px #484848;
+    text-shadow: 0 0 1px $shadow;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .home-hero {
+    h1 {
+      font-size: 3.5em;
+    }
   }
 
   .hero-content {
     margin-top: 100px;
-    text-align: center;
   }
 }
 
-.search-tabs {
-  background: none;
-  border: 0;
-  list-style: none;
-
-  .search-tab {
-    border: 1px solid $white;
-    float: left;
-    margin-left: 0;
-    text-align: center;
-    width: 150px;
-
-    a {
-      background: $opac-dark-blue;
-      color: $white;
-      display: block;
-      font-size: 1.2rem;
-      line-height: 1;
-      margin-bottom: 0;
-      opacity: 1;
-      padding: 15px;
-    }
-
-    &:hover {
-      a {
-        background: $opac-light-blue;
-        color: $white;
-        margin-bottom: 0;
-        opacity: 1;
-        padding: 15px;
-      }
+@include media-breakpoint-down(sm) {
+  .home-hero {
+    h1 {
+      font-size: 3em;
     }
   }
 
-  .active {
-    a {
-      background: $opac-light-blue;
-      color: $white;
-      margin-bottom: 0;
-      opacity: 1;
-      padding: 15px;
+  .hero-content {
+    margin-top: 50px;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .home-hero {
+    h1 {
+      font-size: 2.5em;
     }
   }
-}
 
-.search-tabs-panel-container {
-  background: none;
-  border: 0;
-  margin-top: 40px;
-
-  h1 {
-    color: $white;
-    text-shadow: 0 0 4px $aaa;
-  }
-
-  label {
-    color: $white;
-    font-size: .8rem;
+  .hero-content {
+    margin-top: 50px;
   }
 }
 
-.search-form-container {
-  background: $opac-dark-blue;
-  margin-top: 40px;
-  padding: 10px 0;
-}
+
+
+
 
 

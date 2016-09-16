@@ -186,6 +186,19 @@ export default class RegisterPanel extends Component {
             />
             <FormErrorLabel error={this.state.lastName.error} />
           </div>
+          <div className="col-sm-12 col-md-12 col-lg-12 form-group">
+            <label
+              htmlFor="is-not-buyer"
+              className="form-check-label"
+            >
+              <input
+                id="is-not-buyer"
+                type="checkbox"
+                className="form-check-input"
+              />
+              &nbsp;I'm a landlord or an industry professional
+            </label>
+          </div>
           <div
             className={'col-btn-sign-up col-sm-12 ' +
             'col-md-12 col-lg-12 form-group text-align-center'}

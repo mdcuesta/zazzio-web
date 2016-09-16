@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import Validation from 'express-validation';
-import Promise from 'bluebird';
 import { CsrfProtected } from '../utilities/security';
 import User from '../models/user';
 import * as MailService from '../services/mail-service';
@@ -15,8 +14,7 @@ const mailService = MailService;
 const csrfProtected = CsrfProtected;
 
 export function signUp(req, res, next) {
-  const emailExists = Promise.promisify(mailService.emailExists);
-  emailExists(req.body.email)
+  mailService.emailExists(req.body.email)
   .then((response) => {
     if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
       return res.status(200).json({
@@ -24,7 +22,7 @@ export function signUp(req, res, next) {
       });
     }
 
-    return User.count({ 'local.email': req.body.email })
+    return User.countByLocalEmail(req.body.email)
     .then((count) => {
       if (count > 0) {
         return res.status(200).json({
@@ -33,7 +31,7 @@ export function signUp(req, res, next) {
       }
       // check first if there is already a facebook integration present
       // if there is we only need to set the local account
-      return User.findOne({ email: req.body.email })
+      return User.getByEmail(req.body.email)
       .then((account) => {
         if (account === null) {
           // save user if it doesn't exist
@@ -62,8 +60,7 @@ export function signUp(req, res, next) {
 
                 // send email confirmation, if this fails
                 // the user has the option to resend the email anyway
-                const sender = Promise.promisify(mailService.sendAccountConfirmationMail);
-                sender(doc, 'buyer')
+                mailService.sendAccountConfirmationMail(doc, 'buyer')
                 .catch(() => {
                   // todo log email error
                   // if confirmation failed
@@ -106,7 +103,7 @@ export function signUp(req, res, next) {
 }
 
 export function accountExists(req, res) {
-  User.count({ 'local.email': req.body.email }).then((count) => {
+  User.countByLocalEmail(req.body.email).then((count) => {
     const exists = count > 0;
     return res.json(200, {
       exists,

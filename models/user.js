@@ -126,6 +126,30 @@ userSchema.methods.setFacebookCredentials = function setFacebookCredentials(cred
 };
 
 // statics
+userSchema.statics.countByLocalEmail = function countByEmail(email) {
+  return this.count({
+    'local.email': email,
+  });
+};
+
+userSchema.statics.getByEmail = function getByEmail(email) {
+  return this.findOne({
+    email,
+  });
+};
+
+userSchema.statics.getByLocalEmail = function getByLocalEmail(email) {
+  return this.findOne({
+    'local.email': email,
+  });
+};
+
+userSchema.statics.getByFacebookEmail = function getByFacebookEmail(email) {
+  return this.findOne({
+    'facebook.email': email,
+  });
+};
+
 userSchema.statics.getUserProfile = function getUserProfile(userId) {
   return new Promise((resolve, reject) => {
     this.findOne({ _id: userId }, (err, doc) => {

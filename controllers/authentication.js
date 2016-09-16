@@ -37,7 +37,7 @@ router.post('/local/ajax', csrfProtected(), (req, res, next) => {
     if (err) {
       next(err);
     } else if (!user) {
-      User.count({ 'local.email': req.body.email })
+      User.countByLocalEmail(req.body.email)
       .then((count) => {
         if (count > 0) {
           return res.status(401).send('Invalid password');

@@ -11,9 +11,7 @@ export default function configure() {
     session: false,
   },
   (email, password, done) => {
-    User.findOne({
-      'local.email': email,
-    })
+    User.getByLocalEmail(email)
     .then((user) => {
       if (user === null) {
         return done(null, false);

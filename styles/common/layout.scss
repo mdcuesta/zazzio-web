@@ -16,7 +16,7 @@ body {
     padding-top: .8rem;
 
     .nav-link {
-      color: $brand-dark-blue;
+      color: $brand-z-primary;
     }
 
     &.nav-item-search-form {
@@ -104,8 +104,8 @@ body {
 
   .btn-search-xs {
     background: $white;
-    border: 1px solid $brand-dark-blue;
-    color: $brand-dark-blue;
+    border: 1px solid $brand-z-primary;
+    color: $brand-z-primary;
     position: absolute;
     width: 100%;
   }
@@ -120,7 +120,7 @@ body {
   }
 
   .menu-toggler {
-    color: $brand-dark-blue;
+    color: $brand-z-primary;
     margin-top: 1rem;
   }
 
@@ -128,13 +128,9 @@ body {
     margin-top: 65px;
 
     .nav-item {
-      background: $opac-dark-blue-5;
+      @include button-variant($brand-z-primary, $brand-z-primary, $white);
       border-top: 1px solid $ddd;
       padding: 1rem;
-
-      &:hover {
-        background: $opac-dark-blue-7;
-      }
 
       a {
         color: $white;

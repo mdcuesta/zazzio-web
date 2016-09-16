@@ -53,7 +53,7 @@ export function accountExists(email) {
     type: 'post',
     dataType: 'json',
     data: JSON.stringify({
-      email,
+      email: email.trim(),
     }),
     contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
