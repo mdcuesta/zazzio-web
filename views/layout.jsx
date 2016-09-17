@@ -24,6 +24,11 @@ export default function Layout(props) {
       'https://b821575399244c389156af415401c5f5@sentry.io/97962'}
     />);
 
+  let bodyClassName = '';
+  if (props.fixedTop) {
+    bodyClassName = 'body-fixed-top';
+  }
+
   return (
     <html lang="en">
       <head>
@@ -34,7 +39,7 @@ export default function Layout(props) {
         <title>{title}</title>
         {cssbundleScript}
       </head>
-      <body>
+      <body className={bodyClassName}>
         {props.children}
         <input
           id="authenticated"
@@ -55,9 +60,11 @@ Layout.propTypes = {
   children: React.PropTypes.array,
   authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
+  fixedTop: React.PropTypes.bool,
 };
 
 Layout.defaultProps = {
   authenticated: false,
   csrfToken: null,
+  fixedTop: true,
 };

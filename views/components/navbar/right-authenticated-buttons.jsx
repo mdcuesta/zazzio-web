@@ -30,7 +30,7 @@ export default function RightAuthenticatedButtons() {
             className="nav-link"
             href="/logout"
           >
-            <i className="nav-icon fa fa-large fa-sign-in" />
+            <i className="nav-icon fa fa-large fa-sign-out" />
           </a>
         </li>
         <li className="nav-item">

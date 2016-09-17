@@ -2,11 +2,15 @@
 
 body {
   background: $body-background;
+}
+
+.body-fixed-top {
   padding-top: 65px;
 }
 
 .navbar-main {
   background: $white;
+  border-bottom: 1px solid $ddd;
   height: 65px;
   padding: 0;
 
@@ -34,6 +38,7 @@ body {
   }
 
   .nav-icon {
+    color: $brand-z-primary;
     font-size: 1.5em;
   }
 
@@ -85,7 +90,7 @@ body {
       left: 35px;
       position: absolute;
       right: 120px;
-      top: 1rem;
+      top: .5rem;
     }
 
     .input-group-addon {
@@ -104,8 +109,9 @@ body {
 
   .btn-search-xs {
     background: $white;
-    border: 1px solid $brand-z-primary;
+    border: 1px solid $ddd;
     color: $brand-z-primary;
+    height: auto;
     position: absolute;
     width: 100%;
   }

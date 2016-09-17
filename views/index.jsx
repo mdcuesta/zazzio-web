@@ -18,7 +18,7 @@ export default function Index(props) {
       <NavBar authenticated={props.authenticated} />
       <div
         id="home-hero-container"
-        className="home-hero"
+        className="home-hero animated fadeIn"
       >
         <div className="hero-content col-sm-12 col-md-12 col-lg-12">
           <h1 className="m-x-auto">Your dream home awaits</h1>

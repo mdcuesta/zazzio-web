@@ -19,9 +19,20 @@ export function signup(req, res) {
 }
 
 export function login(req, res) {
-  res.render('login', {
-    title: 'Login to experience awesome',
-  });
+  const isAuthenticated = authenticated(req);
+  if (isAuthenticated) {
+    if (req.query.returnTo) {
+      res.redirect(req.query.returnTo);
+    } else {
+      res.redirect('/');
+    }
+  } else {
+    res.render('login', {
+      title: 'Login to experience awesome',
+      csrfToken: req.csrfToken(),
+      returnTo: req.query.returnTo,
+    });
+  }
 }
 
 export function logout(req, res) {

@@ -1,0 +1,25 @@
+@charset 'utf-8';
+
+// Body
+$body-background:           #fbfbfb !default;
+
+// Brand Colors
+$brand-blue:                #1d6cc8 !default;
+$brand-dark-blue:           #26425c !default;
+$brand-light-blue:          #8eb7cf !default;
+$brand-musturd:             #e17a37 !default;
+$brand-musturd-shade:       #c35e1d !default;
+$brand-z-primary:           #55595c !default;
+$facebook-blue:             #3b5998 !default;
+$white:                     #fff !default;
+
+// Divider
+$divider-color:             #aaa !default;
+
+// Misc - this is ugly
+$ddd:                       #ddd !default;
+$aaa:                       #aaa !default;
+
+// Opac
+$opac-dark-blue-5:          rgba($brand-dark-blue, .5);
+$opac-dark-blue-7:          rgba($brand-dark-blue, .7);

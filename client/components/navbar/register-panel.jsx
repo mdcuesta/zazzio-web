@@ -102,7 +102,7 @@ export default class RegisterPanel extends Component {
           </p>
           <div className="form-group">
             <button
-              className="btn btn-success btn-sign-up"
+              className="btn expanded btn-success btn-sign-up"
               onClick={() => location.reload(true)}
             >
               Got it!
@@ -204,7 +204,7 @@ export default class RegisterPanel extends Component {
             'col-md-12 col-lg-12 form-group text-align-center'}
           >
             <button
-              className="btn btn-primary btn-sign-up"
+              className="btn expanded btn-primary btn-sign-up"
               type="button"
               onClick={this.register}
             >
@@ -218,7 +218,7 @@ export default class RegisterPanel extends Component {
         <section className="section-facebook-sign-up">
           <div className="divider"><span>or</span></div>
           <div className="form-group">
-            <button className="btn btn-signup-facebook">
+            <button className="btn expanded btn-facebook">
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Sign Up with Facebook
             </button>

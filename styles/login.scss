@@ -12,19 +12,44 @@
 @import './bootstrap/animation';
 @import './bootstrap/navbar';
 @import './bootstrap/nav';
-@import './bootstrap/modal';
 
 // Bootstrap Custom
 @import './custom/variables';
 @import './custom/utilities';
 @import './custom/form';
-@import './custom/modal';
 
 // Common
 @import './common/colors';
 @import './common/utilities';
-@import './common/animate';
 @import './common/layout';
-@import './common/home-search';
-@import './common/login-signup-modal';
 
+.login-control {
+  background: $white;
+  border: 1px solid $ddd;
+  padding: 2rem 1rem;
+}
+
+.btn-facebook {
+  padding: 1rem;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .login-control-container {
+    padding-top: 2rem;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .login-control-container {
+    background: $white;
+    padding: 0;
+  }
+
+  .login-control {
+    border: 0;
+  }
+}

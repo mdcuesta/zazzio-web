@@ -7,12 +7,16 @@ import Url from '../../helpers/url-helper';
  * NavBar
  */
 export default function NavBar(props) {
+  let navbarClass = 'navbar navbar-fixed-top navbar-main';
+  if (!props.fixedTop) {
+    navbarClass = 'navbar navbar-main';
+  }
   const navBarRightContent = props.authenticated
     ? (<AuthenticatedButtons />)
     : (<UnAuthenticatedButtons />);
   return (
     <nav
-      className="navbar navbar-fixed-top navbar-main"
+      className={navbarClass}
       data-options="marginTop:0;"
     >
       <ul className="nav navbar-nav">
@@ -160,9 +164,11 @@ export default function NavBar(props) {
 
 NavBar.propTypes = {
   authenticated: React.PropTypes.bool,
+  fixedTop: React.PropTypes.bool,
 };
 
 NavBar.defaultProps = {
   authenticated: false,
+  fixedTop: true,
 };
 

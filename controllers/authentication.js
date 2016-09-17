@@ -27,10 +27,34 @@ const router = expressRoute();
 /**
  * Local Login
  */
-router.post('/local', csrfProtected(),
-  passport.authenticate('local', {
-    failureRedirect: '/login',
-  }), authReturn);
+router.get('/local', (req, res) => {
+  res.redirect('/login');
+});
+
+router.post('/local', csrfProtected(), (req, res, next) => {
+  passport.authenticate('local', (err, user) => {
+    if (err) {
+      next(err);
+    } else if (!user) {
+      User.countByLocalEmail(req.body.email)
+      .then((count) => {
+        res.render('login', {
+          title: 'Login to experience awesome',
+          csrfToken: req.csrfToken(),
+          validEmail: count > 0,
+          email: req.body.email,
+        });
+      });
+    } else {
+      req.login(user, (loginError) => {
+        if (loginError) {
+          return next(err);
+        }
+        return authReturn(req, res);
+      });
+    }
+  })(req, res, next);
+});
 
 router.post('/local/ajax', csrfProtected(), (req, res, next) => {
   passport.authenticate('local', (err, user) => {
@@ -60,34 +84,29 @@ router.post('/local/ajax', csrfProtected(), (req, res, next) => {
 /**
  * Facebook Login
  */
-/** Do not remove this commented block
-/** This is supposed to be the right code but
-/** there is a bug in facebook passport **/
-/**
+// TODO: returnTo doesn't work with FB, issue with passport-facebook
 router.get('/facebook', (req, res, next) => {
   passport.authenticate('facebook', {
-    callbackURL: `/auth/facebook/return?returnTo=${req.query.returnTo}`,
+    scope: ['email'],
+    callbackURL: '/auth/facebook/return/app',
     failureRedirect: '/login',
-    session: false,
   })(req, res, next);
 });
 
-router.get('/facebook/return', (req, res, next) => {
+router.get('/facebook/return/app', (req, res, next) => {
   passport.authenticate('facebook', {
-    callbackURL: `/auth/facebook/return?returnTo=${req.query.returnTo}`,
+    callbackURL: '/auth/facebook/return/app',
     failureRedirect: '/login',
-    session: false,
   })(req, res, next);
-}, authReturn); **/
+}, authReturn);
 
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get('/popup/facebook',
   passport.authenticate('facebook', {
     scope: ['email'],
     display: 'popup',
   }));
 router.get('/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate('facebook'),
   facebookAuthReturn);
 
 // User Authenticated Check for client side

@@ -28,7 +28,33 @@ export default function RightUnAuthenticatedButtons() {
             className="nav-link"
             href="/help"
           >
-            <i className="nav-help fa fa-large fa-question-circle-o" />
+            <i className=" nav-icon nav-help fa fa-large fa-question-circle-o" />
+          </a>
+        </li>
+      </ul>
+      <ul className="nav navbar-nav navbar-right-md hidden-sm-down hidden-lg-up">
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            href="/login"
+          >
+            <i className="nav-icon fa fa-large fa-sign-in" />
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            href="/sign-up"
+          >
+            <i className="nav-icon fa fa-large fa-plus" />
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            href="/help"
+          >
+            <i className="nav-icon fa fa-large fa-question-circle-o" />
           </a>
         </li>
       </ul>

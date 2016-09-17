@@ -1,3 +1,4 @@
+// misc
 .text-align-right {
   text-align: right;
 }
@@ -6,8 +7,9 @@
   text-align: center;
 }
 
+// divider
 .divider {
-  color: $aaa;
+  color: $divider-color;
   font-weight: 300;
   margin: .7em auto;
   overflow: hidden;
@@ -26,5 +28,42 @@
 
   &::after {
     margin: 0 -55% 0 .5em;
+  }
+
+  &.plain {
+    &::before {
+      margin: 0;
+    }
+
+    &::after {
+      margin: 0;
+    }
+  }
+}
+
+// buttons
+.btn-facebook {
+  background: $facebook-blue;
+}
+
+// form error
+.error-span-container {
+  height: 1rem;
+}
+
+.error-span {
+  font-size: .7em;
+}
+
+// span with link
+.link-span {
+  font-size: 1em;
+}
+
+.link {
+  color: $link-color;
+
+  &:hover {
+    color: $link-hover-color;
   }
 }

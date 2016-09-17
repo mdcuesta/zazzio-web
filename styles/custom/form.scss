@@ -1,0 +1,15 @@
+@charset 'utf-8';
+
+.btn {
+  color: $btn-color;
+  height: $btn-height;
+}
+
+input {
+  &[type='text'],
+  &[type='password'] {
+    &.form-control {
+      height: $input-text-height;
+    }
+  }
+}

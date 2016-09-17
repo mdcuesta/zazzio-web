@@ -17,7 +17,8 @@ var jsAssetsPath = path.join(distAssets, version, 'javascripts');
 module.exports = [{
     description: 'Transpile jsx to native javascript that runs on browsers.',
     entry: {
-      home: jsxPath + '/home.jsx'
+      home: jsxPath + '/home.js',
+      login: jsxPath + '/login.js'
     },
     output: {
       path: jsAssetsPath,
