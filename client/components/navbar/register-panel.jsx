@@ -41,6 +41,9 @@ export default class RegisterPanel extends Component {
         error: '',
         hasError: false,
       },
+      isSeller: {
+        value: false,
+      },
       signUpText: 'Sign Up',
       reloadPage: false,
     };
@@ -102,7 +105,7 @@ export default class RegisterPanel extends Component {
           </p>
           <div className="form-group">
             <button
-              className="btn expanded btn-success btn-sign-up"
+              className="btn btn-block btn-success btn-sign-up"
               onClick={() => location.reload(true)}
             >
               Got it!
@@ -194,7 +197,10 @@ export default class RegisterPanel extends Component {
               <input
                 id="is-not-buyer"
                 type="checkbox"
+                name="isSeller"
                 className="form-check-input"
+                checked={this.state.isSeller.value}
+                onChange={this.handleChange}
               />
               &nbsp;I'm a landlord or an industry professional
             </label>
@@ -204,7 +210,7 @@ export default class RegisterPanel extends Component {
             'col-md-12 col-lg-12 form-group text-align-center'}
           >
             <button
-              className="btn expanded btn-primary btn-sign-up"
+              className="btn btn-block btn-primary btn-sign-up"
               type="button"
               onClick={this.register}
             >
@@ -218,10 +224,13 @@ export default class RegisterPanel extends Component {
         <section className="section-facebook-sign-up">
           <div className="divider"><span>or</span></div>
           <div className="form-group">
-            <button className="btn expanded btn-facebook">
+            <a
+              className="btn btn-block btn-facebook btn-link-button"
+              href="/account/sign-up/facebook"
+            >
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Sign Up with Facebook
-            </button>
+            </a>
           </div>
         </section>
       </div>
@@ -235,9 +244,15 @@ export default class RegisterPanel extends Component {
 
   handleChange(e) {
     const state = {};
-    state[e.target.name] = {
-      value: e.target.value,
-    };
+    if (e.target.name !== 'isSeller') {
+      state[e.target.name] = {
+        value: e.target.value,
+      };
+    } else {
+      state[e.target.name] = {
+        value: e.target.checked,
+      };
+    }
     this.setState(state);
   }
 
@@ -262,7 +277,7 @@ export default class RegisterPanel extends Component {
     } else if (key === 'password') {
       if (value === '') {
         error = PASSWORD_REQUIRED;
-      } else if (value.length < 6) {
+      } else if (value.length < 8) {
         error = PASSWORD_LENGTH_ERROR;
       }
       state = {
@@ -329,6 +344,7 @@ export default class RegisterPanel extends Component {
         password: this.state.password.value,
         firstName: this.state.firstName.value,
         lastName: this.state.lastName.value,
+        isSeller: this.state.isSeller.value,
       });
     }
   }

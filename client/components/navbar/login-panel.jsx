@@ -214,7 +214,7 @@ export default class LoginPanel extends Component {
           />
           <div className="col-sm-12 col-md-12 col-lg-12 form-group">
             <button
-              className="btn expanded btn-success btn-login"
+              className="btn btn-block btn-success"
               type="button"
               onClick={this.login}
             >
@@ -228,7 +228,7 @@ export default class LoginPanel extends Component {
             <button
               id="btn-login-facebook"
               onClick={this.popFBLogin}
-              className="btn expanded btn-facebook"
+              className="btn btn-block btn-facebook"
             >
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Log in with Facebook

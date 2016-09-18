@@ -1,4 +1,5 @@
 import React from 'react';
+import Url from '../../helpers/url-helper';
 import FormErrorLabel from '../common/form-error-label';
 
 export default function LoginControl(props) {
@@ -13,8 +14,8 @@ export default function LoginControl(props) {
     }
   }
 
-  let postUrl = '/auth/local';
-  let fbLoginUrl = '/auth/facebook';
+  let postUrl = 'auth/local';
+  let fbLoginUrl = 'auth/facebook';
   if (props.returnTo !== null) {
     postUrl += `?returnTo=${encodeURI(props.returnTo)}`;
     fbLoginUrl += `?returnTo=${encodeURI(props.returnTo)}`;
@@ -22,19 +23,19 @@ export default function LoginControl(props) {
 
   return (
     <div
-      className={'login-control-container col-xs-12 col-sm-12 ' +
+      className={'box-control-container col-xs-12 col-sm-12 ' +
       'col-md-8 offset-md-2 col-lg-6 offset-lg-3'}
     >
       <div
-        className={'login-control col-xs-12 col-sm-8 ' +
+        className={'box-control col-xs-12 col-sm-8 ' +
         'offset-sm-2 col-md-8 offset-md-2 col-lg-8 offset-lg-2'}
       >
         <section className="section-facebook-login">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <a
               id="btn-login-facebook"
-              href={fbLoginUrl}
-              className="btn expanded btn-facebook"
+              href={Url.action(fbLoginUrl)}
+              className="btn btn-block btn-facebook btn-link-button"
             >
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Log in with Facebook
@@ -47,7 +48,7 @@ export default function LoginControl(props) {
         <section className="section-login">
           <form
             method="post"
-            action={postUrl}
+            action={Url.action(postUrl)}
           >
             <div
               className={'col-sm-12 col-md-12 col-lg-12 '
@@ -76,7 +77,7 @@ export default function LoginControl(props) {
             </div>
             <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
               <a
-                href="/forgot-password"
+                href={Url.action('forgot-password')}
                 className="link-span"
               >
                 Forgot Password?
@@ -89,7 +90,7 @@ export default function LoginControl(props) {
             />
             <div className="col-sm-12 col-md-12 col-lg-12">
               <button
-                className="btn expanded btn-success btn-login"
+                className="btn btn-block btn-success"
                 type="submit"
               >
                 Log in
@@ -104,7 +105,7 @@ export default function LoginControl(props) {
           <div className="text-align-center">
             <span className="link-span">Don"t have an account?&nbsp;</span>
             <a
-              href="/sign-up"
+              href={Url.action('sign-up')}
               className="link link-span"
             >
               Sign Up

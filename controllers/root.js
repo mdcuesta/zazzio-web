@@ -1,21 +1,29 @@
 import { Router } from 'express';
 import { Authenticated } from '../utilities/security';
 
-export const TITLE = 'Zazzio - Property Finder';
-
 const authenticated = Authenticated;
 
 export function index(req, res) {
   res.render('index', {
-    title: TITLE,
     authenticated: authenticated(req),
     csrfToken: req.csrfToken(),
   });
 }
 
 export function signup(req, res) {
-  res.render('register', {
-  });
+  const isAuthenticated = authenticated(req);
+  if (isAuthenticated) {
+    if (req.query.returnTo) {
+      res.redirect(req.query.returnTo);
+    } else {
+      res.redirect('/');
+    }
+  } else {
+    res.render('register', {
+      csrfToken: req.csrfToken(),
+      returnTo: req.query.returnTo,
+    });
+  }
 }
 
 export function login(req, res) {
@@ -28,7 +36,6 @@ export function login(req, res) {
     }
   } else {
     res.render('login', {
-      title: 'Login to experience awesome',
       csrfToken: req.csrfToken(),
       returnTo: req.query.returnTo,
     });

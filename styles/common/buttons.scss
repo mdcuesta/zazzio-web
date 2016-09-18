@@ -1,0 +1,11 @@
+@charset 'utf-8';
+
+.btn-facebook {
+  @include button-variant($white, $facebook-blue, $facebook-blue);
+  color: $white;
+}
+
+.btn-link-button {
+  padding: 1rem;
+}
+

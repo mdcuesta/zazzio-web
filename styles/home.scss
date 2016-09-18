@@ -21,10 +21,14 @@
 @import './custom/modal';
 
 // Common
+// Navbar dependencies
 @import './common/colors';
 @import './common/utilities';
+@import './common/buttons';
 @import './common/animate';
 @import './common/layout';
-@import './common/home-search';
 @import './common/login-signup-modal';
+
+// Home Search
+@import './common/home-search';
 

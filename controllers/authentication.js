@@ -39,7 +39,6 @@ router.post('/local', csrfProtected(), (req, res, next) => {
       User.countByLocalEmail(req.body.email)
       .then((count) => {
         res.render('login', {
-          title: 'Login to experience awesome',
           csrfToken: req.csrfToken(),
           validEmail: count > 0,
           email: req.body.email,

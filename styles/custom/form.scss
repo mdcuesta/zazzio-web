@@ -9,7 +9,9 @@ input {
   &[type='text'],
   &[type='password'] {
     &.form-control {
+      font-size: $input-text-font-size;
       height: $input-text-height;
     }
   }
 }
+

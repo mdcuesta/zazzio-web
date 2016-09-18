@@ -1,0 +1,25 @@
+@charset 'utf-8';
+
+.box-control {
+  background: $white;
+  border: 1px solid $ddd;
+  padding: 2rem 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  .box-control-container {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .box-control-container {
+    background: $white;
+    padding: 0;
+  }
+
+  .box-control {
+    border: 0;
+  }
+}

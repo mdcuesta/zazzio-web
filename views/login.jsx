@@ -10,7 +10,7 @@ import LoginControl from './components/account/login-control';
 export default function Login(props) {
   return (
     <DefaultLayout
-      title={props.title}
+      title="Log in to experience awesome"
       jsbundle={Url.cdn('javascripts/login.js')}
       cssbundle={Url.cdn('stylesheets/login.css')}
       authenticated={props.authenticated}
@@ -32,18 +32,15 @@ export default function Login(props) {
 }
 
 Login.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  csrfToken: React.PropTypes.string.isRequired,
   authenticated: React.PropTypes.bool,
-  csrfToken: React.PropTypes.string,
   validEmail: React.PropTypes.bool,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
 };
 
 Login.defaultProps = {
-  title: '',
   authenticated: false,
-  csrfToken: null,
   validEmail: null,
   email: null,
   returnTo: null,

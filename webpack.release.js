@@ -18,7 +18,8 @@ module.exports = [{
     description: 'Transpile jsx to native javascript that runs on browsers.',
     entry: {
       home: jsxPath + '/home.js',
-      login: jsxPath + '/login.js'
+      login: jsxPath + '/login.js',
+      'sign-up': jsxPath + '/sign-up.js'
     },
     output: {
       path: jsAssetsPath,

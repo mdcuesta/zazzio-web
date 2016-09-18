@@ -9,7 +9,7 @@ import Url from './helpers/url-helper';
 export default function Index(props) {
   return (
     <DefaultLayout
-      title={props.title}
+      title="Zazzio - Property Finder"
       jsbundle={Url.cdn('javascripts/home.js')}
       cssbundle={Url.cdn('stylesheets/home.css')}
       authenticated={props.authenticated}
@@ -30,13 +30,11 @@ export default function Index(props) {
 }
 
 Index.propTypes = {
-  title: React.PropTypes.string,
   authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
 };
 
 Index.defaultProps = {
-  title: '',
   authenticated: false,
   csrfToken: null,
 };
