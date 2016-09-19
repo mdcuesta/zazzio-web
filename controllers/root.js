@@ -19,7 +19,7 @@ export function signup(req, res) {
       res.redirect('/');
     }
   } else {
-    res.render('register', {
+    res.render('account/register', {
       csrfToken: req.csrfToken(),
       returnTo: req.query.returnTo,
     });
@@ -35,7 +35,7 @@ export function login(req, res) {
       res.redirect('/');
     }
   } else {
-    res.render('login', {
+    res.render('authentication/login', {
       csrfToken: req.csrfToken(),
       returnTo: req.query.returnTo,
     });

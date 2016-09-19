@@ -1,7 +1,7 @@
 import React from 'react';
-import Url from './helpers/url-helper';
-import DefaultLayout from './layout';
-import NavBar from './components/navbar/navbar';
+import Url from '../helpers/url-helper';
+import DefaultLayout from '../layout';
+import NavBar from '../components/navbar/navbar';
 
 /**
  * Register Complete View

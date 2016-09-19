@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from './layout';
 import NavBar from './components/navbar/navbar';
+import Footer from './components/footer/default-footer';
 import Url from './helpers/url-helper';
 
 /**
@@ -24,7 +25,8 @@ export default function Index(props) {
           <h1 className="m-x-auto">Your dream home awaits</h1>
         </div>
       </div>
-      <div id="content" />
+      <div className="content" />
+      <Footer />
     </DefaultLayout>
   );
 }

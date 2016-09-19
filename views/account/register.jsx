@@ -1,8 +1,9 @@
 import React from 'react';
-import Url from './helpers/url-helper';
-import DefaultLayout from './layout';
-import NavBar from './components/navbar/navbar';
-import SignUpControl from './components/account/signup-control';
+import Url from '../helpers/url-helper';
+import DefaultLayout from '../layout';
+import NavBar from '../components/navbar/navbar';
+import Footer from '../components/footer/default-footer';
+import SignUpControl from '../components/account/signup-control';
 
 /**
  * Register View
@@ -25,6 +26,7 @@ export default function Register(props) {
         csrfToken={props.csrfToken}
         formValues={props.formValues}
       />
+      <Footer />
     </DefaultLayout>
   );
 }

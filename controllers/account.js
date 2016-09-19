@@ -111,7 +111,7 @@ export function signUp(req, res, next) {
 export function signUpLocal(req, res, next) {
   const data = validateSignUp(req);
   if (data.hasError) {
-    res.render('register', {
+    res.render('account/register', {
       csrfToken: req.csrfToken(),
       formValues: data,
     });
@@ -120,7 +120,7 @@ export function signUpLocal(req, res, next) {
     .then((response) => {
       if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
         data.email.error = EMAIL_ADDRESS_INVALID;
-        return res.render('register', {
+        return res.render('account/register', {
           csrfToken: req.csrfToken(),
           formValues: data,
         });
@@ -131,7 +131,7 @@ export function signUpLocal(req, res, next) {
         if (count > 0) {
           data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
           data.email.existed = true;
-          return res.render('register', {
+          return res.render('account/register', {
             csrfToken: req.csrfToken(),
             formValues: data,
           });
@@ -160,7 +160,7 @@ export function signUpLocal(req, res, next) {
                 if (err) {
                   next(err);
                 } else {
-                  res.render('register-complete', {
+                  res.render('account/register-complete', {
                     csrfToken: req.csrfToken(),
                     authenticated: true,
                   });
@@ -201,6 +201,7 @@ export function signUpLocal(req, res, next) {
     });
   }
 }
+
 export function accountExists(req, res) {
   User.countByLocalEmail(req.body.email).then((count) => {
     const exists = count > 0;

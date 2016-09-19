@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLayout from './layout';
+import DefaultLayout from '../layout';
 
 export default function FBLoginReturnPage() {
   return (

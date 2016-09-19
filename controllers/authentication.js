@@ -12,7 +12,7 @@ export function authReturn(req, res) {
 }
 
 export function facebookAuthReturn(req, res) {
-  res.render('fb-login-return-popup');
+  res.render('authentication/fb-login-return-popup');
 }
 
 const passport = Passport;
@@ -38,7 +38,7 @@ router.post('/local', csrfProtected(), (req, res, next) => {
     } else if (!user) {
       User.countByLocalEmail(req.body.email)
       .then((count) => {
-        res.render('login', {
+        res.render('authentication/login', {
           csrfToken: req.csrfToken(),
           validEmail: count > 0,
           email: req.body.email,
