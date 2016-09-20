@@ -6,9 +6,9 @@ import Footer from '../components/footer/default-footer';
 import SignUpControl from '../components/account/signup-control';
 
 /**
- * Register View
+ * Sign Up Index View
  */
-export default function Register(props) {
+export default function Index(props) {
   return (
     <DefaultLayout
       title="Sign up to experience awesome"
@@ -31,12 +31,12 @@ export default function Register(props) {
   );
 }
 
-Register.propTypes = {
+Index.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
   authenticated: React.PropTypes.bool,
   formValues: React.PropTypes.object,
 };
 
-Register.defaultProps = {
+Index.defaultProps = {
   authenticated: false,
 };

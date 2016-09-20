@@ -4,8 +4,8 @@ import FormErrorLabel from '../common/form-error-label';
 import EmailErrorLabel from '../common/email-error-label';
 
 export default function SignUpControl(props) {
-  const postUrl = 'account/sign-up/local';
-  const signUpFbUrl = 'account/sign-up/facebook';
+  const postUrl = 'sign-up/local';
+  const signUpFbUrl = 'sign-up/facebook';
 
   return (
     <div className="container-fluid">

@@ -130,6 +130,17 @@ userSchema.methods.setFacebookCredentials = function setFacebookCredentials(cred
   this.facebook.name = `${credentials.name.givenName} ${credentials.name.familyName}`;
 };
 
+userSchema.methods.getValuesForSession = function getValuesForSession() {
+  return {
+    id: this.id,
+    email: this.email,
+    firstName: this.firstName,
+    displayName: this.displayName,
+    isBuyer: this.isBuyer,
+    isSeller: this.isSeller,
+  };
+};
+
 // statics
 userSchema.statics.countByLocalEmail = function countByEmail(email) {
   return this.count({

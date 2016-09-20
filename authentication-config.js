@@ -10,12 +10,7 @@ export default function configure(app) {
   facebookPassport();
   localPassport();
   passport.serializeUser((user, callback) => {
-    callback(null, {
-      id: user.id,
-      email: user.email,
-      displayName: user.displayName,
-      isBuyer: user.isBuyer,
-    });
+    callback(null, user.getValuesForSession());
   });
 
   passport.deserializeUser((obj, callback) => {

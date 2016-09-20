@@ -58,10 +58,10 @@ Dispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.actionType) {
-    case RegisterConstants.BUYER_QUICK_REGISTER_ACCOUNT_CREATED:
+    case RegisterConstants.QUICK_REGISTER_ACCOUNT_CREATED:
       quickRegisterStore.accountCreated(action.data);
       break;
-    case RegisterConstants.BUYER_QUICK_REGISTER_ACCOUNT_FAILED:
+    case RegisterConstants.QUICK_REGISTER_ACCOUNT_FAILED:
       quickRegisterStore.setError(action.errorMessage);
       break;
     case RegisterConstants.REGISTER_ACCOUNT_EXISTS:

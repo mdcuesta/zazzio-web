@@ -12,7 +12,7 @@ export default function NavBar(props) {
     navbarClass = 'navbar navbar-main';
   }
   const navBarRightContent = props.authenticated
-    ? (<AuthenticatedButtons />)
+    ? (<AuthenticatedButtons user={props.user} />)
     : (<UnAuthenticatedButtons />);
   return (
     <nav
@@ -99,28 +99,34 @@ export default function NavBar(props) {
         </div>
       </div>
       {navBarRightContent}
-      <button
-        className="navbar-toggler menu-toggler pull-right hidden-md-up"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar-menu-collapse"
-        aria-controls="navbar-menu-collapse"
-        aria-expanded="false"
-        aria-label="menu"
-      >
-        &#9776;
-      </button>
-      <button
-        className="navbar-toggler menu-toggler pull-right hidden-md-up"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar-menu-collapse"
-        aria-controls="navbar-menu-collapse"
-        aria-expanded="false"
-        aria-label="menu"
-      >
-        <i className="fa fa-large fa-cog" />
-      </button>
+      <ul className="nav navbar-nav navbar-right-sm pull-right">
+        <li className="nav-item">
+          <button
+            className="navbar-toggler menu-toggler hidden-md-up"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar-menu-collapse"
+            aria-controls="navbar-menu-collapse"
+            aria-expanded="false"
+            aria-label="menu"
+          >
+            <i className="fa fa-large fa-cog" />
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className="navbar-toggler menu-toggler hidden-md-up"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar-menu-collapse"
+            aria-controls="navbar-menu-collapse"
+            aria-expanded="false"
+            aria-label="menu"
+          >
+            &#9776;
+          </button>
+        </li>
+      </ul>
       <div className="btn-search-xs-container">
         <button className="btn btn-search-xs hidden-sm-up">
           <i className="fa fa-large fa-search" />&nbsp;
@@ -165,10 +171,12 @@ export default function NavBar(props) {
 NavBar.propTypes = {
   authenticated: React.PropTypes.bool,
   fixedTop: React.PropTypes.bool,
+  user: React.PropTypes.object,
 };
 
 NavBar.defaultProps = {
   authenticated: false,
   fixedTop: true,
+  user: null,
 };
 

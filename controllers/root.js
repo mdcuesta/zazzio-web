@@ -3,29 +3,20 @@ import { Authenticated } from '../utilities/security';
 
 const authenticated = Authenticated;
 
+/**
+ * Index Page
+ */
 export function index(req, res) {
   res.render('index', {
     authenticated: authenticated(req),
     csrfToken: req.csrfToken(),
+    user: req.user,
   });
 }
 
-export function signup(req, res) {
-  const isAuthenticated = authenticated(req);
-  if (isAuthenticated) {
-    if (req.query.returnTo) {
-      res.redirect(req.query.returnTo);
-    } else {
-      res.redirect('/');
-    }
-  } else {
-    res.render('account/register', {
-      csrfToken: req.csrfToken(),
-      returnTo: req.query.returnTo,
-    });
-  }
-}
-
+/**
+ * Login Page
+ */
 export function login(req, res) {
   const isAuthenticated = authenticated(req);
   if (isAuthenticated) {
@@ -42,6 +33,9 @@ export function login(req, res) {
   }
 }
 
+/**
+ * Logout
+ */
 export function logout(req, res) {
   req.logout();
   res.redirect('/');
@@ -59,7 +53,7 @@ const router = expressRouter();
 router.get('/', index);
 
 /**
- * Login page
+ * Login Page
  */
 router.get('/login', login);
 
@@ -67,11 +61,6 @@ router.get('/login', login);
  * Logout
  */
 router.get('/logout', logout);
-
-/**
- * Sign up Page
- */
-router.get('/sign-up', signup);
 
 /**
  * Exports router as default

@@ -1,0 +1,161 @@
+@charset 'utf-8';
+
+.navbar-main {
+  background: $white;
+  border-bottom: 1px solid $ddd;
+  height: 56px;
+  padding: 0;
+
+  .nav-item {
+    height: 56px;
+    padding-right: 1rem;
+    padding-top: .5rem;
+
+    .nav-link {
+      color: $brand-z-primary;
+    }
+
+    &.nav-item-search-form {
+      margin-left: 0;
+    }
+  }
+
+  .navbar-brand {
+    margin-left: 1rem;
+    margin-right: 0;
+
+    img {
+      height: 30px;
+    }
+  }
+
+  .nav-icon {
+    color: $brand-z-primary;
+    font-size: 1.5em;
+  }
+
+  .nav-item-separator {
+    border-right: 1px solid $ddd;
+    padding-right: 1rem;
+  }
+
+  .nav-item-margin-1 {
+    margin-right: 1rem;
+  }
+
+  .nav-item-padding-2 {
+    padding-right: 2rem;
+  }
+
+  .search-form {
+    .input-group-addon {
+      background: none;
+      border: 0;
+      padding-right: 0;
+
+      i {
+        font-size: 1.5em;
+      }
+    }
+
+    .search-text-md {
+      border: 0;
+      height: 2.5rem;
+      width: 290px;
+    }
+
+    .search-text-lg {
+      border: 0;
+      height: 2.5rem;
+      width: 400px;
+    }
+  }
+
+  .search-form-sm {
+    left: 90px;
+    position: absolute;
+    right: 140px;
+    top: 0;
+
+    .search-text-sm {
+      border: 0;
+      left: 35px;
+      position: absolute;
+      right: 120px;
+    }
+
+    .input-group-addon {
+      left: 0;
+      position: absolute;
+      top: .5rem;
+    }
+  }
+
+  .btn-search-xs-container {
+    left: 110px;
+    position: absolute;
+    right: 95px;
+    top: .5rem;
+  }
+
+  .btn-search-xs {
+    background: $white;
+    border: 1px solid $ddd;
+    color: $brand-z-primary;
+    height: auto;
+    position: absolute;
+    width: 100%;
+  }
+
+  .navbar-right {
+    .dropdown-menu {
+      margin-top: 0;
+    }
+
+    .nav-profile-photo {
+      border: 1px solid $aaa;
+      border-radius: 1000px;
+      height: 33px;
+      margin-right: 10px;
+      width: 33px;
+    }
+  }
+
+  .navbar-right-md {
+    margin-right: 10px;
+
+    .nav-item {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .navbar-right-sm {
+    .nav-item {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .menu-toggler {
+    color: $brand-z-primary;
+  }
+
+  .navbar-menu-collapse {
+    margin-top: 56px;
+
+    .nav-item {
+      @include button-variant($brand-z-primary, $brand-z-primary, $white);
+      border-top: 1px solid $ddd;
+      padding: 1rem;
+
+      a {
+        color: $white;
+        display: block;
+      }
+    }
+  }
+}
+

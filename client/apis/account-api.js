@@ -6,38 +6,15 @@ import SignUpActions from '../actions/register-actions';
  * Route: /account/sign-up
  * @param  {[object]} data [buyer data]
  */
-export function quickRegisterBuyer(data) {
+export function quickRegister(data) {
   $.ajax({
-    url: '/account/sign-up',
+    url: '/sign-up/quick',
     type: 'post',
     dataType: 'json',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
   }).done((responseData, statusText, xhr) => {
-    SignUpActions.quickRegisterBuyerComplete({
-      data: responseData,
-      statusText,
-      status: xhr.status,
-    });
-  }).fail(() => {
-    ErrorActions.error();
-  });
-}
-
-/**
- * Buyer register
- * Route: /account/sign-up
- * @param  {[object]} data [buyer data]
- */
-export function registerBuyer(data) {
-  $.ajax({
-    url: '/account/sign-up',
-    type: 'post',
-    dataType: 'json',
-    data: JSON.stringify(data),
-    contentType: 'application/json; charset=utf-8',
-  }).done((responseData, statusText, xhr) => {
-    SignUpActions.quickRegisterBuyerComplete({
+    SignUpActions.quickRegisterComplete({
       data: responseData,
       statusText,
       status: xhr.status,
@@ -49,7 +26,7 @@ export function registerBuyer(data) {
 
 export function accountExists(email) {
   $.ajax({
-    url: '/account/exists',
+    url: '/sign-up/exists',
     type: 'post',
     dataType: 'json',
     data: JSON.stringify({

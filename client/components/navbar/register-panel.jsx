@@ -339,7 +339,7 @@ export default class RegisterPanel extends Component {
         signUpText: 'Signing up....',
         signingUp: true,
       });
-      SignUpActions.quickRegisterBuyer({
+      SignUpActions.quickRegister({
         email: this.state.email.value,
         password: this.state.password.value,
         firstName: this.state.firstName.value,

@@ -6,7 +6,7 @@ import NavBar from '../components/navbar/navbar';
 /**
  * Register Complete View
  */
-export default function Register(props) {
+export default function Complete(props) {
   return (
     <DefaultLayout
       title="Sign up complete"
@@ -19,6 +19,7 @@ export default function Register(props) {
       <NavBar
         authenticated={props.authenticated}
         fixedTop={false}
+        user={props.user}
       />
       <div
         className={'box-control-container col-xs-12 col-sm-12 ' +
@@ -36,7 +37,7 @@ export default function Register(props) {
           <div className="form-group">
             <a
               className="btn btn-block btn-success btn-link-button"
-              href={Url.action('')}
+              href={Url.action('account')}
             >
               Continue
             </a>
@@ -47,11 +48,13 @@ export default function Register(props) {
   );
 }
 
-Register.propTypes = {
+Complete.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
+  user: React.PropTypes.object,
   authenticated: React.PropTypes.bool,
 };
 
-Register.defaultProps = {
+Complete.defaultProps = {
+  user: null,
   authenticated: false,
 };

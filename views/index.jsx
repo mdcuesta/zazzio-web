@@ -16,7 +16,10 @@ export default function Index(props) {
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
     >
-      <NavBar authenticated={props.authenticated} />
+      <NavBar
+        authenticated={props.authenticated}
+        user={props.user}
+      />
       <div
         id="home-hero-container"
         className="home-hero animated fadeIn"
@@ -34,9 +37,11 @@ export default function Index(props) {
 Index.propTypes = {
   authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
+  user: React.PropTypes.object,
 };
 
 Index.defaultProps = {
   authenticated: false,
   csrfToken: null,
+  user: null,
 };
