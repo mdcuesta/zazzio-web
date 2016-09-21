@@ -1,5 +1,5 @@
 import React from 'react';
-import Url from '../../helpers/url-helper';
+import Url from '../helpers/url-helper';
 
 export default function RightAuthenticatedButtons(props) {
   return (
@@ -11,7 +11,7 @@ export default function RightAuthenticatedButtons(props) {
         <li className="nav-item nav-item-separator dropdown">
           <a
             className="nav-link dropdown-toggle"
-            data-toggle="dropdown" href="/account"
+            data-toggle="dropdown" href={Url.action('user/dashboard')}
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
@@ -28,14 +28,14 @@ export default function RightAuthenticatedButtons(props) {
           <div className="dropdown-menu dropdown-menu-right">
             <a
               className="dropdown-item"
-              href="/account"
+              href={Url.action('user/dashboard')}
             >
               My Account
             </a>
             <div className="dropdown-divider" />
             <a
               className="dropdown-item"
-              href="/logout"
+              href={Url.action('logout')}
             >
               Log out
             </a>
@@ -44,7 +44,7 @@ export default function RightAuthenticatedButtons(props) {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/help"
+            href={Url.action('help')}
           >
             <i className="nav-icon fa fa-large fa-question-circle-o" />
           </a>
@@ -54,7 +54,7 @@ export default function RightAuthenticatedButtons(props) {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/logout"
+            href={Url.action('logout')}
           >
             <i className="nav-icon fa fa-large fa-sign-out" />
           </a>
@@ -62,7 +62,7 @@ export default function RightAuthenticatedButtons(props) {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/help"
+            href={Url.action('help')}
           >
             <i className="nav-icon fa fa-large fa-question-circle-o" />
           </a>

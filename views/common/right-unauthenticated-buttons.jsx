@@ -1,4 +1,5 @@
 import React from 'react';
+import Url from '../helpers/url-helper';
 
 export default function RightUnAuthenticatedButtons() {
   return (
@@ -10,7 +11,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/login"
+            href={Url.action('login')}
           >
             Log in
           </a>
@@ -18,7 +19,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item nav-item-separator">
           <a
             className="nav-link"
-            href="/sign-up"
+            href={Url.action('sign-up')}
           >
             Sign up
           </a>
@@ -26,7 +27,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/help"
+            href={Url.action('help')}
           >
             <i className=" nav-icon nav-help fa fa-large fa-question-circle-o" />
           </a>
@@ -36,7 +37,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/login"
+            href={Url.action('login')}
           >
             <i className="nav-icon fa fa-large fa-sign-in" />
           </a>
@@ -44,7 +45,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/sign-up"
+            href={Url.action('sign-up')}
           >
             <i className="nav-icon fa fa-large fa-plus" />
           </a>
@@ -52,7 +53,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="/help"
+            href={Url.action('help')}
           >
             <i className="nav-icon fa fa-large fa-question-circle-o" />
           </a>

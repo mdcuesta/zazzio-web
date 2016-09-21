@@ -1,19 +1,22 @@
 import { Router } from 'express';
 import { Secure } from '../utilities/security';
 
-export function index(req, res) {
-  res.render('account/index');
+export function dashboard(req, res) {
+  res.render('user/dashboard', {
+    csrfToken: req.csrfToken(),
+    user: req.user,
+  });
 }
 
 const secure = Secure;
 const expressRoute = Router;
 const router = expressRoute();
 
-router.get('/',
+router.get('/dashboard',
   secure({
-    returnTo: '/account',
+    returnTo: '/user/dashboard',
   }),
-  index);
+  dashboard);
 
 /**
  * Exports router as default

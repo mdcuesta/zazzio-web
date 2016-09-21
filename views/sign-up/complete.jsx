@@ -1,7 +1,8 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
 import DefaultLayout from '../layout';
-import NavBar from '../components/navbar/navbar';
+import NavBar from '../common/navbar';
+import Footer from '../common/default-footer';
 
 /**
  * Register Complete View
@@ -44,6 +45,7 @@ export default function Complete(props) {
           </div>
         </div>
       </div>
+      <Footer />
     </DefaultLayout>
   );
 }

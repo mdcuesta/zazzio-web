@@ -1,6 +1,6 @@
 import React from 'react';
 import Url from '../../helpers/url-helper';
-import FormErrorLabel from '../common/form-error-label';
+import FormErrorLabel from '../../common/form-error-label';
 
 export default function LoginControl(props) {
   let emailError = '';

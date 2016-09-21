@@ -1,9 +1,9 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
 import DefaultLayout from '../layout';
-import NavBar from '../components/navbar/navbar';
-import Footer from '../components/footer/default-footer';
-import LoginControl from '../components/account/login-control';
+import NavBar from '../common/navbar';
+import Footer from '../common/default-footer';
+import LoginControl from './components/login-control';
 
 /**
  * Login View

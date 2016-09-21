@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthenticatedButtons from './right-authenticated-buttons';
 import UnAuthenticatedButtons from './right-unauthenticated-buttons';
-import Url from '../../helpers/url-helper';
+import Url from '../helpers/url-helper';
 
 /**
  * NavBar
@@ -35,7 +35,7 @@ export default function NavBar(props) {
         <li className="nav-item hidden-sm-down">
           <a
             className="nav-link"
-            href="/buy"
+            href={Url.action('buy')}
           >
             Buy
           </a>
@@ -43,7 +43,7 @@ export default function NavBar(props) {
         <li className="nav-item hidden-sm-down">
           <a
             className="nav-link"
-            href="/rent"
+            href={Url.action('rent')}
           >
             Rent
           </a>
@@ -54,7 +54,7 @@ export default function NavBar(props) {
         >
           <a
             className="nav-link"
-            href="/sell"
+            href={Url.action('sell')}
           >
             Sell
           </a>
@@ -141,7 +141,7 @@ export default function NavBar(props) {
           <li className="nav-item">
             <a
               className="nav-link"
-              href="/buy"
+              href={Url.action('buy')}
             >
               Buy
             </a>
@@ -149,7 +149,7 @@ export default function NavBar(props) {
           <li className="nav-item">
             <a
               className="nav-link"
-              href="/rent"
+              href={Url.action('rent')}
             >
               Rent
             </a>
@@ -157,7 +157,7 @@ export default function NavBar(props) {
           <li className="nav-item">
             <a
               className="nav-link"
-              href="/sell"
+              href={Url.action('sell')}
             >
               Sell
             </a>

@@ -9,6 +9,7 @@
     "test": "jest --verbose",
     "es-lint": "eslint --fix --config .eslintrc.json --output-file eslint-output.html --ext .js --ext .jsx *.js **/**",
     "sass-lint": "sass-lint --verbose --output-file sass-lint-output.html sass",
+    "lint": "npm run es-lint && npm run sass-lint",
     "build-release": "webpack -p -progress --colors --config webpack.release.js",
     "release": "node zazzio.compiled.js"
   },

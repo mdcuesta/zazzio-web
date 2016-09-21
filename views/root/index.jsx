@@ -1,8 +1,8 @@
 import React from 'react';
-import DefaultLayout from './layout';
-import NavBar from './components/navbar/navbar';
-import Footer from './components/footer/default-footer';
-import Url from './helpers/url-helper';
+import DefaultLayout from '../layout';
+import NavBar from '../common/navbar';
+import Footer from '../common/default-footer';
+import Url from '../helpers/url-helper';
 
 /**
  * Index View

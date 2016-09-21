@@ -1,7 +1,7 @@
 import React from 'react';
 import Url from '../../helpers/url-helper';
-import FormErrorLabel from '../common/form-error-label';
-import EmailErrorLabel from '../common/email-error-label';
+import FormErrorLabel from '../../common/form-error-label';
+import EmailErrorLabel from '../../common/email-error-label';
 
 export default function SignUpControl(props) {
   const postUrl = 'sign-up/local';

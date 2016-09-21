@@ -19,7 +19,8 @@ module.exports = [{
     entry: {
       home: jsxPath + '/home.js',
       login: jsxPath + '/login.js',
-      'sign-up': jsxPath + '/sign-up.js'
+      'sign-up': jsxPath + '/sign-up.js',
+      'user-dashboard': jsxPath + '/user-dashboard.js',
     },
     output: {
       path: jsAssetsPath,

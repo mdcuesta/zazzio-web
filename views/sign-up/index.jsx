@@ -1,9 +1,9 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
 import DefaultLayout from '../layout';
-import NavBar from '../components/navbar/navbar';
-import Footer from '../components/footer/default-footer';
-import SignUpControl from '../components/account/signup-control';
+import NavBar from '../common/navbar';
+import Footer from '../common/default-footer';
+import SignUpControl from './components/signup-control';
 
 /**
  * Sign Up Index View

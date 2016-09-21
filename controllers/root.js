@@ -7,7 +7,7 @@ const authenticated = Authenticated;
  * Index Page
  */
 export function index(req, res) {
-  res.render('index', {
+  res.render('root/index', {
     authenticated: authenticated(req),
     csrfToken: req.csrfToken(),
     user: req.user,
