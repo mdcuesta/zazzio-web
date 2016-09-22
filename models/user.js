@@ -41,6 +41,14 @@ const userSchema = new Schema({
   gender: {
     type: String,
   },
+  mobileNumber: {
+    number: String,
+    confirmationCode: String,
+    isConfirmed: {
+      type: Boolean,
+      default: false,
+    },
+  },
   isBuyer: {
     type: Boolean,
     default: true,
@@ -107,6 +115,29 @@ userSchema.methods.setPassword = function setPassword(password) {
 userSchema.methods.verifyPassword = function verifyPassword(password) {
   const hash = Crypto.sha512(password, this.local.passwordSalt);
   return hash === this.local.password;
+};
+
+/**
+ * Set Mobile Number Confirmation
+ * @param {string} confirmation code
+ */
+userSchema.methods.setMobileNumberConfirmation =
+  function setMobileNumberConfirmation(confirmationCode) {
+    if (this.mobileNumber.isConfirmed) {
+      return;
+    }
+    this.mobileNumber.confirmationCode = confirmationCode;
+    this.mobileNumber.isConfirmed = false;
+  };
+
+/**
+ * Confirm Mobile Number
+ * @param  {string} mobile number
+ */
+userSchema.methods.confirmMobileNumber = function confirmMobileNumber(number) {
+  if (this.mobileNumber.number === number) {
+    this.mobileNumber.isConfirmed = true;
+  }
 };
 
 /**

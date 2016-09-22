@@ -3,6 +3,7 @@ import Promise from 'bluebird';
 import Mailer from '../utilities/mailer';
 
 const BUYER_ACCOUNT_CONFIRMATION_SUBJECT = 'Complete your Zazz.io Account Registration';
+const mailer = new Mailer();
 
 function getBuyerAccountConfirmationEmailBody(account) {
   return `
@@ -36,12 +37,11 @@ export function emailExists(email) {
   });
 }
 
-export function sendAccountConfirmationMail(account, type) {
-  const mailer = new Mailer();
+export function sendUserConfirmationMail(user, type) {
   if (type === 'buyer') {
     return new Promise((resolve, reject) => {
-      mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
-        getBuyerAccountConfirmationEmailBody(account), (error, response) => {
+      mailer.send(user.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
+        getBuyerAccountConfirmationEmailBody(user), (error, response) => {
           if (error) {
             reject(error);
           } else {
@@ -52,8 +52,8 @@ export function sendAccountConfirmationMail(account, type) {
   }
 
   return new Promise((resolve, reject) => {
-    mailer.send(account.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
-      getBuyerAccountConfirmationEmailBody(account), (error, response) => {
+    mailer.send(user.email, null, BUYER_ACCOUNT_CONFIRMATION_SUBJECT,
+      getBuyerAccountConfirmationEmailBody(user), (error, response) => {
         if (error) {
           reject(error);
         } else {

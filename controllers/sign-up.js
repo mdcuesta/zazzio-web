@@ -85,7 +85,7 @@ export function signUpQuick(req, res, next) {
 
                 // send email confirmation, if this fails
                 // the user has the option to resend the email anyway
-                mailService.sendAccountConfirmationMail(doc, 'buyer')
+                mailService.sendUserConfirmationMail(doc, 'buyer')
                 .catch(() => {
                   // todo log email error
                   // if confirmation failed
@@ -192,7 +192,7 @@ export function signUpLocal(req, res, next) {
 
                   // send email confirmation, if this fails
                   // the user has the option to resend the email anyway
-                  mailService.sendAccountConfirmationMail(doc, 'buyer')
+                  mailService.sendUserConfirmationMail(doc, 'buyer')
                   .catch(() => {
                     // todo log email error
                     // if confirmation failed
