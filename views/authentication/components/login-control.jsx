@@ -22,14 +22,14 @@ export default function LoginControl(props) {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div
         className={'box-control-container col-xs-12 col-sm-12 ' +
         'col-md-8 offset-md-2 col-lg-6 offset-lg-3'}
       >
         <div
           className={'box-control col-xs-12 col-sm-8 ' +
-          'offset-sm-2 col-md-8 offset-md-2 col-lg-8 offset-lg-2'}
+          'offset-sm-2 col-md-10 offset-md-1 col-lg-10 offset-lg-1'}
         >
           <section className="section-facebook-login">
             <div className="col-sm-12 col-md-12 col-lg-12">

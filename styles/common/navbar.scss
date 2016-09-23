@@ -13,6 +13,21 @@
 
     .nav-link {
       color: $brand-z-primary;
+
+      &.nav-list-property {
+        border: 2px solid $brand-musturd;
+        color: $brand-musturd;
+        font-size: .8em;
+        font-weight: 600;
+        margin-top: .1rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+
+        &:hover {
+          background: $brand-musturd;
+          color: $white;
+        }
+      }
     }
 
     &.nav-item-search-form {
@@ -21,11 +36,12 @@
   }
 
   .navbar-brand {
-    margin-left: 1rem;
-    margin-right: 0;
+    border-right: 1px solid $ddd;
+    height: 100%;
+    padding: .5rem 1rem;
 
     img {
-      height: 30px;
+      height: 40px;
     }
   }
 
@@ -36,15 +52,18 @@
 
   .nav-item-separator {
     border-right: 1px solid $ddd;
-    padding-right: 1rem;
   }
 
-  .nav-item-margin-1 {
-    margin-right: 1rem;
-  }
+  .dropdown-menu-right {
+    .dropdown-item-profile {
+      color: $brand-musturd;
+      font-weight: 700;
 
-  .nav-item-padding-2 {
-    padding-right: 2rem;
+      span {
+        display: block;
+        font-weight: 200;
+      }
+    }
   }
 
   .search-form {
@@ -60,28 +79,31 @@
 
     .search-text-md {
       border: 0;
+      font-size: .9em;
       height: 2.5rem;
-      width: 290px;
+      width: 350px;
     }
 
     .search-text-lg {
       border: 0;
+      font-size: .9em;
       height: 2.5rem;
-      width: 400px;
+      width: 275px;
     }
   }
 
   .search-form-sm {
-    left: 90px;
+    left: 75px;
     position: absolute;
-    right: 140px;
+    right: 125px;
     top: 0;
 
     .search-text-sm {
       border: 0;
+      font-size: .9em;
       left: 35px;
       position: absolute;
-      right: 120px;
+      right: 12px;
     }
 
     .input-group-addon {
@@ -92,7 +114,7 @@
   }
 
   .btn-search-xs-container {
-    left: 110px;
+    left: 90px;
     position: absolute;
     right: 95px;
     top: .5rem;
@@ -107,11 +129,11 @@
     width: 100%;
   }
 
-  .navbar-right {
-    .dropdown-menu {
-      margin-top: 0;
-    }
+  .dropdown-menu {
+    margin-top: 0;
+  }
 
+  .navbar-right {
     .nav-profile-photo {
       border: 1px solid $aaa;
       border-radius: 1000px;

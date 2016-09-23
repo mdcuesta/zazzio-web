@@ -56,7 +56,7 @@ app.use(cors({
   optionsSuccessStatus: 200,
 }));
 
-app.use(favicon(path.join(__dirname, `assets/${version}/images`, 'favicon.ico')));
+app.use(favicon(path.join(__dirname, `assets/${version}/images`, 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

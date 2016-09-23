@@ -10,6 +10,14 @@ export default function RightUnAuthenticatedButtons() {
       <ul className="nav navbar-nav hidden-md-down">
         <li className="nav-item">
           <a
+            className="nav-link nav-list-property"
+            href={Url.action('list-property')}
+          >
+            List your Property
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
             className="nav-link"
             href={Url.action('login')}
           >

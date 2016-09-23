@@ -12,6 +12,14 @@ export default function NavBarRight() {
       id="navbar-right"
     >
       <ul className="nav navbar-nav hidden-md-down">
+        <li className="nav-item nav-item-separator">
+          <a
+            className="nav-link nav-list-property"
+            href="/list-property"
+          >
+            List Your Property
+          </a>
+        </li>
         <li className="nav-item">
           <a
             className="nav-link"

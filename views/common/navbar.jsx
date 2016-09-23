@@ -19,45 +19,113 @@ export default function NavBar(props) {
       className={navbarClass}
       data-options="marginTop:0;"
     >
+      <a
+        className="navbar-brand"
+        href={Url.action('')}
+      >
+        <img
+          className="zazzio-logo"
+          src={Url.cdn('images/zazzio-logo-transparent.png')}
+          alt="zazzio"
+        />
+      </a>
       <ul className="nav navbar-nav">
-        <li className="nav-item nav-item-separator nav-item-margin-1">
-          <a
-            className="navbar-brand"
-            href={Url.action('')}
-          >
-            <img
-              className="zazzio-logo"
-              src={Url.cdn('images/zazzio-logo-small.png')}
-              alt="zazzio"
-            />
-          </a>
-        </li>
-        <li className="nav-item hidden-sm-down">
-          <a
-            className="nav-link"
-            href={Url.action('buy')}
-          >
-            Buy
-          </a>
-        </li>
-        <li className="nav-item hidden-sm-down">
-          <a
-            className="nav-link"
-            href={Url.action('rent')}
-          >
-            Rent
-          </a>
-        </li>
         <li
-          className={'nav-item nav-item-separator ' +
-          'nav-item-margin-1 nav-item-padding-2 hidden-sm-down'}
+          className="nav-item dropdown hidden-sm-down"
         >
           <a
-            className="nav-link"
-            href={Url.action('sell')}
+            className="nav-link dropdown-toggle"
+            href={Url.action('browse')}
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            Sell
+            Browse
           </a>
+          <ul
+            className="dropdown-menu"
+            role="menu"
+          >
+            <li>
+              <a
+                className="dropdown-item"
+                href="/condominiums"
+              >
+                Condominiums
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="/house-and-lot"
+              >
+                House and Lot
+              </a>
+            </li>
+            <li>
+              <div className="dropdown-divider" />
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="/developers"
+              >
+                Real Estate Developers
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
+          className="nav-item dropdown hidden-sm-down nav-item-separator"
+        >
+          <a
+            className="nav-link dropdown-toggle"
+            href={Url.action('explore')}
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Areas
+          </a>
+          <ul
+            className="dropdown-menu"
+            role="menu"
+          >
+            <li>
+              <a
+                className="dropdown-item"
+                href="/condominiums"
+              >
+                Metro Manila
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="/house-and-lot"
+              >
+                Pampanga
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="/developers"
+              >
+                Cebu
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="/developers"
+              >
+                Davao
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
       <ul className="nav navbar-nav">
@@ -70,7 +138,7 @@ export default function NavBar(props) {
               <input
                 type="text"
                 className="form-control search-text-lg"
-                placeholder="Enter an address, city or zip code."
+                placeholder="Enter an address or city."
               />
             </div>
             <div className="input-group hidden-sm-down hidden-lg-up">
@@ -80,7 +148,7 @@ export default function NavBar(props) {
               <input
                 type="text"
                 className="form-control search-text-md"
-                placeholder="Enter an address, city or zip code."
+                placeholder="Enter an address or city."
               />
             </div>
           </div>
@@ -94,7 +162,7 @@ export default function NavBar(props) {
           <input
             type="text"
             className="form-control search-text-sm"
-            placeholder="Enter an address, city or zip code."
+            placeholder="Enter an address or city."
           />
         </div>
       </div>
