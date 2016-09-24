@@ -84,6 +84,9 @@ module.exports = [{
         exclude: path.resolve(__dirname, 'node_modules/'),
       }]
     },
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    },
     output: {
       filename: appName + '.compiled.js',
       path: dist

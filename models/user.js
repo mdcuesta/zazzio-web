@@ -197,6 +197,12 @@ userSchema.statics.getByFacebookEmail = function getByFacebookEmail(email) {
   });
 };
 
+userSchema.statics.getByConfirmationCode = function getByConfirmationCode(confirmationCode) {
+  return this.findOne({
+    confirmationCode,
+  });
+};
+
 userSchema.statics.getUserProfile = function getUserProfile(userId) {
   return new Promise((resolve, reject) => {
     this.findOne({ _id: userId }, (err, doc) => {
