@@ -14,20 +14,19 @@ export default function ConfirmationEmail(props) {
       </p>
       <p>
         <a
-          href={Url.action(`user/account/confirm/${props.confirmationCode}`)}
+          href={Url.action(`sign-up/account/confirm/${props.confirmationCode}`)}
         >
-          {Url.action(`user/account/confirm/${props.confirmationCode}`)}
+          {Url.action(`sign-up/account/confirm/${props.confirmationCode}`)}
         </a>.
       </p>
       <p>
-        If you did not create this account in zazz.io
-        please click the link below to cancel the account.
+        If this is not you please click the link below to cancel the account.
       </p>
       <p>
         <a
-          href={Url.action(`user/account/cancel/${props.confirmationCode}`)}
+          href={Url.action(`sign-up/account/cancel/${props.confirmationCode}`)}
         >
-          {Url.action(`user/account/cancel/${props.confirmationCode}`)}
+          {Url.action(`sign-up/account/cancel/${props.confirmationCode}`)}
         </a>.
       </p>
       <p>

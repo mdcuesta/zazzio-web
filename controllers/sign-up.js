@@ -243,6 +243,73 @@ export function accountExists(req, res) {
 }
 
 /**
+ * Confirm account
+ */
+export function confirmAccount(req, res, next) {
+  const confirmationCode = req.params.confirmationCode;
+  User.getByConfirmationCode(confirmationCode)
+  .then((user) => {
+    if (user === null) {
+      res.status(404);
+      next();
+    } else {
+      // TODO
+      // add notification
+      user.confirm();
+      user.save()
+      .then(() => {
+        if (typeof req.user !== 'undefined'
+          && req.user.email === user.email) {
+          res.redirect('/user/dashboard');
+        } else {
+          req.logout();
+          res.render('sign-up/account-confirmation');
+        }
+      });
+    }
+  });
+}
+
+/**
+ * Sign up cancel
+ */
+export function signUpCancel(req, res, next) {
+  const confirmationCode = req.params.confirmationCode;
+  User.getByConfirmationCode(confirmationCode)
+  .then((user) => {
+    if (user === null) {
+      res.status(404);
+      next();
+    } else {
+      res.render('sign-up/sign-up-cancel', {
+        confirmationCode,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  });
+}
+
+export function confirmSignUpCancel(req, res, next) {
+  const confirmationCode = req.params.confirmationCode;
+  User.getByConfirmationCode(confirmationCode)
+  .then((user) => {
+    if (user === null) {
+      res.status(404);
+      next();
+    } else if (req.body.email !== user.email) {
+      res.render('sign-up/sign-up-cancel', {
+        confirmationCode,
+        csrfToken: req.csrfToken(),
+      });
+    } else {
+      user.remove()
+      .then(() => {
+        res.redirect('/');
+      });
+    }
+  });
+}
+/**
  * Routes Configuration
  */
 const expressRouter = Router;
@@ -266,6 +333,16 @@ router.get('/local', (req, res) => {
 router.post('/exists',
   csrfProtected(),
   accountExists);
+
+router.get('/account/confirm/:confirmationCode',
+  confirmAccount);
+
+router.get('/account/cancel/:confirmationCode',
+  signUpCancel);
+
+router.post('/account/cancel/:confirmationCode',
+  csrfProtected(),
+  confirmSignUpCancel);
 
 /**
  * Exports router as default

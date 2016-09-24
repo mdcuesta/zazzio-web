@@ -15,6 +15,7 @@ module.exports = [{
       'sign-up': jsxPath + '/sign-up.js',
       'user-dashboard': jsxPath + '/user-dashboard.js',
       'account-confirmation': jsxPath + '/account-confirmation.js',
+      'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
     },
     output: {
       path: jsPath,
