@@ -41,14 +41,17 @@ const userSchema = new Schema({
   gender: {
     type: String,
   },
-  mobileNumber: {
-    number: String,
+  mobileNumbers: [{
+    number: {
+      type: String,
+      unique: true,
+    },
     confirmationCode: String,
     isConfirmed: {
       type: Boolean,
       default: false,
     },
-  },
+  }],
   isBuyer: {
     type: Boolean,
     default: true,
@@ -58,6 +61,11 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
     required: true,
+  },
+  confirmationCode: {
+    type: String,
+    required: true,
+    default: '',
   },
   isConfirmed: {
     type: Boolean,
@@ -121,6 +129,7 @@ userSchema.methods.verifyPassword = function verifyPassword(password) {
  * Set Mobile Number Confirmation
  * @param {string} confirmation code
  */
+/*
 userSchema.methods.setMobileNumberConfirmation =
   function setMobileNumberConfirmation(confirmationCode) {
     if (this.mobileNumber.isConfirmed) {
@@ -128,18 +137,19 @@ userSchema.methods.setMobileNumberConfirmation =
     }
     this.mobileNumber.confirmationCode = confirmationCode;
     this.mobileNumber.isConfirmed = false;
-  };
+  };*/
 
 /**
  * Confirm Mobile Number
  * @param  {string} mobile number
  */
+/*
 userSchema.methods.confirmMobileNumber = function confirmMobileNumber(number) {
   if (this.mobileNumber.number === number) {
     this.mobileNumber.isConfirmed = true;
   }
 };
-
+*/
 /**
  * Populate Profile from Facebook
  * @param  {object} profile

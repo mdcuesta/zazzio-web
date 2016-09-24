@@ -17,21 +17,15 @@ export default function RightAuthenticatedButtons(props) {
             List Your Property
           </a>
         </li>
-        <li className="nav-item nav-item-separator">
-          <a
-            className="nav-link"
-            href={Url.action('user/dashboard')}
-          >
-            <i className="nav-icon fa fa-large fa-bell-o" />
-          </a>
-        </li>
+        <li
+          className="nav-item nav-item-separator hidden border-right-0"
+          id="nav-item-notification"
+        />
         <li className="nav-item nav-item-separator dropdown">
           <a
-            className="nav-link nav-link-profile-photo dropdown-toggle dropdown-toggle-user"
-            data-toggle="dropdown" href={Url.action('user/dashboard')}
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
+            className="nav-link nav-link-profile-photo dropdown-toggle-user"
+            href={Url.action('user/dashboard')}
+            id="link-user-menu"
           >
             <img
               className="nav-profile-photo"

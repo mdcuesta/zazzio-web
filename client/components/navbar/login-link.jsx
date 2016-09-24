@@ -1,5 +1,6 @@
 import React from 'react';
 import ModalActions from '../../actions/login-modal-actions';
+import Url from '../../helpers/url-helper';
 
 const LOGIN = 'login';
 
@@ -11,7 +12,7 @@ export function LoginLink(props) {
       data-target={`#${props.loginModalId}`}
       data-backdrop="static"
       onClick={() => ModalActions.setModalType(LOGIN)}
-      href="/login"
+      href={Url.action('login')}
       id="link-login"
     >
       Log in
@@ -31,7 +32,7 @@ export function LoginDropdownLink(props) {
       data-target={`#${props.loginModalId}`}
       data-backdrop="static"
       onClick={() => ModalActions.setModalType(LOGIN)}
-      href="/login"
+      href={Url.action('login')}
       id="dropdown-link-login"
     >
       Log in

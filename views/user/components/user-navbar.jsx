@@ -12,8 +12,8 @@ export default function UserNavBar() {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href={Url.action('user/inbox')}>
-              Inbox
+            <a className="nav-link" href={Url.action('user/messages')}>
+              Messages
             </a>
           </li>
           <li className="nav-item">

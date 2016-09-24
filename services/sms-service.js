@@ -18,6 +18,7 @@ export function send(toNumber, message) {
   });
 }
 
+/*
 export function sendUserConfirmationMobile(user) {
   return new Promise((resolve, reject) => {
     if (typeof user.mobileNumber === 'undefined'
@@ -45,4 +46,5 @@ export function sendUserConfirmationMobile(user) {
     }
   });
 }
+*/
 

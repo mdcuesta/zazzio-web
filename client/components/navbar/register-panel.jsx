@@ -4,6 +4,7 @@ import SignUpActions from '../../actions/register-actions';
 import Store from '../../stores/quick-register-store';
 import FormErrorLabel from '../common/form-error-label';
 import ModalActions from '../../actions/login-modal-actions';
+import Url from '../../helpers/url-helper';
 
 const LOGIN = 'login';
 const EMAIL_ADDRESS_REQUIRED = 'Email Address required';
@@ -217,7 +218,7 @@ export default class RegisterPanel extends Component {
               {this.state.signUpText}
             </button>
             <span className="link-span">By Signing up you agree to our&nbsp;
-              <a href="/terms">Terms</a> of use.
+              <a href={Url.action('terms')}>Terms</a> of use.
             </span>
           </div>
         </section>
@@ -226,7 +227,7 @@ export default class RegisterPanel extends Component {
           <div className="form-group">
             <a
               className="btn btn-block btn-facebook btn-link-button"
-              href="/account/sign-up/facebook"
+              href={Url.action('account/sign-up/facebook')}
             >
               <i className="fa fa-thumbs-o-up" />&nbsp;
               Sign Up with Facebook

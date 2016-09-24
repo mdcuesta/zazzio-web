@@ -1,4 +1,8 @@
 // misc
+.hidden {
+  display: none;
+}
+
 .text-align-right {
   text-align: right;
 }
@@ -66,4 +70,9 @@
   &:hover {
     color: $link-hover-color;
   }
+}
+
+// borders
+.border-right-0 {
+  border-right: 0;
 }

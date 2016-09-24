@@ -1,5 +1,6 @@
 import React from 'react';
 import ModalActions from '../../actions/login-modal-actions';
+import Url from '../../helpers/url-helper';
 
 const REGISTER = 'register';
 
@@ -11,7 +12,7 @@ export function SignUpLink(props) {
       data-target={`#${props.loginModalId}`}
       data-backdrop="static"
       onClick={() => ModalActions.setModalType(REGISTER)}
-      href="/sign-up"
+      href={Url.action('sign-up')}
       id="link-sign-up"
     >
       Sign up
@@ -31,7 +32,7 @@ export function SignUpDropdownLink(props) {
       data-target={`#${props.loginModalId}`}
       data-backdrop="static"
       onClick={() => ModalActions.setModalType(REGISTER)}
-      href="/sign-up"
+      href={Url.action('sign-up')}
       id="dropdown-link-sign-up"
     >
       Sign up

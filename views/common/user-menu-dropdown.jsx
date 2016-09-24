@@ -43,9 +43,9 @@ export default function UserMenuDropdown(props) {
       <li>
         <a
           className="dropdown-item"
-          href={Url.action('user/inbox')}
+          href={Url.action('user/messages')}
         >
-          Inbox
+          Messages
         </a>
       </li>
       <li>

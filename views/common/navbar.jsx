@@ -34,12 +34,9 @@ export default function NavBar(props) {
           className="nav-item dropdown nav-item-separator hidden-sm-down"
         >
           <a
-            className="nav-link dropdown-toggle"
+            className="nav-link"
             href={Url.action('browse')}
-            data-toggle="dropdown"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
+            id="link-browse"
           >
             Browse
           </a>
@@ -50,7 +47,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/condominiums"
+                href={Url.action('condominiums')}
               >
                 Condominiums
               </a>
@@ -58,7 +55,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/house-and-lot"
+                href={Url.action('house-and-lot')}
               >
                 House and Lot
               </a>
@@ -69,9 +66,9 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/developers"
+                href={Url.action('property-developers')}
               >
-                Real Estate Developers
+                Property Developers
               </a>
             </li>
           </ul>
@@ -80,12 +77,9 @@ export default function NavBar(props) {
           className="nav-item dropdown hidden-sm-down nav-item-separator"
         >
           <a
-            className="nav-link dropdown-toggle"
+            className="nav-link"
             href={Url.action('explore')}
-            data-toggle="dropdown"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
+            id="link-explore"
           >
             Areas
           </a>
@@ -96,7 +90,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/condominiums"
+                href={Url.action('explore/metro-manila')}
               >
                 Metro Manila
               </a>
@@ -104,7 +98,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/house-and-lot"
+                href={Url.action('explore/pampanga')}
               >
                 Pampanga
               </a>
@@ -112,7 +106,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/developers"
+                href={Url.action('explore/metro-cebu')}
               >
                 Cebu
               </a>
@@ -120,7 +114,7 @@ export default function NavBar(props) {
             <li>
               <a
                 className="dropdown-item"
-                href="/developers"
+                href={Url.action('explore/davao')}
               >
                 Davao
               </a>
@@ -199,37 +193,6 @@ export default function NavBar(props) {
           </button>
         </li>
       </ul>
-      <div
-        className="collapse navbar-menu-collapse"
-        id="navbar-menu-collapse"
-      >
-        <ul className="nav hidden-md-up">
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href={Url.action('buy')}
-            >
-              Buy
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href={Url.action('rent')}
-            >
-              Rent
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              href={Url.action('sell')}
-            >
-              Sell
-            </a>
-          </li>
-        </ul>
-      </div>
     </nav>
   );
 }

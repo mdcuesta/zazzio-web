@@ -12,6 +12,7 @@
 
     .nav-link {
       color: $brand-z-primary;
+      height: 100%;
       padding-left: 1rem;
       padding-right: 1rem;
     }
@@ -35,6 +36,7 @@
         color: $brand-musturd;
         font-size: .8em;
         font-weight: 600;
+        height: auto;
         margin-left: 1rem;
         margin-right: 1rem;
         margin-top: .1rem;

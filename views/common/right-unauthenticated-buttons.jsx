@@ -55,7 +55,7 @@ export default function RightUnAuthenticatedButtons() {
         <li className="nav-item dropdown nav-item-separator">
           <a
             className="nav-link dropdown-toggle"
-            href="/login"
+            href={Url.action('login')}
             data-toggle="dropdown"
             role="button"
             aria-haspopup="true"

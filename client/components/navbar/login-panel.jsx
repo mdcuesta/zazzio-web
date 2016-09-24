@@ -3,6 +3,7 @@ import Store from '../../stores/authentication-store';
 import AuthActions from '../../actions/authentication-actions';
 import FormErrorLabel from '../common/form-error-label';
 import ModalActions from '../../actions/login-modal-actions';
+import Url from '../../helpers/url-helper';
 
 const REGISTER = 'register';
 
@@ -201,7 +202,7 @@ export default class LoginPanel extends Component {
           </div>
           <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
             <a
-              href="/forgot-password"
+              href={Url.action('forgot-password')}
               className="link-span"
             >
               Forgot Password?
@@ -238,13 +239,15 @@ export default class LoginPanel extends Component {
         <section className="section-register">
           <div className="text-align-center">
             <span className="link-span">Don"t have an account?&nbsp;</span>
-            <span
+            <a
               onClick={() => ModalActions.setModalType(REGISTER)}
               className="link link-span"
               role="button"
+              data-toggle="modal"
+              href={Url.action('sign-up')}
             >
               Sign Up
-            </span>
+            </a>
           </div>
         </section>
       </div>

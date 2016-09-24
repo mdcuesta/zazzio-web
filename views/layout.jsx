@@ -1,27 +1,55 @@
 import React from 'react';
+import pjson from '../package.json';
+
+const version = pjson.version;
+const distributionUrl = process.env.CDN_DISTRIBUTION_URL || '';
+const appUrl = process.env.APP_DOMAIN || '';
 
 /**
  * Layout View
  */
 export default function Layout(props) {
   const jsbundleScript = props.jsbundle !== null && !(process.env.JS_OFF || false)
-    ? (<script type="text/javascript" src={props.jsbundle} />)
+    ? (<script async type="text/javascript" src={props.jsbundle} />)
     : null;
+
   const cssbundleScript = props.cssbundle !== null
     ? (<link rel="stylesheet" href={props.cssbundle} />)
     : null;
+
   const title = props.title !== null
     ? props.title : 'Zazzio';
+
   const csrfMeta = props.csrfToken !== null
     ? (<meta name="csrf-token" content={props.csrfToken} />)
     : null;
+
   const fbIdMeta =
     (<meta name="fb-app-id" content={process.env.FB_CLIENT_ID || '606312066216240'} />);
+
   const ravenMeta =
     (<meta
       name="raven-client-key"
       content={process.env.SENTRY_PUBLIC_CLIENT_KEY ||
       'https://b821575399244c389156af415401c5f5@sentry.io/97962'}
+    />);
+
+  const versionMeta =
+    (<meta
+      name="app-version"
+      content={version}
+    />);
+
+  const cdnMeta =
+    (<meta
+      name="distribution-url"
+      content={distributionUrl}
+    />);
+
+  const appUrlMeta =
+    (<meta
+      name="app-url"
+      content={appUrl}
     />);
 
   let bodyClassName = '';
@@ -33,6 +61,9 @@ export default function Layout(props) {
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        {versionMeta}
+        {cdnMeta}
+        {appUrlMeta}
         {csrfMeta}
         {fbIdMeta}
         {ravenMeta}
