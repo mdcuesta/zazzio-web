@@ -5,16 +5,15 @@ import NavBar from '../common/navbar';
 import Footer from '../common/default-footer';
 
 /**
- * Register Complete View
+ * AccountConfirmation View
  */
-export default function Complete(props) {
+export default function AccountConfirmation(props) {
   return (
     <DefaultLayout
-      title="Sign up complete - zazz.io"
-      jsbundle={Url.cdn('javascripts/sign-up.js')}
-      cssbundle={Url.cdn('stylesheets/sign-up.css')}
+      title="Sign up confirmation - zazz.io"
+      jsbundle={Url.cdn('javascripts/account-confirmation.js')}
+      cssbundle={Url.cdn('stylesheets/account-confirmation.css')}
       authenticated={props.authenticated}
-      csrfToken={props.csrfToken}
       fixedTop={false}
     >
       <NavBar
@@ -31,15 +30,14 @@ export default function Complete(props) {
             className={'box-control col-xs-12 col-sm-8 ' +
             'offset-sm-2 col-md-10 offset-md-1 col-lg-10 offset-lg-1'}
           >
-            <h5 className="text-align-center">Your account has been successfully created.</h5>
+            <h5 className="text-align-center">Your account has been confirmed.</h5>
             <p className="text-align-center">
-              Please confirm your account by clicking the confirmation link
-              that we sent to your email.  Thank you.
+              Thank you for confirming your account.
             </p>
             <div className="form-group">
               <a
                 className="btn btn-block btn-success btn-link-button"
-                href={Url.action('account')}
+                href={Url.action('user/dashboard')}
               >
                 Continue
               </a>
@@ -52,13 +50,12 @@ export default function Complete(props) {
   );
 }
 
-Complete.propTypes = {
-  csrfToken: React.PropTypes.string.isRequired,
+AccountConfirmation.propTypes = {
   user: React.PropTypes.object,
   authenticated: React.PropTypes.bool,
 };
 
-Complete.defaultProps = {
+AccountConfirmation.defaultProps = {
   user: null,
   authenticated: false,
 };

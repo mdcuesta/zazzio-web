@@ -21,6 +21,7 @@ module.exports = [{
       login: jsxPath + '/login.js',
       'sign-up': jsxPath + '/sign-up.js',
       'user-dashboard': jsxPath + '/user-dashboard.js',
+      'account-confirmation': jsxPath + '/account-confirmation.js',
     },
     output: {
       path: jsAssetsPath,
