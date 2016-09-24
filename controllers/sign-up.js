@@ -4,6 +4,7 @@ import { CsrfProtected, Authenticated } from '../utilities/security';
 import User from '../models/user';
 import * as MailService from '../services/mail-service';
 import { SignUpValidation, ValidateSignUp } from './validations/sign-up-validations';
+import * as CodeGenerator from '../utilities/code-generator';
 
 const EMAIL_ADDRESS_INVALID = 'Invalid email address';
 const ACCOUNT_CREATION_FAILED = 'Failed to create an account';
@@ -65,6 +66,7 @@ export function signUpQuick(req, res, next) {
             lastName: req.body.lastName,
             displayName: `${req.body.firstName} ${req.body.lastName}`,
             isSeller: req.body.seller,
+            confirmationCode: CodeGenerator.generateConfirmationCode(),
           });
           user.setUserName(req.body.email);
           user.setPassword(req.body.password);
@@ -172,6 +174,7 @@ export function signUpLocal(req, res, next) {
               lastName: req.body.lastName,
               displayName: `${req.body.firstName} ${req.body.lastName}`,
               isSeller: req.body.seller,
+              confirmationCode: CodeGenerator.generateConfirmationCode(),
             });
             user.setUserName(req.body.email);
             user.setPassword(req.body.password);

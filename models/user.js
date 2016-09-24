@@ -51,6 +51,10 @@ const userSchema = new Schema({
       type: Boolean,
       default: false,
     },
+    isPrimary: {
+      type: Boolean,
+      default: false,
+    },
   }],
   isBuyer: {
     type: Boolean,
@@ -64,7 +68,6 @@ const userSchema = new Schema({
   },
   confirmationCode: {
     type: String,
-    required: true,
     default: '',
   },
   isConfirmed: {
@@ -126,33 +129,20 @@ userSchema.methods.verifyPassword = function verifyPassword(password) {
 };
 
 /**
- * Set Mobile Number Confirmation
- * @param {string} confirmation code
+ * Add Mobile Number
+ * @param {string} number
+ * @param {boolean} isPrimary
  */
-/*
-userSchema.methods.setMobileNumberConfirmation =
-  function setMobileNumberConfirmation(confirmationCode) {
-    if (this.mobileNumber.isConfirmed) {
-      return;
-    }
-    this.mobileNumber.confirmationCode = confirmationCode;
-    this.mobileNumber.isConfirmed = false;
-  };*/
+userSchema.methods.addMobileNumber = function addMobileNumber(number, isPrimary = false) {
+  this.mobileNumbers.push({
+    number,
+    isPrimary,
+  });
+};
 
 /**
- * Confirm Mobile Number
- * @param  {string} mobile number
- */
-/*
-userSchema.methods.confirmMobileNumber = function confirmMobileNumber(number) {
-  if (this.mobileNumber.number === number) {
-    this.mobileNumber.isConfirmed = true;
-  }
-};
-*/
-/**
  * Populate Profile from Facebook
- * @param  {object} profile
+ * @param {object} profile
  */
 userSchema.methods.setProfileFromFacebook = function setProfileFromFacebook(profile) {
   this.email = profile.emails[0].value;

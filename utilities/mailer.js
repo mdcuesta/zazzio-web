@@ -6,7 +6,7 @@ export default class Mailer {
     const sendGrid = SendGrid;
     const toEmail = new helper.Email(sendTo);
     const fromEmail = new helper.Email(sender || 'noreply@zazz.io');
-    const content = new helper.Content('text/plain', body);
+    const content = new helper.Content('text/html', body);
     const mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
     const sendgrid = sendGrid(process.env.SENDGRID_API_KEY
