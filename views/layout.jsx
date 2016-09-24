@@ -4,7 +4,7 @@ import React from 'react';
  * Layout View
  */
 export default function Layout(props) {
-  const jsbundleScript = props.jsbundle !== null
+  const jsbundleScript = props.jsbundle !== null && !(process.env.JS_OFF || false)
     ? (<script type="text/javascript" src={props.jsbundle} />)
     : null;
   const cssbundleScript = props.cssbundle !== null

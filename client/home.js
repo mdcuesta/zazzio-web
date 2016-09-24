@@ -1,3 +1,3 @@
 import 'bootstrap';
 import './utils';
-import './user-ui-transformations';
+import './common/user-ui-transformations';

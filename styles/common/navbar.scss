@@ -2,42 +2,61 @@
 
 .navbar-main {
   background: $white;
-  border-bottom: 1px solid $ddd;
+  border-bottom: 1px solid $navbar-border-bottom;
   height: 56px;
   padding: 0;
 
   .nav-item {
     height: 56px;
-    padding-right: 1rem;
     padding-top: .5rem;
 
     .nav-link {
       color: $brand-z-primary;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
-      &.nav-list-property {
+    &.nav-item-search-form {
+      margin-left: 0;
+    }
+
+    &+.nav-item {
+      margin-left: 0;
+    }
+
+    &.open,
+    &:hover {
+      background: $navbar-hover;
+    }
+
+    &.nav-item-list-property {
+      a {
         border: 2px solid $brand-musturd;
         color: $brand-musturd;
         font-size: .8em;
         font-weight: 600;
+        margin-left: 1rem;
+        margin-right: 1rem;
         margin-top: .1rem;
-        padding-left: .5rem;
-        padding-right: .5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
         &:hover {
           background: $brand-musturd;
           color: $white;
         }
       }
-    }
 
-    &.nav-item-search-form {
-      margin-left: 0;
+      &:hover {
+        background: $white;
+      }
     }
   }
 
   .navbar-brand {
-    border-right: 1px solid $ddd;
+    border-right: 1px solid $navbar-border;
     height: 100%;
+    margin-right: 0;
     padding: .5rem 1rem;
 
     img {
@@ -51,7 +70,7 @@
   }
 
   .nav-item-separator {
-    border-right: 1px solid $ddd;
+    border-right: 1px solid $navbar-border;
   }
 
   .dropdown-menu-right {
@@ -64,6 +83,38 @@
         font-weight: 200;
       }
     }
+
+    .dropdown-item-list-property {
+      span {
+        border: 2px solid $brand-musturd;
+        color: $brand-musturd;
+        font-size: .8em;
+        font-weight: 600;
+        padding: .5rem 1rem;
+        text-align: center;
+
+        &:hover {
+          background: $brand-musturd;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .btn-search-xs-container {
+    left: 90px;
+    position: absolute;
+    right: 90px;
+    top: .5rem;
+  }
+
+  .btn-search-xs {
+    background: $white;
+    border: 1px solid $navbar-border;
+    color: $brand-z-primary;
+    height: auto;
+    position: absolute;
+    width: 100%;
   }
 
   .search-form {
@@ -77,18 +128,10 @@
       }
     }
 
-    .search-text-md {
+    .search-text {
       border: 0;
-      font-size: .9em;
+      font-size: .9rem;
       height: 2.5rem;
-      width: 350px;
-    }
-
-    .search-text-lg {
-      border: 0;
-      font-size: .9em;
-      height: 2.5rem;
-      width: 275px;
     }
   }
 
@@ -96,37 +139,21 @@
     left: 75px;
     position: absolute;
     right: 125px;
-    top: 0;
-
-    .search-text-sm {
-      border: 0;
-      font-size: .9em;
-      left: 35px;
-      position: absolute;
-      right: 12px;
-    }
-
-    .input-group-addon {
-      left: 0;
-      position: absolute;
-      top: .5rem;
-    }
-  }
-
-  .btn-search-xs-container {
-    left: 90px;
-    position: absolute;
-    right: 95px;
     top: .5rem;
   }
 
-  .btn-search-xs {
-    background: $white;
-    border: 1px solid $ddd;
-    color: $brand-z-primary;
-    height: auto;
+  .search-form-md {
+    left: 260px;
     position: absolute;
-    width: 100%;
+    right: 290px;
+    top: .5rem;
+  }
+
+  .search-form-lg {
+    left: 260px;
+    position: absolute;
+    right: 380px;
+    top: .5rem;
   }
 
   .dropdown-menu {
@@ -134,21 +161,22 @@
   }
 
   .navbar-right {
+
+    .nav-link-profile-photo {
+      padding-top: .2rem;
+    }
+
     .nav-profile-photo {
       border: 1px solid $aaa;
       border-radius: 1000px;
       height: 33px;
-      margin-right: 10px;
       width: 33px;
     }
-  }
 
-  .navbar-right-md {
-    margin-right: 10px;
-
-    .nav-item {
-      padding-left: 0;
-      padding-right: 0;
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
     }
   }
 
@@ -170,7 +198,7 @@
 
     .nav-item {
       @include button-variant($brand-z-primary, $brand-z-primary, $white);
-      border-top: 1px solid $ddd;
+      border-top: 1px solid $navbar-border;
       padding: 1rem;
 
       a {

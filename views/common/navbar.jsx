@@ -31,7 +31,7 @@ export default function NavBar(props) {
       </a>
       <ul className="nav navbar-nav">
         <li
-          className="nav-item dropdown hidden-sm-down"
+          className="nav-item dropdown nav-item-separator hidden-sm-down"
         >
           <a
             className="nav-link dropdown-toggle"
@@ -128,32 +128,12 @@ export default function NavBar(props) {
           </ul>
         </li>
       </ul>
-      <ul className="nav navbar-nav">
-        <li className="nav-item nav-item-search-form">
-          <div className="form-inline pull-left search-form">
-            <div className="input-group hidden-md-down">
-              <div className="input-group-addon">
-                <i className="fa fa-search" />
-              </div>
-              <input
-                type="text"
-                className="form-control search-text-lg"
-                placeholder="Enter an address or city."
-              />
-            </div>
-            <div className="input-group hidden-sm-down hidden-lg-up">
-              <div className="input-group-addon">
-                <i className="fa fa-search" />
-              </div>
-              <input
-                type="text"
-                className="form-control search-text-md"
-                placeholder="Enter an address or city."
-              />
-            </div>
-          </div>
-        </li>
-      </ul>
+      <div className="btn-search-xs-container hidden-sm-up">
+        <button className="btn btn-search-xs">
+          <i className="fa fa-large fa-search" />&nbsp;
+          Search
+        </button>
+      </div>
       <div className="search-form search-form-sm hidden-xs-down hidden-md-up">
         <div className="input-group">
           <div className="input-group-addon">
@@ -161,7 +141,31 @@ export default function NavBar(props) {
           </div>
           <input
             type="text"
-            className="form-control search-text-sm"
+            className="form-control search-text"
+            placeholder="Enter an address or city."
+          />
+        </div>
+      </div>
+      <div className="search-form search-form-md hidden-sm-down hidden-lg-up">
+        <div className="input-group">
+          <div className="input-group-addon">
+            <i className="fa fa-search" />
+          </div>
+          <input
+            type="text"
+            className="form-control search-text"
+            placeholder="Enter an address or city."
+          />
+        </div>
+      </div>
+      <div className="search-form search-form-lg hidden-md-down">
+        <div className="input-group">
+          <div className="input-group-addon">
+            <i className="fa fa-search" />
+          </div>
+          <input
+            type="text"
+            className="form-control search-text"
             placeholder="Enter an address or city."
           />
         </div>
@@ -195,12 +199,6 @@ export default function NavBar(props) {
           </button>
         </li>
       </ul>
-      <div className="btn-search-xs-container">
-        <button className="btn btn-search-xs hidden-sm-up">
-          <i className="fa fa-large fa-search" />&nbsp;
-          Search
-        </button>
-      </div>
       <div
         className="collapse navbar-menu-collapse"
         id="navbar-menu-collapse"
