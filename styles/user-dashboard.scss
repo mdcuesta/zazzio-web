@@ -13,12 +13,11 @@
 @import './bootstrap/dropdown';
 @import './bootstrap/navbar';
 @import './bootstrap/nav';
+@import './bootstrap/list-group';
+@import './bootstrap/card';
 
 // Bootstrap Custom
-@import './custom/variables';
 @import './custom/utilities';
-@import './custom/form';
-@import './custom/modal';
 
 // Common
 // Navbar dependencies
@@ -27,44 +26,4 @@
 @import './common/animate';
 @import './common/layout';
 @import './common/navbar';
-
-// Footer
-@import './common/footer';
-
-.main-content {
-  height: 800px;
-}
-
-.navbar-user {
-  background: $gray-dark;
-  padding: 0;
-
-  .nav-link {
-    color: $ddd;
-    font-size: .9em;
-    padding: .7rem .5rem;
-    position: relative;
-
-    &.active {
-      color: $white;
-
-      &::after {
-        border-bottom: .3rem solid;
-        border-left: .3rem solid transparent;
-        border-right: .3rem solid transparent;
-        bottom: 0;
-        content: '';
-        height: 0;
-        left: 50%;
-        margin-left: -.3rem;
-        position: absolute;
-        vertical-align: middle;
-        width: 0;
-      }
-    }
-
-    &:hover {
-      color: $white;
-    }
-  }
-}
+@import './common/user-pages';

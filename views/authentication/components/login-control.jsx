@@ -76,7 +76,7 @@ export default function LoginControl(props) {
                 />
                 <FormErrorLabel error={passwordError} />
               </div>
-              <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
+              <div className="col col-sm-12 col-md-12 col-lg-12 text-right form-group">
                 <a
                   href={Url.action('forgot-password')}
                   className="link-span"
@@ -103,7 +103,7 @@ export default function LoginControl(props) {
             <div className="divider plain" />
           </div>
           <section className="section-register">
-            <div className="text-align-center">
+            <div className="text-center">
               <span className="link-span">Don"t have an account?&nbsp;</span>
               <a
                 href={Url.action('sign-up')}

@@ -10,12 +10,18 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = [{
     description: 'Transpile jsx/react to native javascript that runs on browsers.',
     entry: {
+      // root pages
       home: jsxPath + '/home.js',
       login: jsxPath + '/login.js',
+
+      // sign up pages
       'sign-up': jsxPath + '/sign-up.js',
-      'user-dashboard': jsxPath + '/user-dashboard.js',
       'account-confirmation': jsxPath + '/account-confirmation.js',
       'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
+
+      // user pages
+      'user-dashboard': jsxPath + '/user-dashboard.js',
+      'user-profile': jsxPath + '/user-profile.js',
     },
     output: {
       path: jsPath,

@@ -14,6 +14,8 @@ const PASSWORD_LENGTH_ERROR = 'Password must be at least 6 characters';
 const FIRST_NAME_REQUIRED = 'First name required';
 const LAST_NAME_REQUIRED = 'Last name required';
 const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for this email address';
+const SIGNING_UP_TEXT = 'Signing up....';
+const SIGN_UP_TEXT = 'Sign up';
 
 const validator = Validator;
 
@@ -45,7 +47,7 @@ export default class RegisterPanel extends Component {
       isSeller: {
         value: false,
       },
-      signUpText: 'Sign Up',
+      signUpText: SIGN_UP_TEXT,
       reloadPage: false,
     };
 
@@ -65,25 +67,27 @@ export default class RegisterPanel extends Component {
   }
 
   onChange() {
-    const error = Store.getError();
-    const submitHasError = Store.hasError();
-    if (error === `${EMAIL_ALREADY_ASSOCIATED} ${this.state.email.value}`) {
-      $('#txt-email').focus();
-    }
-    this.setState({
-      email: {
-        error,
-        value: this.state.email.value,
-        hasError: error !== '',
-      },
-      signingUp: false,
-      signUpText: 'Sign Up',
-      submitHasError,
-    });
-
     const account = Store.getCreatedAccount();
-    if (account !== null) {
+    if (account === null) {
+      const error = Store.getError();
+      const submitHasError = Store.hasError();
+      if (error === `${EMAIL_ALREADY_ASSOCIATED} ${this.state.email.value}`) {
+        $('#txt-email').focus();
+      }
       this.setState({
+        email: {
+          error,
+          value: this.state.email.value,
+          hasError: error !== '',
+        },
+        signingUp: false,
+        signUpText: SIGN_UP_TEXT,
+        submitHasError,
+      });
+    } else {
+      this.setState({
+        signingUp: true,
+        signUpText: SIGNING_UP_TEXT,
         reloadPage: true,
       });
     }
@@ -97,10 +101,10 @@ export default class RegisterPanel extends Component {
 
   getSignUpCompletePanel() {
     return (
-      <div>
+      <div role="form">
         <section className="section-regular-sign-up">
-          <h5 className="text-align-center">Your account has been successfully created.</h5>
-          <p className="text-align-center">
+          <h5 className="text-center">Your account has been successfully created.</h5>
+          <p className="text-center">
             Please confirm your account by clicking the confirmation link
             that we sent to your email.  Thank you.
           </p>
@@ -124,7 +128,7 @@ export default class RegisterPanel extends Component {
     const lastNameClass = this.getTextInputClass('lastName');
 
     return (
-      <div>
+      <div role="form">
         <section className="section-regular-sign-up">
           <div
             className={'col-sm-12 col-md-12 col-lg-12 ' +
@@ -208,7 +212,7 @@ export default class RegisterPanel extends Component {
           </div>
           <div
             className={'col-btn-sign-up col-sm-12 ' +
-            'col-md-12 col-lg-12 form-group text-align-center'}
+            'col-md-12 col-lg-12 form-group text-center'}
           >
             <button
               className="btn btn-block btn-primary btn-sign-up"
@@ -337,7 +341,7 @@ export default class RegisterPanel extends Component {
       $('#txt-last-name').focus();
     } else {
       this.setState({
-        signUpText: 'Signing up....',
+        signUpText: SIGNING_UP_TEXT,
         signingUp: true,
       });
       SignUpActions.quickRegister({

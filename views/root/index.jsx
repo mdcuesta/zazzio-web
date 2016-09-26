@@ -23,12 +23,16 @@ export default function Index(props) {
       <div
         id="home-hero-container"
         className="home-hero animated fadeIn"
+        role="banner"
       >
         <div className="hero-content col-sm-12 col-md-12 col-lg-12">
           <h1 className="m-x-auto">Your dream home awaits</h1>
         </div>
       </div>
-      <div className="content" />
+      <div
+        className="content"
+        role="main"
+      />
       <Footer />
     </DefaultLayout>
   );

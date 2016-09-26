@@ -31,15 +31,15 @@ export default function Complete(props) {
             className={'box-control col-xs-12 col-sm-8 ' +
             'offset-sm-2 col-md-10 offset-md-1 col-lg-10 offset-lg-1'}
           >
-            <h5 className="text-align-center">Your account has been successfully created.</h5>
-            <p className="text-align-center">
+            <h5 className="text-center">Your account has been successfully created.</h5>
+            <p className="text-center">
               Please confirm your account by clicking the confirmation link
               that we sent to your email.  Thank you.
             </p>
             <div className="form-group">
               <a
                 className="btn btn-block btn-success btn-link-button"
-                href={Url.action('account')}
+                href={Url.action('user/dashboard')}
               >
                 Continue
               </a>

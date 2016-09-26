@@ -34,8 +34,8 @@ export default function SignUpCancel(props) {
               method="post"
               action={Url.action(`sign-up/account/cancel/${props.confirmationCode}`)}
             >
-              <h5 className="text-align-center">Cancel Sign Up</h5>
-              <p className="text-align-center">
+              <h5 className="text-center">Cancel Sign Up</h5>
+              <p className="text-center">
                 To cancel sign up please key in your email address
               </p>
               <input

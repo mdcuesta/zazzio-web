@@ -91,7 +91,7 @@ export default function SignUpControl(props) {
                 />
                 <FormErrorLabel error={props.formValues.lastName.error} />
               </div>
-              <div className="col-sm-12 col-md-12 col-lg-12 form-group text-align-center">
+              <div className="col-sm-12 col-md-12 col-lg-12 form-group text-center">
                 <label
                   htmlFor="is-not-buyer"
                   className="form-check-label"
@@ -111,7 +111,7 @@ export default function SignUpControl(props) {
                 name="_csrf"
                 value={props.csrfToken}
               />
-              <div className="text-align-center form-group">
+              <div className="text-center form-group">
                 <span className="link-span">By Signing up you agree to our&nbsp;
                   <a href={Url.action('terms')}>Terms</a> of use.
                 </span>
@@ -130,7 +130,7 @@ export default function SignUpControl(props) {
             <div className="divider plain" />
           </div>
           <section className="section-register">
-            <div className="text-align-center">
+            <div className="text-center">
               <span className="link-span">Already have an account?&nbsp;</span>
               <a
                 href={Url.action('login')}

@@ -13,7 +13,7 @@ export default function RightUnAuthenticatedButtons() {
             className="nav-link"
             href={Url.action('list-property')}
           >
-            List your Property
+            List Your Property
           </a>
         </li>
         <li className="nav-item nav-item-separator">
@@ -73,7 +73,7 @@ export default function RightUnAuthenticatedButtons() {
                 href={Url.action('login')}
                 id="dropdown-link-login"
               >
-                Login
+                Log in
               </a>
             </li>
             <li>

@@ -1,0 +1,43 @@
+@chraset 'utf-8';
+
+@import 'user-pages-navbar';
+@import 'footer';
+
+.main-content {
+  margin-bottom: .5rem;
+  margin-top: 1rem;
+}
+
+.list-menu {
+  margin-bottom: 0;
+
+  li {
+    &+li {
+      margin-top: .8rem;
+    }
+  }
+
+  a {
+    color: $list-menu-item-color;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      color: $list-menu-item-color-active;
+    }
+  }
+}
+
+.card-img-profile-pic {
+  height: auto;
+  width: 100%;
+}
+
+.card-header {
+  font-weight: 600;
+}
+
+label {
+  font-size: .9em;
+}

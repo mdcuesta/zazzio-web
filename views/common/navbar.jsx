@@ -18,6 +18,7 @@ export default function NavBar(props) {
     <nav
       className={navbarClass}
       data-options="marginTop:0;"
+      role="navigation"
     >
       <a
         className="navbar-brand"

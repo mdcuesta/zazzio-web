@@ -165,7 +165,7 @@ export default class LoginPanel extends Component {
     const passwordClass = this.getTextInputClass('password');
 
     return (
-      <div>
+      <div role="form">
         <section className="section-regular-login">
           <div
             className={'col col-sm-12 col-md-12 col-lg-12 ' +
@@ -200,7 +200,7 @@ export default class LoginPanel extends Component {
             />
             <FormErrorLabel error={this.state.password.error} />
           </div>
-          <div className="col col-sm-12 col-md-12 col-lg-12 text-align-right form-group">
+          <div className="col col-sm-12 col-md-12 col-lg-12 text-right form-group">
             <a
               href={Url.action('forgot-password')}
               className="link-span"
@@ -237,7 +237,7 @@ export default class LoginPanel extends Component {
           </div>
         </section>
         <section className="section-register">
-          <div className="text-align-center">
+          <div className="text-center">
             <span className="link-span">Don"t have an account?&nbsp;</span>
             <a
               onClick={() => ModalActions.setModalType(REGISTER)}

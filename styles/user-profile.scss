@@ -1,0 +1,153 @@
+@charset 'utf-8';
+
+// Font Awesome
+@import './common/font-awesome';
+
+// Bootstrap Core
+@import './common/bootstrap-core';
+
+// Bootstrap Components
+@import './bootstrap/button-group';
+@import './bootstrap/input-group';
+@import './bootstrap/animation';
+@import './bootstrap/dropdown';
+@import './bootstrap/navbar';
+@import './bootstrap/nav';
+@import './bootstrap/list-group';
+@import './bootstrap/card';
+
+// Bootstrap Custom
+@import './custom/utilities';
+
+// Common
+// Navbar dependencies
+@import './common/colors';
+@import './common/utilities';
+@import './common/animate';
+@import './common/layout';
+@import './common/navbar';
+@import './common/user-pages';
+
+// Colors
+$verified-color:          #008000 !default;
+$delete-color:            #8c0001 !default;
+$verify-btn-border:       #373a3c !default;
+$add-number-link-color:   #373a3c !default;
+
+.link-view-profile {
+  border: 2px solid $brand-musturd;
+  color: $brand-musturd;
+  display: block;
+  font-size: .8em;
+  font-weight: 600;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+
+  &:hover {
+    background: $brand-musturd;
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.edit-profile-form {
+  .row {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-control {
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  label {
+    padding-top: .4rem;
+  }
+
+  select {
+    width: auto;
+  }
+
+  .bday-select {
+    margin-right: .5rem;
+  }
+
+  @include media-breakpoint-down(md) {
+    .bday-select {
+      margin-bottom: .5rem;
+      width: 100%;
+    }
+  }
+
+  .input-group-mobile {
+    margin-bottom: .5rem;
+
+    div,
+    span,
+    input {
+      background: none;
+    }
+
+    .verified {
+      color: $verified-color;
+      font-size: .7em;
+      font-weight: 900;
+      width: 82px;
+    }
+
+    .unverified {
+      background: none;
+      color: $verify-btn-border;
+      font-size: .7em;
+      font-weight: 900;
+      height: 100%;
+      text-decoration: none;
+      width: 82px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .input-group-delete {
+      a {
+        color: $delete-color;
+      }
+    }
+  }
+
+  .add-number-link {
+    color: $add-number-link-color;
+    font-size: .8em;
+    font-weight: 600;
+
+    &:hover {
+      color: $add-number-link-color;
+    }
+  }
+
+  .btn-profile-save {
+    width: 100px;
+  }
+}
+
+.list-group-item {
+  border: 0;
+  padding: .5rem;
+
+  &+.list-group-item {
+    padding-top: 0;
+  }
+
+  button {
+    font-size: .8em;
+    font-weight: 600;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+    width: 100%;
+  }
+}

@@ -30,8 +30,8 @@ export default function AccountConfirmation(props) {
             className={'box-control col-xs-12 col-sm-8 ' +
             'offset-sm-2 col-md-10 offset-md-1 col-lg-10 offset-lg-1'}
           >
-            <h5 className="text-align-center">Your account has been confirmed.</h5>
-            <p className="text-align-center">
+            <h5 className="text-center">Your account has been confirmed.</h5>
+            <p className="text-center">
               Thank you for confirming your account.
             </p>
             <div className="form-group">

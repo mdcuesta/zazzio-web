@@ -41,19 +41,23 @@ const userSchema = new Schema({
   gender: {
     type: String,
   },
-  mobileNumbers: [{
+  phoneNumbers: [{
     number: {
       type: String,
       unique: true,
     },
-    confirmationCode: String,
-    isConfirmed: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
-    isPrimary: {
-      type: Boolean,
-      default: false,
+    numberType: {
+      type: String,
+      default: 'mobile',
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
     },
   }],
   isBuyer: {
@@ -78,6 +82,9 @@ const userSchema = new Schema({
   dateCreated: Date,
   dateModified: Date,
 });
+
+// virtuals
+userSchema.virtual('displayName').get(() => `${this.firstName} ${this.lastName}`);
 
 // hooks
 userSchema.pre('save', function preSave(next) {

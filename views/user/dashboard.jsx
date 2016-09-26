@@ -1,33 +1,70 @@
 import React from 'react';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import UserNavBar from './components/user-navbar';
-import Footer from '../common/default-footer';
+import UserPageLayout from './user-pages-layout';
+import UserProfilePanel from './components/user-profile-panel';
 import Url from '../helpers/url-helper';
 
 export default function Dashboard(props) {
   return (
-    <DefaultLayout
+    <UserPageLayout
       title="Dashboard - Zazzio"
       jsbundle={Url.cdn('javascripts/user-dashboard.js')}
       cssbundle={Url.cdn('stylesheets/user-dashboard.css')}
-      authenticated
       csrfToken={props.csrfToken}
-      fixedTop={false}
+      user={props.user}
+      page="dashboard"
     >
-      <NavBar
-        authenticated
-        user={props.user}
-        fixedTop={false}
-      />
-      <UserNavBar />
-      <div className="container">
-        <div className="row main-content">
-          <div className="col-sm-12 col-md-12 col-lg-12" />
+      <div className="row main-content">
+        <div className="col-sm-12 col-md-4 col-lg-3">
+          <UserProfilePanel user={props.user} />
+          <div className="card">
+            <div className="card-header">
+              Quick Links
+            </div>
+            <div className="card-block">
+              <blockquote className="card-blockquote">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Integer posuere erat a ante.
+                </p>
+                <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-12 col-md-8 col-lg-9">
+          <div className="card">
+            <div className="card-block">
+              <blockquote className="card-blockquote">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Integer posuere erat a ante.
+                </p>
+                <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-header">
+              Messages (0 new)
+            </div>
+            <div className="card-block">
+              <blockquote className="card-blockquote">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Integer posuere erat a ante.
+                </p>
+                <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+            <div className="card-footer">
+              <a href={Url.action('user/messages')}>
+                All messages
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <Footer />
-    </DefaultLayout>
+    </UserPageLayout>
   );
 }
 
