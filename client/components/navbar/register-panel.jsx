@@ -84,6 +84,8 @@ export default class RegisterPanel extends Component {
         signUpText: SIGN_UP_TEXT,
         submitHasError,
       });
+    } else if (!account.confirmationSent) {
+      location.reload(true);
     } else {
       this.setState({
         signingUp: true,

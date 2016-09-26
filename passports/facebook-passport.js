@@ -1,6 +1,7 @@
 import Passport from 'passport';
 import { Strategy } from 'passport-facebook';
 import User from '../models/user';
+import { generateConfirmationCode } from '../utilities/code-generator';
 
 const profileFields = [
   'id',
@@ -41,7 +42,9 @@ export default function configure() {
             });
             // TODO
             // Do we need to set confirm true for facebook users?
-            newUser.confirm();
+            // no for now, the email used in the fb login
+            // needs to be confirmed
+            // newUser.confirm();
             /* eslint-disable */
             newUser.save()
             .then((doc) => done(null, doc))

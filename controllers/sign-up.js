@@ -62,9 +62,10 @@ export function signUpQuick(req, res, next) {
           // save user if it doesn't exist
           const user = new User({
             email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            displayName: `${req.body.firstName} ${req.body.lastName}`,
+            profile: {
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+            },
             isSeller: req.body.seller,
             confirmationCode: CodeGenerator.generateConfirmationCode(),
           });
@@ -81,7 +82,7 @@ export function signUpQuick(req, res, next) {
               } else {
                 res.status(201).json({
                   email: doc.email,
-                  displayName: doc.displayName,
+                  displayName: doc.profile.displayName,
                   confirmationSent: true,
                 });
 
@@ -114,7 +115,7 @@ export function signUpQuick(req, res, next) {
             } else {
               res.status(201).json({
                 email: doc.email,
-                displayName: doc.displayName,
+                displayName: doc.profile.displayName,
                 confirmationSent: false, // no need of confirmation email
               });
             }
@@ -170,9 +171,10 @@ export function signUpLocal(req, res, next) {
             // save user if it doesn't exist
             const user = new User({
               email: req.body.email,
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-              displayName: `${req.body.firstName} ${req.body.lastName}`,
+              profile: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+              },
               isSeller: req.body.seller,
               confirmationCode: CodeGenerator.generateConfirmationCode(),
             });

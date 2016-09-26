@@ -11,17 +11,6 @@ const userSchema = new Schema({
     unique: true,
     index: true,
   },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  middleName: {
-    type: String,
-  },
   local: {
     email: String,
     password: String,
@@ -34,32 +23,42 @@ const userSchema = new Schema({
     email: String,
     name: String,
   },
-  displayName: {
-    type: String,
-    required: true,
-  },
-  gender: {
-    type: String,
-  },
-  phoneNumbers: [{
-    number: {
-      type: String,
-      unique: true,
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    numberType: {
-      type: String,
-      default: 'mobile',
-      required: true,
-    },
-    country: {
+  profile: {
+    firstName: {
       type: String,
       required: true,
     },
-  }],
+    lastName: {
+      type: String,
+      required: true,
+    },
+    middleName: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
+    phoneNumbers: [{
+      number: {
+        type: String,
+        unique: true,
+      },
+      isVerified: {
+        type: Boolean,
+        default: false,
+      },
+      numberType: {
+        type: String,
+        default: 'mobile',
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
+    }],
+    isModified: Boolean,
+  },
   isBuyer: {
     type: Boolean,
     default: true,
@@ -84,7 +83,9 @@ const userSchema = new Schema({
 });
 
 // virtuals
-userSchema.virtual('displayName').get(() => `${this.firstName} ${this.lastName}`);
+userSchema.virtual('profile.displayName').get(function getDisplayName() {
+  return `${this.profile.firstName} ${this.profile.lastName}`;
+});
 
 // hooks
 userSchema.pre('save', function preSave(next) {
@@ -135,17 +136,6 @@ userSchema.methods.verifyPassword = function verifyPassword(password) {
   return hash === this.local.password;
 };
 
-/**
- * Add Mobile Number
- * @param {string} number
- * @param {boolean} isPrimary
- */
-userSchema.methods.addMobileNumber = function addMobileNumber(number, isPrimary = false) {
-  this.mobileNumbers.push({
-    number,
-    isPrimary,
-  });
-};
 
 /**
  * Populate Profile from Facebook
@@ -153,11 +143,10 @@ userSchema.methods.addMobileNumber = function addMobileNumber(number, isPrimary 
  */
 userSchema.methods.setProfileFromFacebook = function setProfileFromFacebook(profile) {
   this.email = profile.emails[0].value;
-  this.displayName = `${profile.name.givenName} ${profile.name.familyName}`;
-  this.firstName = profile.name.givenName;
-  this.lastName = profile.name.familyName;
-  this.middleName = profile.name.middleName;
-  this.gender = profile.gender;
+  this.profile.firstName = profile.name.givenName;
+  this.profile.lastName = profile.name.familyName;
+  this.profile.middleName = profile.name.middleName;
+  this.profile.gender = profile.gender;
 };
 
 userSchema.methods.setFacebookCredentials = function setFacebookCredentials(credentials) {
@@ -172,8 +161,8 @@ userSchema.methods.getValuesForSession = function getValuesForSession() {
   return {
     id: this.id,
     email: this.email,
-    firstName: this.firstName,
-    displayName: this.displayName,
+    firstName: this.profile.firstName,
+    displayName: this.profile.displayName,
     isBuyer: this.isBuyer,
     isSeller: this.isSeller,
   };
@@ -220,10 +209,10 @@ userSchema.statics.getUserProfile = function getUserProfile(userId) {
       } else {
         resolve({
           email: doc.email,
-          firstName: doc.firstName,
-          lastName: doc.lastName,
-          middleName: doc.middleName,
-          displayName: doc.displayName,
+          firstName: doc.profile.firstName,
+          lastName: doc.profile.lastName,
+          middleName: doc.profile.middleName,
+          displayName: doc.profile.displayName,
           gender: doc.gender,
           isBuyer: doc.isBuyer,
           isConfirmed: doc.isConfirmed,
