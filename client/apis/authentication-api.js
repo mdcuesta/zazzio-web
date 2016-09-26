@@ -1,9 +1,10 @@
 import ErrorActions from '../actions/error-actions';
 import AuthActions from '../actions/authentication-actions';
+import Url from '../helpers/url-helper';
 
 export default function login(email, password) {
   $.ajax({
-    url: '/auth/local/ajax',
+    url: Url.action('auth/local/ajax'),
     type: 'post',
     dataType: 'json',
     data: JSON.stringify({

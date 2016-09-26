@@ -1,5 +1,6 @@
 import ErrorActions from '../actions/error-actions';
 import SignUpActions from '../actions/register-actions';
+import Url from '../helpers/url-helper';
 
 /**
  * Buyer quick register
@@ -8,7 +9,7 @@ import SignUpActions from '../actions/register-actions';
  */
 export function quickRegister(data) {
   $.ajax({
-    url: '/sign-up/quick',
+    url: Url.action('sign-up/quick'),
     type: 'post',
     dataType: 'json',
     data: JSON.stringify(data),
@@ -26,7 +27,7 @@ export function quickRegister(data) {
 
 export function accountExists(email) {
   $.ajax({
-    url: '/sign-up/exists',
+    url: Url.action('sign-up/exists'),
     type: 'post',
     dataType: 'json',
     data: JSON.stringify({

@@ -1,104 +1,15 @@
-import { Schema } from 'mongoose';
 import Promise from 'bluebird';
 import * as AutoIncrement from 'mongoose-auto-increment';
+import UserSchema from './schemas/user-schema';
 import * as Crypto from '../utilities/crypto';
 import * as DataProvider from '../utilities/data-provider';
+import * as MailService from '../services/mail-service';
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    index: true,
-  },
-  local: {
-    email: String,
-    password: String,
-    passwordSalt: String,
-  },
-  facebook: {
-    id: String,
-    token: String,
-    refreshToken: String,
-    email: String,
-    name: String,
-  },
-  profile: {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    middleName: {
-      type: String,
-    },
-    gender: {
-      type: String,
-    },
-    phoneNumbers: [{
-      number: {
-        type: String,
-        unique: true,
-      },
-      isVerified: {
-        type: Boolean,
-        default: false,
-      },
-      numberType: {
-        type: String,
-        default: 'mobile',
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      },
-    }],
-    isModified: Boolean,
-  },
-  isBuyer: {
-    type: Boolean,
-    default: true,
-    required: true,
-  },
-  isSeller: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-  confirmationCode: {
-    type: String,
-    default: '',
-  },
-  isConfirmed: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  dateCreated: Date,
-  dateModified: Date,
-});
 
-// virtuals
-userSchema.virtual('profile.displayName').get(function getDisplayName() {
-  return `${this.profile.firstName} ${this.profile.lastName}`;
-});
+const userSchema = UserSchema;
+const mailService = MailService;
 
-// hooks
-userSchema.pre('save', function preSave(next) {
-  this.dateCreated = new Date();
-  next();
-});
-
-userSchema.pre('update', function preUpdate(next) {
-  this.dateModified = new Date();
-  next();
-});
-
-// methods
+// Business Model Methods
 /**
  * Confirm account
  */
@@ -132,6 +43,9 @@ userSchema.methods.setPassword = function setPassword(password) {
  * @param  {string} password
  */
 userSchema.methods.verifyPassword = function verifyPassword(password) {
+  if (!this.isConfirmed) {
+    return false;
+  }
   const hash = Crypto.sha512(password, this.local.passwordSalt);
   return hash === this.local.password;
 };
@@ -168,10 +82,43 @@ userSchema.methods.getValuesForSession = function getValuesForSession() {
   };
 };
 
+userSchema.methods.sendEmailConfirmation = function sendEmailConfirmation() {
+  return mailService.sendUserConfirmationMail(this, 'buyer');
+};
+
 // statics
-userSchema.statics.countByLocalEmail = function countByEmail(email) {
-  return this.count({
-    'local.email': email,
+userSchema.statics.existsAndUnConfirmed = function existAndUnConfirmed(email) {
+  return new Promise((resolve, reject) => {
+    this.count({
+      'local.email': email,
+      isConfirmed: false,
+    }, (err, count) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(count > 0);
+      }
+    });
+  });
+};
+
+userSchema.statics.localEmailExists = function localEmailExists(email) {
+  return new Promise((resolve, reject) => {
+    this.count({
+      'local.email': email,
+    }, (err, count) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(count > 0);
+      }
+    });
+  });
+};
+
+userSchema.statics.getById = function getById(id) {
+  return this.findOne({
+    _id: id,
   });
 };
 

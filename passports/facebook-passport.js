@@ -27,11 +27,13 @@ export default function configure() {
     User.getByFacebookEmail(email)
     .then((user) => {
       if (user === null) {
-        User.getByEmail(email).then((account) => {
+        User.getByLocalEmail(email).then((account) => {
           if (account == null) {
             // create new user since there is
             // no account associated with the email
-            const newUser = new User();
+            const newUser = new User({
+              confirmationCode: generateConfirmationCode(),
+            });
             newUser.setProfileFromFacebook(profile);
             newUser.setFacebookCredentials({
               id: profile.id,
@@ -40,14 +42,12 @@ export default function configure() {
               refreshToken,
               email,
             });
-            // TODO
-            // Do we need to set confirm true for facebook users?
-            // no for now, the email used in the fb login
-            // needs to be confirmed
-            // newUser.confirm();
             /* eslint-disable */
             newUser.save()
-            .then((doc) => done(null, doc))
+            .then((doc) => { 
+              done(null, doc); 
+              doc.sendEmailConfirmation();
+            })
             .catch((err) => done(err));
           } else {
             // need to update facebook credentials only

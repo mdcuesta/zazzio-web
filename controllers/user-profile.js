@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import { Secure } from '../utilities/security';
+import User from '../models/user';
 
 export function index(req, res) {
-  res.render('user/profile', {
-    csrfToken: req.csrfToken(),
-    user: req.user,
+  User.getById(req.user.id)
+  .then((user) => {
+    res.render('user/profile', {
+      csrfToken: req.csrfToken(),
+      user,
+    });
   });
 }
 
@@ -17,6 +21,7 @@ router.get('/',
     returnTo: '/user/profile',
   }),
   index);
+
 
 /**
  * Exports router as default

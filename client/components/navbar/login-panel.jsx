@@ -13,6 +13,8 @@ export default class LoginPanel extends Component {
     this.state = {
       hasError: false,
       message: '',
+      accountUnconfirmed: false,
+      unconfirmedEmail: '',
       loggingIn: false,
       loginText: 'Log in',
       email: {
@@ -48,7 +50,7 @@ export default class LoginPanel extends Component {
       return location.reload(true);
     }
 
-    const emailValue = message === 'Invalid password'
+    const emailValue = message === 'Invalid password' || message === 'Account unconfirmed'
       ? this.state.email.value
       : '';
 
@@ -57,18 +59,19 @@ export default class LoginPanel extends Component {
       message,
       email: {
         value: emailValue,
-        error: message === 'Invalid username' ? 'Invalid username' : '',
-        hasError: message === 'Invalid username',
+        error: message !== 'Invalid password' ? message : '',
+        hasError: message !== 'Invalid password',
       },
       password: {
         value: '',
         error: message === 'Invalid password' ? 'Invalid password' : '',
         hasError: message === 'Invalid password',
       },
+      accountUnconfirmed: message === 'Account unconfirmed',
+      unconfirmedEmail: message === 'Account unconfirmed' ? emailValue : '',
       loggingIn: false,
       loginText: 'Login',
     });
-
     if (message === 'Invalid password') {
       return $('#txt-login-password').focus();
     }
@@ -117,7 +120,9 @@ export default class LoginPanel extends Component {
     let state = null;
     let error = '';
     if (key === 'email') {
-      if (value === '') {
+      if (this.state.accountUnconfirmed && value === this.state.unconfirmedEmail) {
+        error = 'Account unconfirmed';
+      } else if (value === '') {
         error = 'Email is required';
       }
       state = {
@@ -149,6 +154,8 @@ export default class LoginPanel extends Component {
     const state = {};
     state[e.target.name] = {
       value: e.target.value,
+      error: this.state[e.target.name].error,
+      hasError: this.state[e.target.name].hasError,
     };
     this.setState(state);
   }
@@ -169,7 +176,8 @@ export default class LoginPanel extends Component {
         <section className="section-regular-login">
           <div
             className={'col col-sm-12 col-md-12 col-lg-12 ' +
-            `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
+            `form-group ${(this.state.email.hasError
+              || this.state.accountUnconfirmed ? 'has-danger' : '')}`}
           >
             <input
               id="txt-login-email"
@@ -181,7 +189,7 @@ export default class LoginPanel extends Component {
               onBlur={this.handleBlur}
               className={emailClass}
             />
-            <FormErrorLabel error={this.state.email.error} />
+            <EmailErrorLabel error={this.state.email.error} />
           </div>
           <div
             className={'col col-sm-12 col-md-12 col-lg-12 ' +
@@ -254,3 +262,30 @@ export default class LoginPanel extends Component {
     );
   }
 }
+
+
+function EmailErrorLabel(props) {
+  if (props.error === 'Account unconfirmed') {
+    return (
+      <div className="error-span-container">
+        <span
+          className="error-span form-control-feedback"
+        >
+          Please confirm your account to login.&nbsp;
+          <a
+            className="link link-span"
+            role="button"
+            href={Url.action('sign-up/confirmation/resend')}
+          >
+            Didn't receive any confirmation?
+          </a>
+        </span>
+      </div>
+    );
+  }
+  return (<FormErrorLabel error={props.error} />);
+}
+
+EmailErrorLabel.propTypes = {
+  error: React.PropTypes.string,
+};

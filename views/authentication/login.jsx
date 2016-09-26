@@ -25,6 +25,7 @@ export default function Login(props) {
       <LoginControl
         csrfToken={props.csrfToken}
         validEmail={props.validEmail}
+        unconfirmed={props.unconfirmed}
         email={props.email}
         returnTo={props.returnTo}
       />
@@ -37,6 +38,7 @@ Login.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
   authenticated: React.PropTypes.bool,
   validEmail: React.PropTypes.bool,
+  unconfirmed: React.PropTypes.bool,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
 };
@@ -44,6 +46,7 @@ Login.propTypes = {
 Login.defaultProps = {
   authenticated: false,
   validEmail: null,
+  unconfirmed: false,
   email: null,
   returnTo: null,
 };

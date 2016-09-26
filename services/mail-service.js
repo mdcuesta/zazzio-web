@@ -24,7 +24,7 @@ export function emailExists(email) {
 
 export function sendUserConfirmationMail(user, type) {
   const emailBody = getMailTemplate('account-confirmation-email', {
-    firstName: user.firstName,
+    firstName: user.profile.firstName,
     confirmationCode: user.confirmationCode,
   });
   if (type === 'buyer') {

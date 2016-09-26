@@ -36,13 +36,25 @@ router.post('/local', csrfProtected(), (req, res, next) => {
     if (err) {
       next(err);
     } else if (!user) {
-      User.countByLocalEmail(req.body.email)
-      .then((count) => {
-        res.render('authentication/login', {
-          csrfToken: req.csrfToken(),
-          validEmail: count > 0,
-          email: req.body.email,
-        });
+      User.localEmailExists(req.body.email)
+      .then((exists) => {
+        if (exists) {
+          User.existsAndUnConfirmed(req.body.email)
+          .then((unconfirmed) => {
+            res.render('authentication/login', {
+              csrfToken: req.csrfToken(),
+              validEmail: true,
+              email: req.body.email,
+              unconfirmed,
+            });
+          });
+        } else {
+          res.render('authentication/login', {
+            csrfToken: req.csrfToken(),
+            validEmail: false,
+            email: req.body.email,
+          });
+        }
       });
     } else {
       req.login(user, (loginError) => {
@@ -60,12 +72,20 @@ router.post('/local/ajax', csrfProtected(), (req, res, next) => {
     if (err) {
       next(err);
     } else if (!user) {
-      User.countByLocalEmail(req.body.email)
-      .then((count) => {
-        if (count > 0) {
-          return res.status(401).send('Invalid password');
+      User.localEmailExists(req.body.email)
+      .then((exists) => {
+        if (exists) {
+          User.existsAndUnConfirmed(req.body.email)
+          .then((unconfirmed) => {
+            if (unconfirmed) {
+              res.status(401).send('Account unconfirmed');
+            } else {
+              res.status(401).send('Invalid password');
+            }
+          });
+        } else {
+          res.status(401).send('Invalid username');
         }
-        return res.status(401).send('Invalid username');
       });
     } else {
       req.login(user, (loginError) => {

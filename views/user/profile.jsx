@@ -21,7 +21,7 @@ export default function Profile(props) {
             <img
               className="card-img-top card-img-profile-pic"
               src={Url.cdn('images/user-default-profile-photo.png')}
-              alt={props.user.firstName}
+              alt={props.user.profile.firstName}
             />
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
@@ -42,7 +42,10 @@ export default function Profile(props) {
             <div className="card-header">
               Profile
             </div>
-            <EditProfileForm />
+            <EditProfileForm
+              user={props.user}
+              csrfToken={props.csrfToken}
+            />
           </div>
         </div>
       </div>

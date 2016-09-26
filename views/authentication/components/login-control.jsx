@@ -14,6 +14,11 @@ export default function LoginControl(props) {
     }
   }
 
+  if (props.unconfirmed) {
+    emailError = 'Account unconfirmed';
+    passwordError = '';
+  }
+
   let postUrl = 'auth/local';
   let fbLoginUrl = 'auth/facebook';
   if (props.returnTo !== null) {
@@ -62,7 +67,7 @@ export default function LoginControl(props) {
                   name="email"
                   value={(emailError === '') ? props.email : ''}
                 />
-                <FormErrorLabel error={emailError} />
+                <EmailErrorLabel error={emailError} />
               </div>
               <div
                 className={'col-sm-12 col-md-12 col-lg-12 '
@@ -122,12 +127,40 @@ export default function LoginControl(props) {
 LoginControl.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
   validEmail: React.PropTypes.bool,
+  unconfirmed: React.PropTypes.bool.isRequired,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
 };
 
 LoginControl.defaultProps = {
   validEmail: null,
+  unconfirmed: false,
   email: null,
   returnTo: null,
+};
+
+function EmailErrorLabel(props) {
+  if (props.error === 'Account unconfirmed') {
+    return (
+      <div className="error-span-container">
+        <span
+          className="error-span form-control-feedback"
+        >
+          Please confirm your account to login.&nbsp;
+          <a
+            className="link link-span"
+            role="button"
+            href={Url.action('sign-up/confirmation/resend')}
+          >
+            Didn't receive any confirmation?
+          </a>
+        </span>
+      </div>
+    );
+  }
+  return (<FormErrorLabel error={props.error} />);
+}
+
+EmailErrorLabel.propTypes = {
+  error: React.PropTypes.string,
 };

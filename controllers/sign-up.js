@@ -2,9 +2,9 @@ import { Router } from 'express';
 import ExpressValidation from 'express-validation';
 import { CsrfProtected, Authenticated } from '../utilities/security';
 import User from '../models/user';
-import * as MailService from '../services/mail-service';
 import { SignUpValidation, ValidateSignUp } from './validations/sign-up-validations';
 import * as CodeGenerator from '../utilities/code-generator';
+import * as MailService from '../services/mail-service';
 
 const EMAIL_ADDRESS_INVALID = 'Invalid email address';
 const ACCOUNT_CREATION_FAILED = 'Failed to create an account';
@@ -12,9 +12,9 @@ const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for thi
 
 const validateRequest = ExpressValidation;
 const validateSignUp = ValidateSignUp;
-const mailService = MailService;
 const csrfProtected = CsrfProtected;
 const authenticated = Authenticated;
+const mailService = MailService;
 
 /**
  * Sign Up Page
@@ -38,7 +38,7 @@ export function signUp(req, res) {
 /**
  * Sign Up Modal
  */
-export function signUpQuick(req, res, next) {
+export function signUpQuick(req, res) {
   mailService.emailExists(req.body.email)
   .then((response) => {
     if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
@@ -47,16 +47,16 @@ export function signUpQuick(req, res, next) {
       });
     }
 
-    return User.countByLocalEmail(req.body.email)
-    .then((count) => {
-      if (count > 0) {
+    return User.localEmailExists(req.body.email)
+    .then((exists) => {
+      if (exists) {
         return res.status(200).json({
           error: `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`,
         });
       }
       // check first if there is already a facebook integration present
       // if there is we only need to set the local account
-      return User.getByEmail(req.body.email)
+      return User.getByFacebookEmail(req.body.email)
       .then((account) => {
         if (account === null) {
           // save user if it doesn't exist
@@ -76,26 +76,13 @@ export function signUpQuick(req, res, next) {
           .then((doc) => {
             // send account created response
             // regardless if an email confirmation is sent
-            req.login(doc, (err) => {
-              if (err) {
-                next(err);
-              } else {
-                res.status(201).json({
-                  email: doc.email,
-                  displayName: doc.profile.displayName,
-                  confirmationSent: true,
-                });
-
-                // send email confirmation, if this fails
-                // the user has the option to resend the email anyway
-                mailService.sendUserConfirmationMail(doc, 'buyer')
-                .catch(() => {
-                  // todo log email error
-                  // if confirmation failed
-                  // do we need to log the error?
-                });
-              }
+            res.status(201).json({
+              email: doc.email,
+              displayName: doc.profile.displayName,
+              confirmationSent: true,
             });
+            // send email confirmation
+            doc.sendEmailConfirmation();
           })
           .catch(() => {
             // TODO log error
@@ -109,17 +96,14 @@ export function signUpQuick(req, res, next) {
         account.setPassword(req.body.password);
         return account.save()
         .then((doc) => {
-          req.login(doc, (err) => {
-            if (err) {
-              next(err);
-            } else {
-              res.status(201).json({
-                email: doc.email,
-                displayName: doc.profile.displayName,
-                confirmationSent: false, // no need of confirmation email
-              });
-            }
+          res.status(201).json({
+            email: doc.email,
+            displayName: doc.profile.displayName,
+            confirmationSent: true,
           });
+
+          // send email confirmation
+          doc.sendEmailConfirmation();
         })
         .catch(() => {
           // TODO log error
@@ -153,9 +137,9 @@ export function signUpLocal(req, res, next) {
         });
       }
 
-      return User.countByLocalEmail(req.body.email)
-      .then((count) => {
-        if (count > 0) {
+      return User.localEmailExists(req.body.email)
+      .then((exists) => {
+        if (exists) {
           data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
           data.email.existed = true;
           return res.render('sign-up/index', {
@@ -165,7 +149,7 @@ export function signUpLocal(req, res, next) {
         }
         // check first if there is already a facebook integration present
         // if there is we only need to set the local account
-        return User.getByEmail(req.body.email)
+        return User.getByFacebookEmail(req.body.email)
         .then((account) => {
           if (account === null) {
             // save user if it doesn't exist
@@ -185,26 +169,14 @@ export function signUpLocal(req, res, next) {
             .then((doc) => {
               // send account created response
               // regardless if an email confirmation is sent
-              req.login(doc, (err) => {
-                if (err) {
-                  next(err);
-                } else {
-                  res.render('sign-up/complete', {
-                    csrfToken: req.csrfToken(),
-                    authenticated: true,
-                    user: doc.getValuesForSession(),
-                  });
-
-                  // send email confirmation, if this fails
-                  // the user has the option to resend the email anyway
-                  mailService.sendUserConfirmationMail(doc, 'buyer')
-                  .catch(() => {
-                    // todo log email error
-                    // if confirmation failed
-                    // do we need to log the error?
-                  });
-                }
+              res.render('sign-up/complete', {
+                csrfToken: req.csrfToken(),
+                authenticated: false,
+                user: null,
               });
+
+              // send email confirmation
+              doc.sendEmailConfirmation();
             })
             .catch((err) => {
               next(err);
@@ -215,13 +187,14 @@ export function signUpLocal(req, res, next) {
           account.setPassword(req.body.password);
           return account.save()
           .then((doc) => {
-            req.login(doc, (err) => {
-              if (err) {
-                next(err);
-              } else {
-                res.redirect('/');
-              }
+            res.render('sign-up/complete', {
+              csrfToken: req.csrfToken(),
+              authenticated: false,
+              user: null,
             });
+
+            // send email confirmation
+            doc.sendEmailConfirmation();
           })
           .catch((err) => {
             next(err);
@@ -236,12 +209,11 @@ export function signUpLocal(req, res, next) {
  * Check if account exists
  */
 export function accountExists(req, res) {
-  User.countByLocalEmail(req.body.email).then((count) => {
-    const exists = count > 0;
-    return res.json(200, {
+  User.localEmailExists(req.body.email).then(
+    (exists) => res.json(200, {
       exists,
-    });
-  });
+    }
+  ));
 }
 
 /**
