@@ -3,6 +3,10 @@ import Validator from 'validator';
 
 const validator = Validator;
 
+function isEmpty(str) {
+  return !validator.isLength(str, { min: 1 });
+}
+
 export const SignUpValidation = {
   body: {
     email: Joi.string().email().required(),
@@ -13,7 +17,7 @@ export const SignUpValidation = {
   },
 };
 
-export function ValidateSignUp(req) {
+export function validateSignUp(req) {
   const data = {
     email: {
       value: req.body.email.trim(),
@@ -38,7 +42,7 @@ export function ValidateSignUp(req) {
     hasError: false,
   };
 
-  if (!validator.isLength(data.email.value, { min: 1 })) {
+  if (isEmpty(data.email.value)) {
     data.email.error = 'Email address required';
     data.hasError = true;
   } else if (!validator.isEmail(data.email.value)) {
@@ -46,7 +50,7 @@ export function ValidateSignUp(req) {
     data.hasError = true;
   }
 
-  if (!validator.isLength(data.password.value, { min: 1 })) {
+  if (isEmpty(data.password.value)) {
     data.password.error = 'Password required';
     data.hasError = true;
   } else if (!validator.isLength(data.password.value, { min: 8, max: 30 })) {
@@ -54,12 +58,12 @@ export function ValidateSignUp(req) {
     data.hasError = true;
   }
 
-  if (!validator.isLength(data.firstName.value, { min: 1 })) {
+  if (isEmpty(data.firstName.value)) {
     data.firstName.error = 'First name required';
     data.hasError = true;
   }
 
-  if (!validator.isLength(data.lastName.value, { min: 1 })) {
+  if (isEmpty(data.lastName.value)) {
     data.lastName.error = 'Last name required';
     data.hasError = true;
   }

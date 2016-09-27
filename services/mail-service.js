@@ -1,7 +1,7 @@
 import * as Kickbox from 'kickbox';
 import Promise from 'bluebird';
 import Mailer from '../utilities/mailer';
-import MailTemplates from './mail-templates-repository';
+import MailTemplates from './mail-templates-manager';
 
 const BUYER_ACCOUNT_CONFIRMATION_SUBJECT = 'Complete your zazz.io account registration';
 const mailer = new Mailer();

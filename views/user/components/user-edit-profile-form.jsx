@@ -2,31 +2,60 @@ import React from 'react';
 import Url from '../../helpers/url-helper';
 
 export default function EditProfileForm(props) {
+  // birthday
+  const dateOfBirth = props.profile.dateOfBirth;
+  const bdayMonth = dateOfBirth !== null ? dateOfBirth.getMonth() + 1 : '';
+  const bdayDay = dateOfBirth !== null ? dateOfBirth.getDate() : '';
+  const bdayYear = dateOfBirth !== null ? dateOfBirth.getFullYear() : '';
   const dateOptions = [];
   const yearOptions = [];
   const year = new Date().getFullYear();
-
   for (let i = 1; i <= 31; i++) {
-    dateOptions.push(<option value={i}>{i}</option>);
+    dateOptions.push(
+      <option
+        value={i}
+        selected={i === bdayDay}
+      >
+        {i}
+      </option>
+    );
   }
 
   for (let i = year - 1; i >= 1930; i--) {
-    yearOptions.push(<option value={i}>{i}</option>);
+    yearOptions.push(
+      <option
+        value={i}
+        selected={i === bdayYear}
+      >
+        {i}
+      </option>
+    );
+  }
+
+  function getMonthOption(month, value, selected) {
+    return (
+      <option
+        value={value}
+        selected={value === selected}
+      >
+        {month}
+      </option>
+    );
   }
 
   const monthOptions = [
-    <option value="1">January</option>,
-    <option value="2">February</option>,
-    <option value="3">March</option>,
-    <option value="4">April</option>,
-    <option value="5">May</option>,
-    <option value="6">June</option>,
-    <option value="7">July</option>,
-    <option value="8">August</option>,
-    <option value="9">September</option>,
-    <option value="10">October</option>,
-    <option value="11">November</option>,
-    <option value="12">December</option>,
+    getMonthOption('January', 1, bdayMonth),
+    getMonthOption('February', 2, bdayMonth),
+    getMonthOption('March', 3, bdayMonth),
+    getMonthOption('April', 4, bdayMonth),
+    getMonthOption('May', 5, bdayMonth),
+    getMonthOption('June', 6, bdayMonth),
+    getMonthOption('July', 7, bdayMonth),
+    getMonthOption('August', 8, bdayMonth),
+    getMonthOption('September', 9, bdayMonth),
+    getMonthOption('October', 10, bdayMonth),
+    getMonthOption('November', 11, bdayMonth),
+    getMonthOption('December', 12, bdayMonth),
   ];
 
   return (
@@ -52,7 +81,8 @@ export default function EditProfileForm(props) {
               type="text"
               id="txt-first-name"
               className="form-control"
-              value={props.user.profile.firstName}
+              name="firstName"
+              value={props.profile.firstName}
             />
           </div>
         </div>
@@ -68,7 +98,8 @@ export default function EditProfileForm(props) {
               type="text"
               id="txt-middle-name"
               className="form-control"
-              value={props.user.profile.middleName}
+              name="middleName"
+              value={props.profile.middleName}
             />
           </div>
         </div>
@@ -84,7 +115,8 @@ export default function EditProfileForm(props) {
               type="text"
               id="txt-last-name"
               className="form-control"
-              value={props.user.profile.lastName}
+              name="lastName"
+              value={props.profile.lastName}
             />
           </div>
         </div>
@@ -116,15 +148,27 @@ export default function EditProfileForm(props) {
             <select
               id="select-gender"
               className="form-control"
+              name="gender"
             >
               <option
                 disabled
-                selected
+                value=""
+                selected={props.profile.gender === ''}
               >
-                Sex
+                Gender
               </option>
-              <option>Male</option>
-              <option>Female</option>
+              <option
+                value="male"
+                selected={props.profile.gender === 'male'}
+              >
+                Male
+              </option>
+              <option
+                value="female"
+                selected={props.profile.gender === 'female'}
+              >
+                Female
+              </option>
             </select>
           </div>
         </div>
@@ -139,10 +183,12 @@ export default function EditProfileForm(props) {
             <select
               id="select-bday-month"
               className="form-control bday-select col-md-12"
+              name="bdayMonth"
             >
               <option
                 disabled
-                selected
+                selected={dateOfBirth === null}
+                value=""
               >
                 Month
               </option>
@@ -151,10 +197,12 @@ export default function EditProfileForm(props) {
             <select
               id="select-bday-day"
               className="form-control bday-select col-md-12"
+              name="bdayDate"
             >
               <option
                 disabled
-                selected
+                selected={dateOfBirth === null}
+                value=""
               >
                 Day
               </option>
@@ -163,10 +211,12 @@ export default function EditProfileForm(props) {
             <select
               id="select-bday-year"
               className="form-control bday-select col-md-12"
+              name="bdayYear"
             >
               <option
                 disabled
-                selected
+                selected={dateOfBirth === null}
+                value=""
               >
                 Year
               </option>
@@ -181,67 +231,35 @@ export default function EditProfileForm(props) {
           >
             Mobile Numbers
           </label>
-          <div className="col-sm-9">
-            <div className="input-group input-group-mobile">
-              <span className="input-group-addon hidden-md-down">
-                PH
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                disabled
-              />
-              <div className="input-group-addon verified text-left">
-                <i className="fa fa-check-square-o" />
-                &nbsp;Verified
-              </div>
-              <div className="input-group-addon input-group-delete">
-                <a href={Url.action('user/profile/mobile-number/number/delete')}>
-                  <i className="fa fa-remove" />
-                </a>
-              </div>
-            </div>
-            <div className="input-group input-group-mobile">
-              <span className="input-group-addon hidden-md-down">
-                PH
-              </span>
-              <input
-                type="text"
-                className="form-control"
-                disabled
-              />
-              <a
-                className="input-group-addon unverified text-left"
-                href={Url.action('user/profile/mobile-number/number/verify')}
-              >
-                <i className="fa fa-minus-square-o" />
-                &nbsp;Verify
-              </a>
-              <div className="input-group-addon input-group-delete">
-                <a href={Url.action('user/profile/mobile-number/number/delete')}>
-                  <i className="fa fa-remove" />
-                </a>
-              </div>
-            </div>
-            <div>
-              <a
-                href={Url.action('user/profile/add/mobile-number')}
-                className="add-number-link"
-              >
-                <i className="fa fa-plus" />&nbsp;Add a mobile number
-              </a>
-            </div>
+          <div
+            className="col-sm-9 edit-phone-numbers-container"
+            id="phone-numbers-panel"
+          >
+            <a
+              className="edit-number-link"
+              href={Url.action('user/profile/phone-numbers')}
+            >
+              <i className="fa fa-mobile-phone" />&nbsp;
+              Edit Mobile Numbers
+            </a>
           </div>
         </div>
         <div className="row">
           <label
             className="col-sm-3 text-sm-right"
             htmlFor="txt-address"
+            name="address"
           >
             Address
           </label>
           <div className="col-sm-9">
-            <input type="text" id="txt-address" className="form-control" />
+            <input
+              type="text"
+              id="txt-address"
+              className="form-control"
+              value={props.profile.address}
+              name="address"
+            />
           </div>
         </div>
         <div className="row">
@@ -255,6 +273,8 @@ export default function EditProfileForm(props) {
             <textarea
               className="form-control"
               rows="5"
+              name="about"
+              value={props.profile.about}
             />
           </div>
         </div>
@@ -274,6 +294,7 @@ export default function EditProfileForm(props) {
 }
 
 EditProfileForm.propTypes = {
+  profile: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
   csrfToken: React.PropTypes.string.isRequired,
 };

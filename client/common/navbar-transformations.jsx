@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import DropdownLink from '../components/navbar/dropdown-link';
 
 const tempContainer = document.createElement('div');
+const authenticated = $('#authenticated').val() === 'true';
 
 // replace browse link with dropdown
 ReactDOM.render(
@@ -23,3 +24,10 @@ ReactDOM.render(
   />, tempContainer);
 const exploreLink = document.getElementById('link-explore');
 $(exploreLink).replaceWith(tempContainer.querySelector('#link-explore'));
+
+
+// remove logout button
+if (authenticated) {
+  const logoutLink = document.getElementById('nav-item-sign-out');
+  logoutLink.remove();
+}

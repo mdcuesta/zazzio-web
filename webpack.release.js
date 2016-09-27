@@ -28,7 +28,7 @@ module.exports = [{
 
       // user pages
       'user-dashboard': jsxPath + '/user-dashboard.js',
-      'user-profile': jsxPath + '/user-profile.js',
+      'user-profile': jsxPath + '/user-profile.jsx',
     },
     output: {
       path: jsAssetsPath,

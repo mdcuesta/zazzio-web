@@ -33,6 +33,19 @@ const userSchema = new Schema({
     },
     gender: {
       type: String,
+      default: '',
+    },
+    dateOfBirth: {
+      type: Date,
+      default: null,
+    },
+    address: {
+      type: String,
+      default: '',
+    },
+    about: {
+      type: String,
+      default: '',
     },
     phoneNumbers: [{
       number: {
@@ -55,11 +68,6 @@ const userSchema = new Schema({
     }],
     isModified: Boolean,
   },
-  isBuyer: {
-    type: Boolean,
-    default: true,
-    required: true,
-  },
   isSeller: {
     type: Boolean,
     default: false,
@@ -68,6 +76,11 @@ const userSchema = new Schema({
   confirmationCode: {
     type: String,
     default: '',
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+    required: true,
   },
   isConfirmed: {
     type: Boolean,

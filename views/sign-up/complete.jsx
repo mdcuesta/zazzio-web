@@ -39,7 +39,7 @@ export default function Complete(props) {
             <div className="form-group">
               <a
                 className="btn btn-block btn-success btn-link-button"
-                href={Url.action('user/dashboard')}
+                href={Url.action('')}
               >
                 Continue
               </a>

@@ -14,14 +14,14 @@ export default function configure() {
     User.getByLocalEmail(email)
     .then((user) => {
       if (user === null) {
-        return done(null, false);
+        done(null, false);
+      } else if (!user.verifyPassword(password)) {
+        done(null, false);
+      } else {
+        done(null, user);
       }
-      if (!user.verifyPassword(password)) {
-        return done(null, false);
-      }
-      return done(null, user);
     })
-    .catch((err) => done(err));
+    .catch(done);
   }
 ));
 }

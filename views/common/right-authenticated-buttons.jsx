@@ -35,6 +35,17 @@ export default function RightAuthenticatedButtons(props) {
           </a>
           <UserMenuDropdown user={props.user} />
         </li>
+        <li
+          className="nav-item nav-item-separator"
+          id="nav-item-sign-out"
+        >
+          <a
+            className="nav-link"
+            href={Url.action('logout')}
+          >
+            <i className="nav-icon fa fa-large fa-sign-out" />
+          </a>
+        </li>
         <li className="nav-item hidden-md-down">
           <a
             className="nav-link"

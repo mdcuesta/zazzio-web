@@ -48,7 +48,7 @@ export default function configure() {
               done(null, doc); 
               doc.sendEmailConfirmation();
             })
-            .catch((err) => done(err));
+            .catch(done);
           } else {
             // need to update facebook credentials only
             account.setFacebookCredentials({
@@ -59,7 +59,7 @@ export default function configure() {
               email,
             });
             account.save().then((doc) => done(null, doc))
-            .catch((err) => done(err));
+            .catch(done);
           }
         });
       } else {
@@ -74,6 +74,6 @@ export default function configure() {
         user.save().then((doc) => done(null, doc));
       }
     })
-    .catch((err) => done(err));
+    .catch(done);
   }));
 }

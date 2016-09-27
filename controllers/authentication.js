@@ -47,7 +47,8 @@ router.post('/local', csrfProtected(), (req, res, next) => {
               email: req.body.email,
               unconfirmed,
             });
-          });
+          })
+          .catch(next);
         } else {
           res.render('authentication/login', {
             csrfToken: req.csrfToken(),
@@ -55,13 +56,15 @@ router.post('/local', csrfProtected(), (req, res, next) => {
             email: req.body.email,
           });
         }
-      });
+      })
+      .catch(next);
     } else {
       req.login(user, (loginError) => {
         if (loginError) {
-          return next(err);
+          next(err);
+        } else {
+          authReturn(req, res);
         }
-        return authReturn(req, res);
       });
     }
   })(req, res, next);
@@ -82,19 +85,22 @@ router.post('/local/ajax', csrfProtected(), (req, res, next) => {
             } else {
               res.status(401).send('Invalid password');
             }
-          });
+          })
+          .catch(next);
         } else {
           res.status(401).send('Invalid username');
         }
-      });
+      })
+      .catch(next);
     } else {
       req.login(user, (loginError) => {
         if (loginError) {
-          return next(err);
+          next(err);
+        } else {
+          res.status(200).json({
+            message: ':)',
+          });
         }
-        return res.status(200).json({
-          message: ':)',
-        });
       });
     }
   })(req, res, next);

@@ -15,6 +15,7 @@
 @import './bootstrap/nav';
 @import './bootstrap/list-group';
 @import './bootstrap/card';
+@import './bootstrap/alert';
 
 // Bootstrap Custom
 @import './custom/utilities';
@@ -124,6 +125,37 @@ $add-number-link-color:   #373a3c !default;
     color: $add-number-link-color;
     font-size: .8em;
     font-weight: 600;
+
+    &:hover {
+      color: $add-number-link-color;
+    }
+  }
+
+  .add-phone-number-panel {
+    label {
+      padding-top: 0;
+    }
+    border: 1px solid $ddd;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+
+    .why-verify-link {
+      color: $add-number-link-color;
+      font-size: .8em;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  }
+
+  .edit-phone-numbers-container {
+    padding-top: .2rem;
+  }
+
+  .edit-number-link {
+    color: $add-number-link-color;
+    font-size: 1em;
+    font-weight: 600;
+    padding-top: 5px;
 
     &:hover {
       color: $add-number-link-color;

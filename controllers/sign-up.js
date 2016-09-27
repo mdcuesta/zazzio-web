@@ -2,7 +2,7 @@ import { Router } from 'express';
 import ExpressValidation from 'express-validation';
 import { CsrfProtected, Authenticated } from '../utilities/security';
 import User from '../models/user';
-import { SignUpValidation, ValidateSignUp } from './validations/sign-up-validations';
+import * as Validations from './validations/sign-up-validations';
 import * as CodeGenerator from '../utilities/code-generator';
 import * as MailService from '../services/mail-service';
 
@@ -11,7 +11,7 @@ const ACCOUNT_CREATION_FAILED = 'Failed to create an account';
 const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for this email address';
 
 const validateRequest = ExpressValidation;
-const validateSignUp = ValidateSignUp;
+const validateSignUp = Validations.validateSignUp;
 const csrfProtected = CsrfProtected;
 const authenticated = Authenticated;
 const mailService = MailService;
@@ -38,118 +38,25 @@ export function signUp(req, res) {
 /**
  * Sign Up Modal
  */
-export function signUpQuick(req, res) {
+export function signUpQuick(req, res, next) {
   mailService.emailExists(req.body.email)
   .then((response) => {
     if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
-      return res.status(200).json({
+      res.status(200).json({
         error: EMAIL_ADDRESS_INVALID,
       });
+      return;
     }
-
-    return User.localEmailExists(req.body.email)
+    User.localEmailExists(req.body.email)
     .then((exists) => {
       if (exists) {
-        return res.status(200).json({
+        res.status(200).json({
           error: `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`,
         });
-      }
-      // check first if there is already a facebook integration present
-      // if there is we only need to set the local account
-      return User.getByFacebookEmail(req.body.email)
-      .then((account) => {
-        if (account === null) {
-          // save user if it doesn't exist
-          const user = new User({
-            email: req.body.email,
-            profile: {
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-            },
-            isSeller: req.body.seller,
-            confirmationCode: CodeGenerator.generateConfirmationCode(),
-          });
-          user.setUserName(req.body.email);
-          user.setPassword(req.body.password);
-
-          return user.save()
-          .then((doc) => {
-            // send account created response
-            // regardless if an email confirmation is sent
-            res.status(201).json({
-              email: doc.email,
-              displayName: doc.profile.displayName,
-              confirmationSent: true,
-            });
-            // send email confirmation
-            doc.sendEmailConfirmation();
-          })
-          .catch(() => {
-            // TODO log error
-            res.status(400).json({
-              error: ACCOUNT_CREATION_FAILED,
-            });
-          });
-        }
-        // just update the existing account
-        account.setUserName(req.body.email);
-        account.setPassword(req.body.password);
-        return account.save()
-        .then((doc) => {
-          res.status(201).json({
-            email: doc.email,
-            displayName: doc.profile.displayName,
-            confirmationSent: true,
-          });
-
-          // send email confirmation
-          doc.sendEmailConfirmation();
-        })
-        .catch(() => {
-          // TODO log error
-          res.status(400).json({
-            error: ACCOUNT_CREATION_FAILED,
-          });
-        });
-      });
-    });
-  });
-}
-
-/**
- * Sign Up Page Post
- */
-export function signUpLocal(req, res, next) {
-  const data = validateSignUp(req);
-  if (data.hasError) {
-    res.render('sign-up/index', {
-      csrfToken: req.csrfToken(),
-      formValues: data,
-    });
-  } else {
-    mailService.emailExists(req.body.email)
-    .then((response) => {
-      if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
-        data.email.error = EMAIL_ADDRESS_INVALID;
-        return res.render('sign-up/index', {
-          csrfToken: req.csrfToken(),
-          formValues: data,
-        });
-      }
-
-      return User.localEmailExists(req.body.email)
-      .then((exists) => {
-        if (exists) {
-          data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
-          data.email.existed = true;
-          return res.render('sign-up/index', {
-            csrfToken: req.csrfToken(),
-            formValues: data,
-          });
-        }
+      } else {
         // check first if there is already a facebook integration present
         // if there is we only need to set the local account
-        return User.getByFacebookEmail(req.body.email)
+        User.getByFacebookEmail(req.body.email)
         .then((account) => {
           if (account === null) {
             // save user if it doesn't exist
@@ -164,56 +71,120 @@ export function signUpLocal(req, res, next) {
             });
             user.setUserName(req.body.email);
             user.setPassword(req.body.password);
-
-            return user.save()
-            .then((doc) => {
-              // send account created response
-              // regardless if an email confirmation is sent
-              res.render('sign-up/complete', {
-                csrfToken: req.csrfToken(),
-                authenticated: false,
-                user: null,
-              });
-
-              // send email confirmation
-              doc.sendEmailConfirmation();
-            })
-            .catch((err) => {
-              next(err);
-            });
+            return user.save();
           }
           // just update the existing account
           account.setUserName(req.body.email);
           account.setPassword(req.body.password);
-          return account.save()
-          .then((doc) => {
-            res.render('sign-up/complete', {
-              csrfToken: req.csrfToken(),
-              authenticated: false,
-              user: null,
-            });
-
-            // send email confirmation
-            doc.sendEmailConfirmation();
-          })
-          .catch((err) => {
-            next(err);
+          return account.save();
+        })
+        .then((doc) => {
+          // send account created response
+          // regardless if an email confirmation is sent
+          res.status(201).json({
+            email: doc.email,
+            displayName: doc.profile.displayName,
+            confirmationSent: true,
+          });
+          // send email confirmation
+          return doc.sendEmailConfirmation();
+        })
+        .catch(() => {
+          if (res.headersSent) {
+            return;
+          }
+          res.status(400).json({
+            error: ACCOUNT_CREATION_FAILED,
           });
         });
-      });
+      }
+    })
+    .catch(next);
+  })
+  .catch(next);
+}
+
+/**
+ * Sign Up Page Post
+ */
+export function signUpLocal(req, res, next) {
+  const data = validateSignUp(req);
+  if (data.hasError) {
+    res.render('sign-up/index', {
+      csrfToken: req.csrfToken(),
+      formValues: data,
     });
+    return;
   }
+  mailService.emailExists(req.body.email)
+  .then((response) => {
+    if (!(response.body.result === 'deliverable' || response.body.result === 'risky')) {
+      data.email.error = EMAIL_ADDRESS_INVALID;
+      res.render('sign-up/index', {
+        csrfToken: req.csrfToken(),
+        formValues: data,
+      });
+    }
+    User.localEmailExists(req.body.email)
+    .then((exists) => {
+      if (exists) {
+        data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
+        data.email.existed = true;
+        return res.render('sign-up/index', {
+          csrfToken: req.csrfToken(),
+          formValues: data,
+        });
+      }
+      // check first if there is already a facebook integration present
+      // if there is we only need to set the local account
+      return User.getByFacebookEmail(req.body.email);
+    })
+    .then((account) => {
+      if (account === null) {
+        // save user if it doesn't exist
+        const user = new User({
+          email: req.body.email,
+          profile: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+          },
+          isSeller: req.body.seller,
+          confirmationCode: CodeGenerator.generateConfirmationCode(),
+        });
+        user.setUserName(req.body.email);
+        user.setPassword(req.body.password);
+        return user.save();
+      }
+      // just update the existing account
+      account.setUserName(req.body.email);
+      account.setPassword(req.body.password);
+      return account.save();
+    })
+    .then((doc) => {
+      res.render('sign-up/complete', {
+        csrfToken: req.csrfToken(),
+        authenticated: false,
+        user: null,
+      });
+
+      // send email confirmation
+      doc.sendEmailConfirmation();
+    })
+    .catch(next);
+  })
+  .catch(next);
 }
 
 /**
  * Check if account exists
  */
-export function accountExists(req, res) {
+export function accountExists(req, res, next) {
   User.localEmailExists(req.body.email).then(
     (exists) => res.json(200, {
       exists,
     }
-  ));
+  ))
+  .catch(next);
 }
 
 /**
@@ -239,9 +210,11 @@ export function confirmAccount(req, res, next) {
           req.logout();
           res.render('sign-up/account-confirmation');
         }
-      });
+      })
+      .catch(next);
     }
-  });
+  })
+  .catch(next);
 }
 
 /**
@@ -260,7 +233,8 @@ export function signUpCancel(req, res, next) {
         csrfToken: req.csrfToken(),
       });
     }
-  });
+  })
+  .catch(next);
 }
 
 export function confirmSignUpCancel(req, res, next) {
@@ -279,9 +253,11 @@ export function confirmSignUpCancel(req, res, next) {
       user.remove()
       .then(() => {
         res.redirect('/');
-      });
+      })
+      .catch(next);
     }
-  });
+  })
+  .catch(next);
 }
 /**
  * Routes Configuration
@@ -293,7 +269,7 @@ router.get('/', signUp);
 
 router.post('/quick',
   csrfProtected(),
-  validateRequest(SignUpValidation),
+  validateRequest(Validations.SignUpValidation),
   signUpQuick);
 
 router.post('/local',
