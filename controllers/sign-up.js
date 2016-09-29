@@ -89,7 +89,9 @@ export function signUpQuick(req, res, next) {
           // send email confirmation
           return doc.sendEmailConfirmation();
         })
-        .catch(() => {
+        .catch((err) => {
+          // TODO log error
+          console.error(err);
           if (res.headersSent) {
             return;
           }
@@ -179,8 +181,9 @@ export function signUpLocal(req, res, next) {
  * Check if account exists
  */
 export function accountExists(req, res, next) {
-  User.localEmailExists(req.body.email).then(
-    (exists) => res.json(200, {
+  User.localEmailExists(req.body.email)
+  .then(
+    (exists) => res.status(200).json({
       exists,
     }
   ))

@@ -4,7 +4,7 @@ import UserSchema from './schemas/user-schema';
 import * as Crypto from '../utilities/crypto';
 import * as DataProvider from '../utilities/data-provider';
 import * as MailService from '../services/mail-service';
-
+import * as SmsService from '../services/sms-service';
 
 const userSchema = UserSchema;
 const mailService = MailService;
@@ -84,6 +84,93 @@ userSchema.methods.getValuesForSession = function getValuesForSession() {
 
 userSchema.methods.sendEmailConfirmation = function sendEmailConfirmation() {
   return mailService.sendUserConfirmationMail(this, 'buyer');
+};
+
+userSchema.methods.addPhoneNumber =
+  function addPhoneNumber(countryCode, number, type = null) {
+    return new Promise((resolve, reject) => {
+      // check if phone number exists
+      const existing =
+        this.profile.phoneNumbers.find(p => p.number === number);
+      if (typeof existing !== 'undefined') {
+        resolve({
+          status: 1,
+        });
+        return;
+      }
+
+      // send verification code
+      SmsService.sendVerificationCode(number)
+      .then((response) => {
+        if (response.status !== '0') {
+          // todo check status codes
+          resolve({
+            status: 3,
+          });
+          return;
+        }
+
+        const data = {
+          countryCode,
+          number,
+          verificationRequestCode: response.request_id,
+        };
+
+        if (type !== null) {
+          data.type = type;
+        }
+
+        this.profile.phoneNumbers.push(data);
+        this.save()
+        .then(() => resolve({
+          status: 0,
+        }))
+        .catch(reject);
+      })
+      .catch(reject);
+    });
+  };
+
+userSchema.methods.verifyPhoneNumber = function verifyPhoneNumber(number, verificationCode) {
+  return new Promise((resolve, reject) => {
+    // check if phone number exists
+    const existing =
+      this.profile.phoneNumbers.find(p => p.number === number);
+
+    if (typeof existing === 'undefined') {
+      resolve({
+        status: 2,
+      });
+      return;
+    }
+
+    if (existing.isVerified) {
+      resolve({
+        status: 5,
+      });
+      return;
+    }
+
+    // check if verification code match request
+    SmsService.verify(existing.verificationRequestCode, verificationCode)
+    .then((response) => {
+      // invalid verification code
+      if (response.status !== '0') {
+        resolve({
+          status: 4,
+        });
+        return;
+      }
+      // we have a match
+      existing.isVerified = true;
+      this.save()
+      .then(() => resolve({
+        status: 0,
+      }))
+      .catch(reject);
+    })
+    .catch(reject);
+  });
 };
 
 // statics

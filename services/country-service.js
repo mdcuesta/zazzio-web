@@ -8,7 +8,7 @@ const countries =
 }, {
   'ISO2Code': 'AX',
   'ISO3Code': 'ALA',
-  'name': 'Åland Islands',
+  'name': 'Aland Islands',
   'callingCode': '358'
 }, {
   'ISO2Code': 'AL',
@@ -1232,8 +1232,16 @@ const countries =
 }];
 /* eslint-enable */
 
-export function getAll() {
+export function getCountries() {
   return countries.map(c => ({
+    ISO2Code: c.ISO2Code,
+    name: c.name,
+  }));
+}
+
+export function getCountriesAndCallingCode() {
+  return countries.map(c => ({
+    ISO2Code: c.ISO2Code,
     name: c.name,
     callingCode: c.callingCode,
   }));

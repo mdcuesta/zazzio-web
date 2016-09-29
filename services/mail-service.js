@@ -4,7 +4,8 @@ import Mailer from '../utilities/mailer';
 import MailTemplates from './mail-templates-manager';
 
 const BUYER_ACCOUNT_CONFIRMATION_SUBJECT = 'Complete your zazz.io account registration';
-const mailer = new Mailer();
+const mailer = new Mailer(process.env.SENDGRID_API_KEY
+      || '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');
 const getMailTemplate = MailTemplates;
 
 export function emailExists(email) {

@@ -48,21 +48,25 @@ const userSchema = new Schema({
       default: '',
     },
     phoneNumbers: [{
+      countryCode: {
+        type: String,
+        required: true,
+      },
       number: {
         type: String,
-        unique: true,
+        required: true,
       },
       isVerified: {
         type: Boolean,
         default: false,
       },
-      numberType: {
+      verificationRequestCode: {
         type: String,
-        default: 'mobile',
         required: true,
       },
-      country: {
+      type: {
         type: String,
+        default: 'mobile',
         required: true,
       },
     }],

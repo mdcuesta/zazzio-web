@@ -1,14 +1,34 @@
 import Nexmo from 'nexmo';
 
 export default class Sms {
+  constructor(options) {
+    this.nexmo = new Nexmo({
+      apiKey: options.apiKey,
+      apiSecret: options.apiSecret,
+    }, {
+      debug: options.debug,
+    });
+
+    this.send = this.send.bind(this);
+    this.verify = this.verify.bind(this);
+  }
+
   send(sender, recipient, message, callback) {
-    const nexmo = new Nexmo({
-      apiKey: process.env.NEXMO_API_KEY || '045274a3',
-      apiSecret: process.env.NEXMO_API_SECRET || '51438041f498dcb4',
-    }, { debug: process.env.NODE_ENV !== 'production' });
-
     const options = {};
+    this.nexmo.message.sendSms(sender, recipient, message, options, callback);
+  }
 
-    nexmo.message.sendSms(sender, recipient, message, options, callback);
+  sendVerificationCode(number, callback) {
+    this.nexmo.verify.request({
+      number,
+      brand: 'zazz.io',
+    }, callback);
+  }
+
+  verify(requestId, code, callback) {
+    this.nexmo.verify.check({
+      request_id: requestId,
+      code,
+    }, callback);
   }
 }

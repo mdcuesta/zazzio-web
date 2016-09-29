@@ -147,7 +147,7 @@ export default function EditProfileForm(props) {
           <div className="col-sm-9">
             <select
               id="select-gender"
-              className="form-control"
+              className="form-control select-width-auto"
               name="gender"
             >
               <option
@@ -182,7 +182,7 @@ export default function EditProfileForm(props) {
           <div className="col-sm-9">
             <select
               id="select-bday-month"
-              className="form-control bday-select col-md-12"
+              className="form-control bday-select col-md-12 select-width-auto"
               name="bdayMonth"
             >
               <option
@@ -196,7 +196,7 @@ export default function EditProfileForm(props) {
             </select>
             <select
               id="select-bday-day"
-              className="form-control bday-select col-md-12"
+              className="form-control bday-select col-md-12 select-width-auto"
               name="bdayDate"
             >
               <option
@@ -210,7 +210,7 @@ export default function EditProfileForm(props) {
             </select>
             <select
               id="select-bday-year"
-              className="form-control bday-select col-md-12"
+              className="form-control bday-select col-md-12 select-width-auto"
               name="bdayYear"
             >
               <option

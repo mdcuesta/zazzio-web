@@ -69,7 +69,7 @@ $add-number-link-color:   #373a3c !default;
     padding-top: .4rem;
   }
 
-  select {
+  .select-width-auto {
     width: auto;
   }
 
@@ -140,10 +140,18 @@ $add-number-link-color:   #373a3c !default;
     padding-top: .5rem;
 
     .why-verify-link {
-      color: $add-number-link-color;
+      color: $brand-musturd;
       font-size: .8em;
       font-weight: 600;
       margin-top: 10px;
+    }
+
+    .btn {
+      margin-right: .5rem;
+    }
+
+    .error-span {
+      color: $brand-danger;
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Url from '../../helpers/url-helper';
 import AddPhoneNumberPanel from './add-phone-number-panel';
+import MiscActions from '../../actions/misc-actions';
 
 const ADD_PHONE_NUMBER_PANEL_ID = 'add-phone-number-panel';
 
@@ -11,12 +12,14 @@ export default class PhoneNumbersPanel extends Component {
       showAddPhoneNumberPanel: false,
     };
 
-    this.addPhoneNumber = this.addPhoneNumber.bind(this);
+    this.toggleAddPhoneNumberPanel = this.toggleAddPhoneNumberPanel.bind(this);
   }
 
-  addPhoneNumber() {
+  toggleAddPhoneNumberPanel() {
+    $(`#${ADD_PHONE_NUMBER_PANEL_ID}`).animateCss('fadeIn');
+    MiscActions.loadCountriesWithCallingCode();
     this.setState({
-      showAddPhoneNumberPanel: true,
+      showAddPhoneNumberPanel: !this.state.showAddPhoneNumberPanel,
     });
   }
 
@@ -70,14 +73,18 @@ export default class PhoneNumbersPanel extends Component {
         <div>
           <a
             href={`#${ADD_PHONE_NUMBER_PANEL_ID}`}
-            className="add-number-link"
+            className={`add-number-link${this.state.showAddPhoneNumberPanel ? ' hidden' : ''}`}
             data-toggle="collapse"
             aria-expanded="false"
             aria-controls={ADD_PHONE_NUMBER_PANEL_ID}
+            onClick={this.toggleAddPhoneNumberPanel}
           >
             <i className="fa fa-plus" />&nbsp;Add a mobile number
           </a>
-          <AddPhoneNumberPanel id={ADD_PHONE_NUMBER_PANEL_ID} />
+          <AddPhoneNumberPanel
+            id={ADD_PHONE_NUMBER_PANEL_ID}
+            onCancel={this.toggleAddPhoneNumberPanel}
+          />
         </div>
       </div>
     );

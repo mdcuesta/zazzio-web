@@ -20,9 +20,8 @@ export function quickRegister(data) {
       statusText,
       status: xhr.status,
     });
-  }).fail(() => {
-    ErrorActions.error();
-  });
+  })
+  .fail(ErrorActions.error);
 }
 
 export function accountExists(email) {
@@ -40,7 +39,6 @@ export function accountExists(email) {
       statusText,
       status: xhr.status,
     });
-  }).fail(() => {
-    ErrorActions.error();
-  });
+  })
+  .fail(ErrorActions.error);
 }
