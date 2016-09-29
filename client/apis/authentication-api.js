@@ -3,10 +3,10 @@ import Url from '../helpers/url-helper';
 import * as Utils from './utils';
 
 export default function login(email, password) {
-  Utils.post(Url.action('auth/local/ajax'), JSON.stringify({
+  Utils.post(Url.action('auth/local/ajax'), {
     email,
     password,
-  }))
+  })
   .done((responseData, statusText, xhr) => {
     AuthActions.loginComplete({
       data: { message: responseData.message },

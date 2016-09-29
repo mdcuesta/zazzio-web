@@ -8,7 +8,7 @@ import * as Utils from './utils';
  * @param  {[object]} data [buyer data]
  */
 export function quickRegister(data) {
-  Utils.post(Url.action('sign-up/quick'), JSON.stringify(data))
+  Utils.post(Url.action('sign-up/quick'), data)
   .done((responseData, statusText, xhr) => {
     SignUpActions.quickRegisterComplete({
       data: responseData,
