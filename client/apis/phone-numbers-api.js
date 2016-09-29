@@ -23,3 +23,11 @@ export function verifyMobileNumber(number, verificationCode) {
   })
   .fail(Utils.fail);
 }
+
+export function getPhoneNumbers() {
+  Utils.post(Url.action('user/numbers'))
+  .done((responseData) => {
+    PhoneNumbersActions.getPhoneNumbersComplete(responseData);
+  })
+  .fail(Utils.fail);
+}

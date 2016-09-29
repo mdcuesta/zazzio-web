@@ -1,24 +1,20 @@
-import ErrorActions from '../actions/error-actions';
 import AuthActions from '../actions/authentication-actions';
 import Url from '../helpers/url-helper';
+import * as Utils from './utils';
 
 export default function login(email, password) {
-  $.ajax({
-    url: Url.action('auth/local/ajax'),
-    type: 'post',
-    dataType: 'json',
-    data: JSON.stringify({
-      email,
-      password,
-    }),
-    contentType: 'application/json; charset=utf-8',
-  }).done((responseData, statusText, xhr) => {
+  Utils.post(Url.action('auth/local/ajax'), JSON.stringify({
+    email,
+    password,
+  }))
+  .done((responseData, statusText, xhr) => {
     AuthActions.loginComplete({
       data: { message: responseData.message },
       statusText,
       status: xhr.status,
     });
-  }).fail((xhr, statusText) => {
+  })
+  .fail((xhr, statusText, error) => {
     if (xhr.status === 401) {
       AuthActions.loginComplete({
         data: { message: xhr.responseText },
@@ -26,7 +22,7 @@ export default function login(email, password) {
         status: xhr.status,
       });
     } else {
-      ErrorActions.error();
+      Utils.fail(xhr, statusText, error);
     }
   });
 }

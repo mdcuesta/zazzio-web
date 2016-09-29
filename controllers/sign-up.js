@@ -2,6 +2,7 @@ import { Router } from 'express';
 import ExpressValidation from 'express-validation';
 import { CsrfProtected, Authenticated } from '../utilities/security';
 import User from '../models/user';
+import LogError from '../utilities/logger';
 import * as Validations from './validations/sign-up-validations';
 import * as CodeGenerator from '../utilities/code-generator';
 import * as MailService from '../services/mail-service';
@@ -15,6 +16,7 @@ const validateSignUp = Validations.validateSignUp;
 const csrfProtected = CsrfProtected;
 const authenticated = Authenticated;
 const mailService = MailService;
+const log = LogError;
 
 /**
  * Sign Up Page
@@ -90,8 +92,7 @@ export function signUpQuick(req, res, next) {
           return doc.sendEmailConfirmation();
         })
         .catch((err) => {
-          // TODO log error
-          console.error(err);
+          log(err);
           if (res.headersSent) {
             return;
           }

@@ -51,7 +51,6 @@
     "passport-local": "^1.0.0",
     "raven": "^0.12.1",
     "raven-js": "^3.7.0",
-    "raygun": "^0.8.5",
     "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",

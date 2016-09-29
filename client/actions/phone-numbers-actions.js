@@ -24,6 +24,17 @@ export class PhoneNumberActions {
       status,
     });
   }
+
+  getPhoneNumbers() {
+    Api.getPhoneNumbers();
+  }
+
+  getPhoneNumbersComplete(data) {
+    Dispatcher.dispatchServerAction({
+      actionType: PhoneNumberConstants.GET_PHONE_NUMBERS_COMPLETE,
+      data,
+    });
+  }
 }
 
 export default new PhoneNumberActions();

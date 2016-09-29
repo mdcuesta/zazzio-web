@@ -1,4 +1,4 @@
-import ErrorActions from '../actions/error-actions';
+import Raven from 'raven-js';
 
 export function post(url, data) {
   return $.ajax({
@@ -10,6 +10,16 @@ export function post(url, data) {
   });
 }
 
-export function fail() {
-  ErrorActions.error();
+export function get(url) {
+  return $.ajax({
+    url,
+    type: 'get',
+  });
+}
+
+export function fail(xhr, status, error) {
+  if (xhr.status === 401) {
+    location.reload(true);
+  }
+  Raven.captureException(error);
 }

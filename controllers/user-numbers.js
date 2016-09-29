@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ExpressValidation from 'express-validation';
-import { Secure, CsrfProtected } from '../utilities/security';
+import { AjaxSecure, CsrfProtected } from '../utilities/security';
 import * as Validations from './validations/user-numbers-validations';
 import User from '../models/user';
 
@@ -38,27 +38,40 @@ export function verifyMobile(req, res, next) {
   .catch(next);
 }
 
+export function getPhoneNumbers(req, res, next) {
+  User.getById(req.user.id)
+  .then((user) => res.status(200)
+    .json(user.profile.phoneNumbers.map(p => ({
+      countryCode: p.countryCode,
+      number: p.number,
+      isVerified: p.isVerified,
+      type: p.type,
+    })))
+  )
+  .catch(next);
+}
 
-const secure = Secure;
+const ajaxSecure = AjaxSecure;
 const csrfProtected = CsrfProtected;
 const expressRoute = Router;
 const router = expressRoute();
 
 router.post('/mobile/add',
-  secure({
-    returnTo: '/user/dashboard',
-  }),
+  ajaxSecure(),
   csrfProtected(),
   validateRequest(Validations.AddMobileNumberValidation),
   addMobile);
 
 router.post('/mobile/verify',
-  secure({
-    returnTo: '/user/dashboard',
-  }),
+  ajaxSecure(),
   csrfProtected(),
   validateRequest(Validations.VerifyMobileNumberValidation),
   verifyMobile);
+
+router.post('/',
+  ajaxSecure(),
+  getPhoneNumbers);
+
 /**
  * Exports router as default
  */

@@ -1,6 +1,6 @@
 import Passport from 'passport';
 import { Router } from 'express';
-import { Secure, CsrfProtected } from '../utilities/security';
+import { AjaxSecure, CsrfProtected } from '../utilities/security';
 import User from '../models/user';
 
 export function authReturn(req, res) {
@@ -16,7 +16,7 @@ export function facebookAuthReturn(req, res) {
 }
 
 const passport = Passport;
-const secure = Secure;
+const secure = AjaxSecure;
 const csrfProtected = CsrfProtected;
 /**
  * Routes Configuration

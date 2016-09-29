@@ -20,6 +20,16 @@ export function Secure(options) {
   return ensureLoggedIn(url);
 }
 
+export function AjaxSecure() {
+  return (req, res, next) => {
+    if (!req.isAuthenticated || !req.isAuthenticated()
+      || typeof req.user === 'undefined') {
+      res.status(401).send('Unauthorized');
+    } else {
+      next();
+    }
+  };
+}
 /**
  * Requires Authentication Middleware and
  * the user needs to be a buyer

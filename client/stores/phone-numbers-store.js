@@ -8,12 +8,15 @@ const CHANGE_EVENT = CoreConstants.CHANGE_EVENT;
 export class PhoneNumbersStore extends EventEmitter {
   constructor() {
     super();
-    this.addMobileNumberStatus = 0;
-    this.verifyMobileNumberStatus = 0;
+    this.addMobileNumberStatus = -1;
+    this.verifyMobileNumberStatus = -1;
+    this.phoneNumbers = [];
     this.getAddMobileNumberStatus = this.getAddMobileNumberStatus.bind(this);
     this.getVerifyMobileNumberStatus = this.getVerifyMobileNumberStatus.bind(this);
     this.setAddMobileNumberStatus = this.setAddMobileNumberStatus.bind(this);
     this.setVerifyMobileNumberStatus = this.setVerifyMobileNumberStatus.bind(this);
+    this.getPhoneNumbers = this.getPhoneNumbers.bind(this);
+    this.setPhoneNumbers = this.setPhoneNumbers.bind(this);
   }
 
   getAddMobileNumberStatus() {
@@ -30,6 +33,14 @@ export class PhoneNumbersStore extends EventEmitter {
 
   setVerifyMobileNumberStatus(status) {
     this.verifyMobileNumberStatus = status;
+  }
+
+  getPhoneNumbers() {
+    return this.phoneNumbers;
+  }
+
+  setPhoneNumbers(numbers) {
+    this.phoneNumbers = numbers;
   }
 
   addChangeListener(cb) {
@@ -52,6 +63,9 @@ Dispatcher.register((payload) => {
       break;
     case PhoneNumbersConstants.VERIFY_MOBILE_NUMBER_COMPLETE:
       phoneNumbersStore.setVerifyMobileNumberStatus(action.status);
+      break;
+    case PhoneNumbersConstants.GET_PHONE_NUMBERS_COMPLETE:
+      phoneNumbersStore.setPhoneNumbers(action.data);
       break;
     default:
       return true;

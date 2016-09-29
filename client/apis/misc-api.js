@@ -1,23 +1,17 @@
-import ErrorActions from '../actions/error-actions';
 import MiscActions from '../actions/misc-actions';
 import Url from '../helpers/url-helper';
+import * as Utils from './utils';
 
 export function loadCountries() {
-  $.ajax({
-    url: Url.action('lists/countries'),
-    type: 'get',
-  }).done((response) => {
-    MiscActions.loadCountriesComplete(response);
-  })
-  .fail(ErrorActions.error);
+  Utils.get(Url.action('lists/countries'))
+  .done((response) => MiscActions.loadCountriesComplete(response))
+  .fail(Utils.fail);
 }
 
 export function loadCountriesWithCallingCode() {
-  $.ajax({
-    url: Url.action('lists/countries-calling-code'),
-    type: 'get',
-  }).done((response) => {
+  Utils.get(Url.action('lists/countries-calling-code'))
+  .done((response) => {
     MiscActions.loadCountriesWithCallingCodeComplete(response);
   })
-  .fail(ErrorActions.error);
+  .fail(Utils.fail);
 }

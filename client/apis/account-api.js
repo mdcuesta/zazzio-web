@@ -1,6 +1,6 @@
-import ErrorActions from '../actions/error-actions';
 import SignUpActions from '../actions/register-actions';
 import Url from '../helpers/url-helper';
+import * as Utils from './utils';
 
 /**
  * Buyer quick register
@@ -8,37 +8,29 @@ import Url from '../helpers/url-helper';
  * @param  {[object]} data [buyer data]
  */
 export function quickRegister(data) {
-  $.ajax({
-    url: Url.action('sign-up/quick'),
-    type: 'post',
-    dataType: 'json',
-    data: JSON.stringify(data),
-    contentType: 'application/json; charset=utf-8',
-  }).done((responseData, statusText, xhr) => {
+  Utils.post(Url.action('sign-up/quick'), JSON.stringify(data))
+  .done((responseData, statusText, xhr) => {
     SignUpActions.quickRegisterComplete({
       data: responseData,
       statusText,
       status: xhr.status,
     });
   })
-  .fail(ErrorActions.error);
+  .fail(Utils.fail);
 }
 
 export function accountExists(email) {
-  $.ajax({
-    url: Url.action('sign-up/exists'),
-    type: 'post',
-    dataType: 'json',
-    data: JSON.stringify({
+  Utils.post(Url.action('sign-up/exists'),
+    JSON.stringify({
       email: email.trim(),
-    }),
-    contentType: 'application/json; charset=utf-8',
-  }).done((responseData, statusText, xhr) => {
+    }
+  ))
+  .done((responseData, statusText, xhr) => {
     SignUpActions.checkAccountExistenceComplete({
       data: responseData,
       statusText,
       status: xhr.status,
     });
   })
-  .fail(ErrorActions.error);
+  .fail(Utils.fail);
 }

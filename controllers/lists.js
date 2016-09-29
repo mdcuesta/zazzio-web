@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CsrfProtected } from '../utilities/security';
+import { AjaxSecure } from '../utilities/security';
 import * as CountryService from '../services/country-service';
 
 export function countries(req, res) {
@@ -12,16 +12,16 @@ export function countriesWithCallingCode(req, res) {
     .json(CountryService.getCountriesAndCallingCode());
 }
 
-const csrfProtected = CsrfProtected;
+const ajaxSecure = AjaxSecure;
 const expressRoute = Router;
 const router = expressRoute();
 
 router.get('/countries',
-  csrfProtected(),
+  ajaxSecure(),
   countries);
 
 router.get('/countries-calling-code',
-  csrfProtected(),
+  ajaxSecure(),
   countriesWithCallingCode);
 
 /**
