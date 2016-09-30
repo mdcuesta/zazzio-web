@@ -1,55 +1,105 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Url from '../../helpers/url-helper';
+import VerifyPanel from './verify-phone-number-panel';
+import NumbersAction from '../../actions/phone-numbers-actions';
 
-export default function PhoneNumberDisplayText(props) {
-  const verifiedPane = props.isVerified
-    ? (<VerifiedPane />)
-    : (<UnVerifiedPane />);
+export default class PhoneNumberDisplayText extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: true,
+    };
+    this.toggleShowHide = this.toggleShowHide.bind(this);
+    this.delete = this.delete.bind(this);
+  }
 
-  return (
-    <div className="input-group input-group-mobile">
-      <span className="input-group-addon hidden-md-down">
-        {props.countryCode}
-      </span>
-      <input
-        type="text"
-        className="form-control"
-        value={props.number}
-        disabled
+  toggleShowHide() {
+    this.setState({
+      show: !this.state.show,
+    });
+  }
+
+  delete(e) {
+    e.preventDefault();
+    NumbersAction.deleteMobileNumber(this.props.number);
+  }
+
+  render() {
+    const verifiedPane = this.props.isVerified
+      ? (<VerifiedPane />)
+      : (
+      <UnVerifiedPane
+        verifyPanelId={`pverify-${this.props.index}`}
+        toggleShowHide={this.toggleShowHide}
+      />);
+
+    const verifyPanel = this.props.isVerified
+      ? ''
+      : (
+      <VerifyPanel
+        id={`pverify-${this.props.index}`}
+        number={this.props.number}
+        toggleShowHideParent={this.toggleShowHide}
       />
-      {verifiedPane}
-      <div className="input-group-addon input-group-delete">
-        <a href={Url.action('user/profile/mobile-number/number/delete')}>
-          <i className="fa fa-remove" />
-        </a>
+      );
+
+    return (
+      <div>
+        <div className={`input-group input-group-mobile${(this.state.show ? '' : ' hidden')}`}>
+          <input
+            type="text"
+            className="form-control txt-number"
+            value={`+${this.props.number}`}
+            disabled
+          />
+          {verifiedPane}
+          <div className="input-group-addon input-group-delete">
+            <a
+              href={Url.action(`user/numbers/mobile/${this.props.number}/delete`)}
+              data-target="#"
+              onClick={this.delete}
+            >
+              <i className="fa fa-remove" />
+            </a>
+          </div>
+        </div>
+       {verifyPanel}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 PhoneNumberDisplayText.propTypes = {
-  countryCode: React.PropTypes.string.isRequired,
   number: React.PropTypes.string.isRequired,
   isVerified: React.PropTypes.bool.isRequired,
+  index: React.PropTypes.number.isRequired,
 };
 
 function VerifiedPane() {
   return (
-    <div className="input-group-addon verified text-left">
+    <div className="input-group-addon verified text-center">
+      Verified&nbsp;
       <i className="fa fa-check-square-o" />
-      &nbsp;Verified
     </div>
   );
 }
 
-function UnVerifiedPane() {
+function UnVerifiedPane(props) {
   return (
     <a
-      className="input-group-addon unverified text-left"
-      href={Url.action('user/profile/mobile-number/number/verify')}
+      className="input-group-addon unverified text-center"
+      href={`#${props.verifyPanelId}`}
+      data-toggle="collapse"
+      aria-expanded="false"
+      aria-controls={props.verifyPanelId}
+      onClick={props.toggleShowHide}
     >
-      <i className="fa fa-minus-square-o" />
-      &nbsp;Verify
+      Verify
     </a>
   );
 }
+
+UnVerifiedPane.propTypes = {
+  verifyPanelId: React.PropTypes.string.isRequired,
+  toggleShowHide: React.PropTypes.func.isRequired,
+};

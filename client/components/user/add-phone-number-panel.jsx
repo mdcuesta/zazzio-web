@@ -5,8 +5,10 @@ import Store from '../../stores/misc-store';
 import NumbersStore from '../../stores/phone-numbers-store';
 import NumbersAction from '../../actions/phone-numbers-actions';
 import FormErrorLabel from '../common/form-error-label';
+import Status from './status';
 
 const validator = Validator;
+const getStatus = Status;
 
 export default class AddPhoneNumberPanel extends Component {
   constructor(props) {
@@ -37,7 +39,7 @@ export default class AddPhoneNumberPanel extends Component {
 
   componentWillUnmount() {
     Store.removeChangeListener(this.onCountriesChange);
-    NumbersStore.addChangeListener(this.onChange);
+    NumbersStore.removeChangeListener(this.onChange);
   }
 
   onCountriesChange() {
@@ -58,7 +60,7 @@ export default class AddPhoneNumberPanel extends Component {
      */
     if (!this.state.forVerification) {
       const status = NumbersStore.getAddMobileNumberStatus();
-      const forVerification = status === 0;
+      const forVerification = status === 0 && this.state.number !== '';
       const error = this.getError(status);
 
       this.setState({
@@ -71,7 +73,8 @@ export default class AddPhoneNumberPanel extends Component {
         $('#phone-number').focus();
       }
     } else {
-      const status = NumbersStore.getVerifyMobileNumberStatus();
+      const status = NumbersStore
+      .getVerifyMobileNumberStatus(`${this.state.selectedCountryCallingCode}${this.state.number}`);
       const error = this.getError(status);
 
       if (status === 0) {
@@ -85,7 +88,7 @@ export default class AddPhoneNumberPanel extends Component {
           numberHasError: false,
           verificationCodeHasError: false,
         });
-        this.props.onCancel();
+        this.props.onCancel(true);
         $(`#${this.props.id}`).collapse('toggle');
       } else {
         this.setState({
@@ -98,22 +101,7 @@ export default class AddPhoneNumberPanel extends Component {
   }
 
   getError(status) {
-    switch (status) {
-      case 0:
-        return '';
-      case 1:
-        return 'The mobile number already exist.';
-      case 2:
-        return 'The mobile number does not exist.';
-      case 3:
-        return 'Invalid mobile number';
-      case 4:
-        return 'Invalid verification code.';
-      case 5:
-        return 'Number is already verified.';
-      default:
-        return '';
-    }
+    return getStatus(status);
   }
 
   addOrVerify() {
@@ -143,8 +131,7 @@ export default class AddPhoneNumberPanel extends Component {
         error: '',
         numberHasError: false,
       });
-      NumbersAction.addMobileNumber(this.state.selectedCountryCode,
-        `${this.state.selectedCountryCallingCode}${this.state.number}`);
+      NumbersAction.addMobileNumber(`${this.state.selectedCountryCallingCode}${this.state.number}`);
     }
   }
 
@@ -202,9 +189,22 @@ export default class AddPhoneNumberPanel extends Component {
 
     return (
       <div
-        className="col-xs-12 col-sm-12 collapse add-phone-number-panel"
+        className="col-xs-12 collapse phone-numbers-panel"
         id={this.props.id}
       >
+        <span className="panel-title">Add Mobile Number</span>
+        <button
+          type="button"
+          className={`close pull-right${(this.state.forVerification ? ' hidden' : '')}`}
+          aria-label="Close"
+          data-toggle="collapse"
+          data-target={`#${this.props.id}`}
+          aria-expanded="false"
+          aria-controls={this.props.id}
+          onClick={() => this.props.onCancel(true)}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
         <div className="form-group">
           <label htmlFor="phone-country">Country</label>
           <select
@@ -262,17 +262,6 @@ export default class AddPhoneNumberPanel extends Component {
           onClick={this.addOrVerify}
         >
           {(this.state.forVerification ? 'Verify' : 'Add')}
-        </button>
-        <button
-          className="btn btn-danger hidden"
-          type="button"
-          data-toggle="collapse"
-          data-target={`#${this.props.id}`}
-          aria-expanded="false"
-          aria-controls={this.props.id}
-          onClick={this.props.onCancel}
-        >
-          Cancel
         </button>
         <a
           href={Url.action('user/profile/numbers/why-verify')}

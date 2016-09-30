@@ -19,7 +19,7 @@ export default class PhoneNumbersPanel extends Component {
     this.onChange = this.onChange.bind(this);
     NumbersStore.addChangeListener(this.onChange);
     // load existing phone numbers
-    NumbersAction.getPhoneNumbers();
+    NumbersAction.getMobileNumbers();
   }
 
   componentWillUnmount() {
@@ -33,12 +33,16 @@ export default class PhoneNumbersPanel extends Component {
     });
   }
 
-  toggleAddPhoneNumberPanel() {
+  toggleAddPhoneNumberPanel(reloadNumbers = false) {
     $(`#${ADD_PHONE_NUMBER_PANEL_ID}`).animateCss('fadeIn');
     MiscActions.loadCountriesWithCallingCode();
     this.setState({
       showAddPhoneNumberPanel: !this.state.showAddPhoneNumberPanel,
     });
+
+    if (reloadNumbers) {
+      NumbersAction.getMobileNumbers();
+    }
   }
 
   render() {
@@ -47,11 +51,12 @@ export default class PhoneNumbersPanel extends Component {
         className="col-sm-9"
         id="phone-numbers-panel"
       >
-        {this.state.phoneNumbers.map((p) => (
+        {this.state.phoneNumbers.map((p, i) => (
           <PhoneNumbersDisplayText
-            countryCode={p.countryCode}
             number={p.number}
             isVerified={p.isVerified}
+            key={i}
+            index={i}
           />
         ))}
         <div>
@@ -61,7 +66,7 @@ export default class PhoneNumbersPanel extends Component {
             data-toggle="collapse"
             aria-expanded="false"
             aria-controls={ADD_PHONE_NUMBER_PANEL_ID}
-            onClick={this.toggleAddPhoneNumberPanel}
+            onClick={() => this.toggleAddPhoneNumberPanel()}
           >
             <i className="fa fa-plus" />&nbsp;Add a mobile number
           </a>

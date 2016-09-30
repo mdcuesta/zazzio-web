@@ -9,7 +9,7 @@ export class PhoneNumbersStore extends EventEmitter {
   constructor() {
     super();
     this.addMobileNumberStatus = -1;
-    this.verifyMobileNumberStatus = -1;
+    this.verifyMobileNumberStatus = [];
     this.phoneNumbers = [];
     this.getAddMobileNumberStatus = this.getAddMobileNumberStatus.bind(this);
     this.getVerifyMobileNumberStatus = this.getVerifyMobileNumberStatus.bind(this);
@@ -23,16 +23,28 @@ export class PhoneNumbersStore extends EventEmitter {
     return this.addMobileNumberStatus;
   }
 
-  getVerifyMobileNumberStatus() {
-    return this.verifyMobileNumberStatus;
+  getVerifyMobileNumberStatus(number) {
+    const entry = this.verifyMobileNumberStatus.find(s => s.number === number);
+    if (typeof entry === 'undefined') {
+      return -1;
+    }
+    return entry.status;
   }
 
   setAddMobileNumberStatus(status) {
     this.addMobileNumberStatus = status;
   }
 
-  setVerifyMobileNumberStatus(status) {
-    this.verifyMobileNumberStatus = status;
+  setVerifyMobileNumberStatus(number, status) {
+    const existing = this.verifyMobileNumberStatus.find(n => n.number === number);
+    if (typeof existing !== 'undefined') {
+      existing.status = status;
+    } else {
+      this.verifyMobileNumberStatus.push({
+        number,
+        status,
+      });
+    }
   }
 
   getPhoneNumbers() {
@@ -62,7 +74,7 @@ Dispatcher.register((payload) => {
       phoneNumbersStore.setAddMobileNumberStatus(action.status);
       break;
     case PhoneNumbersConstants.VERIFY_MOBILE_NUMBER_COMPLETE:
-      phoneNumbersStore.setVerifyMobileNumberStatus(action.status);
+      phoneNumbersStore.setVerifyMobileNumberStatus(action.data.number, action.data.status);
       break;
     case PhoneNumbersConstants.GET_PHONE_NUMBERS_COMPLETE:
       phoneNumbersStore.setPhoneNumbers(action.data);

@@ -48,10 +48,6 @@ const userSchema = new Schema({
       default: '',
     },
     phoneNumbers: [{
-      countryCode: {
-        type: String,
-        required: true,
-      },
       number: {
         type: String,
         required: true,

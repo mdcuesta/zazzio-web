@@ -2,9 +2,8 @@ import * as Utils from './utils';
 import PhoneNumbersActions from '../actions/phone-numbers-actions';
 import Url from '../helpers/url-helper';
 
-export function addMobileNumber(countryCode, number) {
+export function addMobileNumber(number) {
   Utils.post(Url.action('user/numbers/mobile/add'), {
-    countryCode,
     number,
   })
   .done((responseData) => {
@@ -19,15 +18,31 @@ export function verifyMobileNumber(number, verificationCode) {
     verificationCode,
   })
   .done((responseData) => {
-    PhoneNumbersActions.verifyMobileNumberComplete(responseData.status);
+    PhoneNumbersActions.verifyMobileNumberComplete({
+      number,
+      status: responseData.status,
+    });
   })
   .fail(Utils.fail);
 }
 
-export function getPhoneNumbers() {
+export function getMobileNumbers() {
   Utils.post(Url.action('user/numbers'))
   .done((responseData) => {
-    PhoneNumbersActions.getPhoneNumbersComplete(responseData);
+    PhoneNumbersActions.getMobileNumbersComplete(responseData);
+  })
+  .fail(Utils.fail);
+}
+
+export function deleteMobileNumber(number) {
+  Utils.post(Url.action('user/numbers/mobile/delete'), {
+    number,
+  })
+  .done((responseData) => {
+    PhoneNumbersActions.deleteMobileNumberComplete({
+      number,
+      status: responseData.status,
+    });
   })
   .fail(Utils.fail);
 }

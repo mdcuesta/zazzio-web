@@ -14,11 +14,12 @@ const validateRequest = ExpressValidation;
  * 3 - Verification Request Failed
  * 4 - Verification Failed
  * 5 - Number is already verified
+ * 6 - Number successfully deleted
  */
 
 export function addMobile(req, res, next) {
   User.getById(req.user.id)
-  .then((user) => user.addPhoneNumber(req.body.countryCode, req.body.number))
+  .then((user) => user.addPhoneNumber(req.body.number))
   .then((result) => {
     res.status(200).json({
       status: result.status,
@@ -42,12 +43,22 @@ export function getPhoneNumbers(req, res, next) {
   User.getById(req.user.id)
   .then((user) => res.status(200)
     .json(user.profile.phoneNumbers.map(p => ({
-      countryCode: p.countryCode,
       number: p.number,
       isVerified: p.isVerified,
       type: p.type,
     })))
   )
+  .catch(next);
+}
+
+export function deleteMobile(req, res, next) {
+  User.getById(req.user.id)
+  .then((user) => user.deletePhoneNumber(req.body.number))
+  .then((result) => {
+    res.status(200).json({
+      status: result.status,
+    });
+  })
   .catch(next);
 }
 
@@ -67,6 +78,12 @@ router.post('/mobile/verify',
   csrfProtected(),
   validateRequest(Validations.VerifyMobileNumberValidation),
   verifyMobile);
+
+router.post('/mobile/delete',
+  ajaxSecure(),
+  csrfProtected(),
+  validateRequest(Validations.DeleteMobileNumberValidation),
+  deleteMobile);
 
 router.post('/',
   ajaxSecure(),

@@ -87,7 +87,7 @@ userSchema.methods.sendEmailConfirmation = function sendEmailConfirmation() {
 };
 
 userSchema.methods.addPhoneNumber =
-  function addPhoneNumber(countryCode, number, type = null) {
+  function addPhoneNumber(number, type = null) {
     return new Promise((resolve, reject) => {
       // check if phone number exists
       const existing =
@@ -111,7 +111,6 @@ userSchema.methods.addPhoneNumber =
         }
 
         const data = {
-          countryCode,
           number,
           verificationRequestCode: response.request_id,
         };
@@ -170,6 +169,24 @@ userSchema.methods.verifyPhoneNumber = function verifyPhoneNumber(number, verifi
       .catch(reject);
     })
     .catch(reject);
+  });
+};
+
+userSchema.methods.deletePhoneNumber = function deletePhoneNumber(number) {
+  return new Promise((resolve, reject) => {
+    const index = this.profile.phoneNumbers.findIndex(p => p.number === number);
+    if (index > -1) {
+      this.profile.phoneNumbers.splice(index, 1);
+      this.save()
+      .then(() => resolve({
+        status: 6,
+      }))
+      .catch(reject);
+    } else {
+      resolve({
+        status: 2,
+      });
+    }
   });
 };
 

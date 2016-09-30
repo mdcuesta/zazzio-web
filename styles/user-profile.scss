@@ -114,6 +114,10 @@ $add-number-link-color:   #373a3c !default;
       }
     }
 
+    .txt-number {
+      font-weight: 600;
+    }
+
     .input-group-delete {
       a {
         color: $delete-color;
@@ -131,7 +135,11 @@ $add-number-link-color:   #373a3c !default;
     }
   }
 
-  .add-phone-number-panel {
+  .phone-numbers-panel {
+    &.verify {
+      margin-bottom: .5rem;
+    }
+
     label {
       padding-top: 0;
     }
@@ -152,6 +160,12 @@ $add-number-link-color:   #373a3c !default;
 
     .error-span {
       color: $brand-danger;
+    }
+
+    .panel-title {
+      color: $brand-musturd;
+      font-size: 1em;
+      font-weight: 600;
     }
   }
 
