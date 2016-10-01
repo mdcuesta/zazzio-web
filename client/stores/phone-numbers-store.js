@@ -10,6 +10,7 @@ export class PhoneNumbersStore extends EventEmitter {
     super();
     this.addMobileNumberStatus = -1;
     this.verifyMobileNumberStatus = [];
+    this.resendVerificationStatus = [];
     this.phoneNumbers = [];
     this.getAddMobileNumberStatus = this.getAddMobileNumberStatus.bind(this);
     this.getVerifyMobileNumberStatus = this.getVerifyMobileNumberStatus.bind(this);
@@ -17,6 +18,8 @@ export class PhoneNumbersStore extends EventEmitter {
     this.setVerifyMobileNumberStatus = this.setVerifyMobileNumberStatus.bind(this);
     this.getPhoneNumbers = this.getPhoneNumbers.bind(this);
     this.setPhoneNumbers = this.setPhoneNumbers.bind(this);
+    this.getResendVerificationStatus = this.getResendVerificationStatus.bind(this);
+    this.setResendVerificationStatus = this.setResendVerificationStatus.bind(this);
   }
 
   getAddMobileNumberStatus() {
@@ -25,6 +28,14 @@ export class PhoneNumbersStore extends EventEmitter {
 
   getVerifyMobileNumberStatus(number) {
     const entry = this.verifyMobileNumberStatus.find(s => s.number === number);
+    if (typeof entry === 'undefined') {
+      return -1;
+    }
+    return entry.status;
+  }
+
+  getResendVerificationStatus(number) {
+    const entry = this.resendVerificationStatus.find(s => s.number === number);
     if (typeof entry === 'undefined') {
       return -1;
     }
@@ -41,6 +52,18 @@ export class PhoneNumbersStore extends EventEmitter {
       existing.status = status;
     } else {
       this.verifyMobileNumberStatus.push({
+        number,
+        status,
+      });
+    }
+  }
+
+  setResendVerificationStatus(number, status) {
+    const existing = this.resendVerificationStatus.find(n => n.number === number);
+    if (typeof existing !== 'undefined') {
+      existing.status = status;
+    } else {
+      this.resendVerificationStatus.push({
         number,
         status,
       });
@@ -75,6 +98,9 @@ Dispatcher.register((payload) => {
       break;
     case PhoneNumbersConstants.VERIFY_MOBILE_NUMBER_COMPLETE:
       phoneNumbersStore.setVerifyMobileNumberStatus(action.data.number, action.data.status);
+      break;
+    case PhoneNumbersConstants.RESEND_MOBILE_NUMBER_VERIFICATION_COMPLETE:
+      phoneNumbersStore.setResendVerificationStatus(action.data.number, action.data.status);
       break;
     case PhoneNumbersConstants.GET_PHONE_NUMBERS_COMPLETE:
       phoneNumbersStore.setPhoneNumbers(action.data);

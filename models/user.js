@@ -5,9 +5,11 @@ import * as Crypto from '../utilities/crypto';
 import * as DataProvider from '../utilities/data-provider';
 import * as MailService from '../services/mail-service';
 import * as SmsService from '../services/sms-service';
+import Logger from '../utilities/logger';
 
 const userSchema = UserSchema;
 const mailService = MailService;
+const log = Logger;
 
 // Business Model Methods
 /**
@@ -86,6 +88,27 @@ userSchema.methods.sendEmailConfirmation = function sendEmailConfirmation() {
   return mailService.sendUserConfirmationMail(this, 'buyer');
 };
 
+
+function getSmsServiceRequestStatus(response, defaultStatus = 0) {
+  if (response.status === '10') {
+    return 6;
+  }
+
+  const resultStatus =
+    ['1', '2', '4', '5', '6', '7',
+    '8', '9', '15', '18', '101'].find(p => p === response.status);
+
+  if (typeof resultStatus !== 'undefined') {
+    log({
+      status: response.status,
+      error: response.error_text,
+    });
+    return 10;
+  }
+
+  return defaultStatus;
+}
+
 userSchema.methods.addPhoneNumber =
   function addPhoneNumber(number, type = null) {
     return new Promise((resolve, reject) => {
@@ -104,8 +127,10 @@ userSchema.methods.addPhoneNumber =
       .then((response) => {
         if (response.status !== '0') {
           // todo check status codes
+          const status = getSmsServiceRequestStatus(response, 3);
+
           resolve({
-            status: 3,
+            status,
           });
           return;
         }
@@ -129,6 +154,40 @@ userSchema.methods.addPhoneNumber =
       .catch(reject);
     });
   };
+
+userSchema.methods.sendPhoneNumberVerification = function sendPhoneNumberVerification(number) {
+  return new Promise((resolve, reject) => {
+    // check if phone number exists
+    const existing =
+      this.profile.phoneNumbers.find(p => p.number === number);
+    if (typeof existing === 'undefined') {
+      resolve({
+        status: 2,
+      });
+      return;
+    }
+
+    // send verification code
+    SmsService.sendVerificationCode(number)
+    .then((response) => {
+      if (response.status !== '0') {
+        const status = getSmsServiceRequestStatus(response, 3);
+        resolve({
+          status,
+        });
+        return;
+      }
+
+      existing.verificationRequestCode = response.request_id;
+      this.save()
+      .then(() => resolve({
+        status: 0,
+      }))
+      .catch(reject);
+    })
+    .catch(reject);
+  });
+};
 
 userSchema.methods.verifyPhoneNumber = function verifyPhoneNumber(number, verificationCode) {
   return new Promise((resolve, reject) => {
@@ -155,8 +214,9 @@ userSchema.methods.verifyPhoneNumber = function verifyPhoneNumber(number, verifi
     .then((response) => {
       // invalid verification code
       if (response.status !== '0') {
+        const status = getSmsServiceRequestStatus(response, 4);
         resolve({
-          status: 4,
+          status,
         });
         return;
       }
@@ -179,7 +239,7 @@ userSchema.methods.deletePhoneNumber = function deletePhoneNumber(number) {
       this.profile.phoneNumbers.splice(index, 1);
       this.save()
       .then(() => resolve({
-        status: 6,
+        status: 0,
       }))
       .catch(reject);
     } else {

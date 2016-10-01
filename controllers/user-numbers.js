@@ -14,7 +14,8 @@ const validateRequest = ExpressValidation;
  * 3 - Verification Request Failed
  * 4 - Verification Failed
  * 5 - Number is already verified
- * 6 - Number successfully deleted
+ * 6 - Wait some time to send another verification code
+ * 10 - Error
  */
 
 export function addMobile(req, res, next) {
@@ -62,6 +63,17 @@ export function deleteMobile(req, res, next) {
   .catch(next);
 }
 
+export function resendConfirmation(req, res, next) {
+  User.getById(req.user.id)
+  .then((user) => user.sendPhoneNumberVerification(req.body.number))
+  .then((result) => {
+    res.status(200).json({
+      status: result.status,
+    });
+  })
+  .catch(next);
+}
+
 const ajaxSecure = AjaxSecure;
 const csrfProtected = CsrfProtected;
 const expressRoute = Router;
@@ -70,7 +82,7 @@ const router = expressRoute();
 router.post('/mobile/add',
   ajaxSecure(),
   csrfProtected(),
-  validateRequest(Validations.AddMobileNumberValidation),
+  validateRequest(Validations.RequireMobileNumberValidation),
   addMobile);
 
 router.post('/mobile/verify',
@@ -82,8 +94,14 @@ router.post('/mobile/verify',
 router.post('/mobile/delete',
   ajaxSecure(),
   csrfProtected(),
-  validateRequest(Validations.DeleteMobileNumberValidation),
+  validateRequest(Validations.RequireMobileNumberValidation),
   deleteMobile);
+
+router.post('/mobile/confirmation',
+  ajaxSecure(),
+  csrfProtected(),
+  validateRequest(Validations.RequireMobileNumberValidation),
+  resendConfirmation);
 
 router.post('/',
   ajaxSecure(),

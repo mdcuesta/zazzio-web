@@ -9,6 +9,7 @@ import Status from './status';
 
 const validator = Validator;
 const getStatus = Status;
+const RESEND_TIMEOUT = 300000;
 
 export default class AddPhoneNumberPanel extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ export default class AddPhoneNumberPanel extends Component {
       verificationCode: '',
       numberHasError: false,
       verificationCodeHasError: false,
+      showResend: false,
+      event: '',
     };
     this.verify = this.verify.bind(this);
     this.add = this.add.bind(this);
@@ -33,6 +36,7 @@ export default class AddPhoneNumberPanel extends Component {
     this.numberBlur = this.numberBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCountriesChange = this.onCountriesChange.bind(this);
+    this.resendVerification = this.resendVerification.bind(this);
     Store.addChangeListener(this.onCountriesChange);
     NumbersStore.addChangeListener(this.onChange);
   }
@@ -58,6 +62,23 @@ export default class AddPhoneNumberPanel extends Component {
      * 3 - Verification Request Failed
      * 4 - Verification Failed
      */
+
+    // resend only
+    if (this.state.event === 'resend') {
+      const status = NumbersStore
+        .getResendVerificationStatus(this.state.number);
+
+      const error = this.getError(status);
+
+      if (status !== 0) {
+        this.setState({
+          error,
+        });
+      }
+      return;
+    }
+
+    // not for verification yet
     if (!this.state.forVerification) {
       const status = NumbersStore.getAddMobileNumberStatus();
       const forVerification = status === 0 && this.state.number !== '';
@@ -72,31 +93,34 @@ export default class AddPhoneNumberPanel extends Component {
       if (error !== '') {
         $('#phone-number').focus();
       }
-    } else {
-      const status = NumbersStore
-      .getVerifyMobileNumberStatus(`${this.state.selectedCountryCallingCode}${this.state.number}`);
-      const error = this.getError(status);
+      return;
+    }
 
-      if (status === 0) {
-        this.setState({
-          selectedCountryCode: 'PH',
-          selectedCountryCallingCode: '63',
-          number: '',
-          error: '',
-          forVerification: false,
-          verificationCode: '',
-          numberHasError: false,
-          verificationCodeHasError: false,
-        });
-        this.props.onCancel(true);
-        $(`#${this.props.id}`).collapse('toggle');
-      } else {
-        this.setState({
-          error,
-          verificationCodeHasError: error !== '',
-        });
-        $('#verification-code').focus();
-      }
+
+    // verify button clicked
+    const status = NumbersStore
+    .getVerifyMobileNumberStatus(`${this.state.selectedCountryCallingCode}${this.state.number}`);
+    const error = this.getError(status);
+
+    if (status === 0) {
+      this.setState({
+        selectedCountryCode: 'PH',
+        selectedCountryCallingCode: '63',
+        number: '',
+        error: '',
+        forVerification: false,
+        verificationCode: '',
+        numberHasError: false,
+        verificationCodeHasError: false,
+      });
+      this.props.onCancel(true);
+      $(`#${this.props.id}`).collapse('toggle');
+    } else {
+      this.setState({
+        error,
+        verificationCodeHasError: error !== '',
+      });
+      $('#verification-code').focus();
     }
   }
 
@@ -131,6 +155,13 @@ export default class AddPhoneNumberPanel extends Component {
         error: '',
         numberHasError: false,
       });
+
+      setTimeout(() => {
+        this.setState({
+          showResend: true,
+        });
+      }, RESEND_TIMEOUT);
+
       NumbersAction.addMobileNumber(`${this.state.selectedCountryCallingCode}${this.state.number}`);
     }
   }
@@ -141,12 +172,33 @@ export default class AddPhoneNumberPanel extends Component {
       this.setState({
         error: 'Verification code is required.',
         verificationCodeHasError: true,
+        event: '',
       });
       $('#verification-code').focus();
       return;
     }
+
+    this.setState({
+      event: '',
+    });
     NumbersAction.verifyMobileNumber(`${this.state.selectedCountryCallingCode}${this.state.number}`,
       this.state.verificationCode);
+  }
+
+  resendVerification(e) {
+    NumbersAction.resendMobileNumberVerification(this.state.number);
+    this.setState({
+      event: 'resend',
+      showResend: false,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        showResend: true,
+      });
+    }, RESEND_TIMEOUT);
+
+    e.preventDefault();
   }
 
   countryChange(e) {
@@ -187,12 +239,15 @@ export default class AddPhoneNumberPanel extends Component {
     let verificationCodeClass = `form-group${(this.state.forVerification ? '' : ' hidden')}`;
     verificationCodeClass += this.state.verificationCodeHasError ? ' has-danger' : '';
 
+    let numberClass = `form-group${this.state.numberHasError ? ' has-danger' : ''}`;
+    numberClass += this.state.forVerification ? ' hidden' : '';
+
     return (
       <div
         className="col-xs-12 collapse phone-numbers-panel"
         id={this.props.id}
       >
-        <span className="panel-title">Add Mobile Number</span>
+        <span className="panel-title">Add a Mobile Number</span>
         <button
           type="button"
           className={`close pull-right${(this.state.forVerification ? ' hidden' : '')}`}
@@ -205,7 +260,8 @@ export default class AddPhoneNumberPanel extends Component {
         >
           <span aria-hidden="true">&times;</span>
         </button>
-        <div className="form-group">
+        <hr />
+        <div className={`form-group${(this.state.forVerification ? ' hidden' : '')}`}>
           <label htmlFor="phone-country">Country</label>
           <select
             className="form-control"
@@ -224,10 +280,10 @@ export default class AddPhoneNumberPanel extends Component {
             )}
           </select>
         </div>
-        <div className={`form-group${this.state.numberHasError ? ' has-danger' : ''}`}>
+        <div className={numberClass}>
           <label htmlFor="phone-number">Mobile Number</label>
           <div className="input-group">
-            <span className="input-group-addon hidden-md-down">
+            <span className="input-group-addon">
               +{this.state.selectedCountryCallingCode}
             </span>
             <input
@@ -252,6 +308,18 @@ export default class AddPhoneNumberPanel extends Component {
             onChange={this.verificationCodeChange}
             onKeyDown={this.cancelSubmit}
           />
+          <a
+            href={Url.action(`user/numbers/mobile/${this.state.number}/send-code`)}
+            onClick={this.resendVerification}
+            className={`resend-code-link${(this.state.showResend ? '' : ' hidden')}`}
+          >
+            Resend Verification
+          </a>
+          <span className={`resend-code-span${(this.state.showResend ? ' hidden' : '')}`}>
+            Verification code sent to this number
+            +{this.state.selectedCountryCallingCode}{this.state.number}.
+            Please wait upto 5 minutes to receive the verification code.
+          </span>
         </div>
         <div className="form-group">
           <FormErrorLabel error={this.state.error} />

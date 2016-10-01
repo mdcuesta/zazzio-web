@@ -8,14 +8,16 @@ export default class PhoneNumberDisplayText extends Component {
     super(props);
     this.state = {
       show: true,
+      verified: false,
     };
     this.toggleShowHide = this.toggleShowHide.bind(this);
     this.delete = this.delete.bind(this);
   }
 
-  toggleShowHide() {
+  toggleShowHide(verified = false) {
     this.setState({
       show: !this.state.show,
+      verified,
     });
   }
 
@@ -25,7 +27,7 @@ export default class PhoneNumberDisplayText extends Component {
   }
 
   render() {
-    const verifiedPane = this.props.isVerified
+    const verifiedPane = this.props.isVerified || this.state.verified
       ? (<VerifiedPane />)
       : (
       <UnVerifiedPane
@@ -43,17 +45,16 @@ export default class PhoneNumberDisplayText extends Component {
       />
       );
 
+    const hiddenClass = this.state.show ? '' : ' hidden';
+
     return (
       <div>
-        <div className={`input-group input-group-mobile${(this.state.show ? '' : ' hidden')}`}>
-          <input
-            type="text"
-            className="form-control txt-number"
-            value={`+${this.props.number}`}
-            disabled
-          />
+        <div className={`col-sm-12 group-mobile group-mobile-${this.props.index}${hiddenClass}`}>
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-8 number">
+            <span>{`+${this.props.number}`}</span>
+          </div>
           {verifiedPane}
-          <div className="input-group-addon input-group-delete">
+          <div className="col-xs-2 col-sm-2 col-md-2 col-lg-1 number-delete">
             <a
               href={Url.action(`user/numbers/mobile/${this.props.number}/delete`)}
               data-target="#"
@@ -77,8 +78,10 @@ PhoneNumberDisplayText.propTypes = {
 
 function VerifiedPane() {
   return (
-    <div className="input-group-addon verified text-center">
-      Verified&nbsp;
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 verified">
+      <span className="hidden-xs-down">
+        Verified&nbsp;
+      </span>
       <i className="fa fa-check-square-o" />
     </div>
   );
@@ -86,16 +89,17 @@ function VerifiedPane() {
 
 function UnVerifiedPane(props) {
   return (
-    <a
-      className="input-group-addon unverified text-center"
-      href={`#${props.verifyPanelId}`}
-      data-toggle="collapse"
-      aria-expanded="false"
-      aria-controls={props.verifyPanelId}
-      onClick={props.toggleShowHide}
-    >
-      Verify
-    </a>
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 unverified ">
+      <a
+        href={`#${props.verifyPanelId}`}
+        data-toggle="collapse"
+        aria-expanded="false"
+        aria-controls={props.verifyPanelId}
+        onClick={props.toggleShowHide}
+      >
+        Verify
+      </a>
+    </div>
   );
 }
 

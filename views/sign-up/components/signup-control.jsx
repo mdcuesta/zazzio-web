@@ -8,7 +8,7 @@ export default function SignUpControl(props) {
   const signUpFbUrl = 'sign-up/facebook';
 
   return (
-    <div className="container">
+    <div className="container box-control-container-wrapper">
       <div
         className={'box-control-container col-xs-12 col-sm-12 ' +
         'col-md-8 offset-md-2 col-lg-6 offset-lg-3'}

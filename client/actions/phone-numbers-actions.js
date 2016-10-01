@@ -47,6 +47,17 @@ export class PhoneNumberActions {
       data,
     });
   }
+
+  resendMobileNumberVerification(number) {
+    Api.resendMobileNumberVerification(number);
+  }
+
+  resendMobileNumberVerificationComplete(data) {
+    Dispatcher.dispatchServerAction({
+      actionType: PhoneNumberConstants.RESEND_MOBILE_NUMBER_VERIFICATION_COMPLETE,
+      data,
+    });
+  }
 }
 
 export default new PhoneNumberActions();

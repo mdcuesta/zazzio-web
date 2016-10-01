@@ -46,3 +46,16 @@ export function deleteMobileNumber(number) {
   })
   .fail(Utils.fail);
 }
+
+export function resendMobileNumberVerification(number) {
+  Utils.post(Url.action('user/numbers/mobile/confirmation'), {
+    number,
+  })
+  .done((responseData) => {
+    PhoneNumbersActions.resendMobileNumberVerificationComplete({
+      number,
+      status: responseData.status,
+    });
+  })
+  .fail(Utils.fail);
+}

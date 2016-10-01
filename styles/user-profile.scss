@@ -84,41 +84,65 @@ $add-number-link-color:   #373a3c !default;
     }
   }
 
-  .input-group-mobile {
-    margin-bottom: .5rem;
+  .group-mobile {
+    height: 38px;
+    margin-top: .5rem;
+    padding: 0;
 
-    div,
-    span,
-    input {
-      background: none;
+    &.group-mobile-0 {
+      margin-top: 0;
     }
 
     .verified {
+      border-bottom: 1px solid $input-border-color;
+      border-right: 1px solid $input-border-color;
+      border-top: 1px solid $input-border-color;
       color: $verified-color;
-      font-size: .7em;
-      font-weight: 900;
-      width: 82px;
+      height: 100%;
+      padding: .4rem .5rem;
+      text-align: center;
     }
 
     .unverified {
-      background: none;
-      color: $verify-btn-border;
-      font-size: .7em;
-      font-weight: 900;
+      border-bottom: 1px solid $input-border-color;
+      border-right: 1px solid $input-border-color;
+      border-top: 1px solid $input-border-color;
       height: 100%;
-      text-decoration: none;
-      width: 82px;
+      padding: .4rem .5rem;
+      text-align: center;
 
-      &:hover {
-        text-decoration: underline;
+      a {
+        color: $verify-btn-border;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
-    .txt-number {
-      font-weight: 600;
+    .number {
+      background: $input-bg-disabled;
+      border: 1px solid $input-border-color;
+      height: 100%;
+      overflow: hidden;
+      padding: .4rem .5rem;
+      white-space: nowrap;
+
+      span {
+        font-weight: 600;
+        text-overflow: ellipsis;
+      }
     }
 
-    .input-group-delete {
+    .number-delete {
+      border-bottom: 1px solid $input-border-color;
+      border-right: 1px solid $input-border-color;
+      border-top: 1px solid $input-border-color;
+      height: 100%;
+      padding: .4rem .5rem;
+      text-align: center;
+
       a {
         color: $delete-color;
       }
@@ -136,22 +160,33 @@ $add-number-link-color:   #373a3c !default;
   }
 
   .phone-numbers-panel {
-    &.verify {
+    @include media-breakpoint-down(xs) {
       margin-bottom: .5rem;
     }
+
+    border: 1px solid $ddd;
+    margin-top: .5rem;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
 
     label {
       padding-top: 0;
     }
-    border: 1px solid $ddd;
-    padding-bottom: .5rem;
-    padding-top: .5rem;
 
     .why-verify-link {
       color: $brand-musturd;
       font-size: .8em;
-      font-weight: 600;
       margin-top: 10px;
+    }
+
+    .resend-code-link {
+      color: $brand-musturd;
+      font-size: .8em;
+    }
+
+    .resend-code-span {
+      color: $add-number-link-color;
+      font-size: .8em;
     }
 
     .btn {
@@ -166,6 +201,16 @@ $add-number-link-color:   #373a3c !default;
       color: $brand-musturd;
       font-size: 1em;
       font-weight: 600;
+    }
+
+    &.pverify-0 {
+      margin-top: 0;
+    }
+
+    .form-group {
+      &.verification {
+        margin-bottom: 0;
+      }
     }
   }
 

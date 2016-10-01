@@ -21,6 +21,10 @@ export default function getStatusMessage(status) {
       return 'Invalid verification code.';
     case 5:
       return 'Number is already verified.';
+    case 6:
+      return 'Please wait 5 minutes before resending verification code.';
+    case 10:
+      return 'Sorry an error occured. Please try again later.';
     default:
       return '';
   }
