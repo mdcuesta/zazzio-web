@@ -28,6 +28,5 @@ $(exploreLink).replaceWith(tempContainer.querySelector('#link-explore'));
 
 // remove logout button
 if (authenticated) {
-  const logoutLink = document.getElementById('nav-item-sign-out');
-  logoutLink.remove();
+  $('#nav-item-sign-out').remove();
 }
