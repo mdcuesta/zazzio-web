@@ -1,8 +1,17 @@
 @charset 'utf-8';
 
 .login-modal-tabs-content {
+
+  .link-span-confirm,
+  .link-span-login {
+    font-weight: 600;
+  }
+
+  .divider {
+    padding: 0 2rem;
+  }
+
   .section-regular-login {
-    padding: 3rem 0 0;
 
     .login-error {
       margin-bottom: 5px;
@@ -10,8 +19,7 @@
   }
 
   .section-facebook-login {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-top: 2rem;
   }
 
   .section-register {
@@ -19,10 +27,9 @@
   }
 
   .section-regular-sign-up {
-    padding: 3rem 0 0;
-
     .col-btn-sign-up {
       margin-top: .7rem;
+      padding: 0 1rem;
     }
 
     .btn-sign-up {
@@ -34,8 +41,11 @@
     }
   }
 
+  .section-regular-sign-up-complete {
+    padding: 2rem 1rem 1rem;
+  }
+
   .section-facebook-sign-up {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-top: 2rem;
   }
 }

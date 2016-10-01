@@ -20,6 +20,7 @@ export function get(url) {
 export function fail(xhr, status, error) {
   if (xhr.status === 401) {
     location.reload(true);
+    return;
   }
   Raven.captureException(error);
 }

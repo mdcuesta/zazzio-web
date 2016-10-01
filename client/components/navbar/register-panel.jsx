@@ -104,13 +104,13 @@ export default class RegisterPanel extends Component {
   getSignUpCompletePanel() {
     return (
       <div role="form">
-        <section className="section-regular-sign-up">
+        <section className="section-regular-sign-up-complete">
           <h5 className="text-center">Your account has been successfully created.</h5>
           <p className="text-center">
             Please confirm your account by clicking the confirmation link
             that we sent to your email.  Thank you.
           </p>
-          <div className="form-group">
+          <div>
             <button
               className="btn btn-block btn-success btn-sign-up"
               onClick={() => location.reload(true)}
@@ -131,10 +131,22 @@ export default class RegisterPanel extends Component {
 
     return (
       <div role="form">
+        <section className="section-facebook-sign-up">
+          <div className="col-sm-12 form-group">
+            <a
+              className="btn btn-block btn-facebook btn-link-button"
+              href={Url.action('account/sign-up/facebook')}
+            >
+              <i className="fa fa-thumbs-o-up" />&nbsp;
+              Sign Up with Facebook
+            </a>
+          </div>
+        </section>
+        <div className="divider"><span>or</span></div>
         <section className="section-regular-sign-up">
           <div
-            className={'col-sm-12 col-md-12 col-lg-12 ' +
-            `form-group ${(this.state.email.hasError ? 'has-danger' : '')}`}
+            className={'col-sm-12 ' +
+            `form-group${(this.state.email.hasError ? ' has-danger' : '')}`}
           >
             <input
               type="text"
@@ -149,8 +161,8 @@ export default class RegisterPanel extends Component {
             <EmailErrorLabel error={this.state.email.error} />
           </div>
           <div
-            className={'col-sm-12 col-md-12 col-lg-12 ' +
-            `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+            className={'col-sm-12 ' +
+            `form-group${(this.state.password.hasError ? ' has-danger' : '')}`}
           >
             <input
               type="password"
@@ -165,8 +177,8 @@ export default class RegisterPanel extends Component {
             <FormErrorLabel error={this.state.password.error} />
           </div>
           <div
-            className={'col-2 col-sm-6 col-md-6 col-lg-6 ' +
-            `form-group ${(this.state.firstName.hasError ? 'has-danger' : '')}`}
+            className={'col-sm-6 ' +
+            `form-group${(this.state.firstName.hasError ? ' has-danger' : '')}`}
           >
             <input
               type="text"
@@ -181,8 +193,8 @@ export default class RegisterPanel extends Component {
             <FormErrorLabel error={this.state.firstName.error} />
           </div>
           <div
-            className={'col-3 col-sm-6 col-md-6 col-lg-6 ' +
-            `form-group ${(this.state.lastName.hasError ? 'has-danger' : '')}`}
+            className={'col-sm-6 ' +
+            `form-group${(this.state.lastName.hasError ? ' has-danger' : '')}`}
           >
             <input
               type="text"
@@ -196,7 +208,7 @@ export default class RegisterPanel extends Component {
             />
             <FormErrorLabel error={this.state.lastName.error} />
           </div>
-          <div className="col-sm-12 col-md-12 col-lg-12 form-group">
+          <div className="col-sm-12 form-group">
             <label
               htmlFor="is-not-buyer"
               className="form-check-label"
@@ -213,8 +225,8 @@ export default class RegisterPanel extends Component {
             </label>
           </div>
           <div
-            className={'col-btn-sign-up col-sm-12 ' +
-            'col-md-12 col-lg-12 form-group text-center'}
+            className={'col-btn-sign-up ' +
+            'form-group text-center'}
           >
             <button
               className="btn btn-block btn-musturd-inverse btn-sign-up"
@@ -226,18 +238,6 @@ export default class RegisterPanel extends Component {
             <span className="link-span">By Signing up you agree to our&nbsp;
               <a href={Url.action('terms')}>Terms</a> of use.
             </span>
-          </div>
-        </section>
-        <section className="section-facebook-sign-up">
-          <div className="divider"><span>or</span></div>
-          <div className="form-group">
-            <a
-              className="btn btn-block btn-facebook btn-link-button"
-              href={Url.action('account/sign-up/facebook')}
-            >
-              <i className="fa fa-thumbs-o-up" />&nbsp;
-              Sign Up with Facebook
-            </a>
           </div>
         </section>
       </div>
@@ -389,7 +389,7 @@ function EmailErrorLabel(props) {
           An account is already associated with this email address.&nbsp;
           <span
             onClick={() => ModalActions.setModalType(LOGIN)}
-            className="link link-span"
+            className="link link-span-login"
             role="button"
           >
             Login?

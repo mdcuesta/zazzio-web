@@ -170,14 +170,26 @@ export default class LoginPanel extends Component {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     const emailClass = this.getTextInputClass('email');
     const passwordClass = this.getTextInputClass('password');
-
     return (
       <div role="form">
+        <section className="section-facebook-login">
+          <div className="col-sm-12 form-group">
+            <button
+              id="btn-login-facebook"
+              onClick={this.popFBLogin}
+              className="btn btn-block btn-facebook"
+            >
+              <i className="fa fa-thumbs-o-up" />&nbsp;
+              Log in with Facebook
+            </button>
+          </div>
+        </section>
+        <div className="divider"><span>or</span></div>
         <section className="section-regular-login">
           <div
-            className={'col col-sm-12 col-md-12 col-lg-12 ' +
-            `form-group ${(this.state.email.hasError
-              || this.state.accountUnconfirmed ? 'has-danger' : '')}`}
+            className={'col-sm-12 ' +
+            `form-group${(this.state.email.hasError
+              || this.state.accountUnconfirmed ? ' has-danger' : '')}`}
           >
             <input
               id="txt-login-email"
@@ -192,8 +204,8 @@ export default class LoginPanel extends Component {
             <EmailErrorLabel error={this.state.email.error} />
           </div>
           <div
-            className={'col col-sm-12 col-md-12 col-lg-12 ' +
-            `form-group ${(this.state.password.hasError ? 'has-danger' : '')}`}
+            className={'col-sm-12 ' +
+            `form-group${(this.state.password.hasError ? ' has-danger' : '')}`}
           >
             <input
               id="txt-login-password"
@@ -208,7 +220,7 @@ export default class LoginPanel extends Component {
             />
             <FormErrorLabel error={this.state.password.error} />
           </div>
-          <div className="col col-sm-12 col-md-12 col-lg-12 text-right form-group">
+          <div className="col-sm-12 text-right form-group">
             <a
               href={Url.action('forgot-password')}
               className="link-span"
@@ -221,26 +233,13 @@ export default class LoginPanel extends Component {
             name="_csrf"
             value={csrfToken}
           />
-          <div className="col-sm-12 col-md-12 col-lg-12 form-group">
+          <div className="col-sm-12 form-group">
             <button
               className="btn btn-block btn-musturd-inverse"
               type="button"
               onClick={this.login}
             >
               {this.state.loginText}
-            </button>
-          </div>
-        </section>
-        <section className="section-facebook-login">
-          <div className="divider"><span>or</span></div>
-          <div className="form-group">
-            <button
-              id="btn-login-facebook"
-              onClick={this.popFBLogin}
-              className="btn btn-block btn-facebook"
-            >
-              <i className="fa fa-thumbs-o-up" />&nbsp;
-              Log in with Facebook
             </button>
           </div>
         </section>
@@ -273,7 +272,7 @@ function EmailErrorLabel(props) {
         >
           Please confirm your account to login.&nbsp;
           <a
-            className="link link-span"
+            className="link link-span link-span-confirm"
             role="button"
             href={Url.action('sign-up/confirmation/resend')}
           >
