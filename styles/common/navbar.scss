@@ -35,7 +35,6 @@
         border: 2px solid $brand-musturd;
         color: $brand-musturd;
         font-size: .8em;
-        font-weight: 600;
         height: auto;
         margin-left: 1rem;
         margin-right: 1rem;
@@ -78,11 +77,9 @@
   .dropdown-menu-right {
     .dropdown-item-profile {
       color: $brand-musturd;
-      font-weight: 700;
 
       span {
         display: block;
-        font-weight: 200;
       }
     }
 
@@ -91,7 +88,6 @@
         border: 2px solid $brand-musturd;
         color: $brand-musturd;
         font-size: .8em;
-        font-weight: 600;
         padding: .5rem 1rem;
         text-align: center;
 

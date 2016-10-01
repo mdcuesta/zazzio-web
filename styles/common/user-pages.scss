@@ -19,7 +19,6 @@
 
   a {
     color: $list-menu-item-color;
-    font-weight: 600;
     text-decoration: none;
 
     &:hover,
@@ -32,10 +31,6 @@
 .card-img-profile-pic {
   height: auto;
   width: 100%;
-}
-
-.card-header {
-  font-weight: 600;
 }
 
 label {

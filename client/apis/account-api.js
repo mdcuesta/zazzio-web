@@ -20,11 +20,9 @@ export function quickRegister(data) {
 }
 
 export function accountExists(email) {
-  Utils.post(Url.action('sign-up/exists'),
-    JSON.stringify({
-      email: email.trim(),
-    }
-  ))
+  Utils.post(Url.action('sign-up/exists'), {
+    email,
+  })
   .done((responseData, statusText, xhr) => {
     SignUpActions.checkAccountExistenceComplete({
       data: responseData,

@@ -123,7 +123,7 @@ export default class VerifyPhoneNumberPanel extends Component {
           data-target={`#${this.props.id}`}
           aria-expanded="false"
           aria-controls={this.props.id}
-          onClick={this.props.toggleShowHideParent}
+          onClick={() => this.props.toggleShowHideParent(false)}
         >
           <span aria-hidden="true">&times;</span>
         </button>

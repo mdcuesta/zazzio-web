@@ -96,7 +96,7 @@ export default function LoginControl(props) {
               />
               <div className="col-sm-12 col-md-12 col-lg-12">
                 <button
-                  className="btn btn-block btn-success"
+                  className="btn btn-block btn-musturd-inverse"
                   type="submit"
                 >
                   Log in

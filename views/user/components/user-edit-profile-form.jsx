@@ -235,12 +235,33 @@ export default function EditProfileForm(props) {
             className="col-sm-9 edit-phone-numbers-container"
             id="phone-numbers-panel"
           >
+            <ul className="list-unstyled">
+              {props.profile.phoneNumbers.map((p) =>
+              (
+                <li className="group-mobile">
+                  <div className="col-xs-6 col-sm-6 col-md-6 col-lg-8 number">
+                    <span>
+                      +{p.number}
+                    </span>
+                  </div>
+                  {(p.isVerified ? <VerifiedPane /> : <UnVerifiedPane number={p.number} />)}
+                  <div className="col-xs-2 col-sm-2 col-md-2 col-lg-1 number-delete">
+                    <a
+                      href={Url.action(`user/numbers/${p.number}/delete`)}
+                    >
+                      <i className="fa fa-remove" />
+                    </a>
+                  </div>
+                </li>
+              )
+              )}
+            </ul>
             <a
               className="edit-number-link"
-              href={Url.action('user/profile/phone-numbers')}
+              href={Url.action('user/numbers/add')}
             >
-              <i className="fa fa-mobile-phone" />&nbsp;
-              Edit Mobile Numbers
+              <i className="fa fa-plus" />&nbsp;
+              Add Mobile Number
             </a>
           </div>
         </div>
@@ -297,4 +318,31 @@ EditProfileForm.propTypes = {
   profile: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
   csrfToken: React.PropTypes.string.isRequired,
+};
+
+function VerifiedPane() {
+  return (
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 verified">
+      <span className="hidden-xs-down">
+        Verified&nbsp;
+      </span>
+      <i className="fa fa-check-square-o" />
+    </div>
+  );
+}
+
+function UnVerifiedPane(props) {
+  return (
+    <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 unverified ">
+      <a
+        href={Url.action(`user/numbers/${props.number}/request-verify`)}
+      >
+        Verify
+      </a>
+    </div>
+  );
+}
+
+UnVerifiedPane.propTypes = {
+  number: React.PropTypes.string.isRequired,
 };

@@ -223,7 +223,7 @@ export default class LoginPanel extends Component {
           />
           <div className="col-sm-12 col-md-12 col-lg-12 form-group">
             <button
-              className="btn btn-block btn-success"
+              className="btn btn-block btn-musturd-inverse"
               type="button"
               onClick={this.login}
             >

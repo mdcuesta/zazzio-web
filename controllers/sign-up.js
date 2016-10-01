@@ -133,45 +133,46 @@ export function signUpLocal(req, res, next) {
       if (exists) {
         data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
         data.email.existed = true;
-        return res.render('sign-up/index', {
+        res.render('sign-up/index', {
           csrfToken: req.csrfToken(),
           formValues: data,
         });
-      }
-      // check first if there is already a facebook integration present
-      // if there is we only need to set the local account
-      return User.getByFacebookEmail(req.body.email);
-    })
-    .then((account) => {
-      if (account === null) {
-        // save user if it doesn't exist
-        const user = new User({
-          email: req.body.email,
-          profile: {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-          },
-          isSeller: req.body.seller,
-          confirmationCode: CodeGenerator.generateConfirmationCode(),
-        });
-        user.setUserName(req.body.email);
-        user.setPassword(req.body.password);
-        return user.save();
-      }
-      // just update the existing account
-      account.setUserName(req.body.email);
-      account.setPassword(req.body.password);
-      return account.save();
-    })
-    .then((doc) => {
-      res.render('sign-up/complete', {
-        csrfToken: req.csrfToken(),
-        authenticated: false,
-        user: null,
-      });
+      } else {
+        // check first if there is already a facebook integration present
+        // if there is we only need to set the local account
+        User.getByFacebookEmail(req.body.email)
+        .then((account) => {
+          if (account === null) {
+            // save user if it doesn't exist
+            const user = new User({
+              email: req.body.email,
+              profile: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+              },
+              isSeller: req.body.seller,
+              confirmationCode: CodeGenerator.generateConfirmationCode(),
+            });
+            user.setUserName(req.body.email);
+            user.setPassword(req.body.password);
+            return user.save();
+          }
+          // just update the existing account
+          account.setUserName(req.body.email);
+          account.setPassword(req.body.password);
+          return account.save();
+        })
+        .then((doc) => {
+          res.render('sign-up/complete', {
+            csrfToken: req.csrfToken(),
+            authenticated: false,
+            user: null,
+          });
 
-      // send email confirmation
-      doc.sendEmailConfirmation();
+          // send email confirmation
+          doc.sendEmailConfirmation();
+        });
+      }
     })
     .catch(next);
   })

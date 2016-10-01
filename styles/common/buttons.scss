@@ -5,6 +5,17 @@
   color: $white;
 }
 
+.btn-musturd {
+  @include button-variant($white, $brand-musturd, $brand-musturd);
+  color: $white;
+}
+
+.btn-musturd-inverse {
+  background: $white;
+  border: 2px solid $brand-musturd;
+  color: $brand-musturd;
+}
+
 .btn-link-button {
   padding: 1rem;
 }

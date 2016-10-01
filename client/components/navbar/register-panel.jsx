@@ -217,7 +217,7 @@ export default class RegisterPanel extends Component {
             'col-md-12 col-lg-12 form-group text-center'}
           >
             <button
-              className="btn btn-block btn-primary btn-sign-up"
+              className="btn btn-block btn-musturd-inverse btn-sign-up"
               type="button"
               onClick={this.register}
             >

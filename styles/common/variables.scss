@@ -55,6 +55,14 @@ $brand-warning:             #f7a541 !default;
 $brand-danger:              #c90002 !default;
 $brand-inverse:             $gray-dark !default;
 
+// Brand Colors
+$brand-blue:                #1d6cc8 !default;
+$brand-dark-blue:           #26425c !default;
+$brand-light-blue:          #8eb7cf !default;
+$brand-musturd:             #e17a37 !default;
+$brand-musturd-shade:       #c35e1d !default;
+$brand-z-primary:           #55595c !default;
+
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
@@ -111,9 +119,9 @@ $body-color: $gray-dark !default;
 //
 // Style anchor elements.
 
-$link-color:            $brand-primary !default;
+$link-color:            $brand-musturd !default;
 $link-decoration:       none !default;
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      $brand-musturd; //darken($link-color, 15%) !default;
 $link-hover-decoration: underline !default;
 
 
