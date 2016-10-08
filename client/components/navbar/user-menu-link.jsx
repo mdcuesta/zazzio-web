@@ -37,13 +37,14 @@ export default class UserMenuLink extends Component {
       : (<img
         className="nav-profile-photo"
         src={Image.cdn(this.state.photo, [{
-          width: 33,
-          height: 33,
+          crop: 'scale',
+          width: 100,
+        }, {
+          width: 50,
+          height: 50,
+          crop: 'crop',
           gravity: 'face',
           radius: 'max',
-          crop: 'crop',
-        }, {
-          width: 33,
         }])}
         alt={this.props.alt}
       />);

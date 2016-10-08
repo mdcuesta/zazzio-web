@@ -11,8 +11,10 @@ if (environment === 'development') {
 }
 
 class ImageHelper {
-  cdn(imageId, options = {}) {
-    return Cloudinary.url(imageId, options);
+  cdn(imageId, transformation = []) {
+    return Cloudinary.url(imageId, {
+      transformation,
+    });
   }
 }
 
