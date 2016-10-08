@@ -70,7 +70,6 @@ const userSchema = new Schema({
     profilePhoto: {
       type: String,
       default: '',
-      required: true,
     },
     photos: [{
       photo: {

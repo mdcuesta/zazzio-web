@@ -22,6 +22,7 @@ export function getUploadPhotoCredentials(req, res, next) {
 }
 
 export function photoUploadComplete(req, res, next) {
+  // TODO: verify signature
   const uploadId = req.params.uploadId;
   Upload.getByUploadId(uploadId)
   .then((doc) => {
