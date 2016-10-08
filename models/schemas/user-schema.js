@@ -67,6 +67,18 @@ const userSchema = new Schema({
       },
     }],
     isModified: Boolean,
+    profilePhoto: {
+      type: String,
+      default: '',
+      required: true,
+    },
+    photos: [{
+      photo: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+    }],
   },
   isSeller: {
     type: Boolean,

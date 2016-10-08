@@ -54,7 +54,6 @@ export default class RegisterPanel extends Component {
     this.register = this.register.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.getTextInputClass = this.getTextInputClass.bind(this);
     this.validateState = this.validateState.bind(this);
     this.validateInput = this.validateInput.bind(this);
 
@@ -95,12 +94,6 @@ export default class RegisterPanel extends Component {
     }
   }
 
-  getTextInputClass(key) {
-    return (this.state[key].hasError === true)
-      ? 'form-control form-control-danger'
-      : 'form-control';
-  }
-
   getSignUpCompletePanel() {
     return (
       <div role="form">
@@ -124,10 +117,10 @@ export default class RegisterPanel extends Component {
   }
 
   getSignUpForm() {
-    const emailClass = this.getTextInputClass('email');
-    const passwordClass = this.getTextInputClass('password');
-    const firstNameClass = this.getTextInputClass('firstName');
-    const lastNameClass = this.getTextInputClass('lastName');
+    const emailClass = 'form-control';
+    const passwordClass = 'form-control';
+    const firstNameClass = 'form-control';
+    const lastNameClass = 'form-control';
 
     return (
       <div role="form">
@@ -229,7 +222,7 @@ export default class RegisterPanel extends Component {
             'form-group text-center'}
           >
             <button
-              className="btn btn-block btn-musturd-inverse btn-sign-up"
+              className="btn btn-block btn-primary btn-sign-up"
               type="button"
               onClick={this.register}
             >

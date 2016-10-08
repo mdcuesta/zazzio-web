@@ -10,6 +10,18 @@ export function post(url, data) {
   });
 }
 
+export function postForm(url, data) {
+  return $.ajax({
+    url,
+    cache: false,
+    type: 'post',
+    dataType: 'json',
+    processData: false,
+    data,
+    contentType: false,
+  });
+}
+
 export function get(url) {
   return $.ajax({
     url,

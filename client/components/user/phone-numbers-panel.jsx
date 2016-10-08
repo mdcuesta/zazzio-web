@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddPhoneNumberPanel from './add-phone-number-panel';
 import NumbersStore from '../../stores/phone-numbers-store';
 import NumbersAction from '../../actions/phone-numbers-actions';
-import MiscActions from '../../actions/misc-actions';
+import MiscAction from '../../actions/misc-actions';
 import PhoneNumbersDisplayText from './phone-number-display-text';
 
 const ADD_PHONE_NUMBER_PANEL_ID = 'add-phone-number-panel';
@@ -35,7 +35,7 @@ export default class PhoneNumbersPanel extends Component {
 
   toggleAddPhoneNumberPanel(reloadNumbers = false) {
     $(`#${ADD_PHONE_NUMBER_PANEL_ID}`).animateCss('fadeIn');
-    MiscActions.loadCountriesWithCallingCode();
+    MiscAction.loadCountriesWithCallingCode();
     this.setState({
       showAddPhoneNumberPanel: !this.state.showAddPhoneNumberPanel,
     });

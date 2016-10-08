@@ -255,7 +255,7 @@ export function confirmSignUpCancel(req, res, next) {
         csrfToken: req.csrfToken(),
       });
     } else {
-      user.remove()
+      user.cancelSignUp()
       .then(() => {
         res.redirect('/');
       })

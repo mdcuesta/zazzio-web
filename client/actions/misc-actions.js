@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher';
 import * as MiscApi from '../apis/misc-api';
 import MiscConstants from '../constants/misc-constants';
 
-export class AuthenticationActions {
+export class MiscActions {
   constructor() {
     this.countriesLoaded = false;
     this.countriesWithCallingCodeLoaded = false;
@@ -41,5 +41,5 @@ export class AuthenticationActions {
   }
 }
 
-const authenticationActions = new AuthenticationActions();
-export default authenticationActions;
+const miscActions = new MiscActions();
+export default miscActions;

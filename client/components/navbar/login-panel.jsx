@@ -31,7 +31,6 @@ export default class LoginPanel extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.getTextInputClass = this.getTextInputClass.bind(this);
     this.login = this.login.bind(this);
     this.popFBLogin = this.popFBLogin.bind(this);
     this.submit = this.submit.bind(this);
@@ -76,12 +75,6 @@ export default class LoginPanel extends Component {
       return $('#txt-login-password').focus();
     }
     return $('#txt-login-email').focus();
-  }
-
-  getTextInputClass(key) {
-    return (this.state[key].hasError)
-      ? 'form-control form-control-danger'
-      : 'form-control';
   }
 
   popFBLogin() {
@@ -168,8 +161,8 @@ export default class LoginPanel extends Component {
 
   render() {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    const emailClass = this.getTextInputClass('email');
-    const passwordClass = this.getTextInputClass('password');
+    const emailClass = 'form-control';
+    const passwordClass = 'form-control';
     return (
       <div role="form">
         <section className="section-facebook-login">
@@ -235,7 +228,7 @@ export default class LoginPanel extends Component {
           />
           <div className="col-sm-12 form-group">
             <button
-              className="btn btn-block btn-musturd-inverse"
+              className="btn btn-block btn-primary"
               type="button"
               onClick={this.login}
             >

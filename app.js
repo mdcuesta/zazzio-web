@@ -12,6 +12,7 @@ import CSurf from 'csurf';
 import Helmet from 'helmet';
 import Cors from 'cors';
 import Raven from 'raven';
+import AWS from 'aws-sdk';
 import Version from './utilities/version';
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
@@ -61,7 +62,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(csrf({ cookie: true }));
+
+// csrf security
+const csurf = csrf({ cookie: true });
+app.use((req, res, next) => {
+  if (req.url.startsWith('/file/photo/upload/complete')) {
+    next();
+  } else {
+    csurf(req, res, next);
+  }
+});
 
 app.use(sassMiddleWare({
   src: path.join(__dirname, 'styles'),
@@ -93,6 +103,14 @@ if (environment === 'production') {
 authConfig(app);
 pathConfig(app);
 routeConfig(app);
+
+// set AWS config for development
+if (environment === 'development') {
+  AWS.config.update({
+    accessKeyId: 'AKIAJTHZ5U26G42NDM6A',
+    secretAccessKey: '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',
+  });
+}
 
 // catch robots.txt
 if ((process.env.STAGING || 'true') === 'true') {

@@ -52,6 +52,14 @@ export default function Layout(props) {
       content={appUrl}
     />);
 
+
+  const cloudinaryMeta = props.includeCloudinaryMeta ?
+    (<meta
+      name="cloudinary_cloud_name"
+      content={process.env.CLOUDINARY_CLOUD_NAME || 'hrhmiavwh'}
+    />)
+    : '';
+
   let bodyClassName = '';
   if (props.fixedTop) {
     bodyClassName = 'body-fixed-top';
@@ -67,6 +75,7 @@ export default function Layout(props) {
         {csrfMeta}
         {fbIdMeta}
         {ravenMeta}
+        {cloudinaryMeta}
         <title>{title}</title>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
         {cssbundleScript}
@@ -93,10 +102,12 @@ Layout.propTypes = {
   authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
   fixedTop: React.PropTypes.bool,
+  includeCloudinaryMeta: React.PropTypes.bool,
 };
 
 Layout.defaultProps = {
   authenticated: false,
   csrfToken: null,
   fixedTop: true,
+  includeCloudinaryMeta: false,
 };

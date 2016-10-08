@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import * as AutoIncrement from 'mongoose-auto-increment';
 import UserSchema from './schemas/user-schema';
 import * as Crypto from '../utilities/crypto';
 import * as DataProvider from '../utilities/data-provider';
@@ -250,6 +249,18 @@ userSchema.methods.deletePhoneNumber = function deletePhoneNumber(number) {
   });
 };
 
+userSchema.methods.setProfilePhoto = function setProfilePhoto(photo) {
+  this.profile.profilePhoto = photo;
+  this.profile.photos.push({
+    photo,
+  });
+  return this.save();
+};
+
+userSchema.methods.cancelSignUp = function cancelSignUp() {
+  return this.remove();
+};
+
 // statics
 userSchema.statics.existsAndUnConfirmed = function existAndUnConfirmed(email) {
   return new Promise((resolve, reject) => {
@@ -335,7 +346,5 @@ userSchema.statics.getUserProfile = function getUserProfile(userId) {
 
 // export
 const db = DataProvider.getConnection();
-AutoIncrement.initialize(db);
-userSchema.plugin(AutoIncrement.plugin, 'User');
 const userModel = db.model('User', userSchema);
 export default userModel;

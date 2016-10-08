@@ -325,7 +325,7 @@ export default class AddPhoneNumberPanel extends Component {
           <FormErrorLabel error={this.state.error} />
         </div>
         <button
-          className="btn btn-success"
+          className="btn btn-primary"
           type="button"
           onClick={this.addOrVerify}
         >

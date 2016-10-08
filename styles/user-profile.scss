@@ -237,10 +237,13 @@ $add-number-link-color:   #373a3c !default;
     padding-top: 0;
   }
 
-  button {
-    font-size: .8em;
-    padding-bottom: .5rem;
-    padding-top: .5rem;
-    width: 100%;
+  label {
+    margin-bottom: 0;
+  }
+
+  .btn {
+    &:active {
+      background: $white;
+    }
   }
 }

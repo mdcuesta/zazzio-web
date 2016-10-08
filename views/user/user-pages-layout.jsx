@@ -13,6 +13,7 @@ export default function Dashboard(props) {
       authenticated
       csrfToken={props.csrfToken}
       fixedTop={false}
+      includeCloudinaryMeta
     >
       <NavBar
         authenticated

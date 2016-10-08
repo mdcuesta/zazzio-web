@@ -1,5 +1,25 @@
 @charset 'utf-8';
 
+@mixin plain-button-variant($color) {
+  background: $white;
+  border: 2px solid $color;
+  color: $color;
+
+  &,
+  &:hover,
+  &:active {
+    background: $white;
+    border: 2px solid $color;
+    color: $color;
+
+    &:focus {
+      background: $white;
+      border: 2px solid $color;
+      color: $color;
+    }
+  }
+}
+
 .btn-facebook {
   @include button-variant($white, $facebook-blue, $facebook-blue);
   color: $white;
@@ -10,13 +30,22 @@
   color: $white;
 }
 
-.btn-musturd-inverse {
-  background: $white;
-  border: 2px solid $brand-musturd;
-  color: $brand-musturd;
-}
-
 .btn-link-button {
   padding: 1rem;
 }
 
+.btn-primary {
+  @include plain-button-variant($brand-musturd);
+}
+
+.btn-secondary {
+  @include plain-button-variant($gray-dark);
+}
+
+.btn-success {
+  @include plain-button-variant($brand-success);
+}
+
+.btn-danger {
+  @include plain-button-variant($brand-danger);
+}
