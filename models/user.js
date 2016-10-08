@@ -80,6 +80,7 @@ userSchema.methods.getValuesForSession = function getValuesForSession() {
     displayName: this.profile.displayName,
     isBuyer: this.isBuyer,
     isSeller: this.isSeller,
+    profilePhoto: this.profile.profilePhoto,
   };
 };
 

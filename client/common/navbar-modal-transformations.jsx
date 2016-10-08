@@ -36,9 +36,14 @@ if (!authenticated) {
     document.getElementById('modals-container'));
 } else {
   // replace user menu link with dropdown
-  ReactDOM.render(<UserMenuLink />, tempContainer);
-  const userMenuLink = document.getElementById('link-user-menu');
-  $(userMenuLink).replaceWith(tempContainer.querySelector('#link-user-menu'));
+  const userMenuLink = $(document.getElementById('link-user-menu'));
+  const imageId = userMenuLink.data('img-id');
+  const altText = userMenuLink.data('img-alt');
+  ReactDOM.render(<UserMenuLink
+    image={imageId}
+    alt={altText}
+  />, tempContainer);
+  userMenuLink.replaceWith(tempContainer.querySelector('#link-user-menu'));
 
   // replace user menu link with dropdown
   ReactDOM.render(<NavNotification />, tempContainer);

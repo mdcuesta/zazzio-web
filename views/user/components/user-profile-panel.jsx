@@ -1,13 +1,21 @@
 import React from 'react';
 import Url from '../../helpers/url-helper';
+import Image from '../../helpers/image-helper';
 
 export default function UserProfilePanel(props) {
+  const profilePhoto = props.user.profilePhoto === ''
+    ? 'user-default-profile-photo'
+    : props.user.profilePhoto;
+
   return (
     <div className="card card-profile-pic text-center">
       <a href={Url.action('users/profile-id')}>
         <img
           className="card-img-top card-img-profile-pic"
-          src={Url.cdn('images/user-default-profile-photo.png')}
+          src={Image.cdn(profilePhoto, {
+            width: 300,
+            crop: 'fit',
+          })}
           alt={props.user.firstName}
         />
       </a>

@@ -8,7 +8,6 @@ import ExpressReactViews from 'express-react-views';
 import SassMiddleWare from 'node-sass-middleware';
 import Session from 'express-session';
 import Compression from 'compression';
-import CSurf from 'csurf';
 import Helmet from 'helmet';
 import Cors from 'cors';
 import Raven from 'raven';
@@ -17,6 +16,7 @@ import Version from './utilities/version';
 import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
+import CSurfConfig from './csurf-config';
 
 
 const express = Express;
@@ -25,7 +25,6 @@ const path = Path;
 const favicon = FavIcon;
 const logger = Logger;
 const cookieParser = CookieParser;
-const csrf = CSurf;
 const bodyParser = BodyParser;
 const expressReactViews = ExpressReactViews;
 const sassMiddleWare = SassMiddleWare;
@@ -38,6 +37,7 @@ const version = Version;
 const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
+const csurfConfig = CSurfConfig;
 const environment = app.get('env');
 
 // view engine setup
@@ -64,14 +64,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // csrf security
-const csurf = csrf({ cookie: true });
-app.use((req, res, next) => {
-  if (req.url.startsWith('/file/photo/upload/complete')) {
-    next();
-  } else {
-    csurf(req, res, next);
-  }
-});
+csurfConfig(app);
 
 app.use(sassMiddleWare({
   src: path.join(__dirname, 'styles'),

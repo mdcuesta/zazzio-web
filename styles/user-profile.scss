@@ -229,6 +229,10 @@ $add-number-link-color:   #373a3c !default;
   }
 }
 
+.card-img-profile-pic {
+  margin-bottom: 1rem;
+}
+
 .list-group-item {
   border: 0;
   padding: .5rem;
@@ -246,4 +250,11 @@ $add-number-link-color:   #373a3c !default;
       background: $white;
     }
   }
+}
+
+.upload-photo-loader {
+  $spinner-color: rgba($white, .6);
+  $spinner-back-color: rgba($brand-musturd, .6);
+  $back-drop-color: rgba($white, .5);
+  @include loading-spinner($spinner-color, $spinner-back-color, $back-drop-color);
 }

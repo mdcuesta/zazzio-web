@@ -68,3 +68,37 @@
 .border-right-0 {
   border-right: 0;
 }
+
+// loader
+@mixin loading-spinner($spinner-color, $spinner-back-color, $back-drop-color) {
+  background: $back-drop-color;
+  bottom: 0;
+  left: 0;
+  padding-top: 40%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+
+  .spinner {
+    animation: spin 2s linear infinite;
+    border: 5px solid $spinner-back-color;
+    border-radius: 50%;
+    border-top: 5px solid $spinner-color;
+    height: 20px;
+    margin: auto;
+    width: 20px;
+  }
+
+  .progress {
+    font-size: .6em;
+    height: 20px;
+    margin: auto;
+    width: 20px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

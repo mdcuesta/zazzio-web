@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Image from '../../helpers/image-helper';
-import Actions from '../../actions/file-actions';
+import Actions from '../../actions/user-photo-actions';
 import Store from '../../stores/user-photo-store';
 
 export default class UserUploadPhoto extends Component {
@@ -8,6 +8,8 @@ export default class UserUploadPhoto extends Component {
     super(props);
     this.state = {
       photo: null,
+      showSpinner: false,
+      progress: 0,
     };
     this.uploadPhoto = this.uploadPhoto.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -20,20 +22,30 @@ export default class UserUploadPhoto extends Component {
 
   onChange() {
     const photo = Store.getUserProfilePhoto();
+    const progress = Store.getPhotoUploadProgress();
     this.setState({
       photo,
+      showSpinner: photo === this.state.photo,
+      progress,
     });
   }
 
   uploadPhoto(e) {
     const file = e.target.files[0];
     Actions.uploadPhoto(file);
+    this.setState({
+      showSpinner: true,
+    });
   }
 
   render() {
+    const profilePhotoOptions = {
+      width: 300,
+      crop: 'fit',
+    };
     const profilePhoto = this.state.photo === null
-      ? Image.cdn(this.props.profilePhoto)
-      : Image.cdn(this.state.photo);
+      ? Image.cdn(this.props.profilePhoto, profilePhotoOptions)
+      : Image.cdn(this.state.photo, profilePhotoOptions);
 
     return (
       <div
@@ -68,6 +80,10 @@ export default class UserUploadPhoto extends Component {
             </button>
           </li>
         </ul>
+        <div className={`upload-photo-loader${(this.state.showSpinner ? '' : ' hidden')}`}>
+          <div className="spinner" />
+          <div className="progress">{`${this.state.progress}%`}</div>
+        </div>
       </div>
     );
   }

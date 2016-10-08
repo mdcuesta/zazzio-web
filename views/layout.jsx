@@ -109,5 +109,5 @@ Layout.defaultProps = {
   authenticated: false,
   csrfToken: null,
   fixedTop: true,
-  includeCloudinaryMeta: false,
+  includeCloudinaryMeta: true,
 };

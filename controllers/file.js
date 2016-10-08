@@ -11,10 +11,15 @@ const appDomain = process.env.APP_DOMAIN || 'http://zazzio.something.awesome.com
 
 export function getUploadPhotoCredentials(req, res, next) {
   Upload.initiateUpload('user-photo', req.user.id)
-  .then((doc) => ImageService.getUploadPhotoCredentials({
-    notification_url: `${appDomain}/file/photo/upload/complete/${doc.uploadId}`,
+  .then((doc) => {
+    // In development create a request bin url
+    // http://requestb.in
+    // const notificationUrl = `http://requestb.in/pik1nopi?uploadId=${doc.uploadId}`;
+    const notificationUrl = `${appDomain}/file/photo/upload/complete/${doc.uploadId}`;
+    return ImageService.getUploadPhotoCredentials({
+      notification_url: notificationUrl,
+    });
   })
-  )
   .then((data) => {
     res.status(200).json(data);
   })
@@ -22,7 +27,14 @@ export function getUploadPhotoCredentials(req, res, next) {
 }
 
 export function photoUploadComplete(req, res, next) {
-  // TODO: verify signature
+  // verify signature
+  if (!ImageService.verifyImageUploadSignature(req.body,
+    req.headers['x-cld-timestamp'],
+    req.headers['x-cld-signature'])) {
+    res.status(400).send('Bad request');
+    return;
+  }
+
   const uploadId = req.params.uploadId;
   Upload.getByUploadId(uploadId)
   .then((doc) => {

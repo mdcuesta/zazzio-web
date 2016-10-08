@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatcher';
-import * as FileApi from '../apis/file-api';
-import FileConstants from '../constants/file-constants';
+import * as FileApi from '../apis/user-photo-api';
+import PhotoConstants from '../constants/user-photo-constants';
 import { fail } from '../apis/utils';
 
 export class FileActions {
@@ -13,6 +13,10 @@ export class FileActions {
   // User Photo Upload
   initiatePhotoUpload(file) {
     const fileType = 'jpg';
+    Dispatcher.dispatchServerAction({
+      actionType: PhotoConstants.PHOTO_UPLOAD_PROGRESS,
+      progress: 0,
+    });
     FileApi.initiatePhotoUpload(fileType)
     .done((response) => {
       this.beginPhotoUpload(response, file);
@@ -23,7 +27,7 @@ export class FileActions {
 
   initiatePhotoUploadComplete(data) {
     Dispatcher.dispatchServerAction({
-      actionType: FileConstants.INITIATE_PHOTO_UPLOAD_COMPLETE,
+      actionType: PhotoConstants.INITIATE_PHOTO_UPLOAD_COMPLETE,
       data,
     });
   }
@@ -40,12 +44,24 @@ export class FileActions {
     formData.append('signature', params.signature);
     formData.append('timestamp', params.timestamp);
     formData.append('notification_url', params.notification_url);
-    FileApi.uploadPhoto(credentials.uploadUrl, formData);
+    FileApi.uploadPhoto(credentials.uploadUrl, formData, () => {
+      const xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener('progress', (evt) => {
+        if (evt.lengthComputable) {
+          const percentComplete = evt.loaded / evt.total;
+          Dispatcher.dispatchServerAction({
+            actionType: PhotoConstants.PHOTO_UPLOAD_PROGRESS,
+            progress: Math.floor(percentComplete * 100),
+          });
+        }
+      }, false);
+      return xhr;
+    });
   }
 
   uploadPhotoComplete(data) {
     Dispatcher.dispatchServerAction({
-      actionType: FileConstants.PHOTO_UPLOAD_COMPLETE,
+      actionType: PhotoConstants.PHOTO_UPLOAD_COMPLETE,
       data,
     });
   }

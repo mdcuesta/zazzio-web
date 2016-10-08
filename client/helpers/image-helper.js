@@ -4,8 +4,8 @@ const Cloudinary = cloudinary.Cloudinary.new();
 Cloudinary.init();
 
 class ImageHelper {
-  cdn(imageId, options = {}) {
-    return Cloudinary.url(imageId, options);
+  cdn(imageId, transformations = []) {
+    return Cloudinary.url(imageId, transformations);
   }
 }
 

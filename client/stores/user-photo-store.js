@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import Dispatcher from '../dispatcher';
 import CoreConstants from '../constants/core-constants';
-import FileConstants from '../constants/file-constants';
+import PhotoConstants from '../constants/user-photo-constants';
 
 const CHANGE_EVENT = CoreConstants.CHANGE_EVENT;
 
@@ -9,8 +9,11 @@ export class UserPhotoStore extends EventEmitter {
   constructor() {
     super();
     this.userProfilePhoto = null;
+    this.photoUploadProgress = 0;
     this.getUserProfilePhoto = this.getUserProfilePhoto.bind(this);
     this.setUserProfilePhoto = this.setUserProfilePhoto.bind(this);
+    this.setPhotoUploadProgress = this.setPhotoUploadProgress.bind(this);
+    this.getPhotoUploadProgress = this.getPhotoUploadProgress.bind(this);
   }
 
   getUserProfilePhoto() {
@@ -19,6 +22,14 @@ export class UserPhotoStore extends EventEmitter {
 
   setUserProfilePhoto(photo) {
     this.userProfilePhoto = photo;
+  }
+
+  getPhotoUploadProgress() {
+    return this.photoUploadProgress;
+  }
+
+  setPhotoUploadProgress(progress) {
+    this.photoUploadProgress = progress;
   }
 
   addChangeListener(cb) {
@@ -36,8 +47,11 @@ Dispatcher.register((payload) => {
   const action = payload.action;
 
   switch (action.actionType) {
-    case FileConstants.PHOTO_UPLOAD_COMPLETE:
+    case PhotoConstants.PHOTO_UPLOAD_COMPLETE:
       userPhotoStore.setUserProfilePhoto(action.data.public_id);
+      break;
+    case PhotoConstants.PHOTO_UPLOAD_PROGRESS:
+      userPhotoStore.setPhotoUploadProgress(action.progress);
       break;
     default:
       return true;

@@ -1,16 +1,17 @@
 import Raven from 'raven-js';
 
-export function post(url, data) {
+export function post(url, data, xhr) {
   return $.ajax({
     url,
     type: 'post',
     dataType: 'json',
     data: JSON.stringify(data),
     contentType: 'application/json; charset=utf-8',
+    xhr,
   });
 }
 
-export function postForm(url, data) {
+export function postForm(url, data, xhr) {
   return $.ajax({
     url,
     cache: false,
@@ -19,6 +20,7 @@ export function postForm(url, data) {
     processData: false,
     data,
     contentType: false,
+    xhr,
   });
 }
 

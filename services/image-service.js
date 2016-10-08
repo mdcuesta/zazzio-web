@@ -1,7 +1,10 @@
 import Cloudinary from 'cloudinary';
 import Promise from 'bluebird';
+import Crypto from 'crypto';
 
+const crypto = Crypto;
 const environment = process.env.NODE_ENV || 'development';
+const cloudinarySecret = process.env.CLOUDINARY_API_SECRET || 'Es1oDlgw58iFfeYPCINEsN-Q5Pc';
 
 if (environment === 'development') {
   Cloudinary.config({
@@ -40,4 +43,11 @@ export function uploadImage(image) {
       reject(e);
     }
   });
+}
+
+export function verifyImageUploadSignature(data, timestamp, signature) {
+  const hash = crypto.createHash('sha1');
+  hash.update(`${JSON.stringify(data)}${timestamp}${cloudinarySecret}`);
+  const hex = hash.digest('hex');
+  return hex === signature;
 }

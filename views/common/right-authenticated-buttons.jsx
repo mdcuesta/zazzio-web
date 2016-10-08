@@ -1,8 +1,29 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
+import Image from '../helpers/image-helper';
 import UserMenuDropdown from './user-menu-dropdown';
 
 export default function RightAuthenticatedButtons(props) {
+  const profilePhoto = props.user.profilePhoto === ''
+    ? (<img
+      className="nav-profile-photo"
+      src={Image.cdn('user-default-profile-photo')}
+      alt={props.user.firstName}
+    />)
+    : (<img
+      className="nav-profile-photo"
+      src={Image.cdn(props.user.profilePhoto, [{
+        width: 33,
+        height: 33,
+        gravity: 'face',
+        radius: 'max',
+        crop: 'crop',
+      }, {
+        width: 33,
+      }])}
+      alt={props.user.firstName}
+    />);
+
   return (
     <div
       className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
@@ -26,12 +47,10 @@ export default function RightAuthenticatedButtons(props) {
             className="nav-link nav-link-profile-photo dropdown-toggle-user"
             href={Url.action('user/dashboard')}
             id="link-user-menu"
+            data-img-id={props.user.profilePhoto}
+            data-img-alt={props.user.firstName}
           >
-            <img
-              className="nav-profile-photo"
-              src={Url.cdn('images/user-default-photo.png')}
-              alt="user"
-            />
+            {profilePhoto}
           </a>
           <UserMenuDropdown user={props.user} />
         </li>

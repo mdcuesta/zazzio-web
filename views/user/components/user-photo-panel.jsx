@@ -15,7 +15,10 @@ export default function UserPhotoPanel(props) {
     >
       <img
         className="card-img-top card-img-profile-pic"
-        src={Image.cdn(profilePhoto)}
+        src={Image.cdn(profilePhoto, {
+          width: 300,
+          crop: 'fit',
+        })}
         alt={props.profile.firstName}
       />
       <ul className="list-group list-group-flush">

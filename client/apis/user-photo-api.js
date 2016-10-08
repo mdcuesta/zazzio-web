@@ -1,5 +1,5 @@
 import Url from '../helpers/url-helper';
-import Actions from '../actions/file-actions';
+import Actions from '../actions/user-photo-actions';
 import * as Utils from './utils';
 
 export function initiatePhotoUpload(fileType) {
@@ -8,8 +8,8 @@ export function initiatePhotoUpload(fileType) {
   });
 }
 
-export function uploadPhoto(url, data) {
-  Utils.postForm(url, data)
+export function uploadPhoto(url, data, xhr) {
+  Utils.postForm(url, data, xhr)
   .done((response) => {
     Actions.uploadPhotoComplete(response);
   })
