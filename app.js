@@ -17,7 +17,7 @@ import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
 import CSurfConfig from './csurf-config';
-
+import LocalizationMiddleWare from './middlewares/localization-middleware';
 
 const express = Express;
 const app = express();
@@ -38,6 +38,7 @@ const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
 const csurfConfig = CSurfConfig;
+const localizationMiddleWare = LocalizationMiddleWare;
 const environment = app.get('env');
 
 // view engine setup
@@ -65,6 +66,8 @@ app.use(cookieParser());
 
 // csrf security
 csurfConfig(app);
+// localization
+app.use(localizationMiddleWare());
 
 app.use(sassMiddleWare({
   src: path.join(__dirname, 'styles'),

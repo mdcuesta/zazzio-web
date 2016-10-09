@@ -19,6 +19,7 @@ export default function Index(props) {
       <NavBar
         authenticated={props.authenticated}
         user={props.user}
+        locale={props.locale}
       />
       <div
         id="home-hero-container"
@@ -42,6 +43,7 @@ Index.propTypes = {
   authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
   user: React.PropTypes.object,
+  locale: React.PropTypes.string,
 };
 
 Index.defaultProps = {

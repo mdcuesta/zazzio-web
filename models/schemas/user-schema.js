@@ -79,6 +79,46 @@ const userSchema = new Schema({
       },
     }],
   },
+  messages: [{
+    message: {
+      type: String,
+      required: true,
+    },
+    sender: {
+      type: String,
+      required: true,
+    },
+    dateSent: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+    isRead: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  }],
+  notifications: [{
+    notification: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    isRead: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+  }],
+  preferredLanguage: {
+    type: String,
+    default: 'en',
+    required: true,
+  },
   isSeller: {
     type: Boolean,
     default: false,

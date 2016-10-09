@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { AjaxSecure } from '../utilities/security';
 import * as CountryService from '../services/country-service';
+import * as LanguageService from '../services/language-service';
 
 export function countries(req, res) {
   res.status(200)
@@ -10,6 +11,11 @@ export function countries(req, res) {
 export function countriesWithCallingCode(req, res) {
   res.status(200)
     .json(CountryService.getCountriesAndCallingCode());
+}
+
+export function languages(req, res) {
+  res.status(200)
+    .json(LanguageService.getLanguages());
 }
 
 const ajaxSecure = AjaxSecure;
@@ -23,6 +29,10 @@ router.get('/countries',
 router.get('/countries-calling-code',
   ajaxSecure(),
   countriesWithCallingCode);
+
+router.get('/languages',
+  ajaxSecure(),
+  languages);
 
 /**
  * Exports router as default

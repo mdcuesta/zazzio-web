@@ -1,6 +1,7 @@
 import Cloudinary from 'cloudinary';
 
 const environment = process.env.NODE_ENV || 'development';
+const secure = environment === 'production';
 
 if (environment === 'development') {
   Cloudinary.config({
@@ -14,6 +15,7 @@ class ImageHelper {
   cdn(imageId, transformation = []) {
     return Cloudinary.url(imageId, {
       transformation,
+      secure,
     });
   }
 }

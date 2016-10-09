@@ -292,41 +292,76 @@ userSchema.statics.localEmailExists = function localEmailExists(email) {
   });
 };
 
-userSchema.statics.getById = function getById(id) {
-  return this.findOne({
+const queryOptions = {
+  includePhotos: true,
+  includePhoneNumbers: true,
+  includeMessages: false,
+  includeNotifications: false,
+};
+
+function applyOptions(query, options) {
+  if (!options.includePhotos) {
+    query.select('-profile.photos');
+  }
+
+  if (!options.includePhoneNumbers) {
+    query.select('-profile.phoneNumbers');
+  }
+
+  if (!options.includeMessages) {
+    query.select('-messages');
+  }
+
+  return query;
+}
+
+userSchema.statics.getById = function getById(id, options = queryOptions) {
+  const query = this.findOne({
     _id: id,
   });
+  const executable = applyOptions(query, options);
+  return executable.exec();
 };
 
-userSchema.statics.getByEmail = function getByEmail(email) {
-  return this.findOne({
+userSchema.statics.getByEmail = function getByEmail(email, options = queryOptions) {
+  const query = this.findOne({
     email,
   });
+  const executable = applyOptions(query, options);
+  return executable.exec();
 };
 
-userSchema.statics.getByLocalEmail = function getByLocalEmail(email) {
-  return this.findOne({
+userSchema.statics.getByLocalEmail = function getByLocalEmail(email, options = queryOptions) {
+  const query = this.findOne({
     'local.email': email,
   });
+  const executable = applyOptions(query, options);
+  return executable.exec();
 };
 
-userSchema.statics.getByFacebookEmail = function getByFacebookEmail(email) {
-  return this.findOne({
+userSchema.statics.getByFacebookEmail = function getByFacebookEmail(email, options = queryOptions) {
+  const query = this.findOne({
     'facebook.email': email,
   });
+  const executable = applyOptions(query, options);
+  return executable.exec();
 };
 
 userSchema.statics.getByConfirmationCode =
-  function getByConfirmationCode(confirmationCode, isConfirmed = false) {
-    return this.findOne({
+  function getByConfirmationCode(confirmationCode, isConfirmed = false, options = queryOptions) {
+    const query = this.findOne({
       confirmationCode,
       isConfirmed,
     });
+    const executable = applyOptions(query, options);
+    return executable.exec();
   };
 
-userSchema.statics.getUserProfile = function getUserProfile(userId) {
+userSchema.statics.getUserProfile = function getUserProfile(userId, options = queryOptions) {
   return new Promise((resolve, reject) => {
-    this.findOne({ _id: userId }, (err, doc) => {
+    const query = this.findOne({ _id: userId });
+    const executable = applyOptions(query, options);
+    executable.exec((err, doc) => {
       if (err) {
         reject(err);
       } else {

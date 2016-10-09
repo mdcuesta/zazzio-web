@@ -103,6 +103,7 @@ Layout.propTypes = {
   csrfToken: React.PropTypes.string,
   fixedTop: React.PropTypes.bool,
   includeCloudinaryMeta: React.PropTypes.bool,
+  locale: React.PropTypes.string,
 };
 
 Layout.defaultProps = {
@@ -110,4 +111,5 @@ Layout.defaultProps = {
   csrfToken: null,
   fixedTop: true,
   includeCloudinaryMeta: true,
+  locale: 'en',
 };
