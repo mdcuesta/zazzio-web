@@ -18,6 +18,7 @@ import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
 import CSurfConfig from './csurf-config';
 import LocalizationMiddleWare from './middlewares/localization-middleware';
+import ForceSslMiddleWare from './middlewares/force-ssl-middleware';
 
 const express = Express;
 const app = express();
@@ -39,6 +40,7 @@ const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
 const csurfConfig = CSurfConfig;
 const localizationMiddleWare = LocalizationMiddleWare;
+const forceSslMiddleWare = ForceSslMiddleWare;
 const environment = app.get('env');
 
 // view engine setup
@@ -52,6 +54,11 @@ const engineOptions = {
   transformViews: 'babel',
 };
 app.engine('jsx', expressReactViews.createEngine(engineOptions));
+
+// force ssl on production
+if (environment === 'production') {
+  app.use(forceSslMiddleWare);
+}
 
 app.use(cors({
   origin: [process.env.CDN_DISTRIBUTION_URL || '/', process.env.APP_DOMAIN || '/'],
