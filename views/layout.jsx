@@ -9,12 +9,24 @@ const appUrl = process.env.APP_DOMAIN || '';
  * Layout View
  */
 export default function Layout(props) {
-  const jsbundleScript = props.jsbundle !== null && !(process.env.JS_OFF || false)
-    ? (<script async type="text/javascript" src={props.jsbundle} />)
+  const jsScripts = typeof props.scripts !== 'undefined'
+    && props.scripts !== null && !(process.env.JS_OFF || false)
+    ? props.scripts.map((s, i) => (
+      typeof s.localized === 'undefined' || s.localized
+      ? <script key={i} async type="text/javascript" src={`${s}-${props.locale}.js`} />
+      : <script key={i} async type="text/javascript" src={`${s}.js`} />
+    ))
     : null;
 
-  const cssbundleScript = props.cssbundle !== null
-    ? (<link rel="stylesheet" href={props.cssbundle} />)
+  const cssStyles = typeof props.styles !== 'undefined' && props.styles !== null
+    ? props.styles.map((s, i) => (
+      <link
+        key={i}
+        rel="stylesheet"
+        type={(typeof s.type === 'undefined' ? 'text/css' : s.type)}
+        href={`${s}.css`}
+      />
+    ))
     : null;
 
   const title = props.title !== null
@@ -78,7 +90,7 @@ export default function Layout(props) {
         {cloudinaryMeta}
         <title>{title}</title>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
-        {cssbundleScript}
+        {cssStyles}
       </head>
       <body className={bodyClassName}>
         {props.children}
@@ -88,15 +100,15 @@ export default function Layout(props) {
           value={(props.authenticated ? 'true' : 'false')}
         />
         <div id="modals-container" />
-        {jsbundleScript}
+        {jsScripts}
       </body>
     </html>
   );
 }
 
 Layout.propTypes = {
-  jsbundle: React.PropTypes.string,
-  cssbundle: React.PropTypes.string,
+  scripts: React.PropTypes.array,
+  styles: React.PropTypes.array,
   title: React.PropTypes.string,
   children: React.PropTypes.array,
   authenticated: React.PropTypes.bool,

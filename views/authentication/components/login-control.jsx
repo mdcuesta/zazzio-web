@@ -1,21 +1,24 @@
 import React from 'react';
 import Url from '../../helpers/url-helper';
 import FormErrorLabel from '../../common/form-error-label';
+import ResourceHelper from '../../helpers/resource-helper';
 
 export default function LoginControl(props) {
+  const RES_LOGIN = ResourceHelper.getResource('login', props.locale);
+
   let emailError = '';
   let passwordError = '';
 
   if (props.validEmail !== null) {
     if (props.validEmail === false) {
-      emailError = 'Invalid email address';
+      emailError = RES_LOGIN.invalidEmailAddress;
     } else {
-      passwordError = 'Invalid password';
+      passwordError = RES_LOGIN.invalidPassword;
     }
   }
 
   if (props.unconfirmed) {
-    emailError = 'Account unconfirmed';
+    emailError = RES_LOGIN.accountUnconfirmed;
     passwordError = '';
   }
 
@@ -44,7 +47,7 @@ export default function LoginControl(props) {
                 className="btn btn-block btn-facebook btn-link-button"
               >
                 <i className="fa fa-thumbs-o-up" />&nbsp;
-                Log in with Facebook
+                {RES_LOGIN.loginWithFacebook}
               </a>
             </div>
           </section>
@@ -63,11 +66,14 @@ export default function LoginControl(props) {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Email Address"
+                  placeholder={RES_LOGIN.emailAddress}
                   name="email"
                   value={(emailError === '') ? props.email : ''}
                 />
-                <EmailErrorLabel error={emailError} />
+                <EmailErrorLabel
+                  error={emailError}
+                  locale={props.locale}
+                />
               </div>
               <div
                 className={'col-sm-12 col-md-12 col-lg-12 '
@@ -76,7 +82,7 @@ export default function LoginControl(props) {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="Password"
+                  placeholder={RES_LOGIN.password}
                   name="password"
                 />
                 <FormErrorLabel error={passwordError} />
@@ -86,7 +92,7 @@ export default function LoginControl(props) {
                   href={Url.action('forgot-password')}
                   className="link-span"
                 >
-                  Forgot Password?
+                  {RES_LOGIN.forgotPassword}
                 </a>
               </div>
               <input
@@ -99,7 +105,7 @@ export default function LoginControl(props) {
                   className="btn btn-block btn-primary"
                   type="submit"
                 >
-                  Log in
+                  {RES_LOGIN.login}
                 </button>
               </div>
             </form>
@@ -109,12 +115,12 @@ export default function LoginControl(props) {
           </div>
           <section className="section-register">
             <div className="text-center">
-              <span className="link-span">Don"t have an account?&nbsp;</span>
+              <span className="link-span">{RES_LOGIN.noAccount}&nbsp;</span>
               <a
                 href={Url.action('sign-up')}
                 className="link link-span"
               >
-                Sign Up
+                {RES_LOGIN.signUp}
               </a>
             </div>
           </section>
@@ -130,6 +136,7 @@ LoginControl.propTypes = {
   unconfirmed: React.PropTypes.bool.isRequired,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
+  locale: React.PropTypes.string.isRequired,
 };
 
 LoginControl.defaultProps = {
@@ -140,19 +147,21 @@ LoginControl.defaultProps = {
 };
 
 function EmailErrorLabel(props) {
+  const RES_LOGIN = ResourceHelper.getResource('login', props.locale);
+
   if (props.error === 'Account unconfirmed') {
     return (
       <div className="error-span-container">
         <span
           className="error-span form-control-feedback"
         >
-          Please confirm your account to login.&nbsp;
+          {RES_LOGIN.confirmToLogin}&nbsp;
           <a
             className="link link-span"
             role="button"
             href={Url.action('sign-up/confirmation/resend')}
           >
-            Didn't receive any confirmation?
+            {RES_LOGIN.noConfirmation}
           </a>
         </span>
       </div>
@@ -163,4 +172,5 @@ function EmailErrorLabel(props) {
 
 EmailErrorLabel.propTypes = {
   error: React.PropTypes.string,
+  locale: React.PropTypes.string.isRequired,
 };

@@ -57,5 +57,6 @@ export default function UserNavBar(props) {
 
 UserNavBar.propTypes = {
   active: React.PropTypes.string.isRequired,
+  locale: React.PropTypes.string.isRequired,
 };
 

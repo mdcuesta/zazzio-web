@@ -10,10 +10,26 @@ export function index(req, res) {
   res.render('root/index', {
     authenticated: authenticated(req),
     csrfToken: req.csrfToken(),
-    user: req.user,
   });
 }
 
+export function lang(req, res, next) {
+  const locale = req.params.locale;
+  if (locale !== 'en' &&
+    locale !== 'tl' &&
+    locale !== 'cx') {
+    res.status(404);
+    next();
+    return;
+  }
+
+  res.cookie('locale', locale);
+  res.render('root/index', {
+    authenticated: authenticated(req),
+    csrfToken: req.csrfToken(),
+    locale,
+  });
+}
 /**
  * Login Page
  */
@@ -61,6 +77,11 @@ router.get('/login', login);
  * Logout
  */
 router.get('/logout', logout);
+
+/**
+ * Language
+ */
+router.get('/:locale', lang);
 
 /**
  * Exports router as default

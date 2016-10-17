@@ -8,19 +8,24 @@ export default function Dashboard(props) {
   return (
     <DefaultLayout
       title={props.title}
-      jsbundle={props.jsbundle}
-      cssbundle={props.cssbundle}
+      scripts={props.scripts}
+      styles={props.styles}
       authenticated
       csrfToken={props.csrfToken}
       fixedTop={false}
       includeCloudinaryMeta
+      locale={props.locale}
     >
       <NavBar
         authenticated
         user={props.user}
         fixedTop={false}
+        locale={props.locale}
       />
-      <UserNavBar active={props.page} />
+      <UserNavBar
+        active={props.page}
+        locale={props.locale}
+      />
       <div
         className="container"
         role="main"
@@ -33,12 +38,13 @@ export default function Dashboard(props) {
 }
 
 Dashboard.propTypes = {
-  jsbundle: React.PropTypes.string,
-  cssbundle: React.PropTypes.string,
+  scripts: React.PropTypes.string,
+  styles: React.PropTypes.string,
   title: React.PropTypes.string,
   children: React.PropTypes.array,
   csrfToken: React.PropTypes.string,
   user: React.PropTypes.object.isRequired,
   page: React.PropTypes.string,
+  locale: React.PropTypes.string.isRequired,
 };
 

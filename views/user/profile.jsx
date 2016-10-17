@@ -27,11 +27,12 @@ export default function Profile(props) {
   return (
     <UserPageLayout
       title="Profile - Zazzio"
-      jsbundle={Url.cdn('javascripts/user-profile.js')}
-      cssbundle={Url.cdn('stylesheets/user-profile.css')}
+      scripts={[Url.cdn('javascripts/user-profile')]}
+      styles={[Url.cdn('stylesheets/user-profile')]}
       csrfToken={props.csrfToken}
       user={props.user}
       page="profile"
+      locale={props.locale}
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
@@ -62,6 +63,7 @@ Profile.propTypes = {
   profile: React.PropTypes.object.isRequired,
   errors: React.PropTypes.array,
   uploadCredentials: React.PropTypes.object,
+  locale: React.PropTypes.string,
 };
 
 Profile.defaultProps = {

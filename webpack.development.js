@@ -7,51 +7,86 @@ var jsxPath = path.join(__dirname, 'client');
 var jsPath = path.join(__dirname, 'assets', version, 'javascripts');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = [{
-    description: 'Transpile jsx/react to native javascript that runs on browsers.',
-    entry: {
-      // root pages
-      home: jsxPath + '/home.js',
-      login: jsxPath + '/login.js',
+const jsClientConfig = {
+  entry: {
+    // root pages
+    home: jsxPath + '/home.js',
+    login: jsxPath + '/login.js',
 
-      // sign up pages
-      'sign-up': jsxPath + '/sign-up.js',
-      'account-confirmation': jsxPath + '/account-confirmation.js',
-      'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
+    // sign up pages
+    'sign-up': jsxPath + '/sign-up.js',
+    'account-confirmation': jsxPath + '/account-confirmation.js',
+    'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
 
-      // user pages
-      'user-dashboard': jsxPath + '/user-dashboard.js',
-      'user-profile': jsxPath + '/user-profile.jsx',
-    },
-    output: {
-      path: jsPath,
-      filename: '[name].js'
-    },
-    module: {
-      loaders: [{
-        test: /\.jsx?$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react'],
-          compact: false,
-          plugins: ['transform-runtime']
-        },    
-      }]     
-    },
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        'window.Tether': 'tether'
-      }),
-      new webpack.optimize.DedupePlugin()
-    ]
-  }, {
+    // user pages
+    'user-dashboard': jsxPath + '/user-dashboard.js',
+    'user-profile': jsxPath + '/user-profile.jsx',
+  },
+  module: {
+    loaders: [{
+      test: /\.jsx?$/,
+      loader: 'babel',
+      exclude: /node_modules/,
+      query: {
+        presets: ['es2015', 'react'],
+        compact: false,
+        plugins: ['transform-runtime']
+      },    
+    }]     
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+}
+
+// en
+const enPlugins = getPlugins();
+enPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("en")
+   }
+}));
+const enConfig = Object.create(jsClientConfig);
+enConfig.plugins = enPlugins;
+enConfig.output = {
+  path: jsPath,
+  filename: '[name]-en.js'
+};
+
+
+// tl
+const tlPlugins = getPlugins();
+tlPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("tl")
+   }
+}));
+const tlConfig = Object.create(jsClientConfig);
+tlConfig.plugins = tlPlugins;
+tlConfig.output = {
+  path: jsPath,
+  filename: '[name]-tl.js'
+};
+
+// cx
+const cxPlugins = getPlugins();
+cxPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("cx")
+   }
+}));
+const cxConfig = Object.create(jsClientConfig);
+cxConfig.plugins = cxPlugins;
+cxConfig.output = {
+  path: jsPath,
+  filename: '[name]-cx.js'
+};
+
+
+module.exports = [
+  enConfig,
+  tlConfig,
+  cxConfig, {
     description: 'Copy static files to assets folder',
     context: path.join(__dirname),
     plugins: [
@@ -65,3 +100,16 @@ module.exports = [{
     }
   }
 ]
+
+
+function getPlugins() {
+  return [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      'window.Tether': 'tether',
+    }),
+    new webpack.optimize.DedupePlugin()
+  ];  
+}

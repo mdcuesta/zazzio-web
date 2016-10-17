@@ -2,18 +2,21 @@ import React from 'react';
 import AuthenticatedButtons from './right-authenticated-buttons';
 import UnAuthenticatedButtons from './right-unauthenticated-buttons';
 import Url from '../helpers/url-helper';
+import ResourceHelper from '../helpers/resource-helper';
 
 /**
  * NavBar
  */
 export default function NavBar(props) {
+  const RES_NAVBAR = ResourceHelper.getResource('navbar', props.locale);
+
   let navbarClass = 'navbar navbar-fixed-top navbar-main';
   if (!props.fixedTop) {
     navbarClass = 'navbar navbar-main';
   }
   const navBarRightContent = props.authenticated
-    ? (<AuthenticatedButtons user={props.user} />)
-    : (<UnAuthenticatedButtons />);
+    ? (<AuthenticatedButtons user={props.user} locale={props.locale} />)
+    : (<UnAuthenticatedButtons locale={props.locale} />);
   return (
     <nav
       className={navbarClass}
@@ -39,7 +42,7 @@ export default function NavBar(props) {
             href={Url.action('browse')}
             id="link-browse"
           >
-            Browse
+            {RES_NAVBAR.browse}
           </a>
           <ul
             className="dropdown-menu"
@@ -82,7 +85,7 @@ export default function NavBar(props) {
             href={Url.action('explore')}
             id="link-explore"
           >
-            Areas
+            {RES_NAVBAR.areas}
           </a>
           <ul
             className="dropdown-menu"
@@ -126,7 +129,7 @@ export default function NavBar(props) {
       <div className="btn-search-xs-container hidden-sm-up">
         <button className="btn btn-search-xs">
           <i className="fa fa-large fa-search" />&nbsp;
-          Search
+          {RES_NAVBAR.search}
         </button>
       </div>
       <div className="search-form search-form-sm hidden-xs-down hidden-md-up">
@@ -137,7 +140,7 @@ export default function NavBar(props) {
           <input
             type="text"
             className="form-control search-text"
-            placeholder="Enter an address or city."
+            placeholder={RES_NAVBAR.enterAddress}
           />
         </div>
       </div>
@@ -149,7 +152,7 @@ export default function NavBar(props) {
           <input
             type="text"
             className="form-control search-text"
-            placeholder="Enter an address or city."
+            placeholder={RES_NAVBAR.enterAddress}
           />
         </div>
       </div>
@@ -161,7 +164,7 @@ export default function NavBar(props) {
           <input
             type="text"
             className="form-control search-text"
-            placeholder="Enter an address or city."
+            placeholder={RES_NAVBAR.enterAddress}
           />
         </div>
       </div>
@@ -202,11 +205,13 @@ NavBar.propTypes = {
   authenticated: React.PropTypes.bool,
   fixedTop: React.PropTypes.bool,
   user: React.PropTypes.object,
+  locale: React.PropTypes.string,
 };
 
 NavBar.defaultProps = {
   authenticated: false,
   fixedTop: true,
   user: null,
+  locale: 'en',
 };
 

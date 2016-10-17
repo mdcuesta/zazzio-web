@@ -4,7 +4,6 @@ import { Secure } from '../utilities/security';
 export function index(req, res) {
   res.render('user/dashboard', {
     csrfToken: req.csrfToken(),
-    user: req.user,
   });
 }
 

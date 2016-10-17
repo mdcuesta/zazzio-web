@@ -4,23 +4,28 @@ import DefaultLayout from '../layout';
 import NavBar from '../common/navbar';
 import Footer from '../common/default-footer';
 import LoginControl from './components/login-control';
+import ResourceHelper from '../helpers/resource-helper';
 
 /**
  * Login View
  */
 export default function Login(props) {
+  const RES_LOGIN = ResourceHelper.getResource('login', props.locale);
+
   return (
     <DefaultLayout
-      title="Log in to experience awesome"
-      jsbundle={Url.cdn('javascripts/login.js')}
-      cssbundle={Url.cdn('stylesheets/login.css')}
+      title={RES_LOGIN.title}
+      scripts={[Url.cdn('javascripts/login')]}
+      styles={[Url.cdn('stylesheets/login')]}
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
       fixedTop={false}
+      locale={props.locale}
     >
       <NavBar
         authenticated={props.authenticated}
         fixedTop={false}
+        locale={props.locale}
       />
       <LoginControl
         csrfToken={props.csrfToken}
@@ -41,6 +46,7 @@ Login.propTypes = {
   unconfirmed: React.PropTypes.bool,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
+  locale: React.PropTypes.string,
 };
 
 Login.defaultProps = {

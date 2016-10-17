@@ -17,7 +17,7 @@ import RouteConfig from './route-config';
 import PathConfig from './path-config';
 import AuthenticationConfig from './authentication-config';
 import CSurfConfig from './csurf-config';
-import LocalizationMiddleWare from './middlewares/localization-middleware';
+import CommonSessionMiddleware from './middlewares/common-session-middleware';
 import ForceSslMiddleWare from './middlewares/force-ssl-middleware';
 
 const express = Express;
@@ -39,7 +39,7 @@ const routeConfig = RouteConfig;
 const pathConfig = PathConfig;
 const authConfig = AuthenticationConfig;
 const csurfConfig = CSurfConfig;
-const localizationMiddleWare = LocalizationMiddleWare;
+const commonSessionMiddleware = CommonSessionMiddleware;
 const forceSslMiddleWare = ForceSslMiddleWare;
 const environment = app.get('env');
 
@@ -74,7 +74,7 @@ app.use(cookieParser());
 // csrf security
 csurfConfig(app);
 // localization
-app.use(localizationMiddleWare());
+app.use(commonSessionMiddleware());
 
 app.use(sassMiddleWare({
   src: path.join(__dirname, 'styles'),
@@ -144,9 +144,7 @@ if (environment === 'development') {
   });
 }
 
-// production raygun logger
-
-
+// production sentry logger
 if (environment === 'production') {
   app.use(raven.middleware.express
     .errorHandler(process.env.SENTRY_CLIENT_KEY ||

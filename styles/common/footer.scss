@@ -2,5 +2,50 @@
 
 .footer {
   background: $gray-dark;
-  height: 400px;
+  padding-bottom: 3rem;
+  padding-top: 4rem;
+
+  h5 {
+    color: $white;
+  }
+
+  $join-us-border: rgba($white, .6);
+
+  .join-us-container {
+    border-top: 1px solid $join-us-border;
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+}
+
+.list-footer {
+  padding-left: 0;
+
+  a {
+    color: $white;
+    font-size: .8em;
+
+    $footer-link-hover-color: rgba($white, .6);
+
+    &:hover {
+      color: $footer-link-hover-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.list-join-us {
+  .list-inline-item {
+    padding: 1rem;
+    $join-us-icon-color: rgba($white, .6);
+
+    a {
+      color: $join-us-icon-color;
+      font-size: 1.5em;
+
+      :hover {
+        color: $brand-musturd;
+      }
+    }
+  }
 }

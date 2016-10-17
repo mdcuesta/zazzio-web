@@ -1,7 +1,9 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
+import ResourceHelper from '../helpers/resource-helper';
 
-export default function RightUnAuthenticatedButtons() {
+export default function RightUnAuthenticatedButtons(props) {
+  const RES_NAVBAR = ResourceHelper.getResource('navbar', props.locale);
   return (
     <div
       className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
@@ -13,7 +15,7 @@ export default function RightUnAuthenticatedButtons() {
             className="nav-link"
             href={Url.action('list-property')}
           >
-            List Your Property
+            {RES_NAVBAR.listYourProperty}
           </a>
         </li>
         <li className="nav-item nav-item-separator">
@@ -22,7 +24,7 @@ export default function RightUnAuthenticatedButtons() {
             href={Url.action('login')}
             id="link-login"
           >
-            Log in
+            {RES_NAVBAR.login}
           </a>
         </li>
         <li className="nav-item nav-item-separator">
@@ -31,7 +33,7 @@ export default function RightUnAuthenticatedButtons() {
             href={Url.action('sign-up')}
             id="link-sign-up"
           >
-            Sign up
+            {RES_NAVBAR.signUp}
           </a>
         </li>
         <li className="nav-item">
@@ -49,7 +51,7 @@ export default function RightUnAuthenticatedButtons() {
             className="nav-link"
             href={Url.action('list-property')}
           >
-            List Your Property
+            {RES_NAVBAR.listYourProperty}
           </a>
         </li>
         <li className="nav-item dropdown nav-item-separator">
@@ -73,7 +75,7 @@ export default function RightUnAuthenticatedButtons() {
                 href={Url.action('login')}
                 id="dropdown-link-login"
               >
-                Log in
+                {RES_NAVBAR.login}
               </a>
             </li>
             <li>
@@ -85,7 +87,7 @@ export default function RightUnAuthenticatedButtons() {
                 href={Url.action('sign-up')}
                 id="dropdown-link-sign-up"
               >
-                Sign up
+                {RES_NAVBAR.signUp}
               </a>
             </li>
           </ul>
@@ -102,3 +104,7 @@ export default function RightUnAuthenticatedButtons() {
     </div>
   );
 }
+
+RightUnAuthenticatedButtons.propTypes = {
+  locale: React.PropTypes.string.isRequired,
+};

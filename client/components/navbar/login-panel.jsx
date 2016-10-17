@@ -5,6 +5,7 @@ import FormErrorLabel from '../common/form-error-label';
 import ModalActions from '../../actions/login-modal-actions';
 import Url from '../../helpers/url-helper';
 
+const RES_LOGIN = require(`../../localization/${process.env.LOCALE}/login-modal`);
 const REGISTER = 'register';
 
 export default class LoginPanel extends Component {
@@ -16,7 +17,7 @@ export default class LoginPanel extends Component {
       accountUnconfirmed: false,
       unconfirmedEmail: '',
       loggingIn: false,
-      loginText: 'Log in',
+      loginText: RES_LOGIN.login,
       email: {
         value: '',
         error: '',
@@ -69,7 +70,7 @@ export default class LoginPanel extends Component {
       accountUnconfirmed: message === 'Account unconfirmed',
       unconfirmedEmail: message === 'Account unconfirmed' ? emailValue : '',
       loggingIn: false,
-      loginText: 'Login',
+      loginText: RES_LOGIN.login,
     });
     if (message === 'Invalid password') {
       return $('#txt-login-password').focus();
@@ -96,7 +97,7 @@ export default class LoginPanel extends Component {
       }
       this.setState({
         loggingIn: true,
-        loginText: 'Logging you in...',
+        loginText: RES_LOGIN.loggingYouIn,
       });
       AuthActions.login(this.state.email.value,
         this.state.password.value);
@@ -173,7 +174,7 @@ export default class LoginPanel extends Component {
               className="btn btn-block btn-facebook"
             >
               <i className="fa fa-thumbs-o-up" />&nbsp;
-              Log in with Facebook
+              {RES_LOGIN.loginWithFacebook}
             </button>
           </div>
         </section>
@@ -218,7 +219,7 @@ export default class LoginPanel extends Component {
               href={Url.action('forgot-password')}
               className="link-span"
             >
-              Forgot Password?
+              {RES_LOGIN.forgotPassword}
             </a>
           </div>
           <input
@@ -238,7 +239,7 @@ export default class LoginPanel extends Component {
         </section>
         <section className="section-register">
           <div className="text-center">
-            <span className="link-span">Don"t have an account?&nbsp;</span>
+            <span className="link-span">{RES_LOGIN.noAccount}&nbsp;</span>
             <a
               onClick={() => ModalActions.setModalType(REGISTER)}
               className="link link-span"
@@ -246,7 +247,7 @@ export default class LoginPanel extends Component {
               data-toggle="modal"
               href={Url.action('sign-up')}
             >
-              Sign Up
+              {RES_LOGIN.signUp}
             </a>
           </div>
         </section>

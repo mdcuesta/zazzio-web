@@ -2,8 +2,11 @@ import React from 'react';
 import Url from '../../helpers/url-helper';
 import FormErrorLabel from '../../common/form-error-label';
 import EmailErrorLabel from '../../common/email-error-label';
+import ResourceHelper from '../../helpers/resource-helper';
 
 export default function SignUpControl(props) {
+  const RES_SIGNUP = ResourceHelper.getResource('sign-up', props.locale);
+
   const postUrl = 'sign-up/local';
   const signUpFbUrl = 'sign-up/facebook';
 
@@ -25,7 +28,7 @@ export default function SignUpControl(props) {
                 className="btn btn-block btn-facebook btn-link-button"
               >
                 <i className="fa fa-thumbs-o-up" />&nbsp;
-                Sign up with Facebook
+                {RES_SIGNUP.signUpWithFacebook}
               </a>
             </div>
           </section>
@@ -44,7 +47,7 @@ export default function SignUpControl(props) {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Email Address"
+                  placeholder={RES_SIGNUP.emailAddress}
                   name="email"
                   value={props.formValues.email.value}
                 />
@@ -60,7 +63,7 @@ export default function SignUpControl(props) {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="Password"
+                  placeholder={RES_SIGNUP.password}
                   name="password"
                 />
                 <FormErrorLabel error={props.formValues.password.error} />
@@ -72,7 +75,7 @@ export default function SignUpControl(props) {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="First name"
+                  placeholder={RES_SIGNUP.firstName}
                   name="firstName"
                   value={props.formValues.firstName.value}
                 />
@@ -85,7 +88,7 @@ export default function SignUpControl(props) {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Last name"
+                  placeholder={RES_SIGNUP.lastName}
                   name="lastName"
                   value={props.formValues.lastName.value}
                 />
@@ -103,7 +106,7 @@ export default function SignUpControl(props) {
                     name="isSeller"
                     checked={props.formValues.isSeller.value}
                   />
-                  &nbsp;I'm a landlord or an industry professional
+                  &nbsp;{RES_SIGNUP.industryProfessional}
                 </label>
               </div>
               <input
@@ -112,8 +115,8 @@ export default function SignUpControl(props) {
                 value={props.csrfToken}
               />
               <div className="text-center form-group">
-                <span className="link-span">By Signing up you agree to our&nbsp;
-                  <a href={Url.action('terms')}>Terms</a> of use.
+                <span className="link-span">{RES_SIGNUP.bySigningUp}&nbsp;
+                  <a href={Url.action('terms')}>{RES_SIGNUP.terms}</a> {RES_SIGNUP.ofUse}
                 </span>
               </div>
               <div className="col-sm-12 col-md-12 col-lg-12">
@@ -121,7 +124,7 @@ export default function SignUpControl(props) {
                   className="btn btn-block btn-primary"
                   type="submit"
                 >
-                  Sign up
+                  {RES_SIGNUP.signUp}
                 </button>
               </div>
             </form>
@@ -131,12 +134,12 @@ export default function SignUpControl(props) {
           </div>
           <section className="section-register">
             <div className="text-center">
-              <span className="link-span">Already have an account?&nbsp;</span>
+              <span className="link-span">{RES_SIGNUP.haveAnAccount}&nbsp;</span>
               <a
                 href={Url.action('login')}
                 className="link link-span"
               >
-                Log in
+                {RES_SIGNUP.login}
               </a>
             </div>
           </section>
@@ -149,6 +152,7 @@ export default function SignUpControl(props) {
 SignUpControl.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
   formValues: React.PropTypes.object,
+  locale: React.PropTypes.string.isRequired,
 };
 
 SignUpControl.defaultProps = {

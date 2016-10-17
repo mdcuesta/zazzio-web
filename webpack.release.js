@@ -14,62 +14,91 @@ var distAssets = path.join(dist, 'assets');
 var jsxPath = path.join(__dirname, 'client');
 var jsAssetsPath = path.join(distAssets, version, 'javascripts');
 
-module.exports = [{
-    description: 'Transpile jsx to native javascript that runs on browsers.',
-    entry: {
-      // root pages
-      home: jsxPath + '/home.js',
-      login: jsxPath + '/login.js',
+const jsClientConfig = {
+  description: 'Transpile jsx to native javascript that runs on browsers.',
+  entry: {
+    // root pages
+    home: jsxPath + '/home.js',
+    login: jsxPath + '/login.js',
 
-      // sign up pages
-      'sign-up': jsxPath + '/sign-up.js',
-      'account-confirmation': jsxPath + '/account-confirmation.js',
-      'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
+    // sign up pages
+    'sign-up': jsxPath + '/sign-up.js',
+    'account-confirmation': jsxPath + '/account-confirmation.js',
+    'sign-up-cancel': jsxPath + '/sign-up-cancel.js',
 
-      // user pages
-      'user-dashboard': jsxPath + '/user-dashboard.js',
-      'user-profile': jsxPath + '/user-profile.jsx',
-    },
-    output: {
-      path: jsAssetsPath,
-      filename: '[name].js'
-    },
-    module: {
-      loaders: [{
-        test: /\.jsx?$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react'],
-          compact: true,
-          plugins: ['transform-runtime']
-        }
-      }]
-    },
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        'window.Tether': 'tether'
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        },
-        comments: false
-      }),
-      new webpack.DefinePlugin({
-        "process.env": { 
-           NODE_ENV: JSON.stringify("production")
-         }
-      }),
-      new webpack.optimize.DedupePlugin()
-    ]
-  }, {
+    // user pages
+    'user-dashboard': jsxPath + '/user-dashboard.js',
+    'user-profile': jsxPath + '/user-profile.jsx',
+  },
+  module: {
+    loaders: [{
+      test: /\.jsx?$/,
+      loader: 'babel',
+      exclude: /node_modules/,
+      query: {
+        presets: ['es2015', 'react'],
+        compact: true,
+        plugins: ['transform-runtime']
+      }
+    }]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
+};
+
+// en
+const enPlugins = getPlugins();
+enPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("en"),
+     NODE_ENV: JSON.stringify("production"),
+   }
+}));
+const enConfig = Object.create(jsClientConfig);
+enConfig.plugins = enPlugins;
+enConfig.output = {
+  path: jsAssetsPath,
+  filename: '[name]-en.js'
+};
+
+
+// tl
+const tlPlugins = getPlugins();
+tlPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("tl"),
+     NODE_ENV: JSON.stringify("production"),
+   }
+}));
+const tlConfig = Object.create(jsClientConfig);
+tlConfig.plugins = tlPlugins;
+tlConfig.output = {
+  path: jsAssetsPath,
+  filename: '[name]-tl.js'
+};
+
+
+// cx
+const cxPlugins = getPlugins();
+cxPlugins.push(new webpack.DefinePlugin({
+  "process.env": { 
+     LOCALE: JSON.stringify("tl"),
+     NODE_ENV: JSON.stringify("production"),
+   }
+}));
+const cxConfig = Object.create(jsClientConfig);
+cxConfig.plugins = cxPlugins;
+cxConfig.output = {
+  path: jsAssetsPath,
+  filename: '[name]-cx.js'
+};
+
+
+module.exports = [
+  enConfig,
+  tlConfig,
+  cxConfig, {
     description: 'Transpile server scripts to native javascript and copy required files.',
     entry: [path.join(__dirname, '/bin/www')],
     target: 'node',
@@ -118,3 +147,21 @@ module.exports = [{
     }
   }
 ]
+
+function getPlugins() {
+  return [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      'window.Tether': 'tether'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      comments: false
+    }),
+    new webpack.optimize.DedupePlugin()
+  ];
+}

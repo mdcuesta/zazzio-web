@@ -13,7 +13,6 @@ export function index(req, res, next) {
     .then((data) => {
       res.render('user/profile', {
         csrfToken: req.csrfToken(),
-        user: req.user,
         profile: user.profile,
         uploadCredentials: data,
       });
@@ -30,7 +29,6 @@ export function saveProfile(req, res, next) {
       data.profile.phoneNumbers = user.profile.phoneNumbers;
       res.render('user/profile', {
         csrfToken: req.csrfToken(),
-        user: req.user,
         profile: data.profile,
         errors: data.errors,
       });

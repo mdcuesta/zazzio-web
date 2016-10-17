@@ -2,8 +2,11 @@ import React from 'react';
 import Url from '../helpers/url-helper';
 import Image from '../helpers/image-helper';
 import UserMenuDropdown from './user-menu-dropdown';
+import ResourceHelper from '../helpers/resource-helper';
 
 export default function RightAuthenticatedButtons(props) {
+  const RES_NAVBAR = ResourceHelper.getResource('navbar', props.locale);
+
   const profilePhoto = props.user.profilePhoto === ''
     ? (<img
       className="nav-profile-photo"
@@ -36,7 +39,7 @@ export default function RightAuthenticatedButtons(props) {
             className="nav-link"
             href={Url.action('list-property')}
           >
-            List Your Property
+            {RES_NAVBAR.listYourProperty}
           </a>
         </li>
         <li
@@ -81,4 +84,5 @@ export default function RightAuthenticatedButtons(props) {
 
 RightAuthenticatedButtons.propTypes = {
   user: React.PropTypes.object.isRequired,
+  locale: React.PropTypes.string.isRequired,
 };

@@ -7,11 +7,12 @@ export default function Dashboard(props) {
   return (
     <UserPageLayout
       title="Dashboard - Zazzio"
-      jsbundle={Url.cdn('javascripts/user-dashboard.js')}
-      cssbundle={Url.cdn('stylesheets/user-dashboard.css')}
+      scripts={[Url.cdn('javascripts/user-dashboard')]}
+      styles={[Url.cdn('stylesheets/user-dashboard')]}
       csrfToken={props.csrfToken}
       user={props.user}
       page="dashboard"
+      locale={props.locale}
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
@@ -71,5 +72,6 @@ export default function Dashboard(props) {
 Dashboard.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
   user: React.PropTypes.object.isRequired,
+  locale: React.PropTypes.string,
 };
 

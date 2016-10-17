@@ -3,18 +3,21 @@ import DefaultLayout from '../layout';
 import NavBar from '../common/navbar';
 import Footer from '../common/default-footer';
 import Url from '../helpers/url-helper';
+import ResourceHelper from '../helpers/resource-helper';
 
 /**
  * Index View
  */
 export default function Index(props) {
+  const RES_HOME = ResourceHelper.getResource('home', props.locale);
   return (
     <DefaultLayout
-      title="Zazzio - Property Finder"
-      jsbundle={Url.cdn('javascripts/home.js')}
-      cssbundle={Url.cdn('stylesheets/home.css')}
+      title={RES_HOME.title}
+      scripts={[Url.cdn('javascripts/home')]}
+      styles={[Url.cdn('stylesheets/home')]}
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
+      locale={props.locale}
     >
       <NavBar
         authenticated={props.authenticated}
@@ -27,7 +30,7 @@ export default function Index(props) {
         role="banner"
       >
         <div className="hero-content col-sm-12 col-md-12 col-lg-12">
-          <h1 className="m-x-auto">Your dream home awaits</h1>
+          <h1 className="m-x-auto">{RES_HOME.tagLine}</h1>
         </div>
       </div>
       <div
