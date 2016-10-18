@@ -5,7 +5,7 @@ export default function DefaultFooter() {
   return (
     <div className="footer">
       <div className="container">
-        <div className="col-md-3">
+        <div className="col-xs-6 col-sm-6 col-md-3 text-xs-center text-sm-center text-md-left">
           <ul className="list-footer">
             <li>
               <a href={Url.action('en')}>
@@ -24,7 +24,7 @@ export default function DefaultFooter() {
             </li>
           </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-xs-6 col-sm-6 col-md-3 text-xs-center text-sm-center text-md-left">
           <h5>Browse</h5>
           <ul className="list-footer">
             <li>
@@ -44,7 +44,7 @@ export default function DefaultFooter() {
             </li>
           </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-xs-6 col-sm-6 col-md-3 text-xs-center text-sm-center text-md-left">
           <h5>Areas</h5>
           <ul className="list-footer">
             <li>
@@ -69,7 +69,7 @@ export default function DefaultFooter() {
             </li>
           </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-xs-6 col-sm-6 col-md-3 text-xs-center text-sm-center text-md-left">
           <h5>Company</h5>
           <ul className="list-footer">
             <li>
@@ -99,7 +99,7 @@ export default function DefaultFooter() {
             </li>
           </ul>
         </div>
-        <div className="col-md-12 join-us-container text-xs-center">
+        <div className="col-xs-12 col-sm-12 col-md-12 join-us-container text-xs-center">
           <h5>Join Us On</h5>
           <ul className="list-inline list-join-us">
             <li className="list-inline-item">

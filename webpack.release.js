@@ -15,7 +15,8 @@ var jsxPath = path.join(__dirname, 'client');
 var jsAssetsPath = path.join(distAssets, version, 'javascripts');
 
 const jsClientConfig = {
-  description: 'Transpile jsx to native javascript that runs on browsers.',
+  cache: true,
+  devtool: 'eval',
   entry: {
     // root pages
     home: jsxPath + '/home.js',
@@ -35,7 +36,11 @@ const jsClientConfig = {
       test: /\.jsx?$/,
       loader: 'babel',
       exclude: /node_modules/,
+      include: [
+          jsxPath
+      ],
       query: {
+        cacheDirectory: true,
         presets: ['es2015', 'react'],
         compact: true,
         plugins: ['transform-runtime']
@@ -83,7 +88,7 @@ tlConfig.output = {
 const cxPlugins = getPlugins();
 cxPlugins.push(new webpack.DefinePlugin({
   "process.env": { 
-     LOCALE: JSON.stringify("tl"),
+     LOCALE: JSON.stringify("cx"),
      NODE_ENV: JSON.stringify("production"),
    }
 }));
