@@ -7,9 +7,9 @@ import * as Validations from './validations/sign-up-validations';
 import * as CodeGenerator from '../utilities/code-generator';
 import * as MailService from '../services/mail-service';
 
-const EMAIL_ADDRESS_INVALID = 'Invalid email address';
+const EMAIL_ADDRESS_INVALID = 'EmailAddress.Invalid';
 const ACCOUNT_CREATION_FAILED = 'Failed to create an account';
-const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for this email address';
+const EMAIL_ALREADY_ASSOCIATED = 'Email.Exists';
 
 const validateRequest = ExpressValidation;
 const validateSignUp = Validations.validateSignUp;
@@ -131,7 +131,7 @@ export function signUpLocal(req, res, next) {
     User.localEmailExists(req.body.email)
     .then((exists) => {
       if (exists) {
-        data.email.error = `${EMAIL_ALREADY_ASSOCIATED} ${req.body.email}`;
+        data.email.error = EMAIL_ALREADY_ASSOCIATED;
         data.email.existed = true;
         res.render('sign-up/index', {
           csrfToken: req.csrfToken(),

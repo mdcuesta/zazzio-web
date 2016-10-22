@@ -3,7 +3,7 @@ module.exports = {
   browse: 'Browse',
   enterAddress: 'Enter address or city.',
   listYourProperty: 'List Your Property',
-  login: 'Log in',
+  login: 'Log In',
   search: 'Search',
-  signUp: 'Sign up',
+  signUp: 'Sign Up',
 };

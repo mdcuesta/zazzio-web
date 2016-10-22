@@ -37,7 +37,7 @@ export default function Index(props) {
         className="content"
         role="main"
       />
-      <Footer />
+      <Footer locale={props.locale} />
     </DefaultLayout>
   );
 }

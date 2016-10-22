@@ -3,6 +3,7 @@ import ModalActions from '../../actions/login-modal-actions';
 import Url from '../../helpers/url-helper';
 
 const REGISTER = 'register';
+const RES_NAVBAR = require(`../../localization/${process.env.LOCALE}/navbar`);
 
 export function SignUpLink(props) {
   return (
@@ -15,7 +16,7 @@ export function SignUpLink(props) {
       href={Url.action('sign-up')}
       id="link-sign-up"
     >
-      Sign up
+      {RES_NAVBAR.signUp}
     </a>
   );
 }
@@ -35,7 +36,7 @@ export function SignUpDropdownLink(props) {
       href={Url.action('sign-up')}
       id="dropdown-link-sign-up"
     >
-      Sign up
+      {RES_NAVBAR.signUp}
     </a>
   );
 }

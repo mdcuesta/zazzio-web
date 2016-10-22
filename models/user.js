@@ -308,10 +308,6 @@ function applyOptions(query, options) {
     query.select('-profile.phoneNumbers');
   }
 
-  if (!options.includeMessages) {
-    query.select('-messages');
-  }
-
   return query;
 }
 

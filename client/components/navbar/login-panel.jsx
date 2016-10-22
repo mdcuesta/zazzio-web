@@ -7,6 +7,10 @@ import Url from '../../helpers/url-helper';
 
 const RES_LOGIN = require(`../../localization/${process.env.LOCALE}/login-modal`);
 const REGISTER = 'register';
+const ACCOUNT_UNCONFIRMED = 'Account.Unconfirmed';
+const EMAIL_REQUIRED = 'EmailAddress.Required';
+const PASSWORD_INVALID = 'Password.Invalid';
+const PASSWORD_REQUIRED = 'Password.Required';
 
 export default class LoginPanel extends Component {
   constructor(props) {
@@ -50,7 +54,7 @@ export default class LoginPanel extends Component {
       return location.reload(true);
     }
 
-    const emailValue = message === 'Invalid password' || message === 'Account unconfirmed'
+    const emailValue = message === PASSWORD_INVALID || message === ACCOUNT_UNCONFIRMED
       ? this.state.email.value
       : '';
 
@@ -59,20 +63,20 @@ export default class LoginPanel extends Component {
       message,
       email: {
         value: emailValue,
-        error: message !== 'Invalid password' ? message : '',
-        hasError: message !== 'Invalid password',
+        error: message !== PASSWORD_INVALID ? message : '',
+        hasError: message !== PASSWORD_INVALID,
       },
       password: {
         value: '',
-        error: message === 'Invalid password' ? 'Invalid password' : '',
-        hasError: message === 'Invalid password',
+        error: message === PASSWORD_INVALID ? PASSWORD_INVALID : '',
+        hasError: message === PASSWORD_INVALID,
       },
-      accountUnconfirmed: message === 'Account unconfirmed',
-      unconfirmedEmail: message === 'Account unconfirmed' ? emailValue : '',
+      accountUnconfirmed: message === ACCOUNT_UNCONFIRMED,
+      unconfirmedEmail: message === ACCOUNT_UNCONFIRMED ? emailValue : '',
       loggingIn: false,
       loginText: RES_LOGIN.login,
     });
-    if (message === 'Invalid password') {
+    if (message === PASSWORD_INVALID) {
       return $('#txt-login-password').focus();
     }
     return $('#txt-login-email').focus();
@@ -115,9 +119,9 @@ export default class LoginPanel extends Component {
     let error = '';
     if (key === 'email') {
       if (this.state.accountUnconfirmed && value === this.state.unconfirmedEmail) {
-        error = 'Account unconfirmed';
+        error = ACCOUNT_UNCONFIRMED;
       } else if (value === '') {
-        error = 'Email is required';
+        error = EMAIL_REQUIRED;
       }
       state = {
         email: {
@@ -128,7 +132,7 @@ export default class LoginPanel extends Component {
       };
     } else if (key === 'password') {
       if (value === '') {
-        error = 'Password is required';
+        error = PASSWORD_REQUIRED;
       }
       state = {
         password: {
@@ -212,7 +216,10 @@ export default class LoginPanel extends Component {
               onKeyDown={this.submit}
               className={passwordClass}
             />
-            <FormErrorLabel error={this.state.password.error} />
+            <FormErrorLabel
+              error={this.state.password.error}
+              resource={RES_LOGIN.errors}
+            />
           </div>
           <div className="col-sm-12 text-right form-group">
             <a
@@ -258,25 +265,28 @@ export default class LoginPanel extends Component {
 
 
 function EmailErrorLabel(props) {
-  if (props.error === 'Account unconfirmed') {
+  if (props.error === ACCOUNT_UNCONFIRMED) {
     return (
       <div className="error-span-container">
         <span
           className="error-span form-control-feedback"
         >
-          Please confirm your account to login.&nbsp;
+          {RES_LOGIN.confirmToLogin}&nbsp;
           <a
             className="link link-span link-span-confirm"
             role="button"
             href={Url.action('sign-up/confirmation/resend')}
           >
-            Didn't receive any confirmation?
+            {RES_LOGIN.noConfirmation}
           </a>
         </span>
       </div>
     );
   }
-  return (<FormErrorLabel error={props.error} />);
+  return (<FormErrorLabel
+    error={props.error}
+    resource={RES_LOGIN.errors}
+  />);
 }
 
 EmailErrorLabel.propTypes = {

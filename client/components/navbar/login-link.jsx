@@ -3,6 +3,7 @@ import ModalActions from '../../actions/login-modal-actions';
 import Url from '../../helpers/url-helper';
 
 const LOGIN = 'login';
+const RES_NAVBAR = require(`../../localization/${process.env.LOCALE}/navbar`);
 
 export function LoginLink(props) {
   return (
@@ -15,7 +16,7 @@ export function LoginLink(props) {
       href={Url.action('login')}
       id="link-login"
     >
-      Log in
+      {RES_NAVBAR.login}
     </a>
   );
 }
@@ -35,7 +36,7 @@ export function LoginDropdownLink(props) {
       href={Url.action('login')}
       id="dropdown-link-login"
     >
-      Log in
+      {RES_NAVBAR.login}
     </a>
   );
 }

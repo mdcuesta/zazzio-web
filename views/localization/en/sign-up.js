@@ -1,5 +1,11 @@
 module.exports = {
   errors: {
+    'Email.Exists': 'An account is already associated with this Email Address.',
+    'Email.Required': 'Email Address is required',
+    'FirstName.Required': 'First Name is required',
+    'LastName.Required': 'Last Name is required',
+    'Password.Invalid': 'Password must be at least 6 characters',
+    'Password.Required': 'Password is required',
   },
   bySigningUp: 'By Signing up you agree to our',
   emailAddress: 'Email Address',
@@ -7,11 +13,12 @@ module.exports = {
   haveAnAccount: 'Already have an account?',
   industryProfessional: 'I\'m a landlord or an industry professional',
   lastName: 'Last Name',
-  login: 'Log in',
-  ofUse: 'of use.',
+  login: 'Log In',
+  ofUse: ' of use.',
   password: 'Password',
-  signUp: 'Sign up',
+  signUp: 'Sign Up',
   signUpWithFacebook: 'Sign up with Facebook',
   terms: 'Terms',
-  title: 'Sign up to experience awesome.',
+  title: 'Zazzio - Sign up to experience awesome.',
+  wantLogin: 'Do you want to Log In?',
 };

@@ -43,28 +43,28 @@ export function validateSignUp(req) {
   };
 
   if (isEmpty(data.email.value)) {
-    data.email.error = 'Email address required';
+    data.email.error = 'Email.Required';
     data.hasError = true;
   } else if (!validator.isEmail(data.email.value)) {
-    data.email.error = 'Invalid email address';
+    data.email.error = 'Email.Invalid';
     data.hasError = true;
   }
 
   if (isEmpty(data.password.value)) {
-    data.password.error = 'Password required';
+    data.password.error = 'Password.Required';
     data.hasError = true;
   } else if (!validator.isLength(data.password.value, { min: 8, max: 30 })) {
-    data.password.error = 'Invalid password';
+    data.password.error = 'Password.Invalid';
     data.hasError = true;
   }
 
   if (isEmpty(data.firstName.value)) {
-    data.firstName.error = 'First name required';
+    data.firstName.error = 'FirstName.Required';
     data.hasError = true;
   }
 
   if (isEmpty(data.lastName.value)) {
-    data.lastName.error = 'Last name required';
+    data.lastName.error = 'LastName.Required';
     data.hasError = true;
   }
   return data;

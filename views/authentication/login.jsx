@@ -33,8 +33,9 @@ export default function Login(props) {
         unconfirmed={props.unconfirmed}
         email={props.email}
         returnTo={props.returnTo}
+        locale={props.locale}
       />
-      <Footer />
+      <Footer locale={props.locale} />
     </DefaultLayout>
   );
 }

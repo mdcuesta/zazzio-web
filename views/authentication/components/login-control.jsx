@@ -11,9 +11,9 @@ export default function LoginControl(props) {
 
   if (props.validEmail !== null) {
     if (props.validEmail === false) {
-      emailError = RES_LOGIN.invalidEmailAddress;
+      emailError = RES_LOGIN.errors['EmailAddress.Invalid'];
     } else {
-      passwordError = RES_LOGIN.invalidPassword;
+      passwordError = RES_LOGIN.errors['Password.Invalid'];
     }
   }
 

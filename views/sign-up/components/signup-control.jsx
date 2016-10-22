@@ -54,6 +54,8 @@ export default function SignUpControl(props) {
                 <EmailErrorLabel
                   error={props.formValues.email.error}
                   existed={props.formValues.email.existed}
+                  resource={RES_SIGNUP.errors}
+                  login={RES_SIGNUP.wantLogin}
                 />
               </div>
               <div
@@ -66,7 +68,10 @@ export default function SignUpControl(props) {
                   placeholder={RES_SIGNUP.password}
                   name="password"
                 />
-                <FormErrorLabel error={props.formValues.password.error} />
+                <FormErrorLabel
+                  error={props.formValues.password.error}
+                  resource={RES_SIGNUP.errors}
+                />
               </div>
               <div
                 className={'col-sm-12 col-md-12 col-lg-12 '
@@ -79,7 +84,10 @@ export default function SignUpControl(props) {
                   name="firstName"
                   value={props.formValues.firstName.value}
                 />
-                <FormErrorLabel error={props.formValues.firstName.error} />
+                <FormErrorLabel
+                  error={props.formValues.firstName.error}
+                  resource={RES_SIGNUP.errors}
+                />
               </div>
               <div
                 className={'col-sm-12 col-md-12 col-lg-12 '
@@ -92,7 +100,10 @@ export default function SignUpControl(props) {
                   name="lastName"
                   value={props.formValues.lastName.value}
                 />
-                <FormErrorLabel error={props.formValues.lastName.error} />
+                <FormErrorLabel
+                  error={props.formValues.lastName.error}
+                  resource={RES_SIGNUP.errors}
+                />
               </div>
               <div className="col-sm-12 col-md-12 col-lg-12 form-group text-center">
                 <label
@@ -116,7 +127,7 @@ export default function SignUpControl(props) {
               />
               <div className="text-center form-group">
                 <span className="link-span">{RES_SIGNUP.bySigningUp}&nbsp;
-                  <a href={Url.action('terms')}>{RES_SIGNUP.terms}</a> {RES_SIGNUP.ofUse}
+                  <a href={Url.action('terms')}>{RES_SIGNUP.terms}</a>{RES_SIGNUP.ofUse}
                 </span>
               </div>
               <div className="col-sm-12 col-md-12 col-lg-12">
@@ -134,7 +145,8 @@ export default function SignUpControl(props) {
           </div>
           <section className="section-register">
             <div className="text-center">
-              <span className="link-span">{RES_SIGNUP.haveAnAccount}&nbsp;</span>
+              <span className="link-span">{RES_SIGNUP.haveAnAccount}</span>
+              &nbsp;&nbsp;
               <a
                 href={Url.action('login')}
                 className="link link-span"

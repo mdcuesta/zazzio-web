@@ -32,7 +32,7 @@ export default function Index(props) {
         formValues={props.formValues}
         locale={props.locale}
       />
-      <Footer />
+      <Footer locale={props.locale} />
     </DefaultLayout>
   );
 }

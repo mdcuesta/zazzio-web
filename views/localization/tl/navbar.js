@@ -1,9 +1,9 @@
 module.exports = {
   areas: 'Mga Lugar',
-  browse: 'Maghanap',
+  browse: 'Mag Browse',
   enterAddress: 'Mag-enter ng lugar o syudad.',
   listYourProperty: 'Ilista ang inyong Property',
-  login: 'Mag-log in',
+  login: 'Mag-log In',
   search: 'Mag-search',
-  signUp: 'Mag-sign up',
+  signUp: 'Mag-sign Up',
 };

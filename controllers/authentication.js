@@ -81,14 +81,14 @@ router.post('/local/ajax', csrfProtected(), (req, res, next) => {
           User.existsAndUnConfirmed(req.body.email)
           .then((unconfirmed) => {
             if (unconfirmed) {
-              res.status(401).send('Account unconfirmed');
+              res.status(401).send('Account.Unconfirmed');
             } else {
-              res.status(401).send('Invalid password');
+              res.status(401).send('Password.Invalid');
             }
           })
           .catch(next);
         } else {
-          res.status(401).send('Invalid username');
+          res.status(401).send('EmailAddress.Invalid');
         }
       })
       .catch(next);

@@ -6,16 +6,18 @@ import FormErrorLabel from '../common/form-error-label';
 import ModalActions from '../../actions/login-modal-actions';
 import Url from '../../helpers/url-helper';
 
+const RES_REGISTER = require(`../../localization/${process.env.LOCALE}/sign-up-modal`);
+
 const LOGIN = 'login';
-const EMAIL_ADDRESS_REQUIRED = 'Email Address required';
-const EMAIL_ADDRESS_INVALID = 'Invalid Email Address';
-const PASSWORD_REQUIRED = 'Password required';
-const PASSWORD_LENGTH_ERROR = 'Password must be at least 6 characters';
-const FIRST_NAME_REQUIRED = 'First name required';
-const LAST_NAME_REQUIRED = 'Last name required';
+const EMAIL_ADDRESS_REQUIRED = 'EmailAddress.Required';
+const EMAIL_ADDRESS_INVALID = 'EmailAddress.Invalid';
+const PASSWORD_REQUIRED = 'Password.Required';
+const PASSWORD_LENGTH_ERROR = 'Password.6.Characters';
+const FIRST_NAME_REQUIRED = 'FirstName.Required';
+const LAST_NAME_REQUIRED = 'LastName.Required';
 const EMAIL_ALREADY_ASSOCIATED = 'There is already an account associated for this email address';
-const SIGNING_UP_TEXT = 'Signing up....';
-const SIGN_UP_TEXT = 'Sign up';
+const SIGNING_UP_TEXT = RES_REGISTER.signingUp;
+const SIGN_UP_TEXT = RES_REGISTER.signUp;
 
 const validator = Validator;
 
@@ -131,7 +133,7 @@ export default class RegisterPanel extends Component {
               href={Url.action('account/sign-up/facebook')}
             >
               <i className="fa fa-thumbs-o-up" />&nbsp;
-              Sign Up with Facebook
+              {RES_REGISTER.signUpWithFacebook}
             </a>
           </div>
         </section>
@@ -143,7 +145,7 @@ export default class RegisterPanel extends Component {
           >
             <input
               type="text"
-              placeholder="Email Address"
+              placeholder={RES_REGISTER.emailAddress}
               id="txt-email"
               name="email"
               value={this.state.email.value}
@@ -159,7 +161,7 @@ export default class RegisterPanel extends Component {
           >
             <input
               type="password"
-              placeholder="Password"
+              placeholder={RES_REGISTER.password}
               name="password"
               id="txt-password"
               value={this.state.password.value}
@@ -167,7 +169,10 @@ export default class RegisterPanel extends Component {
               onBlur={this.handleBlur}
               className={passwordClass}
             />
-            <FormErrorLabel error={this.state.password.error} />
+            <FormErrorLabel
+              error={this.state.password.error}
+              resource={RES_REGISTER.errors}
+            />
           </div>
           <div
             className={'col-sm-6 ' +
@@ -175,7 +180,7 @@ export default class RegisterPanel extends Component {
           >
             <input
               type="text"
-              placeholder="Firstname"
+              placeholder={RES_REGISTER.firstName}
               name="firstName"
               id="txt-first-name"
               value={this.state.firstName.value}
@@ -183,7 +188,10 @@ export default class RegisterPanel extends Component {
               onBlur={this.handleBlur}
               className={firstNameClass}
             />
-            <FormErrorLabel error={this.state.firstName.error} />
+            <FormErrorLabel
+              error={this.state.firstName.error}
+              resource={RES_REGISTER.errors}
+            />
           </div>
           <div
             className={'col-sm-6 ' +
@@ -191,7 +199,7 @@ export default class RegisterPanel extends Component {
           >
             <input
               type="text"
-              placeholder="Lastname"
+              placeholder={RES_REGISTER.lastName}
               name="lastName"
               id="txt-last-name"
               value={this.state.lastName.value}
@@ -199,9 +207,12 @@ export default class RegisterPanel extends Component {
               onBlur={this.handleBlur}
               className={lastNameClass}
             />
-            <FormErrorLabel error={this.state.lastName.error} />
+            <FormErrorLabel
+              error={this.state.lastName.error}
+              resource={RES_REGISTER.errors}
+            />
           </div>
-          <div className="col-sm-12 form-group">
+          <div className="col-sm-12 form-group text-center">
             <label
               htmlFor="is-not-buyer"
               className="form-check-label"
@@ -214,7 +225,7 @@ export default class RegisterPanel extends Component {
                 checked={this.state.isSeller.value}
                 onChange={this.handleChange}
               />
-              &nbsp;I'm a landlord or an industry professional
+              &nbsp;{RES_REGISTER.industryProfessional}
             </label>
           </div>
           <div
@@ -228,8 +239,8 @@ export default class RegisterPanel extends Component {
             >
               {this.state.signUpText}
             </button>
-            <span className="link-span">By Signing up you agree to our&nbsp;
-              <a href={Url.action('terms')}>Terms</a> of use.
+            <span className="link-span">{RES_REGISTER.bySigningUp}&nbsp;
+              <a href={Url.action('terms')}>{RES_REGISTER.terms}</a>{RES_REGISTER.ofUse}
             </span>
           </div>
         </section>
@@ -379,25 +390,13 @@ function EmailErrorLabel(props) {
         <span
           className="error-span form-control-feedback hidden-xs-down"
         >
-          An account is already associated with this email address.&nbsp;
+          {RES_REGISTER.errors['Email.Exists']}&nbsp;&nbsp;
           <span
             onClick={() => ModalActions.setModalType(LOGIN)}
             className="link link-span-login"
             role="button"
           >
-            Login?
-          </span>
-        </span>
-        <span
-          className="error-span form-control-feedback hidden-sm-up"
-        >
-          Email address in use.&nbsp;
-          <span
-            onClick={() => ModalActions.setModalType(LOGIN)}
-            className="link link-span"
-            role="button"
-          >
-            Login?
+            {RES_REGISTER.wantLogin}
           </span>
         </span>
       </div>
@@ -405,7 +404,10 @@ function EmailErrorLabel(props) {
   }
 
   return (
-    <FormErrorLabel error={props.error} />
+    <FormErrorLabel
+      error={props.error}
+      resource={RES_REGISTER.errors}
+    />
   );
 }
 
