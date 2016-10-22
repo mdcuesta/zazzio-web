@@ -25,7 +25,7 @@ export default function UserMenuDropdown(props) {
           href={Url.action('list-property')}
         >
           <span className="btn-block">
-            List Your Property
+            {props.resource.listYourProperty}
           </span>
         </a>
       </li>
@@ -37,7 +37,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('user/dashboard')}
         >
-          Dashboard
+          {props.resource.dashboard}
         </a>
       </li>
       <li>
@@ -45,7 +45,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('user/listings')}
         >
-          Listings
+          {props.resource.listings}
         </a>
       </li>
       <li>
@@ -53,7 +53,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('user/messages')}
         >
-          Messages
+          {props.resource.messages}
         </a>
       </li>
       <li>
@@ -61,7 +61,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('user/profile')}
         >
-          Profile
+          {props.resource.profile}
         </a>
       </li>
       <li>
@@ -69,7 +69,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('user/account')}
         >
-          Account
+          {props.resource.account}
         </a>
       </li>
       <li className="hidden-lg-up">
@@ -80,7 +80,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('help')}
         >
-          Help
+          {props.resource.help}
         </a>
       </li>
       <li>
@@ -91,7 +91,7 @@ export default function UserMenuDropdown(props) {
           className="dropdown-item"
           href={Url.action('logout')}
         >
-          Log out
+          {props.resource.logout}
         </a>
       </li>
     </ul>
@@ -100,4 +100,5 @@ export default function UserMenuDropdown(props) {
 
 UserMenuDropdown.propTypes = {
   user: React.PropTypes.object.isRequired,
+  resource: React.PropTypes.object.isRequired,
 };

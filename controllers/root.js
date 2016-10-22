@@ -1,3 +1,4 @@
+import Url from 'url';
 import { Router } from 'express';
 import { Authenticated } from '../utilities/security';
 
@@ -23,12 +24,16 @@ export function lang(req, res, next) {
     return;
   }
 
+  const referrer = req.get('Referrer');
+  const url = Url.parse(referrer || '');
   res.cookie('locale', locale);
-  res.render('root/index', {
-    authenticated: authenticated(req),
-    csrfToken: req.csrfToken(),
-    locale,
-  });
+
+  if (typeof url !== 'undefined' &&
+    ((process.env.APP_DOMAIN || 'zazzio.something.awesome.com') === url.hostname)) {
+    res.redirect(referrer);
+  } else {
+    res.redirect('/');
+  }
 }
 /**
  * Login Page

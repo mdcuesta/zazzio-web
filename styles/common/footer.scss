@@ -27,6 +27,7 @@
 
     $footer-link-hover-color: rgba($white, .6);
 
+    &.active,
     &:hover {
       color: $footer-link-hover-color;
       text-decoration: none;

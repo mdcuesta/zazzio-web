@@ -6,4 +6,15 @@ module.exports = {
   login: 'Mag-log In',
   search: 'Mag-search',
   signUp: 'Mag-sign Up',
+
+  userMenu: {
+    account: 'Account',
+    dashboard: 'Dashboard',
+    help: 'Tulong',
+    listings: 'Listings',
+    listYourProperty: 'Ilista ang inyong Property',
+    logout: 'Log out',
+    messages: 'Mga Mensahe',
+    profile: 'Profile',
+  },
 };

@@ -27,6 +27,7 @@ export function saveProfile(req, res, next) {
     User.getById(req.user.id)
     .then((user) => {
       data.profile.phoneNumbers = user.profile.phoneNumbers;
+      data.profile.profilePhoto = user.profile.profilePhoto;
       res.render('user/profile', {
         csrfToken: req.csrfToken(),
         profile: data.profile,

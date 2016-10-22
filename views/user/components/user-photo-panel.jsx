@@ -28,13 +28,13 @@ export default function UserPhotoPanel(props) {
             role="button"
             className="btn btn-secondary btn-block"
           >
-            Upload a Photo
+            {props.resource.uploadPhoto}
           </label>
           <input id="file-photo" type="file" className="hidden" />
         </li>
         <li className="list-group-item">
           <button className="btn btn-danger btn-block">
-            Remove your Photo
+            {props.resource.removePhoto}
           </button>
         </li>
       </ul>
@@ -44,4 +44,5 @@ export default function UserPhotoPanel(props) {
 
 UserPhotoPanel.propTypes = {
   profile: React.PropTypes.object.isRequired,
+  resource: React.PropTypes.object.isRequired,
 };

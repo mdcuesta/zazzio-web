@@ -1,7 +1,10 @@
 import React from 'react';
 import Url from '../../helpers/url-helper';
+import ResourceHelper from '../../helpers/resource-helper';
 
 export default function UserNavBar(props) {
+  const RES_NAVBAR = ResourceHelper.getResource('user-navbar', props.locale);
+
   return (
     <nav
       className="navbar navbar-user"
@@ -14,7 +17,7 @@ export default function UserNavBar(props) {
               className={`nav-link ${(props.active === 'dashboard' ? 'active' : '')}`}
               href={Url.action('user/dashboard')}
             >
-              Dashboard
+              {RES_NAVBAR.dashboard}
             </a>
           </li>
           <li className="nav-item">
@@ -22,7 +25,7 @@ export default function UserNavBar(props) {
               className={`nav-link ${(props.active === 'listings' ? 'active' : '')}`}
               href={Url.action('user/listings')}
             >
-              Listings
+              {RES_NAVBAR.listings}
             </a>
           </li>
           <li className="nav-item">
@@ -30,7 +33,7 @@ export default function UserNavBar(props) {
               className={`nav-link ${(props.active === 'messages' ? 'active' : '')}`}
               href={Url.action('user/messages')}
             >
-              Messages
+              {RES_NAVBAR.messages}
             </a>
           </li>
           <li className="nav-item">
@@ -38,7 +41,7 @@ export default function UserNavBar(props) {
               className={`nav-link ${(props.active === 'profile' ? 'active' : '')}`}
               href={Url.action('user/profile')}
             >
-              Profile
+              {RES_NAVBAR.profile}
             </a>
           </li>
           <li className="nav-item">
@@ -46,7 +49,7 @@ export default function UserNavBar(props) {
               className={`nav-link ${(props.active === 'account' ? 'active' : '')}`}
               href={Url.action('user/account')}
             >
-              Account
+              {RES_NAVBAR.account}
             </a>
           </li>
         </ul>

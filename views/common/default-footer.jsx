@@ -11,17 +11,26 @@ export default function DefaultFooter(props) {
         <div className="col-xs-6 col-sm-6 col-md-3 text-left">
           <ul className="list-footer">
             <li>
-              <a href={Url.action('en')}>
+              <a
+                href={Url.action('en')}
+                className={`lang-link${(props.locale === 'en' ? ' active' : '')}`}
+              >
                 {RES_FOOTER.english}
               </a>
             </li>
             <li>
-              <a href={Url.action('tl')}>
+              <a
+                href={Url.action('tl')}
+                className={`lang-link${(props.locale === 'tl' ? ' active' : '')}`}
+              >
                 {RES_FOOTER.tagalog}
               </a>
             </li>
             <li>
-              <a href={Url.action('cx')}>
+              <a
+                href={Url.action('cx')}
+                className={`lang-link${(props.locale === 'cx' ? ' active' : '')}`}
+              >
                 {RES_FOOTER.bisaya}
               </a>
             </li>

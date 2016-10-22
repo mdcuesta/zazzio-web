@@ -22,11 +22,11 @@ export default function validateProfile(req) {
 
   const errors = [];
   if (isEmpty(profile.firstName.trim())) {
-    errors.push('First Name');
+    errors.push('FirstName');
   }
 
   if (isEmpty(profile.lastName)) {
-    errors.push('Last Name');
+    errors.push('LastName');
   }
 
   return {

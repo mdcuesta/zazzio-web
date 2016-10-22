@@ -27,7 +27,7 @@ export default function UserProfilePanel(props) {
               href={Url.action('users/profile-id')}
               className="card-link"
             >
-              View Profile
+              {props.resource.viewProfile}
             </a>
           </li>
           <li>
@@ -35,7 +35,7 @@ export default function UserProfilePanel(props) {
               href={Url.action('user/profile')}
               className="card-link"
             >
-              Edit Profile
+              {props.resource.editProfile}
             </a>
           </li>
         </ul>
@@ -46,4 +46,5 @@ export default function UserProfilePanel(props) {
 
 UserProfilePanel.propTypes = {
   user: React.PropTypes.object.isRequired,
+  resource: React.PropTypes.object.isRequired,
 };

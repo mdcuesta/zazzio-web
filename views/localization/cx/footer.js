@@ -4,7 +4,7 @@ module.exports = {
   browse: 'Pag-browse',
   company: 'Kompanya',
   english: 'English',
-  joinUs: 'Apili Kami Sa',
+  joinUs: 'Ubani Kami Sa',
   tagalog: 'Tagalog',
 
   companyLinks: {

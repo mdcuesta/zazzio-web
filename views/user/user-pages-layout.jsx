@@ -32,7 +32,7 @@ export default function Dashboard(props) {
       >
         {props.children}
       </div>
-      <Footer />
+      <Footer locale={props.locale} />
     </DefaultLayout>
   );
 }

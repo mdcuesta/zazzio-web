@@ -10,7 +10,7 @@ export default function EditProfileMenu(props) {
             className={(props.active === 'edit-profile' ? 'active' : '')}
             href={Url.action('user/profile')}
           >
-            Edit Profile
+            {props.resource.editProfile}
           </a>
         </li>
         <li>
@@ -18,7 +18,7 @@ export default function EditProfileMenu(props) {
             className={(props.active === 'reviews' ? 'active' : '')}
             href={Url.action('user/profile/reviews')}
           >
-            Reviews
+            {props.resource.reviews}
           </a>
         </li>
       </ul>
@@ -27,7 +27,7 @@ export default function EditProfileMenu(props) {
           className="link-view-profile"
           href={Url.action('users/profile-id')}
         >
-          View Profile
+          {props.resource.viewProfile}
         </a>
       </div>
     </div>
@@ -36,4 +36,5 @@ export default function EditProfileMenu(props) {
 
 EditProfileMenu.propTypes = {
   active: React.PropTypes.string,
+  resource: React.PropTypes.object.isRequired,
 };

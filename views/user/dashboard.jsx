@@ -2,11 +2,13 @@ import React from 'react';
 import UserPageLayout from './user-pages-layout';
 import UserProfilePanel from './components/user-profile-panel';
 import Url from '../helpers/url-helper';
+import ResourceHelper from '../helpers/resource-helper';
 
 export default function Dashboard(props) {
+  const RES_DASHBOARD = ResourceHelper.getResource('user-dashboard', props.locale);
   return (
     <UserPageLayout
-      title="Dashboard - Zazzio"
+      title={RES_DASHBOARD.title}
       scripts={[Url.cdn('javascripts/user-dashboard')]}
       styles={[Url.cdn('stylesheets/user-dashboard')]}
       csrfToken={props.csrfToken}
@@ -16,10 +18,13 @@ export default function Dashboard(props) {
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
-          <UserProfilePanel user={props.user} />
+          <UserProfilePanel
+            user={props.user}
+            resource={RES_DASHBOARD}
+          />
           <div className="card">
             <div className="card-header">
-              Quick Links
+              {RES_DASHBOARD.quickLinks}
             </div>
             <div className="card-block">
               <blockquote className="card-blockquote">
@@ -46,7 +51,7 @@ export default function Dashboard(props) {
           </div>
           <div className="card">
             <div className="card-header">
-              Messages (0 new)
+              {RES_DASHBOARD.messages} (0 {RES_DASHBOARD.new})
             </div>
             <div className="card-block">
               <blockquote className="card-blockquote">
@@ -59,7 +64,7 @@ export default function Dashboard(props) {
             </div>
             <div className="card-footer">
               <a href={Url.action('user/messages')}>
-                All messages
+                {RES_DASHBOARD.allMessages}
               </a>
             </div>
           </div>

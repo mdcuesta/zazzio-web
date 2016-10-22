@@ -56,7 +56,7 @@ export default function RightAuthenticatedButtons(props) {
           >
             {profilePhoto}
           </a>
-          <UserMenuDropdown user={props.user} />
+          <UserMenuDropdown user={props.user} resource={RES_NAVBAR.userMenu} />
         </li>
         <li
           className="nav-item nav-item-separator"

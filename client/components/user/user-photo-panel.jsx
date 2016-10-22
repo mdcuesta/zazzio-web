@@ -3,6 +3,8 @@ import Image from '../../helpers/image-helper';
 import Actions from '../../actions/user-photo-actions';
 import Store from '../../stores/user-photo-store';
 
+const RES_PHOTO = require(`../../localization/${process.env.LOCALE}/user-photo-panel`);
+
 export default class UserUploadPhoto extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +66,7 @@ export default class UserUploadPhoto extends Component {
               role="button"
               className="btn btn-secondary btn-block"
             >
-              Upload a Photo
+              {RES_PHOTO.uploadPhoto}
             </label>
             <input
               id="file-photo"
@@ -76,7 +78,7 @@ export default class UserUploadPhoto extends Component {
           </li>
           <li className="list-group-item">
             <button className="btn btn-danger btn-block">
-              Remove your Photo
+              {RES_PHOTO.removePhoto}
             </button>
           </li>
         </ul>

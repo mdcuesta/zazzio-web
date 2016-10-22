@@ -4,9 +4,25 @@ import EditProfileMenu from './components/user-edit-profile-menu';
 import EditProfileForm from './components/user-edit-profile-form';
 import UserPhotoPanel from './components/user-photo-panel';
 import Url from '../helpers/url-helper';
+import ResourceHelper from '../helpers/resource-helper';
 
 export default function Profile(props) {
-  const errorPanel = props.errors.length > 0
+  const RES_PROFILE = ResourceHelper.getResource('user-edit-profile', props.locale);
+  const errors = [];
+  if (props.errors.length > 0) {
+    props.errors.map((e) => {
+      if (e === 'FirstName') {
+        errors.push(RES_PROFILE.errors.firstName);
+        return 1;
+      } else if (e === 'LastName') {
+        errors.push(RES_PROFILE.errors.lastName);
+        return 1;
+      }
+      return 0;
+    });
+  }
+
+  const errorPanel = errors.length > 0
     ? (
     <div
       className="alert alert-danger alert-dismissible fade in"
@@ -20,13 +36,13 @@ export default function Profile(props) {
       >
         <span aria-hidden="true">&times;</span>
       </button>
-      The following fields are required <strong>{props.errors.join(', ')}</strong>
+      {RES_PROFILE.errors.requiredFields}&nbsp;<strong>{errors.join(', ')}</strong>
     </div>)
     : '';
 
   return (
     <UserPageLayout
-      title="Profile - Zazzio"
+      title={RES_PROFILE.title}
       scripts={[Url.cdn('javascripts/user-profile')]}
       styles={[Url.cdn('stylesheets/user-profile')]}
       csrfToken={props.csrfToken}
@@ -36,19 +52,26 @@ export default function Profile(props) {
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
-          <EditProfileMenu active="edit-profile" />
-          <UserPhotoPanel profile={props.profile} />
+          <EditProfileMenu
+            active="edit-profile"
+            resource={RES_PROFILE.sideMenu}
+          />
+          <UserPhotoPanel
+            profile={props.profile}
+            resource={RES_PROFILE.photoPanel}
+          />
         </div>
         <div className="col-sm-12 col-md-8 col-lg-9">
           <div className="card">
             <div className="card-header">
-              Profile
+              {RES_PROFILE.profile}
             </div>
             {errorPanel}
             <EditProfileForm
               user={props.user}
               profile={props.profile}
               csrfToken={props.csrfToken}
+              resource={RES_PROFILE.form}
             />
           </div>
         </div>

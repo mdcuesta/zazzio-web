@@ -74,7 +74,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="txt-first-name"
           >
-            First Name
+            {props.resource.firstNameLabel}
           </label>
           <div className="col-sm-9">
             <input
@@ -91,7 +91,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="txt-middle-name"
           >
-            Middle Name
+            {props.resource.middleNameLabel}
           </label>
           <div className="col-sm-9">
             <input
@@ -108,7 +108,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="txt-last-name"
           >
-            Last Name
+            {props.resource.lastNameLabel}
           </label>
           <div className="col-sm-9">
             <input
@@ -125,7 +125,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="txt-email-address"
           >
-            Email Address
+            {props.resource.emailAddressLabel}
           </label>
           <div className="col-sm-9">
             <input
@@ -142,7 +142,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="select-gender"
           >
-            I Am
+            {props.resource.genderLabel}
           </label>
           <div className="col-sm-9">
             <select
@@ -155,19 +155,19 @@ export default function EditProfileForm(props) {
                 value=""
                 selected={props.profile.gender === ''}
               >
-                Gender
+                {props.resource.gender}
               </option>
               <option
                 value="male"
                 selected={props.profile.gender === 'male'}
               >
-                Male
+                {props.resource.male}
               </option>
               <option
                 value="female"
                 selected={props.profile.gender === 'female'}
               >
-                Female
+                {props.resource.female}
               </option>
             </select>
           </div>
@@ -177,7 +177,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="select-bday-month"
           >
-            Birthday
+            {props.resource.birthdayLabel}
           </label>
           <div className="col-sm-9">
             <select
@@ -190,7 +190,7 @@ export default function EditProfileForm(props) {
                 selected={dateOfBirth === null}
                 value=""
               >
-                Month
+                {props.resource.month}
               </option>
               {monthOptions}
             </select>
@@ -204,7 +204,7 @@ export default function EditProfileForm(props) {
                 selected={dateOfBirth === null}
                 value=""
               >
-                Day
+                {props.resource.day}
               </option>
               {dateOptions}
             </select>
@@ -218,7 +218,7 @@ export default function EditProfileForm(props) {
                 selected={dateOfBirth === null}
                 value=""
               >
-                Year
+                {props.resource.year}
               </option>
               {yearOptions}
             </select>
@@ -229,7 +229,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="select-bday-month"
           >
-            Mobile Numbers
+            {props.resource.mobileNumbersLabel}
           </label>
           <div
             className="col-sm-9 edit-phone-numbers-container"
@@ -261,7 +261,7 @@ export default function EditProfileForm(props) {
               href={Url.action('user/numbers/add')}
             >
               <i className="fa fa-plus" />&nbsp;
-              Add Mobile Number
+              {props.resource.addMobileNumberLabel}
             </a>
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function EditProfileForm(props) {
             htmlFor="txt-address"
             name="address"
           >
-            Address
+            {props.resource.addressLabel}
           </label>
           <div className="col-sm-9">
             <input
@@ -288,7 +288,7 @@ export default function EditProfileForm(props) {
             className="col-sm-3 text-sm-right"
             htmlFor="txt-address"
           >
-            About Yourself
+            {props.resource.aboutYourselfLabel}
           </label>
           <div className="col-sm-9">
             <textarea
@@ -305,7 +305,7 @@ export default function EditProfileForm(props) {
               className="btn btn-primary btn-profile-save"
               type="submit"
             >
-              Save
+              {props.resource.save}
             </button>
           </div>
         </div>
@@ -318,13 +318,14 @@ EditProfileForm.propTypes = {
   profile: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
   csrfToken: React.PropTypes.string.isRequired,
+  resource: React.PropTypes.object.isRequired,
 };
 
-function VerifiedPane() {
+function VerifiedPane(props) {
   return (
     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 verified">
       <span className="hidden-xs-down">
-        Verified&nbsp;
+        {props.resource.verified}&nbsp;
       </span>
       <i className="fa fa-check-square-o" />
     </div>
@@ -337,12 +338,17 @@ function UnVerifiedPane(props) {
       <a
         href={Url.action(`user/numbers/${props.number}/request-verify`)}
       >
-        Verify
+        {props.resource.verify}
       </a>
     </div>
   );
 }
 
+VerifiedPane.propTypes = {
+  resource: React.PropTypes.object.isRequired,
+};
+
 UnVerifiedPane.propTypes = {
   number: React.PropTypes.string.isRequired,
+  resource: React.PropTypes.object.isRequired,
 };
