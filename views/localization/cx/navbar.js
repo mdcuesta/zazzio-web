@@ -6,7 +6,6 @@ module.exports = {
   login: 'Pag-log in',
   search: 'Pag-search',
   signUp: 'Pag-sign up',
-
   userMenu: {
     account: 'Account',
     dashboard: 'Dashboard',

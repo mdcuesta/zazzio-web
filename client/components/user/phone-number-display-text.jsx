@@ -3,6 +3,8 @@ import Url from '../../helpers/url-helper';
 import VerifyPanel from './verify-phone-number-panel';
 import NumbersAction from '../../actions/phone-numbers-actions';
 
+const RES_NUMBER = require(`../../localization/${process.env.LOCALE}/user-phone-numbers`);
+
 export default class PhoneNumberDisplayText extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +82,7 @@ function VerifiedPane() {
   return (
     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 verified">
       <span className="hidden-xs-down">
-        Verified&nbsp;
+        {RES_NUMBER.verified}&nbsp;
       </span>
       <i className="fa fa-check-square-o" />
     </div>
@@ -97,7 +99,7 @@ function UnVerifiedPane(props) {
         aria-controls={props.verifyPanelId}
         onClick={props.toggleShowHide}
       >
-        Verify
+        {RES_NUMBER.verify}
       </a>
     </div>
   );

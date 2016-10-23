@@ -1,4 +1,6 @@
 module.exports = {
+  bySigningUp: 'Pinaagi sa Pag-sign Up miuyon kamo sa among',
+  emailAddress: 'Email Address',
   errors: {
     'Email.Exists': 'Naa nay account nga nag-gamit ani nga Email Address.',
     'Email.Required': 'Kinahanglan ang Email Address',
@@ -7,8 +9,6 @@ module.exports = {
     'Password.Invalid': 'Ang Password kinahanglan lapas sa 6 characters',
     'Password.Required': 'Kinahanglan ang Password',
   },
-  bySigningUp: 'Pinaagi sa Pag-sign Up miuyon kamo sa among',
-  emailAddress: 'Email Address',
   firstName: 'Pangalan',
   haveAnAccount: 'Naa nay account?',
   industryProfessional: 'Usa ako ka Landlord o lisensiyadong propesyonal',

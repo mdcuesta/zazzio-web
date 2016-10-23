@@ -5,6 +5,7 @@ import NumbersAction from '../../actions/phone-numbers-actions';
 import MiscAction from '../../actions/misc-actions';
 import PhoneNumbersDisplayText from './phone-number-display-text';
 
+const RES_NUMBER = require(`../../localization/${process.env.LOCALE}/user-phone-numbers`);
 const ADD_PHONE_NUMBER_PANEL_ID = 'add-phone-number-panel';
 
 export default class PhoneNumbersPanel extends Component {
@@ -68,7 +69,7 @@ export default class PhoneNumbersPanel extends Component {
             aria-controls={ADD_PHONE_NUMBER_PANEL_ID}
             onClick={() => this.toggleAddPhoneNumberPanel()}
           >
-            <i className="fa fa-plus" />&nbsp;Add a mobile number
+            <i className="fa fa-plus" />&nbsp;{RES_NUMBER.addMobileNumber}
           </a>
           <AddPhoneNumberPanel
             id={ADD_PHONE_NUMBER_PANEL_ID}

@@ -6,7 +6,6 @@ module.exports = {
   login: 'Mag-log In',
   search: 'Mag-search',
   signUp: 'Mag-sign Up',
-
   userMenu: {
     account: 'Account',
     dashboard: 'Dashboard',

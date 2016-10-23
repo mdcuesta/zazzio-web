@@ -1,6 +1,4 @@
 module.exports = {
-  title: 'Zazzio - Pagbabago sa Profile',
-  profile: 'Profile',
   errors: {
     requiredFields: 'Ang mga fields na ito ay kailangan',
     firstName: 'Pangalan',
@@ -31,9 +29,11 @@ module.exports = {
     removePhoto: 'Alisin ang iyong Litrato',
     uploadPhoto: 'Mag-upload ng Litrato',
   },
+  profile: 'Profile',
   sideMenu: {
     editProfile: 'Bagohin ang Profile',
     reviews: 'Mga Review',
     viewProfile: 'Tingnan ang Profile',
   },
+  title: 'Zazzio - Pagbabago sa Profile',
 };

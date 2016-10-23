@@ -1,3 +1,5 @@
+const RES_STATUS = require(`../../localization/${process.env.LOCALE}/user-phone-numbers-status`);
+
 /**
      * Status
      * 0 - Success
@@ -12,19 +14,19 @@ export default function getStatusMessage(status) {
     case 0:
       return '';
     case 1:
-      return 'The mobile number already exist.';
+      return RES_STATUS.mobileNumberExists;
     case 2:
-      return 'The mobile number does not exist.';
+      return RES_STATUS.mobileNumberDontExist;
     case 3:
-      return 'Invalid mobile number';
+      return RES_STATUS.invalidMobileNumber;
     case 4:
-      return 'Invalid verification code.';
+      return RES_STATUS.invalidVerificationCode;
     case 5:
-      return 'Number is already verified.';
+      return RES_STATUS.numberVerified;
     case 6:
-      return 'Please wait 5 minutes before resending verification code.';
+      return RES_STATUS.verificationWait;
     case 10:
-      return 'Sorry an error occured. Please try again later.';
+      return RES_STATUS.errorOccured;
     default:
       return '';
   }

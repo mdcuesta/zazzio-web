@@ -3,10 +3,6 @@ module.exports = {
   bisaya: 'Bisaya',
   browse: 'Mag-browse',
   company: 'Kompanya',
-  english: 'English',
-  joinUs: 'Samahan Kami Sa',
-  tagalog: 'Tagalog',
-
   companyLinks: {
     about: 'Tungkol Sa',
     careers: 'Mga Careers',
@@ -14,4 +10,7 @@ module.exports = {
     policies: 'Mga Patakaran',
     terms: 'Mga Tuntunin',
   },
+  english: 'English',
+  joinUs: 'Samahan Kami Sa',
+  tagalog: 'Tagalog',
 };

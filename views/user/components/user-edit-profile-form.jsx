@@ -244,7 +244,8 @@ export default function EditProfileForm(props) {
                       +{p.number}
                     </span>
                   </div>
-                  {(p.isVerified ? <VerifiedPane /> : <UnVerifiedPane number={p.number} />)}
+                  {(p.isVerified ? <VerifiedPane />
+                    : <UnVerifiedPane number={p.number} resource={props.resource} />)}
                   <div className="col-xs-2 col-sm-2 col-md-2 col-lg-1 number-delete">
                     <a
                       href={Url.action(`user/numbers/${p.number}/delete`)}

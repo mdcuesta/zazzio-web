@@ -1,4 +1,6 @@
 module.exports = {
+  bySigningUp: 'Sa pag-sign up sumasang-ayon ka sa aming',
+  emailAddress: 'Email Address',
   errors: {
     'Email.Exists': 'Ang Email Address na ito ay nauugnay na sa isang account.',
     'Email.Required': 'Kinakailangan ang Email Address',
@@ -7,8 +9,6 @@ module.exports = {
     'Password.Invalid': 'Ang Password ay dapat higit sa 6 na characters',
     'Password.Required': 'Kinakailangan ang Password',
   },
-  bySigningUp: 'Sa pag-sign up sumasang-ayon ka sa aming',
-  emailAddress: 'Email Address',
   firstName: 'Pangalan',
   haveAnAccount: 'Mayroon nang account?',
   industryProfessional: 'Ako ay may-ari o isang lisensiyadong propesyonal',

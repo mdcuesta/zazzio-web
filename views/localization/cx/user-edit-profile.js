@@ -1,6 +1,4 @@
 module.exports = {
-  title: 'Zazzio - Pag-bag-o sa Profile',
-  profile: 'Profile',
   errors: {
     requiredFields: 'Ang maong mga fields kay kinahanglan',
     firstName: 'Pangalan',
@@ -31,9 +29,11 @@ module.exports = {
     removePhoto: 'Tang-tanga imong Photo',
     uploadPhoto: 'Pag-upload og Photo',
   },
+  profile: 'Profile',
   sideMenu: {
     editProfile: 'Edit Profile',
     reviews: 'Mga Review',
     viewProfile: 'Tan-awa imong Profile',
   },
+  title: 'Zazzio - Pag-bag-o sa Profile',
 };

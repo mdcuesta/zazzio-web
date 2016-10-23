@@ -3,10 +3,6 @@ module.exports = {
   bisaya: 'Bisaya',
   browse: 'Pag-browse',
   company: 'Kompanya',
-  english: 'English',
-  joinUs: 'Ubani Kami Sa',
-  tagalog: 'Tagalog',
-
   companyLinks: {
     about: 'Mahitungod',
     careers: 'Mga Careers',
@@ -14,4 +10,7 @@ module.exports = {
     policies: 'Mga Palisiya',
     terms: 'Termino',
   },
+  english: 'English',
+  joinUs: 'Ubani Kami Sa',
+  tagalog: 'Tagalog',
 };

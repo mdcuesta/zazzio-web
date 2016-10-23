@@ -5,6 +5,7 @@ import NumbersStore from '../../stores/phone-numbers-store';
 import NumbersAction from '../../actions/phone-numbers-actions';
 import Status from './status';
 
+const RES_NUMBER = require(`../../localization/${process.env.LOCALE}/user-phone-numbers`);
 const getStatus = Status;
 
 export default class VerifyPhoneNumberPanel extends Component {
@@ -77,7 +78,7 @@ export default class VerifyPhoneNumberPanel extends Component {
   verify() {
     if (this.state.verificationCode.trim() === '') {
       this.setState({
-        error: 'Verification code is required.',
+        error: RES_NUMBER.errors['VerificationCode.Required'],
         verificationCodeHasError: true,
       });
       $(`#${this.props.id}-${this.props.number}`).focus();
@@ -131,7 +132,7 @@ export default class VerifyPhoneNumberPanel extends Component {
         <div
           className={`form-group verification${(this.state.error !== '' ? ' has-danger' : '')}`}
         >
-          <label htmlFor="verification-code">Verification Code</label>
+          <label htmlFor="verification-code">{RES_NUMBER.verificationCode}</label>
           <input
             type="text"
             className="form-control"
@@ -145,13 +146,13 @@ export default class VerifyPhoneNumberPanel extends Component {
             onClick={this.resendVerification}
             className={`resend-code-link${(this.state.showResend ? '' : ' hidden')}`}
           >
-            Resend Verification
+            {RES_NUMBER.resendVerification}
           </a>
           <span
             className={resendCodeSpanClass}
           >
-            Verification code sent to this number +{this.props.number}.
-            Please wait upto 5 minutes to receive the verification code.
+            {RES_NUMBER.verificationCodeSent}&nbsp;+{this.props.number}.
+            &nbsp;{RES_NUMBER.pleaseWait}
           </span>
         </div>
         <div className="form-group">
@@ -162,13 +163,13 @@ export default class VerifyPhoneNumberPanel extends Component {
           type="button"
           onClick={this.verify}
         >
-          Verify
+          {RES_NUMBER.verify}
         </button>
         <a
           href={Url.action('user/profile/numbers/why-verify')}
           className="why-verify-link pull-right"
         >
-          Why verify?
+          {RES_NUMBER.whyVerify}
         </a>
       </div>
     );

@@ -1,6 +1,4 @@
 module.exports = {
-  title: 'Zazzio - User Edit Profile',
-  profile: 'Profile',
   errors: {
     requiredFields: 'The following fields are required',
     firstName: 'First Name',
@@ -31,9 +29,11 @@ module.exports = {
     removePhoto: 'Remove your Photo',
     uploadPhoto: 'Upload a Photo',
   },
+  profile: 'Profile',
   sideMenu: {
     editProfile: 'Edit Profile',
     reviews: 'Reviews',
     viewProfile: 'View Profile',
   },
+  title: 'Zazzio - User Edit Profile',
 };

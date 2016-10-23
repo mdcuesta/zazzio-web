@@ -3,10 +3,6 @@ module.exports = {
   bisaya: 'Bisaya',
   browse: 'Browse',
   company: 'Company',
-  english: 'English',
-  joinUs: 'Join Us On',
-  tagalog: 'Tagalog',
-
   companyLinks: {
     about: 'About',
     careers: 'Careers',
@@ -14,4 +10,7 @@ module.exports = {
     policies: 'Policies',
     terms: 'Terms',
   },
+  english: 'English',
+  joinUs: 'Join Us On',
+  tagalog: 'Tagalog',
 };

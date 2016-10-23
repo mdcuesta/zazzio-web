@@ -7,6 +7,8 @@ import NumbersAction from '../../actions/phone-numbers-actions';
 import FormErrorLabel from '../common/form-error-label';
 import Status from './status';
 
+const RES_NUMBER = require(`../../localization/${process.env.LOCALE}/user-phone-numbers`);
+
 const validator = Validator;
 const getStatus = Status;
 const RESEND_TIMEOUT = 300000;
@@ -140,13 +142,13 @@ export default class AddPhoneNumberPanel extends Component {
     const txtNumber = $('#phone-number');
     if (this.state.number.trim() === '') {
       this.setState({
-        error: 'Mobile number is required.',
+        error: RES_NUMBER.errors['MobileNumber.Required'],
         numberHasError: true,
       });
       txtNumber.focus();
     } else if (!validator.isInt(this.state.number.trim(), { allow_leading_zeroes: true })) {
       this.setState({
-        error: 'Invalid mobile number.',
+        error: RES_NUMBER.errors['MobileNumber.Invalid'],
         numberHasError: true,
       });
       txtNumber.focus();
@@ -247,7 +249,7 @@ export default class AddPhoneNumberPanel extends Component {
         className="col-xs-12 collapse phone-numbers-panel"
         id={this.props.id}
       >
-        <span className="panel-title">Add a Mobile Number</span>
+        <span className="panel-title">{RES_NUMBER.addMobileNumber}</span>
         <button
           type="button"
           className={`close pull-right${(this.state.forVerification ? ' hidden' : '')}`}
@@ -262,7 +264,7 @@ export default class AddPhoneNumberPanel extends Component {
         </button>
         <hr />
         <div className={`form-group${(this.state.forVerification ? ' hidden' : '')}`}>
-          <label htmlFor="phone-country">Country</label>
+          <label htmlFor="phone-country">{RES_NUMBER.country}</label>
           <select
             className="form-control"
             id="phone-country"
@@ -281,7 +283,7 @@ export default class AddPhoneNumberPanel extends Component {
           </select>
         </div>
         <div className={numberClass}>
-          <label htmlFor="phone-number">Mobile Number</label>
+          <label htmlFor="phone-number">{RES_NUMBER.mobileNumber}</label>
           <div className="input-group">
             <span className="input-group-addon">
               +{this.state.selectedCountryCallingCode}
@@ -299,7 +301,7 @@ export default class AddPhoneNumberPanel extends Component {
           </div>
         </div>
         <div className={verificationCodeClass}>
-          <label htmlFor="verification-code">Verification Code</label>
+          <label htmlFor="verification-code">{RES_NUMBER.verificationCode}</label>
           <input
             type="text"
             className="form-control"
@@ -313,12 +315,12 @@ export default class AddPhoneNumberPanel extends Component {
             onClick={this.resendVerification}
             className={`resend-code-link${(this.state.showResend ? '' : ' hidden')}`}
           >
-            Resend Verification
+            {RES_NUMBER.resendVerification}
           </a>
           <span className={`resend-code-span${(this.state.showResend ? ' hidden' : '')}`}>
-            Verification code sent to this number
+            {RES_NUMBER.verificationCodeSent}&nbsp;
             +{this.state.selectedCountryCallingCode}{this.state.number}.
-            Please wait upto 5 minutes to receive the verification code.
+            &nbsp;{RES_NUMBER.pleaseWait}
           </span>
         </div>
         <div className="form-group">
@@ -329,13 +331,13 @@ export default class AddPhoneNumberPanel extends Component {
           type="button"
           onClick={this.addOrVerify}
         >
-          {(this.state.forVerification ? 'Verify' : 'Add')}
+          {(this.state.forVerification ? RES_NUMBER.verify : RES_NUMBER.add)}
         </button>
         <a
           href={Url.action('user/profile/numbers/why-verify')}
           className="why-verify-link pull-right"
         >
-          Why verify?
+          {RES_NUMBER.whyVerify}
         </a>
       </div>
     );

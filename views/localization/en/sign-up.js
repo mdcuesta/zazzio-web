@@ -1,4 +1,6 @@
 module.exports = {
+  bySigningUp: 'By Signing up you agree to our',
+  emailAddress: 'Email Address',
   errors: {
     'Email.Exists': 'An account is already associated with this Email Address.',
     'Email.Required': 'Email Address is required',
@@ -7,8 +9,6 @@ module.exports = {
     'Password.Invalid': 'Password must be at least 6 characters',
     'Password.Required': 'Password is required',
   },
-  bySigningUp: 'By Signing up you agree to our',
-  emailAddress: 'Email Address',
   firstName: 'First Name',
   haveAnAccount: 'Already have an account?',
   industryProfessional: 'I\'m a landlord or an industry professional',

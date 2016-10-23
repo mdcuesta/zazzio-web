@@ -28,8 +28,9 @@ export function lang(req, res, next) {
   const url = Url.parse(referrer || '');
   res.cookie('locale', locale);
 
-  if (typeof url !== 'undefined' &&
-    ((process.env.APP_DOMAIN || 'zazzio.something.awesome.com') === url.hostname)) {
+  const hostName = process.env.APP_DOMAIN || 'zazzio.something.awesome.com';
+
+  if (typeof url !== 'undefined' && hostName === url.hostname) {
     res.redirect(referrer);
   } else {
     res.redirect('/');
