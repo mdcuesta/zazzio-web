@@ -1,4 +1,7 @@
 module.exports = {
+  accountCreated: 'Ang imong account malampuson nga nabuhat.',
+  completeMessage: 'Palihug sa pag konpirma sa imong account pinaagi sa pag-click sa link nga among gipadala sa imong email. Salamat.', // eslint-disable-line
+  completeOk: 'Padayon',
   errors: {
     'Email.Exists': 'Naa nay account nga nag-gamit ani nga Email Address.',
     'EmailAddress.Invalid': 'Ang Email Address kay sayop ang format',

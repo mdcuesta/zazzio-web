@@ -1,4 +1,7 @@
 module.exports = {
+  accountCreated: 'Ang iyong account ay matagumpay na nalikha.',
+  completeMessage: 'Mangyaring kumpirmahin ang iyong account sa pamamagitan ng pag-click sa link na aming pinadala sa iyong email. Salamat.', // eslint-disable-line
+  completeOk: 'Magpatuloy',
   errors: {
     'Email.Exists': 'Ang Email Address na ito ay nauugnay na sa isang account.',
     'EmailAddress.Invalid': 'Ang Email Address ay mali ang format',

@@ -100,17 +100,16 @@ export default class RegisterPanel extends Component {
     return (
       <div role="form">
         <section className="section-regular-sign-up-complete">
-          <h5 className="text-center">Your account has been successfully created.</h5>
+          <h5 className="text-center">{RES_REGISTER.accountCreated}</h5>
           <p className="text-center">
-            Please confirm your account by clicking the confirmation link
-            that we sent to your email.  Thank you.
+            {RES_REGISTER.completeMessage}
           </p>
           <div>
             <button
               className="btn btn-block btn-success btn-sign-up"
               onClick={() => location.reload(true)}
             >
-              Got it!
+              {RES_REGISTER.completeOk}
             </button>
           </div>
         </section>

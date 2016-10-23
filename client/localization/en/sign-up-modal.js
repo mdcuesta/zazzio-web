@@ -1,4 +1,7 @@
 module.exports = {
+  accountCreated: 'Your account has been successfully created.',
+  completeMessage: 'Please confirm your account by clicking the confirmation link that we sent to your email. Thank you.', // eslint-disable-line
+  completeOk: 'Got it!',
   errors: {
     'Email.Exists': 'An account is already associated with this Email Address.',
     'EmailAddress.Invalid': 'Email Address is invalid',
