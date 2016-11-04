@@ -16,8 +16,10 @@ export default function configure() {
       if (user === null) {
         done(null, false);
       } else if (!user.verifyPassword(password)) {
+        user.loginFailed();
         done(null, false);
       } else {
+        user.loginSuccessful();
         done(null, user);
       }
     })

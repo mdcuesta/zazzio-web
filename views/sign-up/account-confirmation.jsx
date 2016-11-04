@@ -49,14 +49,19 @@ export default function AccountConfirmation(props) {
           </div>
         </div>
       </div>
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
 
 AccountConfirmation.propTypes = {
-  user: React.PropTypes.object,
-  authenticated: React.PropTypes.bool,
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  user: React.PropTypes.object.isRequired,
+  authenticated: React.PropTypes.bool.isRequired,
   locale: React.PropTypes.string.isRequired,
 };
 

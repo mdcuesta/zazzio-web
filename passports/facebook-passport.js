@@ -43,6 +43,8 @@ export default function configure() {
               email,
             });
             /* eslint-disable */
+            newUser.loginAttempt = 0;
+            newUser.loginCount++;
             newUser.save()
             .then((doc) => { 
               done(null, doc); 
@@ -58,6 +60,8 @@ export default function configure() {
               refreshToken,
               email,
             });
+            account.loginAttempt = 0;
+            account.loginCount++;
             account.save().then((doc) => done(null, doc))
             .catch(done);
           }
@@ -71,6 +75,8 @@ export default function configure() {
           refreshToken,
           email,
         });
+        user.loginAttempt = 0;
+        user.loginCount++;
         user.save().then((doc) => done(null, doc));
       }
     })

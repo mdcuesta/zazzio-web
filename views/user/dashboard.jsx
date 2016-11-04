@@ -15,6 +15,7 @@ export default function Dashboard(props) {
       user={props.user}
       page="dashboard"
       locale={props.locale}
+      route={props.route}
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
@@ -76,7 +77,10 @@ export default function Dashboard(props) {
 
 Dashboard.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
   user: React.PropTypes.object.isRequired,
-  locale: React.PropTypes.string,
+  locale: React.PropTypes.string.isRequired,
 };
 

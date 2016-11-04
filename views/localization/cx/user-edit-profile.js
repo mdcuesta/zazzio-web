@@ -6,7 +6,7 @@ module.exports = {
   },
   form: {
     aboutYourselfLabel: 'Mahitungod sa Kaugalingon',
-    addMobileNumberLabel: 'Add Mobile Number',
+    addMobileNumberLabel: 'Pagdugang og Mobile Number',
     addressLabel: 'Address',
     birthdayLabel: 'Adlaw nga Natawhan',
     day: 'Adlaw',
@@ -26,7 +26,7 @@ module.exports = {
     year: 'Tuig',
   },
   photoPanel: {
-    removePhoto: 'Tang-tanga imong Photo',
+    removePhoto: 'Tang-tanga ang imong Photo',
     uploadPhoto: 'Pag-upload og Photo',
   },
   profile: 'Profile',

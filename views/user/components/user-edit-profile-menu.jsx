@@ -24,7 +24,7 @@ export default function EditProfileMenu(props) {
       </ul>
       <div className="card-block">
         <a
-          className="link-view-profile"
+          className="link-button"
           href={Url.action('users/profile-id')}
         >
           {props.resource.viewProfile}

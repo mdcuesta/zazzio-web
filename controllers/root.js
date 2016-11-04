@@ -1,4 +1,3 @@
-import Url from 'url';
 import { Router } from 'express';
 import { Authenticated } from '../utilities/security';
 
@@ -9,7 +8,6 @@ const authenticated = Authenticated;
  */
 export function index(req, res) {
   res.render('root/index', {
-    authenticated: authenticated(req),
     csrfToken: req.csrfToken(),
   });
 }
@@ -24,14 +22,9 @@ export function lang(req, res, next) {
     return;
   }
 
-  const referrer = req.get('Referrer');
-  const url = Url.parse(referrer || '');
   res.cookie('locale', locale);
-
-  const hostName = process.env.APP_DOMAIN || 'zazzio.something.awesome.com';
-
-  if (typeof url !== 'undefined' && hostName === url.hostname) {
-    res.redirect(referrer);
+  if (req.query.returnTo) {
+    res.redirect(req.query.returnTo);
   } else {
     res.redirect('/');
   }

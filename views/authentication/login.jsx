@@ -35,19 +35,25 @@ export default function Login(props) {
         returnTo={props.returnTo}
         locale={props.locale}
       />
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
 
 Login.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
-  authenticated: React.PropTypes.bool,
   validEmail: React.PropTypes.bool,
   unconfirmed: React.PropTypes.bool,
   email: React.PropTypes.string,
   returnTo: React.PropTypes.string,
-  locale: React.PropTypes.string,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  authenticated: React.PropTypes.bool.isRequired,
+  locale: React.PropTypes.string.isRequired,
 };
 
 Login.defaultProps = {

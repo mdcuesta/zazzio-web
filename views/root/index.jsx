@@ -18,6 +18,7 @@ export default function Index(props) {
       authenticated={props.authenticated}
       csrfToken={props.csrfToken}
       locale={props.locale}
+      includeFBAppId
     >
       <NavBar
         authenticated={props.authenticated}
@@ -37,16 +38,22 @@ export default function Index(props) {
         className="content"
         role="main"
       />
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
 
 Index.propTypes = {
-  authenticated: React.PropTypes.bool,
   csrfToken: React.PropTypes.string,
+
+  // default properties
+  authenticated: React.PropTypes.bool,
   user: React.PropTypes.object,
   locale: React.PropTypes.string,
+  route: React.PropTypes.string.isRequired,
 };
 
 Index.defaultProps = {

@@ -4,13 +4,12 @@ import SignUp from './controllers/sign-up';
 import UserDashboard from './controllers/user-dashboard';
 import UserProfile from './controllers/user-profile';
 import UserNumbers from './controllers/user-numbers';
+import UserListings from './controllers/user-listings';
 import Lists from './controllers/lists';
 import File from './controllers/file';
+import Listings from './controllers/listings';
 
 export default function configure(app) {
-  // root
-  app.use('/', Root);
-
   // authentication
   app.use('/auth', Authentication);
 
@@ -21,10 +20,17 @@ export default function configure(app) {
   app.use('/user/dashboard', UserDashboard);
   app.use('/user/profile', UserProfile);
   app.use('/user/numbers', UserNumbers);
+  app.use('/user/listings', UserListings);
+
+  // listings
+  app.use('/listings', Listings);
 
   // files
   app.use('/file', File);
 
   // misc
   app.use('/lists', Lists);
+
+  // root
+  app.use('/', Root);
 }

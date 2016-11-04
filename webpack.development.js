@@ -21,6 +21,10 @@ const jsClientConfig = {
     // user pages
     'user-dashboard': jsxPath + '/user-dashboard.js',
     'user-profile': jsxPath + '/user-profile.jsx',
+    'user-listings': jsxPath + '/user-listings.js',
+
+    // listings
+    'new-listing-wizard': jsxPath + '/new-listing-wizard.jsx',
   },
   module: {
     loaders: [{

@@ -42,6 +42,10 @@
   }
 }
 
+.side-menu-divider {
+  @include nav-divider($dropdown-divider-bg);
+}
+
 // form error
 .error-span-container {
   min-height: 1rem;

@@ -51,6 +51,19 @@ userSchema.methods.verifyPassword = function verifyPassword(password) {
   return hash === this.local.password;
 };
 
+/**
+ * Set Login Success
+ */
+userSchema.methods.loginSuccessful = function loginSuccessful() {
+  this.loginAttempt = 0;
+  this.loginCount++;
+  this.save();
+};
+
+userSchema.methods.loginFailed = function loginFailed() {
+  this.loginAttempt++;
+  this.save();
+};
 
 /**
  * Populate Profile from Facebook

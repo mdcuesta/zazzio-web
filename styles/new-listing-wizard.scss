@@ -1,0 +1,54 @@
+@charset 'utf-8';
+
+// Font Awesome
+@import './common/font-awesome';
+
+// Bootstrap Core
+@import './common/bootstrap-core';
+
+// Bootstrap Components
+@import './bootstrap/button-group';
+@import './bootstrap/input-group';
+@import './bootstrap/animation';
+@import './bootstrap/dropdown';
+@import './bootstrap/navbar';
+@import './bootstrap/nav';
+@import './bootstrap/list-group';
+@import './bootstrap/card';
+
+// Bootstrap Custom
+@import './custom/utilities';
+
+// Common
+// Navbar dependencies
+@import './common/colors';
+@import './common/buttons';
+@import './common/utilities';
+@import './common/animate';
+@import './common/layout';
+
+html,
+body,
+.wizard-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.wizard-scroller {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.wizard-content {
+  position: relative;
+
+  div {
+    &:nth-child(even) {
+      background: $body-background;
+    }
+
+    &:nth-child(odd) {
+      background: $brand-musturd;
+    }
+  }
+}

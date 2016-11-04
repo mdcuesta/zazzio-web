@@ -36,8 +36,9 @@ export default function Layout(props) {
     ? (<meta name="csrf-token" content={props.csrfToken} />)
     : null;
 
-  const fbIdMeta =
-    (<meta name="fb-app-id" content={process.env.FB_CLIENT_ID || '606312066216240'} />);
+  const fbIdMeta = props.includeFBAppId ?
+    (<meta name="fb-app-id" content={process.env.FB_CLIENT_ID || '606312066216240'} />)
+    : '';
 
   const ravenMeta =
     (<meta
@@ -115,6 +116,7 @@ Layout.propTypes = {
   csrfToken: React.PropTypes.string,
   fixedTop: React.PropTypes.bool,
   includeCloudinaryMeta: React.PropTypes.bool,
+  includeFBAppId: React.PropTypes.bool,
   locale: React.PropTypes.string,
 };
 
@@ -123,5 +125,6 @@ Layout.defaultProps = {
   csrfToken: null,
   fixedTop: true,
   includeCloudinaryMeta: true,
+  includeFBAppId: false,
   locale: 'en',
 };

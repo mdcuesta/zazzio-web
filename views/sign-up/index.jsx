@@ -32,16 +32,22 @@ export default function Index(props) {
         formValues={props.formValues}
         locale={props.locale}
       />
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
 
 Index.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
-  authenticated: React.PropTypes.bool,
   formValues: React.PropTypes.object,
-  locale: React.PropTypes.string,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  authenticated: React.PropTypes.bool.isRequired,
+  locale: React.PropTypes.string.isRequired,
 };
 
 Index.defaultProps = {

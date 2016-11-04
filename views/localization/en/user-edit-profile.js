@@ -6,7 +6,7 @@ module.exports = {
   },
   form: {
     aboutYourselfLabel: 'About Yourself',
-    addMobileNumberLabel: 'Add Mobile Number',
+    addMobileNumberLabel: 'Add a Mobile Number',
     addressLabel: 'Address',
     birthdayLabel: 'Birthday',
     day: 'Day',

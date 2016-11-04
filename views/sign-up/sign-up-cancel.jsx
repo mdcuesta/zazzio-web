@@ -68,16 +68,22 @@ export default function SignUpCancel(props) {
           </div>
         </div>
       </div>
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
 
 SignUpCancel.propTypes = {
-  user: React.PropTypes.object,
-  authenticated: React.PropTypes.bool,
   confirmationCode: React.PropTypes.string.isRequired,
   csrfToken: React.PropTypes.string.isRequired,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  user: React.PropTypes.object.isRequired,
+  authenticated: React.PropTypes.bool.isRequired,
   locale: React.PropTypes.string.isRequired,
 };
 

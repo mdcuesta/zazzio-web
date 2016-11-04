@@ -21,8 +21,12 @@ export default function () {
 
       if (typeof req.user !== 'undefined' && typeof model.user === 'undefined') {
         model.user = req.user;
+        model.authenticated = true;
+      } else {
+        model.authenticated = false;
       }
 
+      model.route = req.originalUrl;
       return res.originalRender(view, model);
     };
     next();

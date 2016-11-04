@@ -49,6 +49,7 @@ export default function Profile(props) {
       user={props.user}
       page="profile"
       locale={props.locale}
+      route={props.route}
     >
       <div className="row main-content">
         <div className="col-sm-12 col-md-4 col-lg-3">
@@ -82,11 +83,14 @@ export default function Profile(props) {
 
 Profile.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
-  user: React.PropTypes.object.isRequired,
   profile: React.PropTypes.object.isRequired,
   errors: React.PropTypes.array,
   uploadCredentials: React.PropTypes.object,
-  locale: React.PropTypes.string,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  user: React.PropTypes.object.isRequired,
+  locale: React.PropTypes.string.isRequired,
 };
 
 Profile.defaultProps = {

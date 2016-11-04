@@ -57,8 +57,11 @@ export default function Complete(props) {
 
 Complete.propTypes = {
   csrfToken: React.PropTypes.string.isRequired,
-  user: React.PropTypes.object,
-  authenticated: React.PropTypes.bool,
+
+  // default properties
+  route: React.PropTypes.string.isRequired,
+  user: React.PropTypes.object.isRequired,
+  authenticated: React.PropTypes.bool.isRequired,
   locale: React.PropTypes.string.isRequired,
 };
 

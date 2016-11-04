@@ -12,7 +12,7 @@ export default function DefaultFooter(props) {
           <ul className="list-footer">
             <li>
               <a
-                href={Url.action('en')}
+                href={Url.action(`en?returnTo=${props.route}`)}
                 className={`lang-link${(props.locale === 'en' ? ' active' : '')}`}
               >
                 {RES_FOOTER.english}
@@ -20,7 +20,7 @@ export default function DefaultFooter(props) {
             </li>
             <li>
               <a
-                href={Url.action('tl')}
+                href={Url.action(`tl?returnTo=${props.route}`)}
                 className={`lang-link${(props.locale === 'tl' ? ' active' : '')}`}
               >
                 {RES_FOOTER.tagalog}
@@ -28,7 +28,7 @@ export default function DefaultFooter(props) {
             </li>
             <li>
               <a
-                href={Url.action('cx')}
+                href={Url.action(`cx?returnTo=${props.route}`)}
                 className={`lang-link${(props.locale === 'cx' ? ' active' : '')}`}
               >
                 {RES_FOOTER.bisaya}
@@ -148,4 +148,9 @@ export default function DefaultFooter(props) {
 
 DefaultFooter.propTypes = {
   locale: React.PropTypes.string.isRequired,
+  route: React.PropTypes.string,
+};
+
+DefaultFooter.defaultProps = {
+  route: '/',
 };

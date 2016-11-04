@@ -36,24 +36,6 @@ $delete-color:            #8c0001 !default;
 $verify-btn-border:       #373a3c !default;
 $add-number-link-color:   #373a3c !default;
 
-.link-view-profile {
-  border: 2px solid $brand-musturd;
-  color: $brand-musturd;
-  display: block;
-  font-size: .8em;
-  padding-bottom: .5rem;
-  padding-top: .5rem;
-  text-align: center;
-  text-decoration: none;
-  touch-action: manipulation;
-
-  &:hover {
-    background: $brand-musturd;
-    color: $white;
-    text-decoration: none;
-  }
-}
-
 .edit-profile-form {
   .row {
     margin-bottom: 1.5rem;

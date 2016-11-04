@@ -32,7 +32,10 @@ export default function Dashboard(props) {
       >
         {props.children}
       </div>
-      <Footer locale={props.locale} />
+      <Footer
+        locale={props.locale}
+        route={props.route}
+      />
     </DefaultLayout>
   );
 }
@@ -43,8 +46,12 @@ Dashboard.propTypes = {
   title: React.PropTypes.string,
   children: React.PropTypes.array,
   csrfToken: React.PropTypes.string,
+  route: React.PropTypes.string,
   user: React.PropTypes.object.isRequired,
   page: React.PropTypes.string,
   locale: React.PropTypes.string.isRequired,
 };
 
+Dashboard.defaultProps = {
+  route: '/',
+};

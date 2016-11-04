@@ -103,6 +103,16 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
+  loginCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  loginAttempt: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   dateCreated: Date,
   dateModified: Date,
 });
