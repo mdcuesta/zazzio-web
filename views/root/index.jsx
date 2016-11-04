@@ -27,7 +27,7 @@ export default function Index(props) {
       />
       <div
         id="home-hero-container"
-        className="home-hero animated fadeIn"
+        className="home-hero animated"
         role="banner"
       >
         <div className="hero-content col-sm-12 col-md-12 col-lg-12">

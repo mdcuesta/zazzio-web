@@ -112,7 +112,7 @@ export default class VerifyPhoneNumberPanel extends Component {
     `resend-code-span${(this.state.showResend || this.state.resendHasError ? ' hidden' : '')}`;
     return (
       <div
-        className={`col-xs-12 collapse phone-numbers-panel fadeIn animated verify ${this.props.id}`}
+        className={`col-xs-12 collapse phone-numbers-panel animated verify ${this.props.id}`}
         id={this.props.id}
       >
         <span className="panel-title">{`+${this.props.number}`}</span>

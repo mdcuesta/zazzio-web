@@ -20,7 +20,7 @@
     "bluebird": "^3.4.6",
     "blueimp-file-upload": "^9.12.5",
     "body-parser": "^1.15.2",
-    "bootstrap": "^4.0.0-alpha.4",
+    "bootstrap": "^4.0.0-alpha.5",
     "cloudinary": "^1.4.3",
     "cloudinary-core": "^2.1.2",
     "compression": "^1.6.2",

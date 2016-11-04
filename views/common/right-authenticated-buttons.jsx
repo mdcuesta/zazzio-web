@@ -30,13 +30,13 @@ export default function RightAuthenticatedButtons(props) {
 
   return (
     <div
-      className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
+      className="float-xs-right float-sm-right float-md-right float-lg-right navbar-right"
       id="navbar-right"
     >
       <ul className="nav navbar-nav hidden-sm-down">
         <li className="nav-item nav-item-list-property nav-item-separator">
           <a
-            className="nav-link"
+            className="nav-link hidden-md-2-down"
             href={Url.action('list-property')}
           >
             {RES_NAVBAR.listYourProperty}

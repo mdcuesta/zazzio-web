@@ -246,7 +246,7 @@ export default class AddPhoneNumberPanel extends Component {
 
     return (
       <div
-        className="col-xs-12 collapse phone-numbers-panel"
+        className="col-xs-12 collapse phone-numbers-panel fast bounce"
         id={this.props.id}
       >
         <span className="panel-title">{RES_NUMBER.addMobileNumber}</span>
@@ -254,7 +254,6 @@ export default class AddPhoneNumberPanel extends Component {
           type="button"
           className={`close pull-right${(this.state.forVerification ? ' hidden' : '')}`}
           aria-label="Close"
-          data-toggle="collapse"
           data-target={`#${this.props.id}`}
           aria-expanded="false"
           aria-controls={this.props.id}

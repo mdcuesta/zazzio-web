@@ -12,7 +12,6 @@ export default class LoginModal extends Component {
       accountCreated: false,
     };
     this.onChange = this.onChange.bind(this);
-    this.close = this.close.bind(this);
     Store.addChangeListener(this.onChange);
   }
 
@@ -29,13 +28,6 @@ export default class LoginModal extends Component {
     }
   }
 
-  close() {
-    $(`#${this.props.id}`).modal('hide');
-    if (this.state.accountCreated) {
-      location.reload(true);
-    }
-  }
-
   render() {
     const modalContent = (
       <div
@@ -48,7 +40,7 @@ export default class LoginModal extends Component {
               type="button"
               className="close"
               aria-label="Close"
-              onClick={this.close}
+              data-dismiss="modal"
             >
               <span aria-hidden="true">&times;</span>
             </button>

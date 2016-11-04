@@ -6,7 +6,7 @@ export default function RightUnAuthenticatedButtons(props) {
   const RES_NAVBAR = ResourceHelper.getResource('navbar', props.locale);
   return (
     <div
-      className="pull-xs-right pull-sm-right pull-md-right pull-lg-right navbar-right"
+      className="float-xs-right float-sm-right float-md-right float-lg-right navbar-right"
       id="navbar-right"
     >
       <ul className="nav navbar-nav hidden-md-down">

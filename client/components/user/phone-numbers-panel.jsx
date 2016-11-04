@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MotionUI from 'motion-ui';
 import AddPhoneNumberPanel from './add-phone-number-panel';
 import NumbersStore from '../../stores/phone-numbers-store';
 import NumbersAction from '../../actions/phone-numbers-actions';
@@ -35,14 +36,23 @@ export default class PhoneNumbersPanel extends Component {
   }
 
   toggleAddPhoneNumberPanel(reloadNumbers = false) {
-    $(`#${ADD_PHONE_NUMBER_PANEL_ID}`).animateCss('fadeIn');
     MiscAction.loadCountriesWithCallingCode();
-    this.setState({
-      showAddPhoneNumberPanel: !this.state.showAddPhoneNumberPanel,
-    });
 
-    if (reloadNumbers) {
-      NumbersAction.getMobileNumbers();
+    const toggle = () => {
+      this.setState({
+        showAddPhoneNumberPanel: !this.state.showAddPhoneNumberPanel,
+      });
+
+      if (reloadNumbers) {
+        NumbersAction.getMobileNumbers();
+      }
+    };
+
+    if (!this.state.showAddPhoneNumberPanel) {
+      MotionUI.animateIn(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'hinge-in-from-top');
+      toggle();
+    } else {
+      MotionUI.animateOut(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'hinge-out-from-top', toggle);
     }
   }
 
@@ -62,9 +72,8 @@ export default class PhoneNumbersPanel extends Component {
         ))}
         <div>
           <a
-            href={`#${ADD_PHONE_NUMBER_PANEL_ID}`}
+            role="button"
             className={`add-number-link${this.state.showAddPhoneNumberPanel ? ' hidden' : ''}`}
-            data-toggle="collapse"
             aria-expanded="false"
             aria-controls={ADD_PHONE_NUMBER_PANEL_ID}
             onClick={() => this.toggleAddPhoneNumberPanel()}
