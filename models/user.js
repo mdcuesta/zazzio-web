@@ -109,7 +109,7 @@ function getSmsServiceRequestStatus(response, defaultStatus = 0) {
 
   const resultStatus =
     ['1', '2', '4', '5', '6', '7',
-    '8', '9', '15', '18', '101'].find(p => p === response.status);
+      '8', '9', '15', '18', '101'].find(p => p === response.status);
 
   if (typeof resultStatus !== 'undefined') {
     log({

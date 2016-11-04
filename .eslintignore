@@ -13,3 +13,4 @@ Procfile
 *.log
 *.html
 *.json
+yarn.lock

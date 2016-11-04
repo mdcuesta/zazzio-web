@@ -32,19 +32,19 @@ export default class PhoneNumberDisplayText extends Component {
     const verifiedPane = this.props.isVerified || this.state.verified
       ? (<VerifiedPane />)
       : (
-      <UnVerifiedPane
-        verifyPanelId={`pverify-${this.props.index}`}
-        toggleShowHide={this.toggleShowHide}
-      />);
+        <UnVerifiedPane
+          verifyPanelId={`pverify-${this.props.index}`}
+          toggleShowHide={this.toggleShowHide}
+        />);
 
     const verifyPanel = this.props.isVerified
       ? ''
       : (
-      <VerifyPanel
-        id={`pverify-${this.props.index}`}
-        number={this.props.number}
-        toggleShowHideParent={this.toggleShowHide}
-      />
+        <VerifyPanel
+          id={`pverify-${this.props.index}`}
+          number={this.props.number}
+          toggleShowHideParent={this.toggleShowHide}
+        />
       );
 
     const hiddenClass = this.state.show ? '' : ' hidden';
@@ -66,7 +66,7 @@ export default class PhoneNumberDisplayText extends Component {
             </a>
           </div>
         </div>
-       {verifyPanel}
+        {verifyPanel}
       </div>
     );
   }
