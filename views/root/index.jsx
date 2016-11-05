@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layout';
 import NavBar from '../common/navbar';
+import MobileMenu from '../common/mobile-menu';
 import Footer from '../common/default-footer';
 import Url from '../helpers/url-helper';
 import ResourceHelper from '../helpers/resource-helper';
@@ -25,6 +26,7 @@ export default function Index(props) {
         user={props.user}
         locale={props.locale}
       />
+      <MobileMenu />
       <div
         id="home-hero-container"
         className="home-hero animated"

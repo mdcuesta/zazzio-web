@@ -37,8 +37,7 @@ export default class VerifyPhoneNumberPanel extends Component {
       const error = this.getError(status);
 
       if (status === 0) {
-        $(`#${this.props.id}`).collapse('toggle');
-        this.props.toggleShowHideParent(true);
+        this.props.toggleShowHideParent(this.props.index, true);
       } else {
         this.setState({
           error,
@@ -112,7 +111,7 @@ export default class VerifyPhoneNumberPanel extends Component {
     `resend-code-span${(this.state.showResend || this.state.resendHasError ? ' hidden' : '')}`;
     return (
       <div
-        className={`col-xs-12 collapse phone-numbers-panel animated verify ${this.props.id}`}
+        className={`col-xs-12 collapse phone-numbers-panel fast bounce verify ${this.props.id}`}
         id={this.props.id}
       >
         <span className="panel-title">{`+${this.props.number}`}</span>
@@ -120,11 +119,9 @@ export default class VerifyPhoneNumberPanel extends Component {
           type="button"
           className="close pull-right"
           aria-label="Close"
-          data-toggle="collapse"
-          data-target={`#${this.props.id}`}
           aria-expanded="false"
           aria-controls={this.props.id}
-          onClick={() => this.props.toggleShowHideParent(false)}
+          onClick={() => this.props.toggleShowHideParent(this.props.index, false)}
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -180,4 +177,5 @@ VerifyPhoneNumberPanel.propTypes = {
   id: React.PropTypes.string.isRequired,
   number: React.PropTypes.string.isRequired,
   toggleShowHideParent: React.PropTypes.func.isRequired,
+  index: React.PropTypes.number.isRequired,
 };

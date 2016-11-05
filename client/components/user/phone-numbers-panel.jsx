@@ -49,10 +49,10 @@ export default class PhoneNumbersPanel extends Component {
     };
 
     if (!this.state.showAddPhoneNumberPanel) {
-      MotionUI.animateIn(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'hinge-in-from-top');
+      MotionUI.animateIn(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'fade-in');
       toggle();
     } else {
-      MotionUI.animateOut(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'hinge-out-from-top', toggle);
+      MotionUI.animateOut(`#${ADD_PHONE_NUMBER_PANEL_ID}`, 'fade-out', toggle);
     }
   }
 

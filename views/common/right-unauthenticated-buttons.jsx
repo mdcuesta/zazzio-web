@@ -9,7 +9,7 @@ export default function RightUnAuthenticatedButtons(props) {
       className="float-xs-right float-sm-right float-md-right float-lg-right navbar-right"
       id="navbar-right"
     >
-      <ul className="nav navbar-nav hidden-md-down">
+      <ul className="nav navbar-nav hidden-md-2-down">
         <li className="nav-item nav-item-list-property nav-item-separator">
           <a
             className="nav-link"

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MotionUI from 'motion-ui';
 import Url from '../../helpers/url-helper';
 import VerifyPanel from './verify-phone-number-panel';
 import NumbersAction from '../../actions/phone-numbers-actions';
@@ -16,11 +17,23 @@ export default class PhoneNumberDisplayText extends Component {
     this.delete = this.delete.bind(this);
   }
 
-  toggleShowHide(verified = false) {
-    this.setState({
-      show: !this.state.show,
-      verified,
-    });
+  toggleShowHide(index, verified = false) {
+    const setShowState = (callback) => {
+      this.setState({
+        show: !this.state.show,
+        verified,
+      });
+      if (callback) {
+        callback();
+      }
+    };
+    if (!this.state.show) {
+      MotionUI.animateOut(`#pverify-${index}`, 'fade-out', setShowState);
+    } else {
+      setShowState(() => {
+        MotionUI.animateIn(`#pverify-${index}`, 'fade-in');
+      });
+    }
   }
 
   delete(e) {
@@ -35,6 +48,7 @@ export default class PhoneNumberDisplayText extends Component {
         <UnVerifiedPane
           verifyPanelId={`pverify-${this.props.index}`}
           toggleShowHide={this.toggleShowHide}
+          index={this.props.index}
         />);
 
     const verifyPanel = this.props.isVerified
@@ -42,6 +56,7 @@ export default class PhoneNumberDisplayText extends Component {
       : (
         <VerifyPanel
           id={`pverify-${this.props.index}`}
+          index={this.props.index}
           number={this.props.number}
           toggleShowHideParent={this.toggleShowHide}
         />
@@ -93,11 +108,10 @@ function UnVerifiedPane(props) {
   return (
     <div className="col-xs-4 col-sm-4 col-md-4 col-lg-3 unverified ">
       <a
-        href={`#${props.verifyPanelId}`}
-        data-toggle="collapse"
+        role="button"
         aria-expanded="false"
         aria-controls={props.verifyPanelId}
-        onClick={props.toggleShowHide}
+        onClick={() => props.toggleShowHide(props.index)}
       >
         {RES_NUMBER.verify}
       </a>
@@ -108,4 +122,5 @@ function UnVerifiedPane(props) {
 UnVerifiedPane.propTypes = {
   verifyPanelId: React.PropTypes.string.isRequired,
   toggleShowHide: React.PropTypes.func.isRequired,
+  index: React.PropTypes.number.isRequired,
 };

@@ -17,6 +17,7 @@ export default function NavBar(props) {
   const navBarRightContent = props.authenticated
     ? (<AuthenticatedButtons user={props.user} locale={props.locale} />)
     : (<UnAuthenticatedButtons locale={props.locale} />);
+
   return (
     <nav
       className={navbarClass}
@@ -174,22 +175,8 @@ export default function NavBar(props) {
           <button
             className="navbar-toggler menu-toggler hidden-md-up"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbar-menu-collapse"
-            aria-controls="navbar-menu-collapse"
-            aria-expanded="false"
-            aria-label="menu"
-          >
-            <i className="fa fa-large fa-cog" />
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className="navbar-toggler menu-toggler hidden-md-up"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbar-menu-collapse"
-            aria-controls="navbar-menu-collapse"
+            role="button"
+            id="btn-mobile-menu"
             aria-expanded="false"
             aria-label="menu"
           >
