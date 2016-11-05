@@ -4,6 +4,7 @@ import 'bootstrap';
 import './utils';
 import './common/navbar-transformations';
 import './common/navbar-modal-transformations';
+import './common/mobile-menu-transformations';
 import PhoneNumbersPanel from './components/user/phone-numbers-panel';
 import UserPhotoPanel from './components/user/user-photo-panel';
 

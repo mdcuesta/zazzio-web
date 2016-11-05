@@ -1,8 +1,5 @@
 import React from 'react';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import MobileMenu from '../common/mobile-menu';
-import Footer from '../common/default-footer';
+import CommonLayout from '../common-layout';
 import Url from '../helpers/url-helper';
 import ResourceHelper from '../helpers/resource-helper';
 
@@ -12,7 +9,7 @@ import ResourceHelper from '../helpers/resource-helper';
 export default function Index(props) {
   const RES_HOME = ResourceHelper.getResource('home', props.locale);
   return (
-    <DefaultLayout
+    <CommonLayout
       title={RES_HOME.title}
       scripts={[Url.cdn('javascripts/home')]}
       styles={[Url.cdn('stylesheets/home')]}
@@ -20,13 +17,9 @@ export default function Index(props) {
       csrfToken={props.csrfToken}
       locale={props.locale}
       includeFBAppId
+      route={props.route}
+      user={props.user}
     >
-      <NavBar
-        authenticated={props.authenticated}
-        user={props.user}
-        locale={props.locale}
-      />
-      <MobileMenu />
       <div
         id="home-hero-container"
         className="home-hero animated"
@@ -40,11 +33,7 @@ export default function Index(props) {
         className="content"
         role="main"
       />
-      <Footer
-        locale={props.locale}
-        route={props.route}
-      />
-    </DefaultLayout>
+    </CommonLayout>
   );
 }
 

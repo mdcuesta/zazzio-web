@@ -1,8 +1,6 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import Footer from '../common/default-footer';
+import CommonLayout from '../common-layout';
 import ResourceHelper from '../helpers/resource-helper';
 
 /**
@@ -11,7 +9,7 @@ import ResourceHelper from '../helpers/resource-helper';
 export default function Complete(props) {
   const RES_SIGNUP = ResourceHelper.getResource('sign-up-complete', props.locale);
   return (
-    <DefaultLayout
+    <CommonLayout
       title={RES_SIGNUP.title}
       scripts={[Url.cdn('javascripts/sign-up')]}
       styles={[Url.cdn('stylesheets/sign-up')]}
@@ -19,13 +17,8 @@ export default function Complete(props) {
       csrfToken={props.csrfToken}
       fixedTop={false}
       locale={props.locale}
+      route={props.route}
     >
-      <NavBar
-        authenticated={props.authenticated}
-        fixedTop={false}
-        user={props.user}
-        locale={props.locale}
-      />
       <div className="container">
         <div
           className={'box-control-container col-xs-12 col-sm-12 ' +
@@ -50,8 +43,7 @@ export default function Complete(props) {
           </div>
         </div>
       </div>
-      <Footer locale={props.locale} />
-    </DefaultLayout>
+    </CommonLayout>
   );
 }
 

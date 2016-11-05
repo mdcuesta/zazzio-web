@@ -1,8 +1,6 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import Footer from '../common/default-footer';
+import CommonLayout from '../common-layout';
 import ResourceHelper from '../helpers/resource-helper';
 
 /**
@@ -11,20 +9,15 @@ import ResourceHelper from '../helpers/resource-helper';
 export default function AccountConfirmation(props) {
   const RES_CONFIRM = ResourceHelper.getResource('sign-up-confirm', props.locale);
   return (
-    <DefaultLayout
+    <CommonLayout
       title={RES_CONFIRM.title}
       scripts={[Url.cdn('javascripts/account-confirmation')]}
       styles={[Url.cdn('stylesheets/account-confirmation')]}
       authenticated={props.authenticated}
       fixedTop={false}
       locale={props.locale}
+      route={props.route}
     >
-      <NavBar
-        authenticated={props.authenticated}
-        fixedTop={false}
-        user={props.user}
-        locale={props.locale}
-      />
       <div className="container">
         <div
           className={'box-control-container col-xs-12 col-sm-12 ' +
@@ -49,11 +42,7 @@ export default function AccountConfirmation(props) {
           </div>
         </div>
       </div>
-      <Footer
-        locale={props.locale}
-        route={props.route}
-      />
-    </DefaultLayout>
+    </CommonLayout>
   );
 }
 

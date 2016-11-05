@@ -208,34 +208,3 @@
     }
   }
 }
-
-.mobile-menu {
-  .menu {
-    bottom: 0;
-    left: 50px;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: $zindex-modal-bg;
-  }
-
-  $box-shadow-color: rgba(75, 79, 84, .25);
-
-  .content {
-    background-clip: padding-box;
-    background-color: $white;
-    box-shadow: 4px 0 3px 5px $box-shadow-color;
-    position: relative;
-  }
-
-  .close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-
-    span {
-      font-size: 1.5em;
-      font-weight: lighter;
-    }
-  }
-}

@@ -1,8 +1,6 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import Footer from '../common/default-footer';
+import CommonLayout from '../common-layout';
 import SignUpControl from './components/signup-control';
 import ResourceHelper from '../helpers/resource-helper';
 
@@ -13,7 +11,7 @@ export default function Index(props) {
   const RES_SIGNUP = ResourceHelper.getResource('sign-up', props.locale);
 
   return (
-    <DefaultLayout
+    <CommonLayout
       title={RES_SIGNUP.title}
       scripts={[Url.cdn('javascripts/sign-up')]}
       styles={[Url.cdn('stylesheets/sign-up')]}
@@ -21,22 +19,14 @@ export default function Index(props) {
       csrfToken={props.csrfToken}
       fixedTop={false}
       locale={props.locale}
+      route={props.route}
     >
-      <NavBar
-        authenticated={props.authenticated}
-        fixedTop={false}
-        locale={props.locale}
-      />
       <SignUpControl
         csrfToken={props.csrfToken}
         formValues={props.formValues}
         locale={props.locale}
       />
-      <Footer
-        locale={props.locale}
-        route={props.route}
-      />
-    </DefaultLayout>
+    </CommonLayout>
   );
 }
 

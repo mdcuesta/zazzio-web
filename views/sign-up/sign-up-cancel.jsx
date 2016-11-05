@@ -1,8 +1,6 @@
 import React from 'react';
 import Url from '../helpers/url-helper';
-import DefaultLayout from '../layout';
-import NavBar from '../common/navbar';
-import Footer from '../common/default-footer';
+import CommonLayout from '../common-layout';
 import ResourceHelper from '../helpers/resource-helper';
 
 /**
@@ -12,20 +10,15 @@ export default function SignUpCancel(props) {
   const RES_CANCEL = ResourceHelper.getResource('sign-up-cancel', props.locale);
 
   return (
-    <DefaultLayout
+    <CommonLayout
       title={RES_CANCEL.title}
       scripts={[Url.cdn('javascripts/sign-up-cancel')]}
       styles={[Url.cdn('stylesheets/sign-up-cancel')]}
       authenticated={props.authenticated}
       fixedTop={false}
       locale={props.locale}
+      route={props.route}
     >
-      <NavBar
-        authenticated={props.authenticated}
-        fixedTop={false}
-        user={props.user}
-        locale={props.locale}
-      />
       <div className="container">
         <div
           className={'box-control-container col-xs-12 col-sm-12 ' +
@@ -68,11 +61,7 @@ export default function SignUpCancel(props) {
           </div>
         </div>
       </div>
-      <Footer
-        locale={props.locale}
-        route={props.route}
-      />
-    </DefaultLayout>
+    </CommonLayout>
   );
 }
 

@@ -44,8 +44,13 @@ export default class MobileMenu extends Component {
       });
     });
 
-    $(`#${this.props.id} .backdrop`).mouseup(() => {
-      this.close();
+    $(document).mouseup((e) => {
+      if (this.state.shown) {
+        const menu = $(menuWrapperSelector);
+        if (!menu.is(e.target) && menu.has(e.target).length === 0) {
+          this.close();
+        }
+      }
     });
 
     $(window).resize(() => {

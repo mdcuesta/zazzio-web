@@ -1,6 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layout';
 import NavBar from '../common/navbar';
+import MobileMenu from '../common/mobile-menu';
 import UserNavBar from './components/user-navbar';
 import Footer from '../common/default-footer';
 
@@ -22,6 +23,7 @@ export default function Dashboard(props) {
         fixedTop={false}
         locale={props.locale}
       />
+      <MobileMenu />
       <UserNavBar
         active={props.page}
         locale={props.locale}
