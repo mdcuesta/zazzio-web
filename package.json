@@ -11,7 +11,8 @@
     "sass-lint": "sass-lint --verbose --output-file sass-lint-output.html sass",
     "lint": "npm run es-lint && npm run sass-lint",
     "build-release": "webpack -p -progress --colors --config webpack.release.js",
-    "release": "node zazzio.compiled.js"
+    "release": "node zazzio.compiled.js",
+    "postinstall": "npm run build-release"
   },
   "dependencies": {
     "animate.css": "^3.5.2",

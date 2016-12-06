@@ -37,3 +37,5 @@ zazzio.compiled.js
 
 eslint-output.html
 sass-lint-output.html
+
+dist/

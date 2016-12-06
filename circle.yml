@@ -1,7 +1,10 @@
 machine:
   node:
     version: 7.2.0
-
+checkout:
+  post:
+    - git submodule add -f $EINIX_REPOSITORY einix
+    - git submodule add -f $AVALOO_REPOSITORY avaloo
 dependencies:
   pre:
     - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
@@ -36,3 +39,21 @@ test:
     - cp -a Procfile dist/
     - zip -r dist.zip dist/
     - cp -a dist.zip $CIRCLE_ARTIFACTS/
+
+deployment:
+  einix:
+    branch: develop
+    commands:
+      - cp -rf dist/ einix
+      - cd einix
+      - git add --all
+      - git commit -m "deploying to einix"
+      - git push origin --all --force
+  avaloo:
+    branch: develop
+    commands:
+      - cp -rf dist/ avaloo
+      - cd avaloo
+      - git add --all
+      - git commit -m "deploying to avaloo"
+      - git push origin --all --force
