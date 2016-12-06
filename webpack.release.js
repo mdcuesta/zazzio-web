@@ -3,10 +3,11 @@ var webpack = require('webpack');
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var sha1 = require('sha1');
 var glob = require("glob");
 var pjson = require('./package.json');
 
-var version = pjson.version;
+var version = sha1(pjson.version);
 var appName = 'zazzio';
 
 var dist = __dirname;

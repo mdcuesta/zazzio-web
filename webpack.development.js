@@ -2,7 +2,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var pjson = require('./package.json');
-var version = pjson.version;
+var sha1 = require('sha1');
+var version = sha1(pjson.version);
 var jsxPath = path.join(__dirname, 'client');
 var jsPath = path.join(__dirname, 'assets', version, 'javascripts');
 var CopyWebpackPlugin = require('copy-webpack-plugin');

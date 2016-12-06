@@ -11,8 +11,7 @@
     "sass-lint": "sass-lint --verbose --output-file sass-lint-output.html sass",
     "lint": "npm run es-lint && npm run sass-lint",
     "build-release": "webpack -p -progress --colors --config webpack.release.js",
-    "release": "node zazzio.compiled.js",
-    "postinstall": "npm run build-release"
+    "release": "node zazzio.compiled.js"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
@@ -61,6 +60,7 @@
     "react-dom": "^15.3.0",
     "sendgrid": "^4.0.1",
     "serve-favicon": "^2.3.0",
+    "sha1": "^1.1.1",
     "tether": "^1.3.7",
     "uuid": "^2.0.3",
     "validator": "^5.6.0"

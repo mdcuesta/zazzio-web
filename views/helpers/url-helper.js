@@ -1,7 +1,8 @@
+const sha1 = require('sha1');
 const pjson = require('../../package.json');
 
 const distributionUrl = process.env.CDN_DISTRIBUTION_URL || '';
-const version = pjson.version;
+const version = sha1(pjson.version);
 
 const appUrl = process.env.APP_DOMAIN || '';
 
