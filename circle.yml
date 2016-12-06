@@ -31,7 +31,6 @@ test:
   post:
     - yarn run build-release
     - mkdir dist
-    - cp -rf node_modules dist/node_modules
     - cp -rf coverage dist/coverage
     - cp -rf assets dist/assets
     - cp -rf views dist/views
@@ -43,13 +42,10 @@ test:
     - cp -a dist.zip $CIRCLE_ARTIFACTS/
 
 deployment:
-  einix:
+  dev_env:
     branch: develop
     commands:
       - cp -a dist/. einix
       - cd einix && git add --all && git commit -m "deploying to einix" && git push $EINIX_REPOSITORY --all --force
-  avaloo:
-    branch: develop
-    commands:
       - cp -a dist/. avaloo
       - cd avaloo && git add --all && git commit -m "deploying to avaloo" && git push $AVALOO_REPOSITORY --all --force
