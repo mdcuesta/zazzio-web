@@ -3,6 +3,8 @@ machine:
     version: 7.2.0
 checkout:
   post:
+    - git config --global user.name "Michael Dela Cuesta"
+    - git config --global user.email "michael.dcuesta@gmail.com"
     - git submodule add -f $EINIX_REPOSITORY einix
     - git submodule add -f $AVALOO_REPOSITORY avaloo
 dependencies:
@@ -44,20 +46,10 @@ deployment:
   einix:
     branch: develop
     commands:
-      - cp -rf dist/ einix
-      - cd einix
-      - git add --all
-      - git config user.name "Michael Dela Cuesta"
-      - git config user.email "michael.dcuesta@gmail.com"
-      - git commit -m "deploying to einix"
-      - git push $EINIX_REPOSITORY --all --force
+      - cp -a dist/. einix
+      - cd einix && git add --all && git commit -m "deploying to einix" && git push $EINIX_REPOSITORY --all --force
   avaloo:
     branch: develop
     commands:
-      - cp -rf dist/ avaloo
-      - cd avaloo
-      - git add --all
-      - git config user.name "Michael Dela Cuesta"
-      - git config user.email "michael.dcuesta@gmail.com"
-      - git commit -m "deploying to avaloo"
-      - git push $AVALOO_REPOSITORY --all --force
+      - cp -a dist/. avaloo
+      - cd avaloo && git add --all && git commit -m "deploying to avaloo" && git push $AVALOO_REPOSITORY --all --force
