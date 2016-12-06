@@ -3,6 +3,9 @@ assets/*
 coverage/*
 styles/*
 bin/*
+dist/*
+avaloo/*
+einix/*
 zazzio.compiled.js
 webpack.development.js
 webpack.release.js
@@ -14,3 +17,4 @@ Procfile
 *.html
 *.json
 yarn.lock
+dist.zip

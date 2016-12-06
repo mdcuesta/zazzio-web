@@ -47,13 +47,17 @@ deployment:
       - cp -rf dist/ einix
       - cd einix
       - git add --all
+      - git config user.name "Michael Dela Cuesta"
+      - git config user.email "michael.dcuesta@gmail.com"
       - git commit -m "deploying to einix"
-      - git push origin --all --force
+      - git push $EINIX_REPOSITORY --all --force
   avaloo:
     branch: develop
     commands:
       - cp -rf dist/ avaloo
       - cd avaloo
       - git add --all
+      - git config user.name "Michael Dela Cuesta"
+      - git config user.email "michael.dcuesta@gmail.com"
       - git commit -m "deploying to avaloo"
-      - git push origin --all --force
+      - git push $AVALOO_REPOSITORY --all --force
