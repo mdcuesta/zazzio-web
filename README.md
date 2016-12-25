@@ -1,5 +1,5 @@
-### zazzio
+## zazzio
 
 -------------------------------
 
-[![Build Status](http://teamcity.gelium.info/app/rest/builds/buildType%3A%28id%3Azazzio_build%29/statusIcon.png)](http://teamcity.gelium.info/viewType.html?buildTypeId=zazzio_build)
+[![Build Status](https://circleci.com/gh/mdcuesta/zazzio-web.png?circle-token=e58e43fcce560094ca5172a7538be664cbf73391)](https://circleci.com/gh/mdcuesta/zazzio-web)

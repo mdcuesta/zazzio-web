@@ -32,6 +32,8 @@ const jsClientConfig = {
     'user-dashboard': jsxPath + '/user-dashboard.js',
     'user-profile': jsxPath + '/user-profile.jsx',
     'user-listings': jsxPath + '/user-listings.js',
+    'user-messages': jsxPath + '/user-messages.js',
+    'user-account': jsxPath + '/user-account.js',
 
     // listings
     'new-listing-wizard': jsxPath + '/new-listing-wizard.jsx',
